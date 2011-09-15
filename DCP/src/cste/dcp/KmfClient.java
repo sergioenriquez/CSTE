@@ -24,7 +24,7 @@ public class KmfClient {
 			in = new ObjectInputStream(clientSocket.getInputStream());
 			System.out.println("1");
 			out.writeInt(40);
-//			clientSocket.close();
+			out.close();
 			
 				
 		} catch (UnknownHostException e) {
