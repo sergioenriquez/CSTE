@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.Socket;
 import static cste.kmf.KmfPacketTypes.*;
 import cste.kmf.KmfPacketTypes.*;
+import cste.kmf.packet.AddRecordPacket;
 
 
 /*
@@ -14,7 +15,7 @@ import cste.kmf.KmfPacketTypes.*;
  */
 
 public class KmfServerThread implements Runnable{
-	
+	private static final String TAG = KmfServerThread.class.getName();
     protected Socket clientSocket = null;
     protected ObjectInputStream in = null;
     protected ObjectOutputStream out = null;
@@ -45,8 +46,7 @@ public class KmfServerThread implements Runnable{
 		}
 
 		System.out.println("packet type" + packetType);
-		switch(packetType)
-		{
+		switch(packetType){
 		case ADD_RECORD:
 			handleAddRecordPacket(in);
 			break;
@@ -62,8 +62,11 @@ public class KmfServerThread implements Runnable{
 		
 	}
 	
-	private void handleAddRecordPacket(ObjectInputStream is)
-	{
-		
+	private void handleAddRecordPacket(ObjectInputStream is){
+		AddRecordPacket p = AddRecordPacket.readFromSocket(is);
+		if ( p != null){
+			System.out.println("add record packet received");
+			//TODO
+		}
 	}
 }

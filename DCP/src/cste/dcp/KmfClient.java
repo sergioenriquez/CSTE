@@ -7,14 +7,14 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class KmfClient {
+	private static final String TAG = KmfClient.class.getName();
 	protected int kmfServerPort = 0;
 	protected String kmfServerAddress = "";
 	protected Socket clientSocket = null;
 	protected ObjectInputStream in = null;
     protected ObjectOutputStream out = null;
 	
-	public KmfClient(String address,int port)
-	{
+	public KmfClient(String address,int port){
 		kmfServerPort = port;
 		kmfServerAddress = address;
 		try {
@@ -35,8 +35,7 @@ public class KmfClient {
 		System.out.println("constructor exit");
 	}
 	
-	public void addRecord()
-	{
+	public void addRecord()	{
 		
 	}
 }

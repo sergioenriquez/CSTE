@@ -1,11 +1,11 @@
 package cste.dcp;
 
 public class KmfClientThread implements Runnable{
+	private static final String TAG = KmfClientThread.class.getName();
 	static int kmfServerPort = 0;
 	static String kmfServerAddress = "";
 	
-	static public boolean configure(int port, String address)
-	{
+	static public boolean configure(int port, String address){
 		kmfServerPort = port;
 		kmfServerAddress = address;
 		
@@ -19,8 +19,7 @@ public class KmfClientThread implements Runnable{
 		
 	}
 	
-	private void sendNewRecordRequest()
-	{
+	private void sendNewRecordRequest(){
 		
 	}
 

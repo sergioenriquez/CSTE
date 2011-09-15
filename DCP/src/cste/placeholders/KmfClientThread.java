@@ -1,15 +1,16 @@
 package cste.placeholders;
+
 /***
  * deprecated
  * @author Sergio Enriquez
  *
  */
 public class KmfClientThread implements Runnable{
+	private static final String TAG = KmfClientThread.class.getName();
 	static int kmfServerPort = 0;
 	static String kmfServerAddress = "";
 	
-	static public boolean configure(int port, String address)
-	{
+	static public boolean configure(int port, String address){
 		kmfServerPort = port;
 		kmfServerAddress = address;
 		return true;
@@ -17,12 +18,11 @@ public class KmfClientThread implements Runnable{
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+
 		
 	}
 	
-	private void sendNewRecordRequest()
-	{
+	private void sendNewRecordRequest(){
 		
 	}
 

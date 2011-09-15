@@ -3,7 +3,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-
 import static cste.kmf.packet.PacketTypes.*;
 import cste.kmf.packet.PacketTypes.*;
 
@@ -15,7 +14,7 @@ import cste.kmf.packet.PacketTypes.*;
  */
 
 public class ServerThread implements Runnable{
-	
+	private static final String TAG = ServerThread.class.getName();
     protected Socket clientSocket = null;
     protected ObjectInputStream in = null;
     protected ObjectOutputStream out = null;
@@ -46,8 +45,7 @@ public class ServerThread implements Runnable{
 		}
 
 		System.out.println("packet type" + packetType);
-		switch(packetType)
-		{
+		switch(packetType){
 		case ADD_RECORD:
 			handleAddRecordPacket(in);
 			break;
@@ -63,8 +61,7 @@ public class ServerThread implements Runnable{
 		
 	}
 	
-	private void handleAddRecordPacket(ObjectInputStream is)
-	{
+	private void handleAddRecordPacket(ObjectInputStream is){
 		
 	}
 }
