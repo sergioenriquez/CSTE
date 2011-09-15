@@ -1,5 +1,7 @@
 package cste.dcp;
 
+import cste.dcp.kmf.KmfClient;
+
 public class DCP {
 
 	/**
