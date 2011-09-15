@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import cste.kmf.server.Server;
+
 /**
  * @author Sergio Enriquez
  *
@@ -30,7 +32,7 @@ public class Kmf {
 			port = 12345;
 		}		
 		
-		KmfServer server = new KmfServer(port);
+		Server server = new Server(port);
 		new Thread(server).start();
 		
 		System.out.println("Press enter to exit.");
