@@ -33,7 +33,6 @@ public class Kmf {
 		KmfServer server = new KmfServer(port);
 		new Thread(server).start();
 		
-		System.out.println(String.format("KMF Server started on port %d",port));
 		System.out.println("Press enter to exit.");
 
 		try {

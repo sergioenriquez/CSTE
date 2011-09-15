@@ -12,51 +12,69 @@ public class KmfServer implements Runnable{
 	public KmfServer(int port)
 	{
 		serverPort = port;
-		
 	}
 	
 	private synchronized boolean isStopped() {
         return isStopped;
     }
 	
-	private void openServerSocket() {
-        try {
-            this.serverSocket = new ServerSocket(this.serverPort);
-        } catch (IOException e) {
-            throw new RuntimeException("Cannot open port 8080", e);
+	private boolean openServerSocket() {
+        try 
+        {
+            this.serverSocket = new ServerSocket(serverPort);
+        } catch (IOException e) 
+        {
+            return false;
         }
+        return true;
     }
 	
 	public synchronized void stop(){
         isStopped = true;
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            throw new RuntimeException("Error closing server", e);
+        
+        try 
+        {
+        	if (serverSocket != null)
+        		serverSocket.close();
+        } catch (IOException e) 
+        {
+        	System.err.println("Error closing server");
         }
     }
 
 	@Override
-	public void run() {
-		synchronized(this){
-            this.runningThread = Thread.currentThread();
+	public void run() 
+	{
+		synchronized(this)
+		{
+            runningThread = Thread.currentThread();
         }
-        openServerSocket();
-        while(! isStopped()){
+		
+        if ( !openServerSocket() )
+        {
+        	System.err.println("Could not open server on port " + serverPort);
+        	return;
+        }
+        else
+        	System.out.println(String.format("KMF Server started on port %d",serverPort));
+        
+        while(!isStopped())
+        {
             Socket clientSocket = null;
-            try {
-                clientSocket = this.serverSocket.accept();
-            } catch (IOException e) {
-                if(isStopped()) {
-
+            
+            try 
+            {
+                clientSocket = serverSocket.accept();
+            } catch (IOException e) 
+            {
+                if(isStopped()) 
                     return;
-                }
-                throw new RuntimeException(
-                    "Error accepting client connection", e);
+                
+                System.err.println("Error accepting client connection");
+                continue;
             }
-            new Thread(
-                    new KmfServerThread(clientSocket)
-                    ).start();
+            
+            new Thread(new KmfServerThread(clientSocket)).start();
         }
 	}
 }
