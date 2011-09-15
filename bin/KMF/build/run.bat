@@ -1,0 +1,1 @@
+java -jar KMF.jar %1
