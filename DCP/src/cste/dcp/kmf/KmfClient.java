@@ -45,7 +45,7 @@ public class KmfClient {
 		}
     }
 	
-	public void addRecord(final byte[] recordUID, final byte[] rekeyKey){
+	public void addRecord(String recordUID, String rekeyKey){
 		if( connectToServer() ){
 			
 			AddRecordPacket p = new AddRecordPacket(recordUID,rekeyKey);
