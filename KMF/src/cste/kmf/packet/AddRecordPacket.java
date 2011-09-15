@@ -7,14 +7,22 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+
 public class AddRecordPacket {
 	protected final byte type = ADD_RECORD;
 	protected byte uid[] = new byte[UID_LENGTH];
 	protected byte rekeyKey[] = new byte[ENCRYPTION_KEY_LENGTH];
+	protected static HexBinaryAdapter hexFormater = new HexBinaryAdapter();
 	
 	public AddRecordPacket(byte[] recordUID, byte[] recordRekeyKey){
 		uid = recordUID;
 		rekeyKey = recordRekeyKey;
+	}
+	
+	public AddRecordPacket(String recordUID, String recordRekeyKey){
+		uid = hexFormater.unmarshal(recordUID);
+		rekeyKey = hexFormater.unmarshal(recordRekeyKey);
 	}
 
 	public static AddRecordPacket readFromSocket(ObjectInputStream in){
@@ -24,7 +32,7 @@ public class AddRecordPacket {
 		
 		try {
 			in.read(uid, 0, UID_LENGTH);
-			in.read(rekeyKey, UID_LENGTH, ENCRYPTION_KEY_LENGTH);
+			in.read(rekeyKey, 0, ENCRYPTION_KEY_LENGTH);
 		} catch (IOException e) {
 			System.err.println("Error reading add record packet");
 			return null;
@@ -41,5 +49,11 @@ public class AddRecordPacket {
 		} catch (IOException e) {
 			System.err.println("Error writting packet to socket");
 		}
+	}
+	
+	@Override
+	public String toString(){
+		String s = "UID: 0x" + hexFormater.marshal(uid) + "  REKEY: 0x" + hexFormater.marshal(rekeyKey);
+		return s;
 	}
 }

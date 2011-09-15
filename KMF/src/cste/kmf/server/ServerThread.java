@@ -4,6 +4,7 @@ import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import static cste.kmf.packet.PacketTypes.*;
+import cste.kmf.packet.AddRecordPacket;
 import cste.kmf.packet.PacketTypes.*;
 
 
@@ -35,16 +36,16 @@ public class ServerThread implements Runnable{
         	return;
         }
         
-        int packetType = -1;
+        byte packetType = -1;
         System.out.println("waiting for data");
     	try {
-			packetType = in.readInt();
+			packetType = in.readByte();
 		} catch (IOException e1) {
 			System.err.println("Packet format error");
 			return;
 		}
 
-		System.out.println("packet type" + packetType);
+		System.out.println("packet type " + packetType);
 		switch(packetType){
 		case ADD_RECORD:
 			handleAddRecordPacket(in);
@@ -62,6 +63,10 @@ public class ServerThread implements Runnable{
 	}
 	
 	private void handleAddRecordPacket(ObjectInputStream is){
-		
+		AddRecordPacket p = AddRecordPacket.readFromSocket(is);
+		if ( p!=null){
+			System.out.println("Receid add record packet:");
+			System.out.println(p);
+		}
 	}
 }
