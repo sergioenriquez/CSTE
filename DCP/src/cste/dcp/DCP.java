@@ -9,7 +9,7 @@ public class DCP {
 	 */
 	public static void main(String[] args) {
 
-		KmfClient k = new KmfClient("192.168.0.2",12345);
+		KmfClient k = new KmfClient("192.168.0.1",12345);
 
 		k.addRecord("0011223344556677","00112233445566770011223344556677");
 		

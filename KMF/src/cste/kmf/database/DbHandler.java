@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import cste.kmf.packet.AddRecordPacket;
+
 
 public class DbHandler {
     static Connection conn = null;
@@ -20,14 +22,42 @@ public class DbHandler {
     public static void addDeviceRecord(byte[] deviceUID, byte[] deviceRekeyKeym, byte type) {
     	PreparedStatement psInsert = null;
     	try {
-			psInsert = conn.prepareStatement("INSERT INTO Devices values (?, ?, ?)");
+			psInsert = conn.prepareStatement("INSERT INTO Devices values (?, ?, ?, ?)");
 			psInsert.setBytes(1, deviceUID);
 	    	psInsert.setBytes(2, deviceRekeyKeym);
-	    	psInsert.setByte(3, type);
+	    	psInsert.setBytes(3, new byte[]{type});
+	    	psInsert.setInt(4, 0);
 	    	psInsert.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println("Unable to store deveice record in database");
 		}
+    }
+    
+    public static AddRecordPacket getDeviceRecord(byte[] deviceUID){
+
+		byte[] rekeyKey = null;
+		byte type = 0;
+		int rekeyAscNum = 0;
+		
+    	try {
+			PreparedStatement psSelect = conn.prepareStatement("SELECT RekeyKey,DeviceType,RekeyAscNum from Devices where DeviceUID = (?)");
+			psSelect.setBytes(1, deviceUID);
+			ResultSet rs = psSelect.executeQuery();
+			if (!rs.next())
+            {
+			 	//fail
+				return null;
+            }
+
+			rekeyKey = rs.getBytes(1);
+			type = rs.getBytes(2)[0];
+			rekeyAscNum = rs.getInt(3);
+    	
+    	} catch (SQLException e) {
+			return null;
+		}
+
+    	return new AddRecordPacket(deviceUID,rekeyKey,type,rekeyAscNum);
     }
 
     public static void init() {
@@ -50,9 +80,9 @@ public class DbHandler {
 
     	try {
 			s.execute("CREATE TABLE Devices ("+
-					"DeviceUID CHAR(8) PRIMARY KEY,"+
-					"RekeyKey CHAR(16) NOT NULL,"+
-					"DeviceType CHAR(1) NOT NULL," +
+					"DeviceUID VARCHAR (8) FOR BIT DATA,"+
+					"RekeyKey VARCHAR(16) FOR BIT DATA NOT NULL,"+
+					"DeviceType VARCHAR(1) FOR BIT DATA NOT NULL," +
 					"RekeyAscNum INTEGER DEFAULT 0)");
 			
 		} catch (SQLException e) {

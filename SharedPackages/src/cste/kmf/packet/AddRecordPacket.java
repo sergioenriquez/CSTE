@@ -8,12 +8,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
-
+//TODO, change into device record class, add methods to create packets
 public class AddRecordPacket {
-	protected final byte type = ADD_RECORD;
+	protected byte deviceType = ADD_RECORD;
 	protected byte uid[] = new byte[UID_LENGTH];
 	protected byte rekeyKey[] = new byte[ENCRYPTION_KEY_LENGTH];
 	protected static HexBinaryAdapter Hex = new HexBinaryAdapter();
+	protected int rekeyAscNum = 0;
 	
 	public byte[] getUID(){
 		return uid;
@@ -21,6 +22,13 @@ public class AddRecordPacket {
 	
 	public byte[] getRekeyKey(){
 		return rekeyKey;
+	}
+	
+	public AddRecordPacket(byte[] recordUID, byte[] recordRekeyKey, byte type, int rekeyAsc){
+		uid = recordUID;
+		rekeyKey = recordRekeyKey;
+		deviceType = type;
+		rekeyAscNum = rekeyAsc;
 	}
 	
 	public AddRecordPacket(byte[] recordUID, byte[] recordRekeyKey){
@@ -51,7 +59,7 @@ public class AddRecordPacket {
 	
 	public void writeToSocket(ObjectOutputStream out){
 		try {
-			out.writeByte(type);
+			out.writeByte(deviceType);
 			out.write(uid);
 			out.write(rekeyKey);
 		} catch (IOException e) {

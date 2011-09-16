@@ -69,6 +69,9 @@ public class ServerThread implements Runnable{
 			System.out.println(p);
 			
 			DbHandler.addDeviceRecord(p.getUID(), p.getRekeyKey(), ADD_RECORD);
+			
+			AddRecordPacket x = DbHandler.getDeviceRecord(p.getUID());
+			byte[] a = x.getUID();
 		}
 	}
 }
