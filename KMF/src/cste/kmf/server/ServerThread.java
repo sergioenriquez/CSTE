@@ -4,6 +4,7 @@ import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import static cste.kmf.packet.PacketTypes.*;
+import cste.kmf.database.DbHandler;
 import cste.kmf.packet.AddRecordPacket;
 import cste.kmf.packet.PacketTypes.*;
 
@@ -27,7 +28,6 @@ public class ServerThread implements Runnable{
 
 	@Override
 	public void run() {
-		System.out.println("on run");
 		try {
 			in = new ObjectInputStream(clientSocket.getInputStream());
 			out = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -67,6 +67,8 @@ public class ServerThread implements Runnable{
 		if ( p!=null){
 			System.out.println("Receid add record packet:");
 			System.out.println(p);
+			
+			DbHandler.addDeviceRecord(p.getUID(), p.getRekeyKey(), ADD_RECORD);
 		}
 	}
 }

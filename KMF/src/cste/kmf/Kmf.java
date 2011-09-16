@@ -6,6 +6,8 @@ package cste.kmf;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import cste.kmf.database.DbHandler;
 import cste.kmf.server.Server;
 
 /**
@@ -28,6 +30,8 @@ public class Kmf {
 			System.out.println("Defaulting to port 12345");
 			port = 12345;
 		}		
+		
+		DbHandler.init();
 		
 		Server server = new Server(port);
 		new Thread(server).start();
