@@ -3,8 +3,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import static cste.kmf.KmfPacketTypes.*;
-import cste.kmf.KmfPacketTypes.*;
+
+import static cste.kmf.packet.PacketTypes.*;
 import cste.kmf.packet.AddRecordPacket;
 
 
