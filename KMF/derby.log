@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Thu Sep 15 19:05:25 PDT 2011:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0132-6ffb-2ec1-00000357dc40 
-on database directory D:\CSTE\KMF\derbyDB  with class loader sun.misc.Launcher$AppClassLoader@61ba34f2 
-Loaded from file:/D:/Apache/db-derby-10.8.1.2-bin/lib/derby.jar
+Sun Sep 18 18:38:10 PDT 2011:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0132-7f55-50cd-0000035ba9f0 
+on database directory D:\CSTE\KMF\derbyDB  with class loader sun.misc.Launcher$AppClassLoader@32f4a24a 
+Loaded from file:/C:/Apache/db-derby-10.8.1.2-bin/lib/derby.jar
 java.vendor=Sun Microsystems Inc.
 java.runtime.version=1.6.0_24-b07
 user.dir=D:\CSTE\KMF

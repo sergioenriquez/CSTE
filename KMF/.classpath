@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SharedPackages"/>
-	<classpathentry kind="lib" path="D:/Apache/db-derby-10.8.1.2-bin/lib/derby.jar"/>
-	<classpathentry kind="lib" path="D:/Apache/db-derby-10.8.1.2-bin/lib/derbytools.jar"/>
+	<classpathentry kind="lib" path="C:/Apache/db-derby-10.8.1.2-bin/lib/derby.jar"/>
+	<classpathentry kind="lib" path="C:/Apache/db-derby-10.8.1.2-bin/lib/derbytools.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
