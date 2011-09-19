@@ -56,7 +56,7 @@ public class DbHandler {
     	} catch (SQLException e) {
 			return null;
 		}
-
+    	AddRecordPacket.readFromSocket(null);
     	return new AddRecordPacket(deviceUID,rekeyKey,type,rekeyAscNum);
     }
 
