@@ -12,13 +12,14 @@ import cste.kmf.KmfDeviceRecord;
 import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
 
 public class DbHandler {
-	static final String GET_RECORD_QUERY = "SELECT RekeyKey,DeviceType,RekeyAscNum from Devices where DeviceUID = (?)";
-	static final String STORE_RECORD_QUERY = "INSERT INTO Devices values (?, ?, ?, ?)";
+	static final String GET_RECORD_QUERY = "SELECT RekeyKey,DeviceType,RekeyCounter,LongTermKey from Devices where DeviceUID = (?)";
+	static final String STORE_RECORD_QUERY = "INSERT INTO Devices values (?, ?, ?, ?, ?)";
 	static final String CREATE_DB_QUERY = 	"CREATE TABLE Devices ("+
 											"DeviceUID VARCHAR (8) FOR BIT DATA,"+
 											"RekeyKey VARCHAR(16) FOR BIT DATA NOT NULL,"+
+											"LongTermKey VARCHAR(16) FOR BIT DATA NOT NULL,"+
 											"DeviceType VARCHAR(1) FOR BIT DATA NOT NULL," +
-											"RekeyAscNum INTEGER DEFAULT 0)";
+											"RekeyCounter INTEGER DEFAULT 0)";
 	
     static Connection conn = null;
     static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
@@ -39,6 +40,7 @@ public class DbHandler {
 	    	psInsert.setBytes(2, record.getRekeyKey());
 	    	psInsert.setBytes(3, new byte[]{record.getDeviceType()}); // need to cast as byte array
 	    	psInsert.setInt(4, record.getAscCount());
+	    	psInsert.setBytes(5, record.getLTK());
 	    	psInsert.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println("SQL query error!");
@@ -49,6 +51,7 @@ public class DbHandler {
     
     public static KmfDeviceRecord getDeviceRecord(byte[] deviceUID){
     	byte[] rekeyKey = null;
+    	byte[] devLTK = null;
 		byte type = 0;
 		int rekeyAscNum = 0;
 		
@@ -63,6 +66,7 @@ public class DbHandler {
 			rekeyKey = rs.getBytes(1);
 			type = rs.getBytes(2)[0];
 			rekeyAscNum = rs.getInt(3);
+			devLTK = rs.getBytes(4);
     	
     	} catch (SQLException e) {
     		System.err.println("SQL query error!");
@@ -71,7 +75,7 @@ public class DbHandler {
     	
     	KmfDeviceRecord r;
     	try {
-			r = new KmfDeviceRecord(type,deviceUID,rekeyKey,rekeyAscNum);
+			r = new KmfDeviceRecord(type,deviceUID,rekeyKey,rekeyAscNum,devLTK);
 		} catch (InvalidRecordExeption e) {
 			System.err.println("Invalid record was retrieved from DB!");
 			return null;

@@ -209,14 +209,26 @@ public class ICD {
 	        return decValue;
     }
 	
-	public static byte[] generateLTK(byte[] rekeyKey, int rekeyAscensionNum){
+	
+	
+	public static byte[] generateTCK_L0(byte[] rekeyKey, int rekeyAscensionNum){
 		
 		return null;
 	}
 	
-	public static byte[] generateTCK(byte[] rekeyKey, int rekeyAscensionNum){
+	public static byte[] generateTCK_L1(byte[] rekeyKey, int rekeyAscensionNum){
 		
 		return null;
 	}
+
+	public static byte[] generateTCK_L2(byte[] rekeyKey, int rekeyAscensionNum){
+	
+	return null;
+}
+
+	public static byte[] generateTCK_L3(byte[] rekeyKey, int rekeyAscensionNum){
+	
+	return null;
+}
 
 }

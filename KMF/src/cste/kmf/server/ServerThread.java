@@ -90,13 +90,13 @@ public class ServerThread implements Runnable{
 	void handleGenerateLTKPacket(ObjectInputStream is){
 		//TODO check ICD for proper inputs
 		// send packet back to caller
-		ICD.generateLTK(null, 0);
+		//ICD.generateLTK(null, 0);
 	}
 	
 	void handleGenerateTCKPacket(ObjectInputStream is){
 		//TODO check ICD for proper inputs
 		// send packet back to caller
-		ICD.generateTCK(null, 0);
+		//ICD.generateTCK(null, 0);
 	}
 	
 	void handleDeleteRecordPacket(ObjectInputStream is){
@@ -114,12 +114,19 @@ public class ServerThread implements Runnable{
 		}
 	}
 	
+	//TODO generate LTK ?
+	/**
+	 * When added a new device, set LTK to all 0, and rekey counter to 0
+	 * 
+	 * @param is
+	 */
 	void handleAddRecordPacket(ObjectInputStream is){
 		//TODO send ACK reply
 		byte uid[] = new byte[UID_LENGTH];
 		byte rekeyKey[] = new byte[ENCRYPTION_KEY_LENGTH];
+		byte devLTK[] = new byte[ENCRYPTION_KEY_LENGTH];
 		byte type = PacketTypes.NO_TYPE;
-		int rekeyAscNum = -1;
+		int rekeyAscNum = 0;
 		
 		try {
 			type = in.readByte();
@@ -133,7 +140,7 @@ public class ServerThread implements Runnable{
 
 		KmfDeviceRecord record;
 		try {
-			record = new KmfDeviceRecord(type,uid,rekeyKey,rekeyAscNum);
+			record = new KmfDeviceRecord(type,uid,rekeyKey,rekeyAscNum,devLTK);
 		} catch (InvalidRecordExeption e) {
 			System.err.println("The device record is invalid");
 			return;

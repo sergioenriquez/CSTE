@@ -15,7 +15,7 @@ import cste.kmf.server.Server;
  *
  */
 public class KmfApp {
-	private static final String TAG = KmfApp.class.getName();
+	private static final String FACILITY_UID_STR = "FFFFFFF"; //TODO
 
 	/**
 	 * @param args

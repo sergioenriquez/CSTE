@@ -13,6 +13,7 @@ public final class KmfDeviceRecord {
 	protected final byte deviceType;
 	protected final byte devUID[];
 	protected final byte devRekeyKey[];
+	protected final byte devLTK[];
 	protected final int ascCnt;
 	
 	public byte getDeviceType(){
@@ -25,6 +26,10 @@ public final class KmfDeviceRecord {
 	
 	public byte[] getRekeyKey(){
 		return devRekeyKey;
+	}
+	
+	public byte[] getLTK(){
+		return devLTK;
 	}
 	
 	public int getAscCount(){
@@ -41,17 +46,21 @@ public final class KmfDeviceRecord {
 		if ( devRekeyKey == null || devRekeyKey.length != ENCRYPTION_KEY_LENGTH )
 			return false;
 		
+		if ( devLTK == null || devLTK.length != ENCRYPTION_KEY_LENGTH )
+			return false;
+		
 		if ( ascCnt < 0)
 			return false;
 		
 		return true;
 	}
 	
-	public KmfDeviceRecord(byte type, byte[] uid, byte[] key, int asc) throws InvalidRecordExeption{
+	public KmfDeviceRecord(byte type, byte[] uid, byte[] key, int asc, byte[] ltk) throws InvalidRecordExeption{
 		deviceType = type;
 		devUID = uid;
 		devRekeyKey = key;
 		ascCnt = 0;
+		devLTK = ltk;
 		
 		if ( !isValid())
 			throw new InvalidRecordExeption();
