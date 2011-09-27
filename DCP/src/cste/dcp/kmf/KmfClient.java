@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import cste.dcp.Device;
+import cste.icd.ICD;
 import static cste.kmf.packet.PacketTypes.*;
 
 public class KmfClient {
@@ -47,6 +48,55 @@ public class KmfClient {
 		}
     }
 	
+	public void getNewLTK(Device device){
+		if( connectToServer() ){
+
+			try {
+				out.writeByte(GENERATE_LTK);
+				out.write(device.getUID());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+
+			}
+			finally{
+				disconnectFromServer();
+			}
+		}
+	}
+	
+	public void getNewTCK(Device deviceA,Device deviceB){
+		if( connectToServer() ){
+
+			try {
+				out.writeByte(GENERATE_TCK);
+				out.write(deviceA.getUID());
+				out.write(deviceB.getUID());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+
+			}
+			finally{
+				disconnectFromServer();
+			}
+		}
+	}
+	
+	public void deleteRecord(Device device){
+		if( connectToServer() ){
+
+			try {
+				out.writeByte(DELETE_RECORD);
+				out.write(device.getUID());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+
+			}
+			finally{
+				disconnectFromServer();
+			}
+		}
+	}
+	
 	public void addRecord(Device device){
 		if( connectToServer() ){
 
@@ -56,6 +106,8 @@ public class KmfClient {
 				out.write(device.getUID());
 				out.write(device.getRekeyKey());
 				out.writeInt(device.getRekeyAscCount());
+				byte[] deviceLTK = ICD.generateLTK(device.getRekeyKey());
+				out.write(deviceLTK);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 
@@ -63,7 +115,6 @@ public class KmfClient {
 			finally{
 				disconnectFromServer();
 			}
-			
 		}
 	}
 	

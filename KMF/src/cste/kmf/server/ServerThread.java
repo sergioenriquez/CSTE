@@ -207,13 +207,15 @@ public class ServerThread implements Runnable{
 		byte rekeyKey[] = new byte[ENCRYPTION_KEY_LENGTH];
 		byte devLTK[] = new byte[ENCRYPTION_KEY_LENGTH];
 		byte type = PacketTypes.NO_TYPE;
-		int rekeyAscNum = 0;
+		int rekeyCtr = 0;
 		
 		try {
 			type = in.readByte();
 			in.read(uid, 0, UID_LENGTH);
 			in.read(rekeyKey, 0, ENCRYPTION_KEY_LENGTH);
-			rekeyAscNum = in.readInt();
+			in.readInt();
+			rekeyCtr = in.readInt();
+			in.read(devLTK,0,ENCRYPTION_KEY_LENGTH);
 		} catch (IOException e) {
 			System.err.println("Error reading add record packet from socket!");
 			return;
@@ -221,7 +223,7 @@ public class ServerThread implements Runnable{
 
 		KmfDeviceRecord record;
 		try {
-			record = new KmfDeviceRecord(type,uid,rekeyKey,rekeyAscNum,devLTK);
+			record = new KmfDeviceRecord(type,uid,rekeyKey,rekeyCtr,devLTK);
 		} catch (InvalidRecordExeption e) {
 			System.err.println("The device record is invalid");
 			sendACK(false,null);

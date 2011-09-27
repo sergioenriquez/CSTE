@@ -6,10 +6,13 @@ package cste.dcp;
  *
  */
 public class Device {
+	
+
 	public byte[] getUID(){
 		// TODO
 		return null;
 	}
+	
 	public byte[] getRekeyKey(){
 		// TODO
 		// this is optional since its needed only when 

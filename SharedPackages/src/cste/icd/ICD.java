@@ -1,12 +1,13 @@
 package cste.icd;
 
 import java.security.*;
-
 import javax.crypto.*;
 import javax.crypto.spec.*;
 
+@SuppressWarnings("unused")
 public class ICD {	
 	// discard ICD messages if the Rev Number is not the same as this ICD implementation
+	
 	private static final boolean DISCARD_WRONG_VERSION = true;
 	
 	// use encryption where required
@@ -229,15 +230,23 @@ public class ICD {
 	private static final byte DCP_DEVICE_TYPE	= (byte) 0x89;
 	private static final byte REKEY_MESSAGE_TYPE	= (byte) 0xE0;
 	private static final byte REKEY_MESSAGE_LENGTH	= (byte) 0x20;
-	//ICD_REV_NUMBER
-	
+
 	static final byte[] intToByteArray(int value) {
         return new byte[] {
                 (byte)(value >>> 24),
                 (byte)(value >>> 16),
                 (byte)(value >>> 8),
                 (byte)value};
-}
+	}
+	
+	/***
+	 * Method not specified on ICD, using this as a place holder
+	 * @param deviceRekeyKey
+	 * @return
+	 */
+	public static byte[] generateLTK(byte[] deviceRekeyKey){
+		return encryptAES(deviceRekeyKey,deviceRekeyKey);
+	}
 	
 	public static byte[] generateTCK_L0(
 			byte[] receiverRekeyKey,
