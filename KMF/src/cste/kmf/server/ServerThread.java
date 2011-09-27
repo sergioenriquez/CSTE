@@ -91,6 +91,26 @@ public class ServerThread implements Runnable{
 		//TODO check ICD for proper inputs
 		// send packet back to caller
 		//ICD.generateLTK(null, 0);
+		
+		byte[] deviceUID = new byte[UID_LENGTH];
+		try {
+			is.read(deviceUID);
+		} catch (IOException e) {
+
+		}
+		KmfDeviceRecord record = DbHandler.getDeviceRecord(deviceUID);
+		
+		if ( record == null){
+			// reply with error ack
+		}else{
+			
+		}
+		//encrypt old LTK with rekeykey
+		// if rekey counter = 0, encrypt rekeykey
+		//get UID of device
+		// get rekeycounter
+		//ger rekey key
+		//get current rekey jey
 	}
 	
 	void handleGenerateTCKPacket(ObjectInputStream is){
