@@ -208,5 +208,27 @@ public class ICD {
 	        byte[] decValue = c.doFinal(message);
 	        return decValue;
     }
+	
+	
+	
+	public static byte[] generateTCK_L0(byte[] rekeyKey, int rekeyAscensionNum){
+		
+		return null;
+	}
+	
+	public static byte[] generateTCK_L1(byte[] rekeyKey, int rekeyAscensionNum){
+		
+		return null;
+	}
+
+	public static byte[] generateTCK_L2(byte[] rekeyKey, int rekeyAscensionNum){
+	
+	return null;
+}
+
+	public static byte[] generateTCK_L3(byte[] rekeyKey, int rekeyAscensionNum){
+	
+	return null;
+}
 
 }

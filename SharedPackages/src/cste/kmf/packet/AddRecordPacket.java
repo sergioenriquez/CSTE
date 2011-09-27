@@ -24,6 +24,8 @@ public class AddRecordPacket {
 		return rekeyKey;
 	}
 	
+
+	
 	public AddRecordPacket(byte[] recordUID, byte[] recordRekeyKey, byte type, int rekeyAsc){
 		uid = recordUID;
 		rekeyKey = recordRekeyKey;

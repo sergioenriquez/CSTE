@@ -5,7 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import cste.kmf.packet.AddRecordPacket;
+
+import cste.dcp.Device;
+import static cste.kmf.packet.PacketTypes.*;
 
 public class KmfClient {
 	private static final String TAG = KmfClient.class.getName();
@@ -45,12 +47,23 @@ public class KmfClient {
 		}
     }
 	
-	public void addRecord(String recordUID, String rekeyKey){
+	public void addRecord(Device device){
 		if( connectToServer() ){
+
+			try {
+				out.writeByte(ADD_RECORD);
+				out.write(device.getType());
+				out.write(device.getUID());
+				out.write(device.getRekeyKey());
+				out.writeInt(device.getRekeyAscCount());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+
+			}
+			finally{
+				disconnectFromServer();
+			}
 			
-			AddRecordPacket p = new AddRecordPacket(recordUID,rekeyKey);
-			p.writeToSocket(out);
-			disconnectFromServer();
 		}
 	}
 	

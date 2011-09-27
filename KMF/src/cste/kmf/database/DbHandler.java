@@ -6,58 +6,81 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import java.util.ArrayList;
 import java.util.Properties;
 
-import cste.kmf.packet.AddRecordPacket;
-
+import cste.kmf.KmfDeviceRecord;
+import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
 
 public class DbHandler {
+	static final String GET_RECORD_QUERY = "SELECT RekeyKey,DeviceType,RekeyCounter,LongTermKey from Devices where DeviceUID = (?)";
+	static final String STORE_RECORD_QUERY = "INSERT INTO Devices values (?, ?, ?, ?, ?)";
+	static final String CREATE_DB_QUERY = 	"CREATE TABLE Devices ("+
+											"DeviceUID VARCHAR (8) FOR BIT DATA,"+
+											"RekeyKey VARCHAR(16) FOR BIT DATA NOT NULL,"+
+											"LongTermKey VARCHAR(16) FOR BIT DATA NOT NULL,"+
+											"DeviceType VARCHAR(1) FOR BIT DATA NOT NULL," +
+											"RekeyCounter INTEGER DEFAULT 0)";
+	
     static Connection conn = null;
-    static final private String driver = "org.apache.derby.jdbc.EmbeddedDriver";
-    static final private String protocol = "jdbc:derby:";
-    static final private String dbName = "derbyDB"; // the name of the database
+    static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+    static final String PROTOCOL = "jdbc:derby:";
+    static final String DBNAME = "derbyDB"; // the name of the database
     
-    public static void addDeviceRecord(byte[] deviceUID, byte[] deviceRekeyKeym, byte type) {
+    public static  boolean deleteDeviceRecord(byte[] uid) {
+    	//TODO
+    	return false;
+    }
+   
+    public static  boolean addDeviceRecord(KmfDeviceRecord record) {
+    	//TODO handle the case where it already exists, in whic case update
     	PreparedStatement psInsert = null;
     	try {
-			psInsert = conn.prepareStatement("INSERT INTO Devices values (?, ?, ?, ?)");
-			psInsert.setBytes(1, deviceUID);
-	    	psInsert.setBytes(2, deviceRekeyKeym);
-	    	psInsert.setBytes(3, new byte[]{type});
-	    	psInsert.setInt(4, 0);
+			psInsert = conn.prepareStatement(STORE_RECORD_QUERY);
+			psInsert.setBytes(1, record.getUID());
+	    	psInsert.setBytes(2, record.getRekeyKey());
+	    	psInsert.setBytes(3, new byte[]{record.getDeviceType()}); // need to cast as byte array
+	    	psInsert.setInt(4, record.getAscCount());
+	    	psInsert.setBytes(5, record.getLTK());
 	    	psInsert.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println("Unable to store deveice record in database");
+			System.err.println("SQL query error!");
+			return false;
 		}
+		return true;
     }
     
-    public static AddRecordPacket getDeviceRecord(byte[] deviceUID){
-
-		byte[] rekeyKey = null;
+    public static KmfDeviceRecord getDeviceRecord(byte[] deviceUID){
+    	byte[] rekeyKey = null;
+    	byte[] devLTK = null;
 		byte type = 0;
 		int rekeyAscNum = 0;
 		
     	try {
-			PreparedStatement psSelect = conn.prepareStatement("SELECT RekeyKey,DeviceType,RekeyAscNum from Devices where DeviceUID = (?)");
+			PreparedStatement psSelect = conn.prepareStatement(GET_RECORD_QUERY);
 			psSelect.setBytes(1, deviceUID);
 			ResultSet rs = psSelect.executeQuery();
+			
 			if (!rs.next())
-            {
-			 	//fail
-				return null;
-            }
+				return null; // no record was found with this UID
 
 			rekeyKey = rs.getBytes(1);
 			type = rs.getBytes(2)[0];
 			rekeyAscNum = rs.getInt(3);
+			devLTK = rs.getBytes(4);
     	
     	} catch (SQLException e) {
+    		System.err.println("SQL query error!");
 			return null;
 		}
-    	AddRecordPacket.readFromSocket(null);
-    	return new AddRecordPacket(deviceUID,rekeyKey,type,rekeyAscNum);
+    	
+    	KmfDeviceRecord r;
+    	try {
+			r = new KmfDeviceRecord(type,deviceUID,rekeyKey,rekeyAscNum,devLTK);
+		} catch (InvalidRecordExeption e) {
+			System.err.println("Invalid record was retrieved from DB!");
+			return null;
+		}
+    	return r;
     }
 
     public static void init() {
@@ -68,7 +91,7 @@ public class DbHandler {
     	Properties props = new Properties();
     	Statement s = null;
     	try {
-			conn = DriverManager.getConnection(protocol + dbName + ";create=true", props);
+			conn = DriverManager.getConnection(PROTOCOL + DBNAME + ";create=true", props);
 			conn.setAutoCommit(false);
 			s = conn.createStatement();
 		} catch (SQLException e) {
@@ -76,33 +99,28 @@ public class DbHandler {
             return;
 		}
     	
-    	System.out.println("Connected to and created database " + dbName);
+    	System.out.println("Connected to and created database " + DBNAME);
 
     	try {
-			s.execute("CREATE TABLE Devices ("+
-					"DeviceUID VARCHAR (8) FOR BIT DATA,"+
-					"RekeyKey VARCHAR(16) FOR BIT DATA NOT NULL,"+
-					"DeviceType VARCHAR(1) FOR BIT DATA NOT NULL," +
-					"RekeyAscNum INTEGER DEFAULT 0)");
-			
+			s.execute(CREATE_DB_QUERY);
 		} catch (SQLException e) {
 			System.err.println("SQL syntax error on create Devices table");
 		}
     }
     
-    static private boolean loadDriver() {
+    static boolean loadDriver() {
         try {
-            Class.forName(driver).newInstance();
+            Class.forName(DRIVER).newInstance();
             System.out.println("Loaded the appropriate derby driver");
         } catch (ClassNotFoundException cnfe) {
-            System.err.println("\nUnable to load the JDBC driver " + driver);
+            System.err.println("\nUnable to load the JDBC driver " + DRIVER);
             System.err.println("Please check your CLASSPATH.");
             return false;
         } catch (InstantiationException ie) {
-            System.err.println("\nUnable to instantiate the JDBC driver " + driver);
+            System.err.println("\nUnable to instantiate the JDBC driver " + DRIVER);
             return false;
         } catch (IllegalAccessException iae) {
-            System.err.println("\nNot allowed to access the JDBC driver " + driver);
+            System.err.println("\nNot allowed to access the JDBC driver " + DRIVER);
             return false;
         }
         return true;
