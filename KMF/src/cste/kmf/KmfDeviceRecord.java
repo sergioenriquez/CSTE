@@ -14,7 +14,7 @@ public final class KmfDeviceRecord {
 	protected final byte devUID[];
 	protected final byte devRekeyKey[];
 	protected final byte devLTK[];
-	protected final int ascCnt;
+	protected final int rekeyCtr;
 	
 	public byte getDeviceType(){
 		return deviceType;
@@ -32,8 +32,12 @@ public final class KmfDeviceRecord {
 		return devLTK;
 	}
 	
-	public int getAscCount(){
-		return ascCnt;
+	public int getRekeyCtr(){
+		return rekeyCtr;
+	}
+	
+	public int getDeviceLevel(){
+		return 0;
 	}
 	
 	protected boolean isValid(){
@@ -49,7 +53,7 @@ public final class KmfDeviceRecord {
 		if ( devLTK == null || devLTK.length != ENCRYPTION_KEY_LENGTH )
 			return false;
 		
-		if ( ascCnt < 0)
+		if ( rekeyCtr < 0)
 			return false;
 		
 		return true;
@@ -59,7 +63,7 @@ public final class KmfDeviceRecord {
 		deviceType = type;
 		devUID = uid;
 		devRekeyKey = key;
-		ascCnt = 0;
+		rekeyCtr = 0;
 		devLTK = ltk;
 		
 		if ( !isValid())

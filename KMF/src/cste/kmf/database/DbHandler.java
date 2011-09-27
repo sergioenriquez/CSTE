@@ -14,6 +14,8 @@ import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
 public class DbHandler {
 	static final String GET_RECORD_QUERY = "SELECT RekeyKey,DeviceType,RekeyCounter,LongTermKey from Devices where DeviceUID = (?)";
 	static final String STORE_RECORD_QUERY = "INSERT INTO Devices values (?, ?, ?, ?, ?)";
+	static final String DELETE_RECORD_QUERY = "DELETE FROM Devices where DeviceUID = (?)";
+	static final String UPDATE_RECORD_QUERY = "UPDATE Devices SET RekeyKey = ?, LongTermKey = ?, DeviceType = ?, RekeyCounter = ? WHERE DeviceUID = (?)";
 	static final String CREATE_DB_QUERY = 	"CREATE TABLE Devices ("+
 											"DeviceUID VARCHAR (8) FOR BIT DATA,"+
 											"RekeyKey VARCHAR(16) FOR BIT DATA NOT NULL,"+
@@ -27,19 +29,46 @@ public class DbHandler {
     static final String DBNAME = "derbyDB"; // the name of the database
     
     public static  boolean deleteDeviceRecord(byte[] uid) {
-    	//TODO
-    	return false;
+    	PreparedStatement psDelete = null;
+    	try {
+    		psDelete = conn.prepareStatement(DELETE_RECORD_QUERY);
+    		psDelete.setBytes(1, uid);
+    		psDelete.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQL query error!");
+			return false;
+		}
+		return true;
     }
    
     public static  boolean addDeviceRecord(KmfDeviceRecord record) {
-    	//TODO handle the case where it already exists, in whic case update
+    	// check if record exists in which case update it instead
+    	KmfDeviceRecord existingRecord = getDeviceRecord(record.getUID());
+    	if ( existingRecord != null){
+    		PreparedStatement psUpdate = null;
+    		try {
+    			psUpdate = conn.prepareStatement(UPDATE_RECORD_QUERY);
+    			psUpdate.setBytes(1, record.getRekeyKey());
+    			psUpdate.setBytes(2, record.getLTK());
+    			psUpdate.setBytes(3, new byte[]{record.getDeviceType()}); // need to cast as byte array
+    			psUpdate.setInt(4, record.getRekeyCtr());
+    			psUpdate.setBytes(5, record.getUID());
+    			psUpdate.executeUpdate();
+    		} catch (SQLException e) {
+    			System.err.println("SQL query error!");
+    			return false;
+    		}
+    		return true;
+    	}
+    	
+    	
     	PreparedStatement psInsert = null;
     	try {
 			psInsert = conn.prepareStatement(STORE_RECORD_QUERY);
 			psInsert.setBytes(1, record.getUID());
 	    	psInsert.setBytes(2, record.getRekeyKey());
 	    	psInsert.setBytes(3, new byte[]{record.getDeviceType()}); // need to cast as byte array
-	    	psInsert.setInt(4, record.getAscCount());
+	    	psInsert.setInt(4, record.getRekeyCtr());
 	    	psInsert.setBytes(5, record.getLTK());
 	    	psInsert.executeUpdate();
 		} catch (SQLException e) {

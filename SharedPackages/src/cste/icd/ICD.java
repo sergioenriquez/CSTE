@@ -1,6 +1,7 @@
 package cste.icd;
 
 import java.security.*;
+
 import javax.crypto.*;
 import javax.crypto.spec.*;
 
@@ -193,12 +194,27 @@ public class ICD {
 	// Unrestricted command opcodes
 	private static final byte UCMD_OPCODE_USTATUS			= (byte) 0x00;
 
-	public byte[] encryptAES(byte[] message, byte[] encryptionKey)throws Exception{
+	public static byte[] encryptAES(byte[] message, byte[] encryptionKey){
 		Key key = new SecretKeySpec(encryptionKey, "AES");
-		Cipher c = Cipher.getInstance("AES");
-		c.init(Cipher.ENCRYPT_MODE, key);
-		byte[] encValue = c.doFinal(message);
-		return encValue;
+		Cipher c;
+		try {
+			c = Cipher.getInstance("AES");
+			c.init(Cipher.ENCRYPT_MODE, key);
+			byte[] encValue = c.doFinal(message);
+			return encValue;
+		} catch (NoSuchAlgorithmException e) {
+			System.err.println("AES encryption error!");
+		} catch (NoSuchPaddingException e) {
+			System.err.println("AES encryption error!");
+		} catch (InvalidKeyException e) {
+			System.err.println("AES encryption error!");
+		} catch (IllegalBlockSizeException e) {
+			System.err.println("AES encryption error!");
+		} catch (BadPaddingException e) {
+			System.err.println("AES encryption error!");
+		}
+		
+		return null;
 	}
 	
 	public static byte[] decryptAES(byte[] message, byte[] encryptionKey) throws Exception {
@@ -209,26 +225,66 @@ public class ICD {
 	        return decValue;
     }
 	
+	private static final byte KMF_DEVICE_TYPE	= (byte) 0x89;
+	private static final byte DCP_DEVICE_TYPE	= (byte) 0x89;
+	private static final byte REKEY_MESSAGE_TYPE	= (byte) 0xE0;
+	private static final byte REKEY_MESSAGE_LENGTH	= (byte) 0x20;
+	//ICD_REV_NUMBER
 	
+	static final byte[] intToByteArray(int value) {
+        return new byte[] {
+                (byte)(value >>> 24),
+                (byte)(value >>> 16),
+                (byte)(value >>> 8),
+                (byte)value};
+}
 	
-	public static byte[] generateTCK_L0(byte[] rekeyKey, int rekeyAscensionNum){
+	public static byte[] generateTCK_L0(
+			byte[] receiverRekeyKey,
+			byte[] KmfUID,
+			int rekeyCtr)
+	{
+		byte[] cipher = new byte[16];
+		cipher[0] = KMF_DEVICE_TYPE;
+		cipher[1] = REKEY_MESSAGE_TYPE;
+		cipher[2] = REKEY_MESSAGE_LENGTH;
+		System.arraycopy(KmfUID, 0, cipher, 3, UID_LENGTH);
+		cipher[11] = ICD_REV_NUMBER;
+		System.arraycopy(intToByteArray(rekeyCtr), 0, cipher, 12, 4);
 		
-		return null;
+		byte[] generatedKey = encryptAES(receiverRekeyKey,cipher);
+		return generatedKey;
 	}
 	
-	public static byte[] generateTCK_L1(byte[] rekeyKey, int rekeyAscensionNum){
+	public static byte[] generateTCK_L1(
+			byte[] dcpUID,  
+			byte[] receiverLTK){
 		
-		return null;
+		byte[] cipher = new byte[16];
+		cipher[0] = DCP_DEVICE_TYPE;
+		cipher[1] = 0;
+		cipher[2] = 0;
+		System.arraycopy(dcpUID, 0, cipher, 3, UID_LENGTH);
+		
+		byte[] generatedKey = encryptAES(receiverLTK,cipher);
+		return generatedKey;
 	}
 
-	public static byte[] generateTCK_L2(byte[] rekeyKey, int rekeyAscensionNum){
-	
-	return null;
-}
+	public static byte[] generateTCK_L2(
+			byte[] currentLev1TCK, 
+			byte[] level2DevUID,
+			byte level2DevType){
 
-	public static byte[] generateTCK_L3(byte[] rekeyKey, int rekeyAscensionNum){
-	
-	return null;
-}
+		byte[] cipher = new byte[16];
+		cipher[0] = level2DevType;
+		cipher[1] = 0;
+		cipher[2] = 0;
+		System.arraycopy(level2DevUID, 0, cipher, 3, UID_LENGTH);
+		
+		byte[] generatedKey = encryptAES(currentLev1TCK,cipher);
+		return generatedKey;
+	}
+
+
 
 }

@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+
 import cste.kmf.database.DbHandler;
 import cste.kmf.server.Server;
 
@@ -15,8 +17,12 @@ import cste.kmf.server.Server;
  *
  */
 public class KmfApp {
-	private static final String FACILITY_UID_STR = "FFFFFFF"; //TODO
-
+	static final String FACILITY_UID_STR = "AABBCCDDEEFFAABB";
+	static HexBinaryAdapter Hex = new HexBinaryAdapter();
+	
+	public static byte[] getKmfUID(){
+		return Hex.unmarshal(FACILITY_UID_STR);
+	}
 	/**
 	 * @param args
 	 */
