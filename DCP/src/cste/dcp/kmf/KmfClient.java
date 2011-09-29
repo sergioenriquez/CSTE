@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import cste.dcp.Device;
+import cste.dcp.NetDevice;
 import cste.icd.ICD;
 import static cste.kmf.packet.PacketTypes.*;
 
@@ -48,7 +48,7 @@ public class KmfClient {
 		}
     }
 	
-	public void getNewLTK(Device device){
+	public void getNewLTK(NetDevice device){
 		if( connectToServer() ){
 
 			try {
@@ -64,7 +64,7 @@ public class KmfClient {
 		}
 	}
 	
-	public void getNewTCK(Device deviceA,Device deviceB){
+	public void getNewTCK(NetDevice deviceA,NetDevice deviceB){
 		if( connectToServer() ){
 
 			try {
@@ -81,7 +81,7 @@ public class KmfClient {
 		}
 	}
 	
-	public void deleteRecord(Device device){
+	public void deleteRecord(NetDevice device){
 		if( connectToServer() ){
 
 			try {
@@ -97,15 +97,14 @@ public class KmfClient {
 		}
 	}
 	
-	public void addRecord(Device device){
+	public void addRecord(NetDevice device){
 		if( connectToServer() ){
-
 			try {
 				out.writeByte(ADD_RECORD);
-				out.write(device.getType());
+				out.write(device.getTypeCode());
 				out.write(device.getUID());
 				out.write(device.getRekeyKey());
-				out.writeInt(device.getRekeyAscCount());
+				out.writeInt(device.getRekeyCtr());
 				byte[] deviceLTK = ICD.generateLTK(device.getRekeyKey());
 				out.write(deviceLTK);
 			} catch (IOException e) {

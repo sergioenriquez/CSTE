@@ -2,6 +2,7 @@ package cste.kmf;
 
 import static cste.icd.ICD.ENCRYPTION_KEY_LENGTH;
 import static cste.icd.ICD.UID_LENGTH;
+import cste.icd.DeviceTypes;
 import cste.kmf.packet.PacketTypes;
 
 /***
@@ -10,14 +11,14 @@ import cste.kmf.packet.PacketTypes;
  *
  */
 public final class KmfDeviceRecord {
-	protected final byte deviceType;
-	protected final byte devUID[];
-	protected final byte devRekeyKey[];
-	protected final byte devLTK[];
+	protected final byte devTypeCode;
+	protected final byte[] devUID;
+	protected final byte[] devRekeyKey;
+	protected final byte[] devLTK;
 	protected final int rekeyCtr;
 	
 	public byte getDeviceType(){
-		return deviceType;
+		return devTypeCode;
 	}
 	
 	public byte[] getUID(){
@@ -41,7 +42,7 @@ public final class KmfDeviceRecord {
 	}
 	
 	protected boolean isValid(){
-		if ( !PacketTypes.isValid(deviceType) )
+		if ( !DeviceTypes.isValid(devTypeCode) )
 			return false;
 		
 		if ( devUID == null || devUID.length != UID_LENGTH )
@@ -60,7 +61,7 @@ public final class KmfDeviceRecord {
 	}
 	
 	public KmfDeviceRecord(byte type, byte[] uid, byte[] key, int asc, byte[] ltk) throws InvalidRecordExeption{
-		deviceType = type;
+		devTypeCode = type;
 		devUID = uid;
 		devRekeyKey = key;
 		rekeyCtr = 0;

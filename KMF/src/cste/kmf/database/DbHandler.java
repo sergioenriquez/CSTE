@@ -61,15 +61,22 @@ public class DbHandler {
     		return true;
     	}
     	
-    	
+    /*
+     * 	static final String CREATE_DB_QUERY = 	"CREATE TABLE Devices ("+
+											"DeviceUID VARCHAR (8) FOR BIT DATA,"+
+											"RekeyKey VARCHAR(16) FOR BIT DATA NOT NULL,"+
+											"LongTermKey VARCHAR(16) FOR BIT DATA NOT NULL,"+
+											"DeviceType VARCHAR(1) FOR BIT DATA NOT NULL," +
+											"RekeyCounter INTEGER DEFAULT 0)";
+    	*/
     	PreparedStatement psInsert = null;
     	try {
 			psInsert = conn.prepareStatement(STORE_RECORD_QUERY);
 			psInsert.setBytes(1, record.getUID());
 	    	psInsert.setBytes(2, record.getRekeyKey());
-	    	psInsert.setBytes(3, new byte[]{record.getDeviceType()}); // need to cast as byte array
-	    	psInsert.setInt(4, record.getRekeyCtr());
-	    	psInsert.setBytes(5, record.getLTK());
+	    	psInsert.setBytes(3, record.getLTK());
+	    	psInsert.setBytes(4, new byte[]{record.getDeviceType()}); // need to cast as byte array
+	    	psInsert.setInt(5, record.getRekeyCtr());
 	    	psInsert.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println("SQL query error!");

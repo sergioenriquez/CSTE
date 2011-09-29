@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
-//TODO, change into device record class, add methods to create packets
+//TODO, Delete this class
 public class AddRecordPacket {
 	protected byte deviceType = ADD_RECORD;
 	protected byte uid[] = new byte[UID_LENGTH];

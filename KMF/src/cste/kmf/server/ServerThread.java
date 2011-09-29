@@ -77,7 +77,7 @@ public class ServerThread implements Runnable{
 	void sendACK(boolean successful, byte[] key){
 		try {
 			out.writeBoolean(successful);
-			if ( successful )
+			if ( successful && key != null )
 				out.write(key);
 		} catch (IOException e) {
 			System.err.println("Error sending ACK packet!");
@@ -213,7 +213,6 @@ public class ServerThread implements Runnable{
 			type = in.readByte();
 			in.read(uid, 0, UID_LENGTH);
 			in.read(rekeyKey, 0, ENCRYPTION_KEY_LENGTH);
-			in.readInt();
 			rekeyCtr = in.readInt();
 			in.read(devLTK,0,ENCRYPTION_KEY_LENGTH);
 		} catch (IOException e) {
