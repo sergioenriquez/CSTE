@@ -3,10 +3,11 @@
  */
 package cste.kmf;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Iterator;
+import java.util.List;
 
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import cste.kmf.database.DbHandler;
 import cste.kmf.server.Server;
 
@@ -15,8 +16,12 @@ import cste.kmf.server.Server;
  *
  */
 public class KmfApp {
-	private static final String FACILITY_UID_STR = "FFFFFFF"; //TODO
-
+	static final String FACILITY_UID_STR = "F34DBB5490729865";
+	static HexBinaryAdapter Hex = new HexBinaryAdapter();
+	
+	public static byte[] getKmfUID(){
+		return Hex.unmarshal(FACILITY_UID_STR);
+	}
 	/**
 	 * @param args
 	 */
@@ -31,19 +36,34 @@ public class KmfApp {
 			port = 12345;
 		}		
 		
-		DbHandler.init();
-		
+		if ( !DbHandler.init() ){
+			System.err.println("Error starting the database, closing...");
+			return;
+		}
+			
+
 		Server server = new Server(port);
 		new Thread(server).start();
 		
 		System.out.println("Press enter to exit.");
 
+		displayAllRecords();
+		
 		try {
 			System.in.read();
 		} catch (IOException e) {}
 
 		server.stop();
 		System.out.println("Server stopped.");
+	}
+	
+	static void displayAllRecords(){
+		List<KmfDeviceRecord> records = DbHandler.getRecords();
+		Iterator<KmfDeviceRecord> it = records.iterator();
+		System.out.println( "Device records table has " + records.size() + " entries" );
+		while(it.hasNext()){
+			System.out.println( it.next()  );
+		}
 	}
 
 }

@@ -2,6 +2,10 @@ package cste.kmf;
 
 import static cste.icd.ICD.ENCRYPTION_KEY_LENGTH;
 import static cste.icd.ICD.UID_LENGTH;
+
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+
+import cste.icd.DeviceTypes;
 import cste.kmf.packet.PacketTypes;
 
 /***
@@ -10,14 +14,16 @@ import cste.kmf.packet.PacketTypes;
  *
  */
 public final class KmfDeviceRecord {
-	protected final byte deviceType;
-	protected final byte devUID[];
-	protected final byte devRekeyKey[];
-	protected final byte devLTK[];
-	protected final int ascCnt;
+	protected final byte devTypeCode;
+	protected final byte[] devUID;
+	protected final byte[] devRekeyKey;
+	protected final byte[] devLTK;
+	protected final int rekeyCtr;
+	
+	protected static HexBinaryAdapter Hex = new HexBinaryAdapter();
 	
 	public byte getDeviceType(){
-		return deviceType;
+		return devTypeCode;
 	}
 	
 	public byte[] getUID(){
@@ -32,12 +38,16 @@ public final class KmfDeviceRecord {
 		return devLTK;
 	}
 	
-	public int getAscCount(){
-		return ascCnt;
+	public int getRekeyCtr(){
+		return rekeyCtr;
+	}
+	
+	public int getDeviceLevel(){
+		return DeviceTypes.getLevel(devTypeCode);
 	}
 	
 	protected boolean isValid(){
-		if ( !PacketTypes.isValid(deviceType) )
+		if ( !DeviceTypes.isValid(devTypeCode) )
 			return false;
 		
 		if ( devUID == null || devUID.length != UID_LENGTH )
@@ -49,23 +59,36 @@ public final class KmfDeviceRecord {
 		if ( devLTK == null || devLTK.length != ENCRYPTION_KEY_LENGTH )
 			return false;
 		
-		if ( ascCnt < 0)
+		if ( rekeyCtr < 0)
 			return false;
 		
 		return true;
 	}
 	
 	public KmfDeviceRecord(byte type, byte[] uid, byte[] key, int asc, byte[] ltk) throws InvalidRecordExeption{
-		deviceType = type;
+		devTypeCode = type;
 		devUID = uid;
 		devRekeyKey = key;
-		ascCnt = 0;
+		rekeyCtr = 0;
 		devLTK = ltk;
 		
 		if ( !isValid())
 			throw new InvalidRecordExeption();
 	}
 	
+	@Override
+	public String toString(){
+		String text = String.format("TYPE=%x , UID=%s , KEY=%s , CTR=%d , LTK=%s", 
+				devTypeCode,
+				Hex.marshal(devUID),
+				Hex.marshal(devRekeyKey),
+				rekeyCtr,
+				Hex.marshal(devLTK));
+		return text;
+	}
+	
 	public class InvalidRecordExeption extends Exception{
 		private static final long serialVersionUID = 1L;};
+		
+	
 }

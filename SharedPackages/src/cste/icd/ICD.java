@@ -1,11 +1,22 @@
 package cste.icd;
 
+import org.bouncycastle2.crypto.InvalidCipherTextException;
+import org.bouncycastle2.crypto.engines.AESEngine;
+import org.bouncycastle2.crypto.modes.CCMBlockCipher;
+import org.bouncycastle2.crypto.params.CCMParameters;
+import org.bouncycastle2.crypto.params.KeyParameter;
+import org.bouncycastle2.openssl.EncryptionException;
+import org.bouncycastle2.util.encoders.Hex;
 import java.security.*;
+
 import javax.crypto.*;
 import javax.crypto.spec.*;
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
+@SuppressWarnings("unused")
 public class ICD {	
 	// discard ICD messages if the Rev Number is not the same as this ICD implementation
+	
 	private static final boolean DISCARD_WRONG_VERSION = true;
 	
 	// use encryption where required
@@ -193,42 +204,148 @@ public class ICD {
 	// Unrestricted command opcodes
 	private static final byte UCMD_OPCODE_USTATUS			= (byte) 0x00;
 
-	public byte[] encryptAES(byte[] message, byte[] encryptionKey)throws Exception{
-		Key key = new SecretKeySpec(encryptionKey, "AES");
-		Cipher c = Cipher.getInstance("AES");
-		c.init(Cipher.ENCRYPT_MODE, key);
-		byte[] encValue = c.doFinal(message);
-		return encValue;
+	
+	public static byte[] encryptBouncy(byte[] message, byte[] encryptionKey){
+		CCMBlockCipher cipher = new CCMBlockCipher(new AESEngine());
+		byte[] nonce = new byte[MH_HEADER_LENGTH - UID_LENGTH];
+		byte[] encrypted;
+		int encLen = 0;
+		cipher.init(true, new KeyParameter(encryptionKey));
+		
+		byte[] cipherText = new byte[cipher.getOutputSize(message.length)];
+		//cipher.processPacket(message, MH_HEADER_LENGTH, message.length - MH_HEADER_LENGTH - MIC_LENGTH);
+		encLen = cipher.processBytes(message, 0, message.length, cipherText, 0);
+		try {
+			encLen += cipher.doFinal(cipherText, encLen);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidCipherTextException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cipherText;
 	}
 	
-	public static byte[] decryptAES(byte[] message, byte[] encryptionKey) throws Exception {
+	public static byte[] encryptAES(byte[] message, byte[] encryptionKey){
+		Key key = new SecretKeySpec(encryptionKey, "AES");
+		Cipher c;
+		try {
+			c = Cipher.getInstance("AES/ECB/NoPadding");
+			c.init(Cipher.ENCRYPT_MODE, key);
+			byte[] encValue = c.doFinal(message);
+			return encValue;
+		} catch (NoSuchAlgorithmException e) {
+			System.err.println("AES encryption error!");
+		} catch (NoSuchPaddingException e) {
+			System.err.println("AES encryption error!");
+		} catch (InvalidKeyException e) {
+			System.err.println("AES encryption error!");
+		} catch (IllegalBlockSizeException e) {
+			System.err.println("AES encryption error!");
+		} catch (BadPaddingException e) {
+			System.err.println("AES encryption error!");
+		}
+		
+		return null;
+	}
+	
+	public static byte[] decryptAES(byte[] message, byte[] encryptionKey){
 	        Key key = new SecretKeySpec(encryptionKey, "AES");
-	        Cipher c = Cipher.getInstance("AES");
-	        c.init(Cipher.DECRYPT_MODE, key);
-	        byte[] decValue = c.doFinal(message);
-	        return decValue;
+	        Cipher c;
+			try {
+				c = Cipher.getInstance("AES/ECB/NoPadding");
+				c.init(Cipher.DECRYPT_MODE, key);
+		        byte[] decValue = c.doFinal(message);
+		        return decValue;
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchPaddingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvalidKeyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalBlockSizeException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (BadPaddingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        return null;
     }
 	
-	
-	
-	public static byte[] generateTCK_L0(byte[] rekeyKey, int rekeyAscensionNum){
-		
-		return null;
+	private static final byte KMF_DEVICE_TYPE	= (byte) 0x89;
+	private static final byte DCP_DEVICE_TYPE	= (byte) 0x88;
+	private static final byte REKEY_MESSAGE_TYPE	= (byte) 0xE0;
+	private static final byte REKEY_MESSAGE_LENGTH	= (byte) 0x20;
+
+	static final byte[] intToByteArray(int value) {
+        return new byte[] {
+                (byte)(value >>> 24),
+                (byte)(value >>> 16),
+                (byte)(value >>> 8),
+                (byte)value};
 	}
 	
-	public static byte[] generateTCK_L1(byte[] rekeyKey, int rekeyAscensionNum){
+	/***
+	 * Method not specified on ICD, using this as a place holder
+	 * @param deviceRekeyKey
+	 * @return
+	 */
+	public static byte[] generateLTK(byte[] deviceRekeyKey){
+		return encryptAES(deviceRekeyKey,deviceRekeyKey);
+	}
+	protected static HexBinaryAdapter Hex2 = new HexBinaryAdapter();
+	public static byte[] generateTCK_L0(
+			byte[] receiverRekeyKey,
+			byte[] KmfUID,
+			int rekeyCtr)
+	{
+		byte[] cipher = new byte[16];
+		cipher[0] = KMF_DEVICE_TYPE;
+		cipher[1] = REKEY_MESSAGE_TYPE;
+		cipher[2] = REKEY_MESSAGE_LENGTH;
+		System.arraycopy(KmfUID, 0, cipher, 3, UID_LENGTH);
+		cipher[11] = ICD_REV_NUMBER;
+		System.arraycopy(intToByteArray(rekeyCtr), 0, cipher, 12, 4);
 		
-		return null;
+		byte[] generatedKey = encryptAES(receiverRekeyKey,cipher);
+		String gen2 = Hex2.marshal(generatedKey);
+		return generatedKey;
+	}
+	
+	public static byte[] generateTCK_L1(
+			byte[] dcpUID,  
+			byte[] receiverLTK){
+		
+		byte[] cipher = new byte[16];
+		cipher[0] = DCP_DEVICE_TYPE;
+		cipher[1] = 0;
+		cipher[2] = 0;
+		System.arraycopy(dcpUID, 0, cipher, 3, UID_LENGTH);
+		
+		byte[] generatedKey = encryptAES(receiverLTK,cipher);
+		return generatedKey;
 	}
 
-	public static byte[] generateTCK_L2(byte[] rekeyKey, int rekeyAscensionNum){
-	
-	return null;
-}
+	public static byte[] generateTCK_L2(
+			byte[] currentLev1TCK, 
+			byte[] level2DevUID,
+			byte level2DevType){
 
-	public static byte[] generateTCK_L3(byte[] rekeyKey, int rekeyAscensionNum){
-	
-	return null;
-}
+		byte[] cipher = new byte[16];
+		cipher[0] = level2DevType;
+		cipher[1] = 0;
+		cipher[2] = 0;
+		System.arraycopy(level2DevUID, 0, cipher, 3, UID_LENGTH);
+		
+		byte[] generatedKey = encryptAES(currentLev1TCK,cipher);
+		return generatedKey;
+	}
+
+
 
 }

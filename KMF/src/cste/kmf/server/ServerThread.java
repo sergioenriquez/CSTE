@@ -3,17 +3,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import static cste.icd.ICD.ENCRYPTION_KEY_LENGTH;
 import static cste.icd.ICD.UID_LENGTH;
 import static cste.kmf.packet.PacketTypes.*;
 import cste.icd.ICD;
+import cste.kmf.KmfApp;
 import cste.kmf.KmfDeviceRecord;
 import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
 import cste.kmf.database.DbHandler;
-import cste.kmf.packet.AddRecordPacket;
 import cste.kmf.packet.PacketTypes;
-import cste.kmf.packet.PacketTypes.*;
 
 
 /*
@@ -27,6 +27,7 @@ public class ServerThread implements Runnable{
     protected Socket clientSocket = null;
     protected ObjectInputStream in = null;
     protected ObjectOutputStream out = null;
+    protected static HexBinaryAdapter Hex = new HexBinaryAdapter();
     
 	public ServerThread(Socket socket) {
 		System.out.println("Client connected");
@@ -36,35 +37,35 @@ public class ServerThread implements Runnable{
 	@Override
 	public void run() {
 		try {
-			in = new ObjectInputStream(clientSocket.getInputStream());
+			
 			out = new ObjectOutputStream(clientSocket.getOutputStream());
+			in = new ObjectInputStream(clientSocket.getInputStream());
         } catch (IOException e) {
         	System.err.println("Error initializing server socket");
         	return;
         }
         
         byte packetType = -1;
-        System.out.println("waiting for data");
+
     	try {
 			packetType = in.readByte();
 		} catch (IOException e1) {
-			System.err.println("Packet format error");
+			System.err.println("Error reading packet type");
 			return;
 		}
 
-		System.out.println("Received packet type " + packetType);
 		switch(packetType){
 		case ADD_RECORD:
-			handleAddRecordPacket(in);
+			handleAddRecordPacket();
 			break;
 		case DELETE_RECORD:
-			handleDeleteRecordPacket(in);
+			handleDeleteRecordPacket();
 			break;
 		case GENERATE_LTK:
-			handleGenerateLTKPacket(in);
+			handleGenerateLTKPacket();
 			break;
 		case GENERATE_TCK:
-			handleGenerateTCKPacket(in);
+			handleGenerateTCKPacket();
 			break;
 		default:
 			System.out.println("Received an invalid packet type!");
@@ -73,34 +74,121 @@ public class ServerThread implements Runnable{
 		
 	}
 	
-	// first bye is status
-	// 0 = OK
-	// 1 = ERROR
-	
-	// next is the requested key (if needed)
-	
-	void sendACK(ObjectOutputStream out, byte[] key){
-		//TODO 
+	void sendACK(boolean successful, byte[] key){
+		System.out.println("Sending ACK:" + successful);
+		try {
+			out.writeBoolean(successful);
+			if ( successful && key != null )
+				out.write(key);
+			out.flush();
+//			clientSocket.close();
+		} catch (IOException e) {
+			System.err.println("Error sending ACK packet!");
+		}
+	}
+
+	void handleGenerateLTKPacket(){
+		byte[] deviceUID = new byte[UID_LENGTH];
+		byte[] newLTK = null;
+		
+		try {
+			in.read(deviceUID);
+		} catch (IOException e) {
+			System.err.println("error reading generate LTK packet!");
+			return;
+		}
+		
+		KmfDeviceRecord currentRecord = DbHandler.getDeviceRecord(deviceUID);
+		
+		if ( currentRecord == null){
+			sendACK(false,null);
+			return;
+		}
+		
+		byte[] rekeyKey = currentRecord.getRekeyKey();
+
+		byte[] currentLTK = currentRecord.getLTK();
+		newLTK = ICD.encryptAES(currentLTK,rekeyKey);
+
+		if ( newLTK == null){
+			sendACK(false,null);
+			return;
+		}
+		
+		try {
+			KmfDeviceRecord modifiedRecord = new KmfDeviceRecord(
+					currentRecord.getDeviceType(),
+					currentRecord.getUID(),
+					currentRecord.getRekeyKey(),
+					currentRecord.getRekeyCtr()+1,
+					newLTK);
+			
+			DbHandler.addDeviceRecord(modifiedRecord);
+		} catch (InvalidRecordExeption e) {
+			System.err.println("Error updating device record!");
+			sendACK(false,null);
+			return;
+		}
+		
+		String.format("New LTK generated for %s : %s", Hex.marshal(deviceUID),Hex.marshal(newLTK));
+
+		sendACK(true ,newLTK);
 	}
 	
-	void sendKey(ObjectOutputStream out, byte[] key){
-		//TODO 
+	/***
+	 * Device A is the sender, B is the receiver and can generate the TCK on its own
+	 */
+	void handleGenerateTCKPacket(){
+		/**
+		 * read UID device 1
+		 * read UID device 2
+		 * generate TCk depending on respective levels
+		 */
+		
+		byte[] deviceUID_A = new byte[UID_LENGTH];
+		byte[] deviceUID_B = new byte[UID_LENGTH];
+		
+		try {
+			in.read(deviceUID_A);
+			in.read(deviceUID_B);
+		} catch (IOException e) {
+			System.err.println("error reading generate TCK packet!");
+			return;
+		}
+		
+		KmfDeviceRecord recordA = DbHandler.getDeviceRecord(deviceUID_A);
+		KmfDeviceRecord recordB = DbHandler.getDeviceRecord(deviceUID_B);
+		
+		if ( recordA == null || recordB == null){
+			sendACK(false,null);
+			return;
+		}
+		
+		int senderDevLvl = recordA.getDeviceLevel();
+		byte[] generatedTCK = null;
+		
+		switch(senderDevLvl){
+		case 0:
+			generatedTCK = ICD.generateTCK_L0(
+					recordB.getRekeyKey(), 
+					KmfApp.getKmfUID(), 
+					recordA.getRekeyCtr());
+			break;
+		case 1:
+			generatedTCK = ICD.generateTCK_L1(
+					recordA.getUID(),
+					recordB.getLTK());
+			break;
+		default:
+			// level 2 is generated by the DCP, so KMF is not involved
+				break;
+		}
+		String.format("TCK generated for %s,%s : %s", Hex.marshal(deviceUID_A),Hex.marshal(deviceUID_B),Hex.marshal(generatedTCK)   );
+
+		sendACK( generatedTCK==null?false:true ,generatedTCK);
 	}
 	
-	void handleGenerateLTKPacket(ObjectInputStream is){
-		//TODO check ICD for proper inputs
-		// send packet back to caller
-		//ICD.generateLTK(null, 0);
-	}
-	
-	void handleGenerateTCKPacket(ObjectInputStream is){
-		//TODO check ICD for proper inputs
-		// send packet back to caller
-		//ICD.generateTCK(null, 0);
-	}
-	
-	void handleDeleteRecordPacket(ObjectInputStream is){
-		//TODO send ACK reply
+	void handleDeleteRecordPacket(){
 		byte uid[] = new byte[UID_LENGTH];
 		try {
 			in.read(uid, 0, UID_LENGTH);
@@ -109,30 +197,35 @@ public class ServerThread implements Runnable{
 			return;
 		}
 		
-		if ( DbHandler.deleteDeviceRecord(uid) ){
-			
+		if ( DbHandler.deleteDeviceRecord(uid) )
+		{
+			System.out.println("Record deleted, UID = " + Hex.marshal(uid));
+			sendACK(true,null);
 		}
+		else
+			sendACK(false,null);
 	}
 	
-	//TODO generate LTK ?
-	/**
+	/***
 	 * When added a new device, set LTK to all 0, and rekey counter to 0
 	 * 
 	 * @param is
 	 */
-	void handleAddRecordPacket(ObjectInputStream is){
-		//TODO send ACK reply
+	void handleAddRecordPacket(){
+
 		byte uid[] = new byte[UID_LENGTH];
 		byte rekeyKey[] = new byte[ENCRYPTION_KEY_LENGTH];
 		byte devLTK[] = new byte[ENCRYPTION_KEY_LENGTH];
 		byte type = PacketTypes.NO_TYPE;
-		int rekeyAscNum = 0;
+		int rekeyCtr = 0;
 		
 		try {
 			type = in.readByte();
 			in.read(uid, 0, UID_LENGTH);
 			in.read(rekeyKey, 0, ENCRYPTION_KEY_LENGTH);
-			rekeyAscNum = in.readInt();
+			rekeyCtr = in.readInt();
+			in.read(devLTK,0,ENCRYPTION_KEY_LENGTH);
+			
 		} catch (IOException e) {
 			System.err.println("Error reading add record packet from socket!");
 			return;
@@ -140,14 +233,16 @@ public class ServerThread implements Runnable{
 
 		KmfDeviceRecord record;
 		try {
-			record = new KmfDeviceRecord(type,uid,rekeyKey,rekeyAscNum,devLTK);
+			record = new KmfDeviceRecord(type,uid,rekeyKey,rekeyCtr,devLTK);
 		} catch (InvalidRecordExeption e) {
 			System.err.println("The device record is invalid");
+			sendACK(false,null);
 			return;
 		}
 		
 		if ( DbHandler.addDeviceRecord(record) ){
-			
+			System.out.println( "New/updated record: " + record  );
+			sendACK(true,null);
 		}
 	}
 }
