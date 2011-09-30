@@ -2,10 +2,10 @@ package cste.icd;
 
 public class DeviceTypes {
 	public static final byte KMF = (byte)0x89;
-	public static final byte DCP = (byte)0x1;
-	public static final byte HNAD = (byte)0x2;
-	public static final byte FNAD = (byte)0x3;
-	public static final byte CSD = (byte)0x4;
+	public static final byte DCP = (byte)0x88;
+	public static final byte HNAD = (byte)0x87; //TODO confirm this the correct device type
+	public static final byte FNAD = (byte)0x86;
+	public static final byte CSD = (byte)0x85;
 	
 	public static int getLevel(byte type){
 		switch(type){

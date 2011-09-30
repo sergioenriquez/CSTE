@@ -6,8 +6,12 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+
 import cste.dcp.NetDevice;
 import cste.icd.ICD;
+import static cste.icd.ICD.ENCRYPTION_KEY_LENGTH;
+import static cste.icd.ICD.UID_LENGTH;
 import static cste.kmf.packet.PacketTypes.*;
 
 public class KmfClient {
@@ -17,6 +21,7 @@ public class KmfClient {
 	protected Socket clientSocket = null;
 	protected ObjectInputStream in = null;
     protected ObjectOutputStream out = null;
+    protected static HexBinaryAdapter Hex = new HexBinaryAdapter(); //TODO move this to ICD 
     
 	public KmfClient(String address,int port){
 		kmfServerPort = port;
@@ -24,10 +29,11 @@ public class KmfClient {
 	}
 	
 	protected boolean connectToServer(){
+		System.out.println("Attempting to connect to server");
     	try {
 			clientSocket = new Socket(kmfServerAddress,kmfServerPort);
-			out = new ObjectOutputStream(clientSocket.getOutputStream());
 			in = new ObjectInputStream(clientSocket.getInputStream());
+			out = new ObjectOutputStream(clientSocket.getOutputStream());
 		} catch (UnknownHostException e) {
 			System.err.println("Server unreachable");
 			return false;
@@ -38,25 +44,25 @@ public class KmfClient {
     	return true;
     }
 	
-	protected void disconnectFromServer(){
-    	try{
-    		out.close();
-    		in.close();
-    		clientSocket.close();
-		} catch (IOException e){
-			System.err.println("Error disconnecting from server");
-		}
-    }
-	
 	public void getNewLTK(NetDevice device){
+		boolean success = false;
+		byte[] receivedLTK = null;
+		
 		if( connectToServer() ){
-
 			try {
+				System.out.print("Sending request for LTK: ");
 				out.writeByte(GENERATE_LTK);
 				out.write(device.getUID());
+				out.flush();
+				success = in.readBoolean();
+				System.out.println(success);
+				if ( success ){
+					in.read(receivedLTK, 0, ENCRYPTION_KEY_LENGTH);
+					System.out.println("KEY: " + Hex.marshal(receivedLTK));
+				}
+				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-
+				System.err.println("Error sending packet");
 			}
 			finally{
 				disconnectFromServer();
@@ -65,15 +71,18 @@ public class KmfClient {
 	}
 	
 	public void getNewTCK(NetDevice deviceA,NetDevice deviceB){
+		boolean success = false;
 		if( connectToServer() ){
-
 			try {
+				System.out.print("Sending request for TCK: ");
 				out.writeByte(GENERATE_TCK);
 				out.write(deviceA.getUID());
 				out.write(deviceB.getUID());
+				out.flush();
+				success = in.readBoolean();
+				System.out.println(success);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-
+				System.err.println("Error sending packet");
 			}
 			finally{
 				disconnectFromServer();
@@ -81,25 +90,33 @@ public class KmfClient {
 		}
 	}
 	
-	public void deleteRecord(NetDevice device){
+	public boolean deleteRecord(NetDevice device){
+		boolean success = false;
 		if( connectToServer() ){
 
 			try {
+				System.out.print("Sending request to delete record: ");
 				out.writeByte(DELETE_RECORD);
 				out.write(device.getUID());
+				out.flush();
+				success = in.readBoolean();
+				System.out.println(success);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-
+				System.err.println("Error sending packet");
 			}
 			finally{
 				disconnectFromServer();
 			}
 		}
+		return success;
 	}
 	
-	public void addRecord(NetDevice device){
+	public boolean addRecord(NetDevice device){
+		boolean success = false;
+		System.out.println(success);
 		if( connectToServer() ){
 			try {
+				System.out.print("Sending request to add record: ");
 				out.writeByte(ADD_RECORD);
 				out.write(device.getTypeCode());
 				out.write(device.getUID());
@@ -107,24 +124,25 @@ public class KmfClient {
 				out.writeInt(device.getRekeyCtr());
 				byte[] deviceLTK = ICD.generateLTK(device.getRekeyKey());
 				out.write(deviceLTK);
+				out.flush();
+				success = in.readBoolean();
+				System.out.println(success);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-
+				System.err.println("Error sending packet");
 			}
 			finally{
 				disconnectFromServer();
 			}
 		}
+		return success;
 	}
 	
+	protected void disconnectFromServer(){
+    	try{
+    		clientSocket.close();
+		} catch (IOException e){
+			System.err.println("Error disconnecting from server");
+		}
+    }
+	
 }
-
-/*
- 
- new Thread(new Runnable(){
-			public void run()
-			{
-			
-			}
-}.start();
- */ 

@@ -1,8 +1,17 @@
 package cste.icd;
 
+import org.bouncycastle2.crypto.InvalidCipherTextException;
+import org.bouncycastle2.crypto.engines.AESEngine;
+import org.bouncycastle2.crypto.modes.CCMBlockCipher;
+import org.bouncycastle2.crypto.params.CCMParameters;
+import org.bouncycastle2.crypto.params.KeyParameter;
+import org.bouncycastle2.openssl.EncryptionException;
+import org.bouncycastle2.util.encoders.Hex;
 import java.security.*;
+
 import javax.crypto.*;
 import javax.crypto.spec.*;
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 @SuppressWarnings("unused")
 public class ICD {	
@@ -195,11 +204,34 @@ public class ICD {
 	// Unrestricted command opcodes
 	private static final byte UCMD_OPCODE_USTATUS			= (byte) 0x00;
 
+	
+	public static byte[] encryptBouncy(byte[] message, byte[] encryptionKey){
+		CCMBlockCipher cipher = new CCMBlockCipher(new AESEngine());
+		byte[] nonce = new byte[MH_HEADER_LENGTH - UID_LENGTH];
+		byte[] encrypted;
+		int encLen = 0;
+		cipher.init(true, new KeyParameter(encryptionKey));
+		
+		byte[] cipherText = new byte[cipher.getOutputSize(message.length)];
+		//cipher.processPacket(message, MH_HEADER_LENGTH, message.length - MH_HEADER_LENGTH - MIC_LENGTH);
+		encLen = cipher.processBytes(message, 0, message.length, cipherText, 0);
+		try {
+			encLen += cipher.doFinal(cipherText, encLen);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidCipherTextException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cipherText;
+	}
+	
 	public static byte[] encryptAES(byte[] message, byte[] encryptionKey){
 		Key key = new SecretKeySpec(encryptionKey, "AES");
 		Cipher c;
 		try {
-			c = Cipher.getInstance("AES");
+			c = Cipher.getInstance("AES/ECB/NoPadding");
 			c.init(Cipher.ENCRYPT_MODE, key);
 			byte[] encValue = c.doFinal(message);
 			return encValue;
@@ -218,16 +250,35 @@ public class ICD {
 		return null;
 	}
 	
-	public static byte[] decryptAES(byte[] message, byte[] encryptionKey) throws Exception {
+	public static byte[] decryptAES(byte[] message, byte[] encryptionKey){
 	        Key key = new SecretKeySpec(encryptionKey, "AES");
-	        Cipher c = Cipher.getInstance("AES");
-	        c.init(Cipher.DECRYPT_MODE, key);
-	        byte[] decValue = c.doFinal(message);
-	        return decValue;
+	        Cipher c;
+			try {
+				c = Cipher.getInstance("AES/ECB/NoPadding");
+				c.init(Cipher.DECRYPT_MODE, key);
+		        byte[] decValue = c.doFinal(message);
+		        return decValue;
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchPaddingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvalidKeyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalBlockSizeException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (BadPaddingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        return null;
     }
 	
 	private static final byte KMF_DEVICE_TYPE	= (byte) 0x89;
-	private static final byte DCP_DEVICE_TYPE	= (byte) 0x89;
+	private static final byte DCP_DEVICE_TYPE	= (byte) 0x88;
 	private static final byte REKEY_MESSAGE_TYPE	= (byte) 0xE0;
 	private static final byte REKEY_MESSAGE_LENGTH	= (byte) 0x20;
 
@@ -247,7 +298,7 @@ public class ICD {
 	public static byte[] generateLTK(byte[] deviceRekeyKey){
 		return encryptAES(deviceRekeyKey,deviceRekeyKey);
 	}
-	
+	protected static HexBinaryAdapter Hex2 = new HexBinaryAdapter();
 	public static byte[] generateTCK_L0(
 			byte[] receiverRekeyKey,
 			byte[] KmfUID,
@@ -262,6 +313,7 @@ public class ICD {
 		System.arraycopy(intToByteArray(rekeyCtr), 0, cipher, 12, 4);
 		
 		byte[] generatedKey = encryptAES(receiverRekeyKey,cipher);
+		String gen2 = Hex2.marshal(generatedKey);
 		return generatedKey;
 	}
 	

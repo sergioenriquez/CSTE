@@ -2,6 +2,9 @@ package cste.kmf;
 
 import static cste.icd.ICD.ENCRYPTION_KEY_LENGTH;
 import static cste.icd.ICD.UID_LENGTH;
+
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+
 import cste.icd.DeviceTypes;
 import cste.kmf.packet.PacketTypes;
 
@@ -16,6 +19,8 @@ public final class KmfDeviceRecord {
 	protected final byte[] devRekeyKey;
 	protected final byte[] devLTK;
 	protected final int rekeyCtr;
+	
+	protected static HexBinaryAdapter Hex = new HexBinaryAdapter();
 	
 	public byte getDeviceType(){
 		return devTypeCode;
@@ -38,7 +43,7 @@ public final class KmfDeviceRecord {
 	}
 	
 	public int getDeviceLevel(){
-		return 0;
+		return DeviceTypes.getLevel(devTypeCode);
 	}
 	
 	protected boolean isValid(){
@@ -71,6 +76,19 @@ public final class KmfDeviceRecord {
 			throw new InvalidRecordExeption();
 	}
 	
+	@Override
+	public String toString(){
+		String text = String.format("TYPE=%x , UID=%s , KEY=%s , CTR=%d , LTK=%s", 
+				devTypeCode,
+				Hex.marshal(devUID),
+				Hex.marshal(devRekeyKey),
+				rekeyCtr,
+				Hex.marshal(devLTK));
+		return text;
+	}
+	
 	public class InvalidRecordExeption extends Exception{
 		private static final long serialVersionUID = 1L;};
+		
+	
 }

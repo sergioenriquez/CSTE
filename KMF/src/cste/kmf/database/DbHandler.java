@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import cste.kmf.KmfDeviceRecord;
@@ -13,6 +15,7 @@ import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
 
 public class DbHandler {
 	static final String GET_RECORD_QUERY = "SELECT RekeyKey,DeviceType,RekeyCounter,LongTermKey from Devices where DeviceUID = (?)";
+	static final String GET_ALL_RECORDS_QUERY = "SELECT DeviceUID,RekeyKey,DeviceType,RekeyCounter,LongTermKey from Devices";
 	static final String STORE_RECORD_QUERY = "INSERT INTO Devices values (?, ?, ?, ?, ?)";
 	static final String DELETE_RECORD_QUERY = "DELETE FROM Devices where DeviceUID = (?)";
 	static final String UPDATE_RECORD_QUERY = "UPDATE Devices SET RekeyKey = ?, LongTermKey = ?, DeviceType = ?, RekeyCounter = ? WHERE DeviceUID = (?)";
@@ -27,6 +30,41 @@ public class DbHandler {
     static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     static final String PROTOCOL = "jdbc:derby:";
     static final String DBNAME = "derbyDB"; // the name of the database
+    
+    public static List<KmfDeviceRecord> getRecords(){
+    	List<KmfDeviceRecord> recordList = new ArrayList<KmfDeviceRecord>();
+    	
+    	byte[] deviceUID = null;
+    	byte[] rekeyKey = null;
+    	byte[] devLTK = null;
+		byte type = 0;
+		int rekeyAscNum = 0;
+    	
+    	Statement s = null;
+    	ResultSet r = null;
+		try {
+			s = conn.createStatement();
+			s.execute(GET_ALL_RECORDS_QUERY);
+			r = s.getResultSet();
+			
+			while(r.next()){
+				deviceUID = r.getBytes(1);
+				rekeyKey = r.getBytes(2);
+				type = r.getBytes(3)[0];
+				rekeyAscNum = r.getInt(4);
+				devLTK = r.getBytes(5);
+				KmfDeviceRecord k = new KmfDeviceRecord(type,deviceUID,rekeyKey,rekeyAscNum,devLTK);
+				recordList.add(k);
+			}
+
+		} catch (SQLException e) {
+			System.err.println("SQL query error!");
+		} catch (InvalidRecordExeption e) {
+			System.err.println("SQL query error!");
+		}
+    	
+    	return recordList;
+    }
     
     public static  boolean deleteDeviceRecord(byte[] uid) {
     	PreparedStatement psDelete = null;
@@ -119,29 +157,31 @@ public class DbHandler {
     	return r;
     }
 
-    public static void init() {
+    public static boolean init() {
 
     	if ( !loadDriver() )
-    		return;
+    		return false;
     	
     	Properties props = new Properties();
     	Statement s = null;
     	try {
 			conn = DriverManager.getConnection(PROTOCOL + DBNAME + ";create=true", props);
-			conn.setAutoCommit(false);
+			conn.setAutoCommit(true);
 			s = conn.createStatement();
 		} catch (SQLException e) {
-			System.err.println("Unable to create database connection");
-            return;
+			System.err.println("Unable to connect to the database file");
+            return false;
 		}
     	
-    	System.out.println("Connected to and created database " + DBNAME);
+    	System.out.println("Connected to the database succesfully");
 
     	try {
 			s.execute(CREATE_DB_QUERY);
 		} catch (SQLException e) {
-			System.err.println("SQL syntax error on create Devices table");
+			System.out.println("Device Records table already exists.");
 		}
+		
+		return true;
     }
     
     static boolean loadDriver() {
