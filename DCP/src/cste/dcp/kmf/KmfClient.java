@@ -6,28 +6,24 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
-
 import cste.dcp.NetDevice;
 import cste.icd.ICD;
 import cste.icd.KeyProvider;
 import cste.ip.IcdIpPacket;
 import cste.ip.IcdIpWrapper;
 import cste.ip.PacketTypes;
-import static cste.icd.ICD.ENCRYPTION_KEY_LENGTH;
-import static cste.icd.ICD.UID_LENGTH;
 import static cste.ip.PacketTypes.*;
 import static cste.dcp.DcpApp.*;
 
 public class KmfClient implements KeyProvider{
-	private static final String TAG = KmfClient.class.getName();
 	protected int kmfServerPort = 0;
 	protected String kmfServerAddress = "";
 	protected Socket clientSocket = null;
 	protected ObjectInputStream in = null;
     protected ObjectOutputStream out = null;
-    protected static HexBinaryAdapter Hex = new HexBinaryAdapter(); //TODO move this to ICD 
+    protected static HexBinaryAdapter Hex = new HexBinaryAdapter(); //TODO Replace Hex with google guava library
+    protected ByteArrayOutputStream bOut = new ByteArrayOutputStream();
     
 	public KmfClient(String address,int port){
 		kmfServerPort = port;
@@ -36,6 +32,10 @@ public class KmfClient implements KeyProvider{
 		IcdIpWrapper.setKeyProvider(this);
 	}
 	
+	/***
+	 * 
+	 * @return
+	 */
 	protected boolean connectToServer(){
 		System.out.println("Attempting to connect to server");
     	try {
@@ -52,169 +52,101 @@ public class KmfClient implements KeyProvider{
     	return true;
     }
 	
-	public void getNewLTK(NetDevice device){
-		boolean success = false;
-		byte[] receivedLTK = null;
-		
+	/***
+	 * 
+	 */
+//	protected void disconnectFromServer(){
+//    	try{
+//    		clientSocket.close();
+//		} catch (IOException e){
+//			System.err.println("Error disconnecting from server");
+//		}
+//    }
+	
+	/***
+	 * 
+	 * @param device
+	 */
+	public byte[] getNewLTK(NetDevice device){
 		if( connectToServer() ){
-			try {
-				System.out.print("Sending request for LTK: ");
-				out.writeByte(GENERATE_LTK);
-				out.write(device.getUID());
-				out.flush();
-				success = in.readBoolean();
-				System.out.println(success);
-				if ( success ){
-					in.read(receivedLTK, 0, ENCRYPTION_KEY_LENGTH);
-					System.out.println("KEY: " + Hex.marshal(receivedLTK));
-				}
-				
-			} catch (IOException e) {
-				System.err.println("Error sending packet");
-			}
-			finally{
-				disconnectFromServer();
-			}
+			IcdIpWrapper.sendIcdPacket(GENERATE_LTK, device.getUID() , KMF_UID, out);
+			IcdIpPacket p = IcdIpWrapper.getReply(in);
+			if ( p !=null && p.getFunctionCode() == PacketTypes.REPLY_KEY)
+				return p.getPayload();
 		}
+		return null;
 	}
 	
-	public void getNewTCK(NetDevice deviceA,NetDevice deviceB){
-		boolean success = false;
+	/***
+	 * 
+	 * @param deviceA
+	 * @param deviceB
+	 */
+	public byte[] getNewTCK(NetDevice deviceA,NetDevice deviceB){
 		if( connectToServer() ){
+			
+			bOut.reset();
 			try {
-				System.out.print("Sending request for TCK: ");
-				out.writeByte(GENERATE_TCK);
-				out.write(deviceA.getUID());
-				out.write(deviceB.getUID());
-				out.flush();
-				success = in.readBoolean();
-				System.out.println(success);
+				bOut.write(deviceA.getUID());
+				bOut.write(deviceB.getUID());
 			} catch (IOException e) {
-				System.err.println("Error sending packet");
+				System.err.println("Error building packet payload");
+				return null;
 			}
-			finally{
-				disconnectFromServer();
-			}
+			
+			IcdIpWrapper.sendIcdPacket(GENERATE_TCK, bOut.toByteArray() , KMF_UID, out);
+			
+			IcdIpPacket p = IcdIpWrapper.getReply(in);
+			if ( p !=null && p.getFunctionCode() == PacketTypes.REPLY_KEY)
+				return p.getPayload();
 		}
+		return null;
 	}
 	
+	/***
+	 * 
+	 * @param device
+	 * @return
+	 */
 	public boolean deleteRecord(NetDevice device){
-		boolean success = false;
 		if( connectToServer() ){
-
-			try {
-				System.out.print("Sending request to delete record: ");
-				out.writeByte(DELETE_RECORD);
-				out.write(device.getUID());
-				out.flush();
-				success = in.readBoolean();
-				System.out.println(success);
-			} catch (IOException e) {
-				System.err.println("Error sending packet");
-			}
-			finally{
-				disconnectFromServer();
-			}
-		}
-		return success;
-	}
-	
-	byte[] buildAddRecordPayload(NetDevice device){
-		
-		ByteArrayOutputStream b = new ByteArrayOutputStream();
-		byte[] deviceLTK = ICD.generateLTK(device.getRekeyKey());
-		try {
-		b.write(ADD_RECORD);
-		b.write(device.getTypeCode());
-		b.write(device.getUID());
-		b.write(device.getRekeyKey());
-		b.write(device.getRekeyCtr());
-		b.write(deviceLTK);
-		} catch (IOException e) {
-			System.err.println("Error sending packet");
-		}
-		
-		return b.toByteArray();
-	}
-	
-	void encryptPayloadAndSend(byte[] payload){
-		byte[] payloadWithNonce = new byte[ICD.UID_LENGTH + payload.length];
-		System.arraycopy(DCP_UID, 0, payloadWithNonce, 0, UID_LENGTH);
-		System.arraycopy(payload, 0, payloadWithNonce, UID_LENGTH, payload.length);
-		byte[] encryptedPayloadWithNonce = ICD.encryptAES(payloadWithNonce, DCP_LTK);
-		
-		try {
-			out.write(DCP_UID);
-			out.writeInt(encryptedPayloadWithNonce.length);
-			out.write(encryptedPayloadWithNonce);
-			out.flush();
-		} catch (IOException e) {
-			System.err.println("Error sending payload");
-		}
-	}
-	
-	boolean getResponse(byte[] reply){
-		boolean success = false;
-		int replyLen = 0;
-		try {
-			success = in.readBoolean();
-			if ( success && reply != null){
-				replyLen = in.readInt();
-				in.read(reply,0,replyLen);
-			}
-		} catch (IOException e) {
-			System.err.println("Error reading reply");
-		}
-		
-		return success;
-	}
-	
-	public boolean addRecord(NetDevice device){
-		if( connectToServer() ){
-			byte[] payload = buildAddRecordPayload(device);
-			IcdIpWrapper.sendIcdPacket(ADD_RECORD, payload, KMF_UID, out);
+			IcdIpWrapper.sendIcdPacket(DELETE_RECORD, device.getUID(), KMF_UID, out);
 			IcdIpPacket p = IcdIpWrapper.getReply(in);
 			
 			if ( p !=null && p.getFunctionCode() == PacketTypes.OP_SUCCESS)
 				return true;
-			else
-				return false;
 		}
-		else 
-			return false;
-
-//		boolean success = false;
-//		if( connectToServer() ){
-//			try {
-//				System.out.print("Sending request to add record: ");
-//				out.writeByte(ADD_RECORD);
-//				out.write(device.getTypeCode());
-//				out.write(device.getUID());
-//				out.write(device.getRekeyKey());
-//				out.writeInt(device.getRekeyCtr());
-//				byte[] deviceLTK = ICD.generateLTK(device.getRekeyKey());
-//				out.write(deviceLTK);
-//				out.flush();
-//				success = in.readBoolean();
-//				System.out.println(success);
-//			} catch (IOException e) {
-//				System.err.println("Error sending packet");
-//			}
-//			finally{
-//				disconnectFromServer();
-//			}
-//		}
-//		return success;
-		
+		return false;
 	}
-	
-	protected void disconnectFromServer(){
-    	try{
-    		clientSocket.close();
-		} catch (IOException e){
-			System.err.println("Error disconnecting from server");
+
+	/***
+	 * 
+	 * @param device
+	 * @return
+	 */
+	public boolean addRecord(NetDevice device){
+		if( connectToServer() ){
+			bOut.reset();
+			try {
+				bOut.write(device.getTypeCode());
+				bOut.write(device.getUID());
+				bOut.write(device.getRekeyKey());
+				bOut.write(device.getRekeyCtr());
+				bOut.write( ICD.generateLTK(device.getRekeyKey() ) );
+			} catch (IOException e) {
+				System.err.println("Error sending packet");
+				return false;
+			}
+			
+			IcdIpWrapper.sendIcdPacket(ADD_RECORD, bOut.toByteArray() , KMF_UID, out);
+			
+			IcdIpPacket p = IcdIpWrapper.getReply(in);
+			if ( p !=null && p.getFunctionCode() == PacketTypes.OP_SUCCESS)
+				return true;
+
 		}
-    }
+		return false;
+	}
 
 	@Override
 	public byte[] getEncryptionKey(byte[] destinationDevUID) {

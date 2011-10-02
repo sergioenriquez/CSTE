@@ -218,11 +218,9 @@ public class ICD {
 		try {
 			encLen += cipher.doFinal(cipherText, encLen);
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getCause().getMessage());
 		} catch (InvalidCipherTextException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getCause().getMessage());
 		}
 		return cipherText;
 	}
@@ -264,20 +262,15 @@ public class ICD {
 		        byte[] decValue = c.doFinal(message);
 		        return decValue;
 			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println(e.getCause().getMessage());
 			} catch (NoSuchPaddingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println(e.getCause().getMessage());
 			} catch (InvalidKeyException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println(e.getCause().getMessage());
 			} catch (IllegalBlockSizeException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println(e.getCause().getMessage());
 			} catch (BadPaddingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println(e.getCause().getMessage());
 			}
 	        return null;
     }
@@ -287,6 +280,7 @@ public class ICD {
 	private static final byte REKEY_MESSAGE_TYPE	= (byte) 0xE0;
 	private static final byte REKEY_MESSAGE_LENGTH	= (byte) 0x20;
 
+	//TODO Replace with google guava library
 	static final byte[] intToByteArray(int value) {
         return new byte[] {
                 (byte)(value >>> 24),
