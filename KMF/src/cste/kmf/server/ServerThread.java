@@ -1,19 +1,27 @@
 package cste.kmf.server;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Arrays;
+
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import static cste.icd.ICD.ENCRYPTION_KEY_LENGTH;
 import static cste.icd.ICD.UID_LENGTH;
-import static cste.kmf.packet.PacketTypes.*;
+import static cste.ip.PacketTypes.*;
 import cste.icd.ICD;
+import cste.ip.IcdIpPacket;
+import cste.ip.IcdIpWrapper;
+import cste.ip.PacketTypes;
 import cste.kmf.KmfApp;
 import cste.kmf.KmfDeviceRecord;
 import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
 import cste.kmf.database.DbHandler;
-import cste.kmf.packet.PacketTypes;
+
 
 
 /*
@@ -21,6 +29,8 @@ import cste.kmf.packet.PacketTypes;
  * http://tutorials.jenkov.com/java-multithreaded-servers/thread-pooled-server.html
  * 
  */
+
+
 
 public class ServerThread implements Runnable{
 	private static final String TAG = ServerThread.class.getName();
@@ -32,31 +42,40 @@ public class ServerThread implements Runnable{
 	public ServerThread(Socket socket) {
 		System.out.println("Client connected");
         clientSocket = socket;
+        
     }
-
+	
 	@Override
 	public void run() {
+		byte[] senderUID = new byte[UID_LENGTH];
+        int payloadSize = 0;
+        byte[] encryptedPayload = null;
+
 		try {
-			
 			out = new ObjectOutputStream(clientSocket.getOutputStream());
 			in = new ObjectInputStream(clientSocket.getInputStream());
+			
+			
+			
+//			in.read(senderUID, 0, UID_LENGTH);
+//    		payloadSize = in.readInt();
+//    		encryptedPayload = new byte[payloadSize];
+//    		in.read(encryptedPayload, 0, payloadSize);
         } catch (IOException e) {
-        	System.err.println("Error initializing server socket");
+        	System.err.println("Error reading from client socket");
         	return;
         }
         
-        byte packetType = -1;
-
-    	try {
-			packetType = in.readByte();
-		} catch (IOException e1) {
-			System.err.println("Error reading packet type");
+        IcdIpPacket p = IcdIpWrapper.getReply(in);
+		
+		if ( p == null){
+			// handle IO errror
 			return;
 		}
 
-		switch(packetType){
+		switch(p.getFunctionCode()){
 		case ADD_RECORD:
-			handleAddRecordPacket();
+			handleAddRecordRequest(p);
 			break;
 		case DELETE_RECORD:
 			handleDeleteRecordPacket();
@@ -71,8 +90,47 @@ public class ServerThread implements Runnable{
 			System.out.println("Received an invalid packet type!");
 			break;
 		}
-		
 	}
+	
+	
+//	@Override
+//	public void run() {
+//		try {
+//			out = new ObjectOutputStream(clientSocket.getOutputStream());
+//			in = new ObjectInputStream(clientSocket.getInputStream());
+//        } catch (IOException e) {
+//        	System.err.println("Error initializing client socket");
+//        	return;
+//        }
+//        
+//        byte packetType = -1;
+//
+//    	try {
+//			packetType = in.readByte();
+//		} catch (IOException e1) {
+//			System.err.println("Error reading packet type");
+//			return;
+//		}
+//
+//		switch(packetType){
+//		case ADD_RECORD:
+//			handleAddRecordPacket();
+//			break;
+//		case DELETE_RECORD:
+//			handleDeleteRecordPacket();
+//			break;
+//		case GENERATE_LTK:
+//			handleGenerateLTKPacket();
+//			break;
+//		case GENERATE_TCK:
+//			handleGenerateTCKPacket();
+//			break;
+//		default:
+//			System.out.println("Received an invalid packet type!");
+//			break;
+//		}
+//		
+//	}
 	
 	void sendACK(boolean successful, byte[] key){
 		System.out.println("Sending ACK:" + successful);
@@ -81,7 +139,6 @@ public class ServerThread implements Runnable{
 			if ( successful && key != null )
 				out.write(key);
 			out.flush();
-//			clientSocket.close();
 		} catch (IOException e) {
 			System.err.println("Error sending ACK packet!");
 		}
@@ -211,8 +268,8 @@ public class ServerThread implements Runnable{
 	 * 
 	 * @param is
 	 */
-	void handleAddRecordPacket(){
-
+	void handleAddRecordRequest(IcdIpPacket p){
+		DataInputStream ds = p.getPayloadDataStream();
 		byte uid[] = new byte[UID_LENGTH];
 		byte rekeyKey[] = new byte[ENCRYPTION_KEY_LENGTH];
 		byte devLTK[] = new byte[ENCRYPTION_KEY_LENGTH];
@@ -220,12 +277,11 @@ public class ServerThread implements Runnable{
 		int rekeyCtr = 0;
 		
 		try {
-			type = in.readByte();
-			in.read(uid, 0, UID_LENGTH);
-			in.read(rekeyKey, 0, ENCRYPTION_KEY_LENGTH);
-			rekeyCtr = in.readInt();
-			in.read(devLTK,0,ENCRYPTION_KEY_LENGTH);
-			
+			type = (byte)ds.read();
+			ds.read(uid, 0, UID_LENGTH);
+			ds.read(rekeyKey, 0, ENCRYPTION_KEY_LENGTH);
+			rekeyCtr = ds.readInt();
+			ds.read(devLTK,0,ENCRYPTION_KEY_LENGTH);
 		} catch (IOException e) {
 			System.err.println("Error reading add record packet from socket!");
 			return;
@@ -242,7 +298,7 @@ public class ServerThread implements Runnable{
 		
 		if ( DbHandler.addDeviceRecord(record) ){
 			System.out.println( "New/updated record: " + record  );
-			sendACK(true,null);
+			IcdIpWrapper.sendIcdPacket(PacketTypes.OP_SUCCESS, null, p.getSenderUID(), out);
 		}
 	}
 }

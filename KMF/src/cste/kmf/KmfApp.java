@@ -8,6 +8,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+
+import cste.icd.DeviceTypes;
+import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
 import cste.kmf.database.DbHandler;
 import cste.kmf.server.Server;
 
@@ -16,8 +19,10 @@ import cste.kmf.server.Server;
  *
  */
 public class KmfApp {
-	static final String FACILITY_UID_STR = "F34DBB5490729865";
 	static HexBinaryAdapter Hex = new HexBinaryAdapter();
+	public static final String FACILITY_UID_STR = "F34DBB5490729865";
+	public static final byte[] KMF_UID = Hex.unmarshal(FACILITY_UID_STR);
+	
 	
 	public static byte[] getKmfUID(){
 		return Hex.unmarshal(FACILITY_UID_STR);
@@ -47,6 +52,18 @@ public class KmfApp {
 		
 		System.out.println("Press enter to exit.");
 
+		try {
+			KmfDeviceRecord r = new KmfDeviceRecord(
+					DeviceTypes.DCP,
+					Hex.unmarshal("F34DBB5490729865"),
+					Hex.unmarshal("FFEECCDDEEFFAABBFFEECCDDEEFFAABB"),
+					0,
+					Hex.unmarshal("11112222EEFFAABBFFEECCDDEEFFAABB"));
+			DbHandler.addDeviceRecord(r);
+		} catch (InvalidRecordExeption e1) {
+
+		}
+		
 		displayAllRecords();
 		
 		try {

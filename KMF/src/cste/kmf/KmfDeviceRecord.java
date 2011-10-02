@@ -6,7 +6,7 @@ import static cste.icd.ICD.UID_LENGTH;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import cste.icd.DeviceTypes;
-import cste.kmf.packet.PacketTypes;
+import cste.ip.PacketTypes;
 
 /***
  * Represents device record information stored on the KMF database

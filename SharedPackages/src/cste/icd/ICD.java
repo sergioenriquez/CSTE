@@ -231,20 +231,25 @@ public class ICD {
 		Key key = new SecretKeySpec(encryptionKey, "AES");
 		Cipher c;
 		try {
-			c = Cipher.getInstance("AES/ECB/NoPadding");
+			boolean padMessaage = message.length % 16 == 0 ? false : true;
+			if( padMessaage )
+				c = Cipher.getInstance("AES/ECB/PKCS5Padding ");
+			else
+				c = Cipher.getInstance("AES/ECB/NoPadding");
+			
 			c.init(Cipher.ENCRYPT_MODE, key);
 			byte[] encValue = c.doFinal(message);
 			return encValue;
 		} catch (NoSuchAlgorithmException e) {
-			System.err.println("AES encryption error!");
+			System.err.println(e.getCause().getMessage());
 		} catch (NoSuchPaddingException e) {
-			System.err.println("AES encryption error!");
+			System.err.println(e.getCause().getMessage());
 		} catch (InvalidKeyException e) {
-			System.err.println("AES encryption error!");
+			System.err.println(e.getCause().getMessage());
 		} catch (IllegalBlockSizeException e) {
-			System.err.println("AES encryption error!");
+			System.err.println(e.getCause().getMessage());
 		} catch (BadPaddingException e) {
-			System.err.println("AES encryption error!");
+			System.err.println(e.getCause().getMessage());
 		}
 		
 		return null;

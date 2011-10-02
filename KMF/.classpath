@@ -4,6 +4,7 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/CSTE/SharedPackages/lib/derby.jar"/>
 	<classpathentry kind="lib" path="C:/CSTE/SharedPackages/lib/derbytools.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/SharedPackages"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ICD"/>
+	<classpathentry kind="lib" path="C:/CSTE/SharedPackages/lib/guava-10.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
