@@ -4,7 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.InputStream;
 
-public class IcdIpPacket {
+public class IpPacket {
 	byte rev;
 	short functionCode;
 	byte[] senderUID;

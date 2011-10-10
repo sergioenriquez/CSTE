@@ -1,37 +1,37 @@
 package cste.ip;
 
-import static cste.ip.PacketTypes.*;
+import static cste.icd.ICD.UID_LENGTH;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
+import cste.PacketTypes.KmfPacketTypes;
 import cste.icd.ICD;
-import cste.icd.KeyProvider;
-import static cste.icd.ICD.ENCRYPTION_KEY_LENGTH;
-import static cste.icd.ICD.UID_LENGTH;
+import cste.interfaces.IpWrapper;
+import cste.interfaces.KeyProvider;
 
-public class IcdIpWrapper {
-	static final byte ICD_REVISION = (byte)0x01;
-	static byte[] senderUID;
-	static byte[] encryptionKey;
-	static KeyProvider kp;
+public class IpWrapperImpl implements IpWrapper{
+	final byte ICD_REVISION = (byte)0x01;
+	byte[] senderUID;
+	byte[] encryptionKey;
+	KeyProvider kp;
 	
-	static public void setKeyProvider(KeyProvider keyProvider){
+	public void setKeyProvider(KeyProvider keyProvider){
 		kp = keyProvider;
 	}
 	
-	static public void setSenderUID(byte[] uid){
+	public void setSenderUID(byte[] uid){
 		senderUID = uid;
 	}
 
-	static public void sendIcdPacket(short function, byte[] payload, byte[] destinationUID, ObjectOutputStream out){
+	public void sendIcdPacket(short function, byte[] payload, byte[] destinationUID, ObjectOutputStream out){
 		int payloadSize = 0;
 		byte[] payloadSent = null;
 		
 		if( payload != null){
-			if( PacketTypes.encryptionUsed(function)){
+			if( KmfPacketTypes.encryptionUsed(function)){
 				byte[] payloadWithNonce = new byte[payload.length + UID_LENGTH];
 				System.arraycopy(senderUID, 0, payloadWithNonce, 0, UID_LENGTH);
 				System.arraycopy(payload, 0, payloadWithNonce, UID_LENGTH, payload.length);
@@ -58,7 +58,7 @@ public class IcdIpWrapper {
 		}
 	}
 	
-	static public IcdIpPacket getReply(ObjectInputStream in){
+	public IpPacket getReply(ObjectInputStream in){
 		byte rev = 0;
 		short functionCode = 0;
 		byte[] senderUID = new byte[UID_LENGTH];
@@ -82,12 +82,12 @@ public class IcdIpWrapper {
 			return null;
 		}
 
-		IcdIpPacket p = new IcdIpPacket();
+		IpPacket p = new IpPacket();
 		p.setRev(rev);
 		p.setFunctionCode(functionCode);
 		p.setSenderUID(senderUID);
 		
-		if( PacketTypes.encryptionUsed(functionCode)){
+		if( KmfPacketTypes.encryptionUsed(functionCode)){
 			byte[] payloadWithNonce = ICD.decryptAES(receivedPayload, kp.getEncryptionKey(senderUID));
 			byte[] nonce = new byte[UID_LENGTH];
 			byte[] payload = new byte[receivedPayload.length-UID_LENGTH];

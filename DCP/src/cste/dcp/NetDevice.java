@@ -3,7 +3,7 @@ package cste.dcp;
 import cste.icd.ICD;
 
 /**
- * Represents a secure container device
+ * Represents a secure container device or a NAD/FNAD
  * @author User
  *
  */

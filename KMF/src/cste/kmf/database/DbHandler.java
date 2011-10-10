@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import cste.icd.KeyProvider;
+import cste.interfaces.KeyProvider;
 import cste.kmf.KmfDeviceRecord;
 import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
 

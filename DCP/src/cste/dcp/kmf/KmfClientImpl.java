@@ -7,16 +7,20 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+
+import cste.PacketTypes.KmfPacketTypes;
 import cste.dcp.NetDevice;
+import cste.dcp.interfaces.KmfClient;
 import cste.icd.ICD;
-import cste.icd.KeyProvider;
-import cste.ip.IcdIpPacket;
-import cste.ip.IcdIpWrapper;
-import cste.ip.PacketTypes;
-import static cste.ip.PacketTypes.*;
+import cste.interfaces.IpWrapper;
+import cste.interfaces.KeyProvider;
+import cste.ip.IpPacket;
+import cste.ip.IpWrapperImpl;
+import static cste.PacketTypes.KmfPacketTypes.*;
 import static cste.dcp.DcpApp.*;
 
-public class KmfClient implements KeyProvider{
+//TODO move the key provider functionality to the database handler
+public class KmfClientImpl implements KmfClient,KeyProvider{
 	protected int kmfServerPort = 0;
 	protected String kmfServerAddress = "";
 	protected Socket clientSocket = null;
@@ -24,12 +28,13 @@ public class KmfClient implements KeyProvider{
     protected ObjectOutputStream out = null;
     protected static HexBinaryAdapter Hex = new HexBinaryAdapter(); //TODO Replace Hex with google guava library
     protected ByteArrayOutputStream bOut = new ByteArrayOutputStream();
+    protected IpWrapper ipWrapper = new IpWrapperImpl();
     
-	public KmfClient(String address,int port){
+	public KmfClientImpl(String address,int port){
 		kmfServerPort = port;
 		kmfServerAddress = address;
-		IcdIpWrapper.setSenderUID(DCP_UID);
-		IcdIpWrapper.setKeyProvider(this);
+		ipWrapper.setSenderUID(DCP_UID);
+		ipWrapper.setKeyProvider(this);
 	}
 	
 	/***
@@ -69,9 +74,9 @@ public class KmfClient implements KeyProvider{
 	 */
 	public byte[] getNewLTK(NetDevice device){
 		if( connectToServer() ){
-			IcdIpWrapper.sendIcdPacket(GENERATE_LTK, device.getUID() , KMF_UID, out);
-			IcdIpPacket p = IcdIpWrapper.getReply(in);
-			if ( p !=null && p.getFunctionCode() == PacketTypes.REPLY_KEY)
+			ipWrapper.sendIcdPacket(GENERATE_LTK, device.getUID() , KMF_UID, out);
+			IpPacket p = ipWrapper.getReply(in);
+			if ( p !=null && p.getFunctionCode() == KmfPacketTypes.REPLY_KEY)
 				return p.getPayload();
 		}
 		return null;
@@ -94,10 +99,10 @@ public class KmfClient implements KeyProvider{
 				return null;
 			}
 			
-			IcdIpWrapper.sendIcdPacket(GENERATE_TCK, bOut.toByteArray() , KMF_UID, out);
+			ipWrapper.sendIcdPacket(GENERATE_TCK, bOut.toByteArray() , KMF_UID, out);
 			
-			IcdIpPacket p = IcdIpWrapper.getReply(in);
-			if ( p !=null && p.getFunctionCode() == PacketTypes.REPLY_KEY)
+			IpPacket p = ipWrapper.getReply(in);
+			if ( p !=null && p.getFunctionCode() == KmfPacketTypes.REPLY_KEY)
 				return p.getPayload();
 		}
 		return null;
@@ -110,10 +115,10 @@ public class KmfClient implements KeyProvider{
 	 */
 	public boolean deleteRecord(NetDevice device){
 		if( connectToServer() ){
-			IcdIpWrapper.sendIcdPacket(DELETE_RECORD, device.getUID(), KMF_UID, out);
-			IcdIpPacket p = IcdIpWrapper.getReply(in);
+			ipWrapper.sendIcdPacket(DELETE_RECORD, device.getUID(), KMF_UID, out);
+			IpPacket p = ipWrapper.getReply(in);
 			
-			if ( p !=null && p.getFunctionCode() == PacketTypes.OP_SUCCESS)
+			if ( p !=null && p.getFunctionCode() == KmfPacketTypes.OP_SUCCESS)
 				return true;
 		}
 		return false;
@@ -138,10 +143,10 @@ public class KmfClient implements KeyProvider{
 				return false;
 			}
 			
-			IcdIpWrapper.sendIcdPacket(ADD_RECORD, bOut.toByteArray() , KMF_UID, out);
+			ipWrapper.sendIcdPacket(ADD_RECORD, bOut.toByteArray() , KMF_UID, out);
 			
-			IcdIpPacket p = IcdIpWrapper.getReply(in);
-			if ( p !=null && p.getFunctionCode() == PacketTypes.OP_SUCCESS)
+			IpPacket p = ipWrapper.getReply(in);
+			if ( p !=null && p.getFunctionCode() == KmfPacketTypes.OP_SUCCESS)
 				return true;
 
 		}

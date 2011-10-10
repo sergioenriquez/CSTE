@@ -5,8 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
 
-import cste.icd.KeyProvider;
-import cste.ip.IcdIpWrapper;
+import cste.interfaces.KeyProvider;
+import cste.ip.IpWrapperImpl;
 import cste.kmf.KmfDeviceRecord;
 import cste.kmf.database.DbHandler;
 import static cste.kmf.KmfApp.KMF_UID;
@@ -20,8 +20,8 @@ public class Server implements Runnable, KeyProvider{
     
 	public Server(int port){
 		serverPort = port;
-		IcdIpWrapper.setSenderUID(KMF_UID);
-		IcdIpWrapper.setKeyProvider(this);
+		IpWrapperImpl.setSenderUID(KMF_UID);
+		IpWrapperImpl.setKeyProvider(this);
 	}
 	
 	private synchronized boolean isStopped() {
