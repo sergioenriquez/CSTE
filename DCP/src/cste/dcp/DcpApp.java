@@ -3,8 +3,7 @@ package cste.dcp;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import cste.dcp.kmf.KmfClientImpl;
-import cste.icd.DeviceTypes;
-import cste.icd.ICD;
+import cste.icd.DeviceType;
 
 public class DcpApp {
 	
@@ -22,14 +21,14 @@ public class DcpApp {
 		KmfClientImpl k = new KmfClientImpl("127.0.0.1",12345);
 
 		NetDevice d1 = new NetDevice(
-				DeviceTypes.DCP,
+				DeviceType.DCP,
 				DCP_UID,
 				DCP_REKEYKEY,
 				DCP_LTK,
 				0);
 		
 		NetDevice d2 = new NetDevice(
-				DeviceTypes.CSD,
+				DeviceType.CSD,
 				Hex.unmarshal("FFEECCDDEEFFAABB"),
 				Hex.unmarshal("1234BBBBCCCCDDDDEEEEFFFF00001111"));
 		

@@ -133,7 +133,7 @@ public class KmfClientImpl implements KmfClient,KeyProvider{
 		if( connectToServer() ){
 			bOut.reset();
 			try {
-				bOut.write(device.getTypeCode());
+				bOut.write(device.getTypeCode().toByte());
 				bOut.write(device.getUID());
 				bOut.write(device.getRekeyKey());
 				bOut.write(device.getRekeyCtr());

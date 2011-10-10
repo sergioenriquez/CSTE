@@ -10,19 +10,22 @@ import static cste.PacketTypes.KmfPacketTypes.*;
 import static cste.icd.ICD.ENCRYPTION_KEY_LENGTH;
 import static cste.icd.ICD.UID_LENGTH;
 import cste.PacketTypes.KmfPacketTypes;
+import cste.icd.DeviceType;
 import cste.icd.ICD;
+import cste.interfaces.IpWrapper;
 import cste.ip.IpPacket;
 import cste.ip.IpWrapperImpl;
 import cste.kmf.KmfApp;
 import cste.kmf.KmfDeviceRecord;
 import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
-import cste.kmf.database.DbHandler;
+import cste.kmf.database.KmfDbHandler;
 
 public class ServerThread implements Runnable{
     protected Socket clientSocket = null;
     protected ObjectInputStream in = null;
     protected ObjectOutputStream out = null;
     protected static HexBinaryAdapter Hex = new HexBinaryAdapter();
+    protected IpWrapper ipWrapper = new IpWrapperImpl();
     
 	public ServerThread(Socket socket) {
 		System.out.println("Client connected");
@@ -40,7 +43,7 @@ public class ServerThread implements Runnable{
         	return;
         }
         
-        IpPacket p = IpWrapperImpl.getReply(in);
+        IpPacket p = ipWrapper.getReply(in);
 		
 		if ( p == null){
 			// handle IO errror
@@ -84,10 +87,10 @@ public class ServerThread implements Runnable{
 			return;
 		}
 		
-		KmfDeviceRecord currentRecord = DbHandler.getDeviceRecord(deviceUID);
+		KmfDeviceRecord currentRecord = KmfDbHandler.getDeviceRecord(deviceUID);
 		
 		if ( currentRecord == null){
-			IpWrapperImpl.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
+			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
 			return;
 		}
 		
@@ -97,7 +100,7 @@ public class ServerThread implements Runnable{
 		newLTK = ICD.encryptAES(currentLTK,rekeyKey);
 
 		if ( newLTK == null){
-			IpWrapperImpl.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
+			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
 			return;
 		}
 		
@@ -109,16 +112,16 @@ public class ServerThread implements Runnable{
 					currentRecord.getRekeyCtr()+1,
 					newLTK);
 			
-			DbHandler.addDeviceRecord(modifiedRecord);
+			KmfDbHandler.addDeviceRecord(modifiedRecord);
 		} catch (InvalidRecordExeption e) {
 			System.err.println("Error updating device record!");
-			IpWrapperImpl.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
+			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
 			return;
 		}
 		
 		String.format("New LTK generated for %s : %s", Hex.marshal(deviceUID),Hex.marshal(newLTK));
 
-		IpWrapperImpl.sendIcdPacket(KmfPacketTypes.REPLY_KEY, newLTK, p.getSenderUID(), out);
+		ipWrapper.sendIcdPacket(KmfPacketTypes.REPLY_KEY, newLTK, p.getSenderUID(), out);
 	}
 	
 	/***
@@ -137,11 +140,11 @@ public class ServerThread implements Runnable{
 			return;
 		}
 		
-		KmfDeviceRecord recordA = DbHandler.getDeviceRecord(deviceUID_A);
-		KmfDeviceRecord recordB = DbHandler.getDeviceRecord(deviceUID_B);
+		KmfDeviceRecord recordA = KmfDbHandler.getDeviceRecord(deviceUID_A);
+		KmfDeviceRecord recordB = KmfDbHandler.getDeviceRecord(deviceUID_B);
 		
 		if ( recordA == null || recordB == null){
-			IpWrapperImpl.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
+			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
 			return;
 		}
 		
@@ -166,7 +169,7 @@ public class ServerThread implements Runnable{
 		}
 		String.format("TCK generated for %s,%s : %s", Hex.marshal(deviceUID_A),Hex.marshal(deviceUID_B),Hex.marshal(generatedTCK)   );
 
-		IpWrapperImpl.sendIcdPacket(KmfPacketTypes.REPLY_KEY, generatedTCK, p.getSenderUID(), out);
+		ipWrapper.sendIcdPacket(KmfPacketTypes.REPLY_KEY, generatedTCK, p.getSenderUID(), out);
 	}
 	
 	void handleDeleteRecordPacket(IpPacket p){
@@ -179,13 +182,13 @@ public class ServerThread implements Runnable{
 			return;
 		}
 		
-		if ( DbHandler.deleteDeviceRecord(uid) )
+		if ( KmfDbHandler.deleteDeviceRecord(uid) )
 		{
 			System.out.println("Record deleted, UID = " + Hex.marshal(uid));
-			IpWrapperImpl.sendIcdPacket(KmfPacketTypes.OP_SUCCESS, null, p.getSenderUID(), out);
+			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_SUCCESS, null, p.getSenderUID(), out);
 		}
 		else
-			IpWrapperImpl.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
+			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
 	}
 	
 	/***
@@ -198,11 +201,11 @@ public class ServerThread implements Runnable{
 		byte uid[] = new byte[UID_LENGTH];
 		byte rekeyKey[] = new byte[ENCRYPTION_KEY_LENGTH];
 		byte devLTK[] = new byte[ENCRYPTION_KEY_LENGTH];
-		byte type = KmfPacketTypes.NO_TYPE;
+		DeviceType type;
 		int rekeyCtr = 0;
 		
 		try {
-			type = (byte)ds.read();
+			type = DeviceType.fromInt(ds.read());
 			ds.read(uid, 0, UID_LENGTH);
 			ds.read(rekeyKey, 0, ENCRYPTION_KEY_LENGTH);
 			rekeyCtr = ds.readInt();
@@ -217,13 +220,13 @@ public class ServerThread implements Runnable{
 			record = new KmfDeviceRecord(type,uid,rekeyKey,rekeyCtr,devLTK);
 		} catch (InvalidRecordExeption e) {
 			System.err.println("The device record is invalid");
-			IpWrapperImpl.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
+			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
 			return;
 		}
 		
-		if ( DbHandler.addDeviceRecord(record) ){
+		if ( KmfDbHandler.addDeviceRecord(record) ){
 			System.out.println( "New/updated record: " + record  );
-			IpWrapperImpl.sendIcdPacket(KmfPacketTypes.OP_SUCCESS, null, p.getSenderUID(), out);
+			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_SUCCESS, null, p.getSenderUID(), out);
 		}
 	}
 }

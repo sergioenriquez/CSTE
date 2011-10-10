@@ -9,9 +9,9 @@ import java.util.List;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
-import cste.icd.DeviceTypes;
+import cste.icd.DeviceType;
 import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
-import cste.kmf.database.DbHandler;
+import cste.kmf.database.KmfDbHandler;
 import cste.kmf.server.Server;
 
 /**
@@ -41,7 +41,7 @@ public class KmfApp {
 			port = 12345;
 		}		
 		
-		if ( !DbHandler.init() ){
+		if ( !KmfDbHandler.init() ){
 			System.err.println("Error starting the database, closing...");
 			return;
 		}
@@ -54,12 +54,12 @@ public class KmfApp {
 
 		try {
 			KmfDeviceRecord r = new KmfDeviceRecord(
-					DeviceTypes.DCP,
+					DeviceType.DCP,
 					Hex.unmarshal("F34DBB5490729865"),
 					Hex.unmarshal("FFEECCDDEEFFAABBFFEECCDDEEFFAABB"),
 					0,
 					Hex.unmarshal("11112222EEFFAABBFFEECCDDEEFFAABB"));
-			DbHandler.addDeviceRecord(r);
+			KmfDbHandler.addDeviceRecord(r);
 		} catch (InvalidRecordExeption e1) {
 
 		}
@@ -75,7 +75,7 @@ public class KmfApp {
 	}
 	
 	static void displayAllRecords(){
-		List<KmfDeviceRecord> records = DbHandler.getRecords();
+		List<KmfDeviceRecord> records = KmfDbHandler.getRecords();
 		Iterator<KmfDeviceRecord> it = records.iterator();
 		System.out.println( "Device records table has " + records.size() + " entries" );
 		while(it.hasNext()){

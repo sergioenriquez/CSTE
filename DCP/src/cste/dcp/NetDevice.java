@@ -1,5 +1,6 @@
 package cste.dcp;
 
+import cste.icd.DeviceType;
 import cste.icd.ICD;
 
 /**
@@ -8,7 +9,7 @@ import cste.icd.ICD;
  *
  */
 public class NetDevice {
-	protected byte devTypeCode;
+	protected DeviceType devTypeCode;
 	protected byte[] devUID;
 	protected byte[] devRekeyKey;
 	protected byte[] devLTK;
@@ -23,7 +24,7 @@ public class NetDevice {
 	 * @param rekeyCtr
 	 */
 	public NetDevice(
-			byte devTypeCode,
+			DeviceType devTypeCode,
 			byte[] devUID,
 			byte[] devRekeyKey,
 			byte[] devLTK,
@@ -44,7 +45,7 @@ public class NetDevice {
 	 * @param rekeyCtr
 	 */
 	public NetDevice(
-			byte devTypeCode,
+			DeviceType devTypeCode,
 			byte[] devUID,
 			byte[] devRekeyKey
 		){
@@ -71,7 +72,7 @@ public class NetDevice {
 		return devLTK;
 	}
 	
-	public byte getTypeCode(){
+	public DeviceType getTypeCode(){
 		return devTypeCode;
 	}
 }

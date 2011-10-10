@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import cste.interfaces.KeyProvider;
+import cste.icd.DeviceType;
 import cste.kmf.KmfDeviceRecord;
 import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
 
-public class DbHandler {
+public class KmfDbHandler {
 	static final String GET_RECORD_QUERY = "SELECT RekeyKey,DeviceType,RekeyCounter,LongTermKey from Devices where DeviceUID = (?)";
 	static final String GET_ALL_RECORDS_QUERY = "SELECT DeviceUID,RekeyKey,DeviceType,RekeyCounter,LongTermKey from Devices";
 	static final String STORE_RECORD_QUERY = "INSERT INTO Devices values (?, ?, ?, ?, ?)";
@@ -38,7 +38,7 @@ public class DbHandler {
     	byte[] deviceUID = null;
     	byte[] rekeyKey = null;
     	byte[] devLTK = null;
-		byte type = 0;
+    	DeviceType type;
 		int rekeyAscNum = 0;
     	
     	Statement s = null;
@@ -51,7 +51,7 @@ public class DbHandler {
 			while(r.next()){
 				deviceUID = r.getBytes(1);
 				rekeyKey = r.getBytes(2);
-				type = r.getBytes(3)[0];
+				type = DeviceType.fromInt(r.getBytes(3)[0]);
 				rekeyAscNum = r.getInt(4);
 				devLTK = r.getBytes(5);
 				KmfDeviceRecord k = new KmfDeviceRecord(type,deviceUID,rekeyKey,rekeyAscNum,devLTK);
@@ -89,7 +89,7 @@ public class DbHandler {
     			psUpdate = conn.prepareStatement(UPDATE_RECORD_QUERY);
     			psUpdate.setBytes(1, record.getRekeyKey());
     			psUpdate.setBytes(2, record.getLTK());
-    			psUpdate.setBytes(3, new byte[]{record.getDeviceType()}); // need to cast as byte array
+    			psUpdate.setBytes(3, new byte[]{record.getDeviceType().toByte()}); // need to cast as byte array
     			psUpdate.setInt(4, record.getRekeyCtr());
     			psUpdate.setBytes(5, record.getUID());
     			psUpdate.executeUpdate();
@@ -114,7 +114,7 @@ public class DbHandler {
 			psInsert.setBytes(1, record.getUID());
 	    	psInsert.setBytes(2, record.getRekeyKey());
 	    	psInsert.setBytes(3, record.getLTK());
-	    	psInsert.setBytes(4, new byte[]{record.getDeviceType()}); // need to cast as byte array
+	    	psInsert.setBytes(4, new byte[]{record.getDeviceType().toByte()}); // need to cast as byte array
 	    	psInsert.setInt(5, record.getRekeyCtr());
 	    	psInsert.executeUpdate();
 		} catch (SQLException e) {
@@ -127,7 +127,7 @@ public class DbHandler {
     public static KmfDeviceRecord getDeviceRecord(byte[] deviceUID){
     	byte[] rekeyKey = null;
     	byte[] devLTK = null;
-		byte type = 0;
+    	DeviceType type;
 		int rekeyAscNum = 0;
 		
     	try {
@@ -139,7 +139,7 @@ public class DbHandler {
 				return null; // no record was found with this UID
 
 			rekeyKey = rs.getBytes(1);
-			type = rs.getBytes(2)[0];
+			type = DeviceType.fromInt(rs.getBytes(2)[0]);
 			rekeyAscNum = rs.getInt(3);
 			devLTK = rs.getBytes(4);
     	

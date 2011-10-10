@@ -6,7 +6,7 @@ import static cste.icd.ICD.UID_LENGTH;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import cste.PacketTypes.KmfPacketTypes;
-import cste.icd.DeviceTypes;
+import cste.icd.DeviceType;
 
 /***
  * Represents device record information stored on the KMF database
@@ -14,7 +14,7 @@ import cste.icd.DeviceTypes;
  *
  */
 public final class KmfDeviceRecord {
-	protected final byte devTypeCode;
+	protected final DeviceType devTypeCode;
 	protected final byte[] devUID;
 	protected final byte[] devRekeyKey;
 	protected final byte[] devLTK;
@@ -22,7 +22,7 @@ public final class KmfDeviceRecord {
 	
 	protected static HexBinaryAdapter Hex = new HexBinaryAdapter();
 	
-	public byte getDeviceType(){
+	public DeviceType getDeviceType(){
 		return devTypeCode;
 	}
 	
@@ -43,13 +43,11 @@ public final class KmfDeviceRecord {
 	}
 	
 	public int getDeviceLevel(){
-		return DeviceTypes.getLevel(devTypeCode);
+		return devTypeCode.getLevel();
 	}
 	
 	protected boolean isValid(){
-		if ( !DeviceTypes.isValid(devTypeCode) )
-			return false;
-		
+
 		if ( devUID == null || devUID.length != UID_LENGTH )
 			return false;
 		
@@ -65,7 +63,7 @@ public final class KmfDeviceRecord {
 		return true;
 	}
 	
-	public KmfDeviceRecord(byte type, byte[] uid, byte[] key, int asc, byte[] ltk) throws InvalidRecordExeption{
+	public KmfDeviceRecord(DeviceType type, byte[] uid, byte[] key, int asc, byte[] ltk) throws InvalidRecordExeption{
 		devTypeCode = type;
 		devUID = uid;
 		devRekeyKey = key;

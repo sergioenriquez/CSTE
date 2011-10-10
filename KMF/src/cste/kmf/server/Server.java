@@ -5,23 +5,24 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
 
+import cste.interfaces.IpWrapper;
 import cste.interfaces.KeyProvider;
 import cste.ip.IpWrapperImpl;
 import cste.kmf.KmfDeviceRecord;
-import cste.kmf.database.DbHandler;
+import cste.kmf.database.KmfDbHandler;
 import static cste.kmf.KmfApp.KMF_UID;
 
 public class Server implements Runnable, KeyProvider{
-	private static final String TAG = Server.class.getName();
 	protected int          serverPort   = 8080;
     protected ServerSocket serverSocket = null;
     protected boolean      isStopped    = false;
     protected Thread       runningThread= null;
+    protected IpWrapper ipWrapper = new IpWrapperImpl();
     
 	public Server(int port){
 		serverPort = port;
-		IpWrapperImpl.setSenderUID(KMF_UID);
-		IpWrapperImpl.setKeyProvider(this);
+		ipWrapper.setSenderUID(KMF_UID);
+		ipWrapper.setKeyProvider(this);
 	}
 	
 	private synchronized boolean isStopped() {
@@ -81,7 +82,7 @@ public class Server implements Runnable, KeyProvider{
 	@Override
 	public byte[] getEncryptionKey(byte[] destinationDevUID) {
 		// TODO Auto-generated method stub
-		KmfDeviceRecord r = DbHandler.getDeviceRecord(destinationDevUID);
+		KmfDeviceRecord r = KmfDbHandler.getDeviceRecord(destinationDevUID);
 		return r.getLTK();
 	}
 }
