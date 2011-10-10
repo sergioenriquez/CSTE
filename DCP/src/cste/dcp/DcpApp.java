@@ -2,9 +2,6 @@ package cste.dcp;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
-import cste.dcp.kmf.KmfClientImpl;
-import cste.icd.DeviceType;
-
 public class DcpApp {
 	
 	protected static HexBinaryAdapter Hex = new HexBinaryAdapter();
@@ -18,19 +15,19 @@ public class DcpApp {
 	 */
 	public static void main(String[] args) {
 
-		KmfClientImpl k = new KmfClientImpl("127.0.0.1",12345);
+//		KmfClientImpl k = new KmfClientImpl("127.0.0.1",12345);
 
-		NetDevice d1 = new NetDevice(
-				DeviceType.DCP,
-				DCP_UID,
-				DCP_REKEYKEY,
-				DCP_LTK,
-				0);
-		
-		NetDevice d2 = new NetDevice(
-				DeviceType.CSD,
-				Hex.unmarshal("FFEECCDDEEFFAABB"),
-				Hex.unmarshal("1234BBBBCCCCDDDDEEEEFFFF00001111"));
+//		NetDevice d1 = new NetDevice(
+//				DeviceType.DCP,
+//				DCP_UID,
+//				DCP_REKEYKEY,
+//				DCP_LTK,
+//				0);
+//		
+//		NetDevice d2 = new NetDevice(
+//				DeviceType.CSD,
+//				Hex.unmarshal("FFEECCDDEEFFAABB"),
+//				Hex.unmarshal("1234BBBBCCCCDDDDEEEEFFFF00001111"));
 		
 //		NetDevice d3 = new NetDevice(
 //				DeviceTypes.KMF,
@@ -38,7 +35,7 @@ public class DcpApp {
 //				Hex.unmarshal("1234BBBBCCCCDDDDEEEEFFFF00001111"));
 		
 		
-		k.addRecord(d2);
+//		k.addRecord(d2);
 		//byte[] tck = ICD.generateTCK_L0(Hex.unmarshal("F65143C3652AF21962AA86C7B1E55B21"), Hex.unmarshal("F34DBB5490729865"), 1);
 		
 //		byte[] enc = ICD.encryptAES(d3.getRekeyKey(), d3.getRekeyKey());
