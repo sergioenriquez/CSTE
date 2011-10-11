@@ -22,7 +22,7 @@ public enum MsgType{
 	
 	private final int typeCode;
 	
-	public static MsgType fromInt(int type){
+	public static MsgType fromValue(int type){
 		for(MsgType d : MsgType.values()){
 			 if ( d.toByte() == type)
 				 return d;

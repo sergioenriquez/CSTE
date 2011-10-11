@@ -205,7 +205,7 @@ public class ServerThread implements Runnable{
 		int rekeyCtr = 0;
 		
 		try {
-			type = DeviceType.fromInt(ds.read());
+			type = DeviceType.fromValue(ds.read());
 			ds.read(uid, 0, UID_LENGTH);
 			ds.read(rekeyKey, 0, ENCRYPTION_KEY_LENGTH);
 			rekeyCtr = ds.readInt();

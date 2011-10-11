@@ -1,12 +1,12 @@
 package cste.icd;
 
-import org.bouncycastle2.crypto.InvalidCipherTextException;
-import org.bouncycastle2.crypto.engines.AESEngine;
-import org.bouncycastle2.crypto.modes.CCMBlockCipher;
-import org.bouncycastle2.crypto.params.CCMParameters;
-import org.bouncycastle2.crypto.params.KeyParameter;
-import org.bouncycastle2.openssl.EncryptionException;
-import org.bouncycastle2.util.encoders.Hex;
+//import org.bouncycastle2.crypto.InvalidCipherTextException;
+//import org.bouncycastle2.crypto.engines.AESEngine;
+//import org.bouncycastle2.crypto.modes.CCMBlockCipher;
+//import org.bouncycastle2.crypto.params.CCMParameters;
+//import org.bouncycastle2.crypto.params.KeyParameter;
+//import org.bouncycastle2.openssl.EncryptionException;
+//import org.bouncycastle2.util.encoders.Hex;
 import java.security.*;
 
 import javax.crypto.*;
@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 @SuppressWarnings("unused")
 public class ICD {	
 	// discard ICD messages if the Rev Number is not the same as this ICD implementation
+	protected static HexBinaryAdapter Hex = new HexBinaryAdapter();
 	
 	private static final boolean DISCARD_WRONG_VERSION = true;
 	
@@ -86,8 +87,8 @@ public class ICD {
 	private static final int MH_MESSAGE_ASCENSION_NUMBER	= 12;
 	
 	// Message header lengths
-	private static final int MH_ASCENSION_LENGTH			=  4;
-	private static final int MH_HEADER_LENGTH 				= 16;
+	public static final int MH_ASCENSION_LENGTH			=  4;
+	public static final int MH_HEADER_LENGTH 				= 16;
 	
 	// Message types
 	private static final byte MESSAGE_UNRESTRICTED_STATUS 	= (byte) 0x00;
@@ -205,25 +206,25 @@ public class ICD {
 	private static final byte UCMD_OPCODE_USTATUS			= (byte) 0x00;
 
 	
-	public static byte[] encryptBouncy(byte[] message, byte[] encryptionKey){
-		CCMBlockCipher cipher = new CCMBlockCipher(new AESEngine());
-		byte[] nonce = new byte[MH_HEADER_LENGTH - UID_LENGTH];
-		byte[] encrypted;
-		int encLen = 0;
-		cipher.init(true, new KeyParameter(encryptionKey));
-		
-		byte[] cipherText = new byte[cipher.getOutputSize(message.length)];
-		//cipher.processPacket(message, MH_HEADER_LENGTH, message.length - MH_HEADER_LENGTH - MIC_LENGTH);
-		encLen = cipher.processBytes(message, 0, message.length, cipherText, 0);
-		try {
-			encLen += cipher.doFinal(cipherText, encLen);
-		} catch (IllegalStateException e) {
-			System.err.println(e.getCause().getMessage());
-		} catch (InvalidCipherTextException e) {
-			System.err.println(e.getCause().getMessage());
-		}
-		return cipherText;
-	}
+//	public static byte[] encryptBouncy(byte[] message, byte[] encryptionKey){
+//		CCMBlockCipher cipher = new CCMBlockCipher(new AESEngine());
+//		byte[] nonce = new byte[MH_HEADER_LENGTH - UID_LENGTH];
+//		byte[] encrypted;
+//		int encLen = 0;
+//		cipher.init(true, new KeyParameter(encryptionKey));
+//		
+//		byte[] cipherText = new byte[cipher.getOutputSize(message.length)];
+//		//cipher.processPacket(message, MH_HEADER_LENGTH, message.length - MH_HEADER_LENGTH - MIC_LENGTH);
+//		encLen = cipher.processBytes(message, 0, message.length, cipherText, 0);
+//		try {
+//			encLen += cipher.doFinal(cipherText, encLen);
+//		} catch (IllegalStateException e) {
+//			System.err.println(e.getCause().getMessage());
+//		} catch (InvalidCipherTextException e) {
+//			System.err.println(e.getCause().getMessage());
+//		}
+//		return cipherText;
+//	}
 	
 	public static byte[] encryptAES(byte[] message, byte[] encryptionKey){
 		Key key = new SecretKeySpec(encryptionKey, "AES");
@@ -297,7 +298,7 @@ public class ICD {
 	public static byte[] generateLTK(byte[] deviceRekeyKey){
 		return encryptAES(deviceRekeyKey,deviceRekeyKey);
 	}
-	protected static HexBinaryAdapter Hex2 = new HexBinaryAdapter();
+	
 	public static byte[] generateTCK_L0(
 			byte[] receiverRekeyKey,
 			byte[] KmfUID,
@@ -312,7 +313,7 @@ public class ICD {
 		System.arraycopy(intToByteArray(rekeyCtr), 0, cipher, 12, 4);
 		
 		byte[] generatedKey = encryptAES(receiverRekeyKey,cipher);
-		String gen2 = Hex2.marshal(generatedKey);
+		String gen2 = Hex.marshal(generatedKey);
 		return generatedKey;
 	}
 	

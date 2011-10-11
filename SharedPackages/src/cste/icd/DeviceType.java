@@ -22,7 +22,7 @@ public enum DeviceType {
 		this.typeCode = type;
 	}
 
-	public static DeviceType fromInt(int type){
+	public static DeviceType fromValue(int type){
 		for(DeviceType d : DeviceType.values()){
 			 if ( d.toByte() == type)
 				 return d;
@@ -30,6 +30,8 @@ public enum DeviceType {
 		return INVALID;
 	}
 	 
+
+	
 	public byte toByte(){
 		return (byte)typeCode;
 	}

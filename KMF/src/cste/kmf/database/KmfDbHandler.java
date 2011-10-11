@@ -51,7 +51,7 @@ public class KmfDbHandler {
 			while(r.next()){
 				deviceUID = r.getBytes(1);
 				rekeyKey = r.getBytes(2);
-				type = DeviceType.fromInt(r.getBytes(3)[0]);
+				type = DeviceType.fromValue(r.getBytes(3)[0]);
 				rekeyAscNum = r.getInt(4);
 				devLTK = r.getBytes(5);
 				KmfDeviceRecord k = new KmfDeviceRecord(type,deviceUID,rekeyKey,rekeyAscNum,devLTK);
@@ -139,7 +139,7 @@ public class KmfDbHandler {
 				return null; // no record was found with this UID
 
 			rekeyKey = rs.getBytes(1);
-			type = DeviceType.fromInt(rs.getBytes(2)[0]);
+			type = DeviceType.fromValue(rs.getBytes(2)[0]);
 			rekeyAscNum = rs.getInt(3);
 			devLTK = rs.getBytes(4);
     	
