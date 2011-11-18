@@ -76,7 +76,7 @@ public class ServerThread implements Runnable{
 	}
 	
 	void handleGenerateLTKPacket(IpPacket p){
-		DataInputStream ds = p.getPayloadDataStream();
+//		DataInputStream ds = p.getPayloadDataStream();
 		byte[] deviceUID = new byte[UID_LENGTH];
 		byte[] newLTK = null;
 		

@@ -1,7 +1,6 @@
 package cste.messages;
 
 import java.nio.ByteBuffer;
-import java.util.Date;
 
 public class CsdEventLogMsg {
 	public static final int CSD_EVENT_LOG_MSG_SIZE = 48;
