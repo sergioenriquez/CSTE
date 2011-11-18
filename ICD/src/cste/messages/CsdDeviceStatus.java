@@ -2,11 +2,12 @@ package cste.messages;
 
 import java.nio.ByteBuffer;
 
-public class CsdEventLogMsg {
-	public static final int CSD_EVENT_LOG_MSG_SIZE = 48;
-	public byte ackNo;
-	public byte eventType;
-	public long time;
+import cste.icd.DeviceType;
+
+public class CsdDeviceStatus {
+	
+	public static final int CSD_STATUS_SIZE = 51;
+	
 	public byte operatingMode;
 	public byte restrictedStatus;
 	public byte alarmStatus;
@@ -14,14 +15,9 @@ public class CsdEventLogMsg {
 	public byte doorStatus;
 	public byte cmdMsgType;
 	public byte cmdOpCode;
-	
-	//TODO add accessor functions
-	
-	public static CsdEventLogMsg fromBytes(byte[] content) {
-		ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH,CSD_EVENT_LOG_MSG_SIZE);
-		byte ackNo = b.get();
-		byte eventType = b.get();
-		long time = b.getLong();
+
+	public static CsdDeviceStatus fromBytes(byte[] content) {
+		ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH + EventLogMsg.EVENT_LOG_COMMON_HEADER, CSD_STATUS_SIZE);
 		byte operatingMode = b.get();
 		byte restrictedStatus = b.get();
 		byte alarmStatus = b.get();
@@ -31,35 +27,24 @@ public class CsdEventLogMsg {
 		byte cmdMsgType = b.get();
 		byte cmdOpCode = b.get();
 		
-		return new CsdEventLogMsg(
-				ackNo,
-				eventType,
-				time,
+		return new CsdDeviceStatus(
 				operatingMode,
 				restrictedStatus,
 				alarmStatus,
 				conveyanceID,
 				doorStatus,
 				cmdMsgType,
-				cmdOpCode
-		);
+				cmdOpCode);
 	}
 	
-	public CsdEventLogMsg(
-			byte ackNo,
-			byte eventType,
-			long time,
+	public CsdDeviceStatus(
 			byte operatingMode,
 			byte restrictedStatus,
 			byte alarmStatus,
 			byte[] conveyanceID,
 			byte doorStatus,
 			byte cmdMsgType,
-			byte cmdOpCode			
-			){
-		this.ackNo = ackNo;
-		this.eventType = eventType;
-		this.time = time;
+			byte cmdOpCode){
 		this.operatingMode = operatingMode;
 		this.restrictedStatus = restrictedStatus;
 		this.alarmStatus = alarmStatus;
@@ -70,10 +55,7 @@ public class CsdEventLogMsg {
 	}
 	
 	public byte[] getBytes() {
-		ByteBuffer b = ByteBuffer.allocate(CSD_EVENT_LOG_MSG_SIZE);
-		b.put(ackNo);
-		b.put(eventType);
-		b.putLong(time);
+		ByteBuffer b = ByteBuffer.allocate(CSD_STATUS_SIZE);
 		b.put(operatingMode);
 		b.put(restrictedStatus);
 		b.put(alarmStatus);
@@ -81,13 +63,6 @@ public class CsdEventLogMsg {
 		b.put(doorStatus);
 		b.put(cmdMsgType);
 		b.put(cmdOpCode);
-		
 		return b.array();
-	}
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return "";
 	}
 }

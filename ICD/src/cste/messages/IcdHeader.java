@@ -40,7 +40,7 @@ public class IcdHeader {
 		return msgAsc;
 	}
 	
-	public static IcdHeader fromBytes(byte[] header) {
+	public static IcdHeader fromBytes( byte[] header) {
 		if ( header.length == ICD_HEADER_LENGTH){
 			ByteBuffer b = ByteBuffer.wrap(header);
 			

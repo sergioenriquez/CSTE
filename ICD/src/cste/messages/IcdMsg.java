@@ -25,7 +25,7 @@ public class IcdMsg {
 			msgContent = CsdUnrestrictedStatusMsg.fromBytes(messageBytes);
 			break;
 		case DEVICE_EVENT_LOG:
-			msgContent = CsdEventLogMsg.fromBytes(messageBytes);
+			msgContent = EventLogMsg.fromBytes(headerData.getDevType(),messageBytes);
 			break;
 		default:
 			msgContent = null;
