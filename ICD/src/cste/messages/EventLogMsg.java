@@ -26,9 +26,9 @@ public class EventLogMsg {
 		Object statusData = null;
 		
 		if ( type == DeviceType.CSD)
-			statusData = CsdDeviceStatus.fromBytes(content);
+			statusData = CsdLogDeviceStatus.fromBytes(content);
 		else if ( type == DeviceType.ECOC)
-			statusData = EcocDeviceStatus.fromBytes(content);
+			statusData = EcocLogDeviceStatus.fromBytes(content);
 		else
 			return null;
 
@@ -58,18 +58,18 @@ public class EventLogMsg {
 	public byte[] getBytes() {
 		ByteBuffer b = null;
 		if ( type == DeviceType.CSD){
-			b = ByteBuffer.allocate(EVENT_LOG_COMMON_HEADER + CsdDeviceStatus.CSD_STATUS_SIZE);
+			b = ByteBuffer.allocate(EVENT_LOG_COMMON_HEADER + CsdLogDeviceStatus.CSD_STATUS_SIZE);
 			b.put(ackNo);
 			b.put(eventType);
 			b.putLong(time);
-			b.put( ((CsdDeviceStatus)statusData).getBytes() );
+			b.put( ((CsdLogDeviceStatus)statusData).getBytes() );
 		}
 		else if ( type == DeviceType.CSD){
-			b = ByteBuffer.allocate(EVENT_LOG_COMMON_HEADER + EcocDeviceStatus.ECOC_STATUS_SIZE);
+			b = ByteBuffer.allocate(EVENT_LOG_COMMON_HEADER + EcocLogDeviceStatus.ECOC_STATUS_SIZE);
 			b.put(ackNo);
 			b.put(eventType);
 			b.putLong(time);
-			b.put( ((EcocDeviceStatus)statusData).getBytes() );
+			b.put( ((EcocLogDeviceStatus)statusData).getBytes() );
 		}
 
 		return b.array();

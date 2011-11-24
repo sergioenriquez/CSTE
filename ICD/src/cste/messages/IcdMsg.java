@@ -19,10 +19,10 @@ public class IcdMsg {
 		
 		switch(headerData.getMsgType()){
 		case UNRESTRICTED_STATUS_MSG:
-			msgContent = CsdRestrictedStatusMsg.fromBytes(messageBytes);
+			//msgContent = RestrictedStatusMsg.fromBytes(messageBytes);
 			break;
 		case RESTRICTED_STATUS_MSG:
-			msgContent = CsdUnrestrictedStatusMsg.fromBytes(messageBytes);
+			msgContent = RestrictedStatusMsg.fromBytes(headerData.getDevType(),messageBytes);
 			break;
 		case DEVICE_EVENT_LOG:
 			msgContent = EventLogMsg.fromBytes(headerData.getDevType(),messageBytes);

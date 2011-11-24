@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 import cste.icd.DeviceType;
 
-public class CsdDeviceStatus {
+public class CsdLogDeviceStatus {
 	
 	public static final int CSD_STATUS_SIZE = 51;
 	
@@ -16,7 +16,7 @@ public class CsdDeviceStatus {
 	public byte cmdMsgType;
 	public byte cmdOpCode;
 
-	public static CsdDeviceStatus fromBytes(byte[] content) {
+	public static CsdLogDeviceStatus fromBytes(byte[] content) {
 		ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH + EventLogMsg.EVENT_LOG_COMMON_HEADER, CSD_STATUS_SIZE);
 		byte operatingMode = b.get();
 		byte restrictedStatus = b.get();
@@ -27,7 +27,7 @@ public class CsdDeviceStatus {
 		byte cmdMsgType = b.get();
 		byte cmdOpCode = b.get();
 		
-		return new CsdDeviceStatus(
+		return new CsdLogDeviceStatus(
 				operatingMode,
 				restrictedStatus,
 				alarmStatus,
@@ -37,7 +37,7 @@ public class CsdDeviceStatus {
 				cmdOpCode);
 	}
 	
-	public CsdDeviceStatus(
+	public CsdLogDeviceStatus(
 			byte operatingMode,
 			byte restrictedStatus,
 			byte alarmStatus,

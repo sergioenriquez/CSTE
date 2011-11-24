@@ -2,7 +2,7 @@ package cste.messages;
 
 import java.nio.ByteBuffer;
 
-public class EcocDeviceStatus {
+public class EcocLogDeviceStatus {
 	public static final int ECOC_STATUS_SIZE = 51;
 	
 	public byte ackAscNum;
@@ -13,7 +13,7 @@ public class EcocDeviceStatus {
 	public byte[] gpsLocation;
 	public byte lockStatus;
 
-	public static EcocDeviceStatus fromBytes(byte[] content) {
+	public static EcocLogDeviceStatus fromBytes(byte[] content) {
 		ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH + EventLogMsg.EVENT_LOG_COMMON_HEADER, ECOC_STATUS_SIZE);
 		byte ackAscNum = b.get();
 		byte operatingMode = b.get();
@@ -25,7 +25,7 @@ public class EcocDeviceStatus {
 		b.get(gpsLocation, 0, 16);
 		byte lockStatus = b.get();
 
-		return new EcocDeviceStatus(
+		return new EcocLogDeviceStatus(
 				ackAscNum,
 				operatingMode,
 				restrictedStatus,
@@ -35,7 +35,7 @@ public class EcocDeviceStatus {
 				lockStatus);
 	}
 	
-	public EcocDeviceStatus(
+	public EcocLogDeviceStatus(
 			byte ackAscNum,
 			byte operatingMode,
 			byte restrictedStatus,
