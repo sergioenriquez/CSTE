@@ -1,0 +1,13 @@
+package cste.android.usb;
+
+public class UsbBridge implements Runnable{
+
+	UsbAccessory mAccessory;
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

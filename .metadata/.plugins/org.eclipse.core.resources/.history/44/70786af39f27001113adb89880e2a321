@@ -1,0 +1,5 @@
+package cste.android.usb;
+
+public class UsbBridge implements Runnable{
+
+}

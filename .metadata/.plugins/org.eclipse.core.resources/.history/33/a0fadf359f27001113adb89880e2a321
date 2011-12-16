@@ -1,0 +1,30 @@
+package cste.android.usb;
+
+import cste.android.hnad.HnadLaunch;
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
+/* This Activity does nothing but receive USB_DEVICE_ATTACHED events from the
+ * USB service and then start the main HNAD activity
+ */
+
+public class UsbAccessoryActivity extends Activity {
+	static final String TAG = "UsbAccessoryActivity";
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		Intent intent = new Intent(this, HnadLaunch.class);
+		try {
+			startActivity(intent);
+		} catch (ActivityNotFoundException e) {
+			Log.e(TAG, "unable to start HNAD activity", e);
+		}
+		
+		finish();
+	}
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="cste.hnad.HnadLaunch"/>
+<fullyQualifiedTypeName name="cste.android.R"/>
+<fullyQualifiedTypeName name="cste.android.hnad.HnadLaunch"/>
+<fullyQualifiedTypeName name="android.os.Message"/>
+<fullyQualifiedTypeName name="cste.android.usb.UsbMessageHandler"/>
+<fullyQualifiedTypeName name="cste.android.usb.UsbBridge"/>
+<fullyQualifiedTypeName name="com.android.future.usb.UsbManager"/>
+<fullyQualifiedTypeName name="android.app.PendingIntent"/>
+<fullyQualifiedTypeName name="com.android.future.usb.UsbAccessory"/>
+<fullyQualifiedTypeName name="android.os.ParcelFileDescriptor"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="java.io.FileOutputStream"/>
+<fullyQualifiedTypeName name="android.content.IntentFilter"/>
+<fullyQualifiedTypeName name="android.content.BroadcastReceiver"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+</qualifiedTypeNameHistroy>
