@@ -1,0 +1,23 @@
+package cste.hnad;
+
+import android.os.Handler;
+import android.os.Message;
+
+public class CsdMessageHandler extends Handler {
+	public static final int PACKET_RECEIVED = 1;
+	
+	@Override
+	public void handleMessage(Message msg) {
+		switch (msg.what) {
+		case PACKET_RECEIVED:
+			//SwitchMsg o = (SwitchMsg) msg.obj;
+			//handleSwitchMessage(o);
+			break;
+		default:
+
+			break;
+
+		}
+	}
+
+}

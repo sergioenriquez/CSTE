@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string
+        name="app_name">REST Anwendung</string>
+    <string
+        name="serverKey">server</string>
+    <string
+        name="prefsServerTitle">Server</string>
+    <string
+        name="prefsServerSummary">Der Server verwendet, um Daten zu sammeln.</string>
+    <string
+        name="prefsServerDefault">132.176.5.108</string>
+    <string
+        name="portKey">port</string>
+    <string
+        name="prefsPortTitle">Port</string>
+    <string
+        name="prefsPortSummary">Server query port</string>
+    <string
+        name="prefsPortDefault">9998</string>
+    <string
+        name="cacheTimeKey">cacheTime</string>
+    <string
+        name="prefsCacheTimeTitle">Cache Zeit (in Minuten)</string>
+    <string
+        name="prefsCacheTimeSummary">Wie lange die Daten zwischenspeichern (in Minuten)</string>
+    <string
+        name="prefsCacheTimeDefault">10</string>
+    <string
+        name="tasksTitle">Aufgaben</string>
+    <string
+        name="descriptionTitle">Beschreibung der Aufgabe</string>
+    <string
+        name="usersMenuAdd">Hinzufügen eines neuen Benutzers</string>
+    <string
+        name="usersMenuAddCondensed">hinzufügen</string>
+    <string
+        name="usersMenuRefresh">Refresh Users List</string>
+    <string
+        name="usersMenuRefreshCondensed">Refresh</string>
+    <string
+        name="usersMenuPreferences">Preferences</string>
+    <string
+        name="preferencesTitle">Preferences</string>
+    <string
+        name="tasksMenuAdd">Neue Aufgabe hinzufügen</string>
+    <string
+        name="tasksMenuAddCondensed">hinzufügen</string>
+    <string
+        name="tasksMenuRefresh">Refresh Aufgabenliste</string>
+    <string
+        name="tasksMenuRefreshCondensed">Refresh</string>
+    <string
+        name="tasksMenuSort">Art</string>
+    <string
+        name="tasksMenuFilter">Filter</string>
+    <string
+        name="taskDescriptionMenuEdit">Aufgabe bearbeiten Beschreibung</string>
+    <string
+        name="taskDescriptionMenuEditCondensed">Bearbeiten</string>
+    <string
+        name="taskDescriptionMenuRefresh">Refresh Aufgabe Beschreibung</string>
+    <string
+        name="taskDescriptionMenuRefreshCondensed">Refresh</string>
+    <string
+        name="taskDescriptionMenuDelete">Aufgabe löschen</string>
+    <string
+        name="taskDescriptionMenuDeleteCondensed">löschen</string>
+    <string
+        name="usersActivityContextMenuEdit">Benutzer bearbeiten</string>
+    <string
+        name="usersActivityContextMenuDelete">Benutzer löschen</string>
+    <string
+        name="usersActivityContextMenuDeleteCondensed">löschen</string>
+    <string
+        name="tasksActivityContextMenuEdit">Aufgabe bearbeiten</string>
+    <string
+        name="tasksActivityContextMenuEditCondensed">Bearbeiten</string>
+    <string
+        name="tasksActivityContextMenuDelete">Aufgabe löschen</string>
+    <string
+        name="tasksActivityContextMenuDeleteCondensed">löschen</string>
+    <string name="authUserLinkHint">http://</string>
+    <string name="authUserNameHint">Name</string>
+    <string name="authPasswordHint">Kennwort</string>
+    <string name="authBannerLogIn">Melden Sie sich in der Task-Management-System</string>
+    <string name="authLoginButtonText">Anmelden</string>
+    <string name="accountsBanner">Bitte wählen Sie ein Konto.</string>
+    <string name="accountsMenuLogin">Anmelden</string>
+    <string name="accountsMenuCreate">Konto erstellen</string>
+    <string name="tasksMenuAccounts">Accounts</string>
+    <string name="newAccountName">Name</string>
+    <string name="newAccountHref">http://</string>
+    <string name="newAccountPassword">Password</string>
+    <string name="newAccountCreate">Schaffen</string>
+    <string name="newAccountBanner">Erstellen Sie ein neues Konto.</string>
+    <string name="durationPickerYears">Jahre</string>
+    <string name="durationPickerMonths">Monate</string>
+    <string name="durationPickerDays">Tage</string>
+    <string name="durationPickerHours">Stunden</string>
+    <string name="durationPickerMinutes">Minutes</string>
+    <string name="durationPickerSeconds">Sekunden</string>
+    <string name="taskProgressTitle">Fortschritt</string>
+    <string name="taskDateAdded">Hinzugefügt</string>
+    <string name="taskDateModified">Geändert</string>
+    <string name="taskDateActivatedPast">Aktiviert</string>
+    <string name="taskDateActivatedFuture">Wird aktiviert</string>
+    <string name="taskDateExpiredPast">Abgelaufen</string>
+    <string name="taskDateExpiredFuture">Ablauf</string>
+    <string name="taskDateEstimatedCompletionTime">Geschätzte Zeit bis zur Fertigstellung</string>
+    <string name="taskViewParents">Eine Ebene Aufgaben</string>
+    <string name="taskViewChildren">Kinderpreise Aufgaben</string>
+    <string name="taskViewDetails">Details anzeigen</string>
+    <string name="taskEditName">Name</string>
+    <string name="taskEditDetails">Details</string>
+    <string name="taskEditStatus">Status</string>
+    <string name="taskEditPriorityPrompt">Priorität</string>
+    <string name="taskEditProgress">Fortschritt</string>
+    <string name="taskEditActivationText">Aktivierungszeit</string>
+    <string name="taskEditExpirationText">Expiration Time</string>
+    <string name="taskEditDurationText">Geschätzte Dauer</string>
+    <string name="taskEditCreate">Speichern Aufgabe</string>
+    <string name="taskEditTags">Stichworte:</string>
+    <string name="and">und</string>
+    <string name="ago">vor</string>
+    <string name="fromNow">ab sofort</string>
+    <string name="now">jetzt</string>
+    <string name="yesterday">gestern</string>
+    <string name="tomorrow">morgen</string>
+    <plurals name="millenia">
+        <item quantity="one">ein jahrtausend</item>
+        <item quantity="other">%d jahrtausende</item>
+    </plurals>
+    <plurals name="centuries">
+        <item quantity="one">ein jahrhundert</item>
+        <item quantity="other">%d jahrhunderte</item>
+    </plurals>
+    <plurals name="decades">
+        <item quantity="one">einem jahrzehnt</item>
+        <item quantity="other">%d jahrzehnt</item>
+    </plurals>
+    <plurals name="years">
+        <item quantity="one">ein jahr</item>
+        <item quantity="other">%d jahr</item>
+    </plurals>
+    <plurals name="months">
+        <item quantity="one">one monat</item>
+        <item quantity="other">%d monat</item>
+    </plurals>
+    <plurals name="days">
+        <item quantity="one">einmal</item>
+        <item quantity="other">%d tag</item>
+    </plurals>
+    <plurals name="hours">
+        <item quantity="one">ein stunde</item>
+        <item quantity="other">%d stunden</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">one minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <plurals name="seconds">
+        <item quantity="one">one sekunde</item>
+        <item quantity="other">%d seconds</item>
+    </plurals>
+    <color name="progress_start">#80ffd300</color>
+    <color name="progress_end">#a0ffcb00</color>
+    <string-array name="priorities">
+        <item>Keiner</item>
+        <item>Unterste</item>
+        <item>Sehr niedrig</item>
+        <item>Niedrig</item>
+        <item>Medium</item>
+        <item>Hoch</item>
+        <item>Very High</item>
+        <item>Höchste</item>
+    </string-array>
+</resources>

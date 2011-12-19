@@ -1,0 +1,251 @@
+what,kind,bundleId,bundleVersion,description,time
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324184407610
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184425987
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184434281
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184436448
+activated,view,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.PackageExplorer",1324184439495
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184441149
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184443888
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184445508
+activated,perspective,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugPerspective",1324184456558
+opened,editor,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.sourcelookup.CommonSourceNotFoundEditor",1324184456717
+activated,editor,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.sourcelookup.CommonSourceNotFoundEditor",1324184456743
+activated,view,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugView",1324184465115
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.Resume",1324184465171
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.Terminate",1324184470259
+closed,editor,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.sourcelookup.CommonSourceNotFoundEditor",1324184470306
+activated,perspective,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.JavaPerspective",1324184483504
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184483522
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324184507851
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184509571
+closed,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184515253
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324184516459
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184521760
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324184527893
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184544488
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184551812
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324184557748
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184558953
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324184562052
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184571771
+executed,command,,,"AUTOGEN:::org.eclipse.jdt.debug.CompilationUnitEditor.BreakpointRulerActions/org.eclipse.jdt.debug.ui.actions.ManageBreakpointRulerAction",1324184571853
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184573348
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184574734
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184575921
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184577029
+activated,perspective,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugPerspective",1324184589398
+activated,view,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugView",1324184591970
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184592055
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184593728
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184594153
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184595592
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184597344
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184598456
+opened,editor,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.sourcelookup.CommonSourceNotFoundEditor",1324184598547
+activated,editor,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.sourcelookup.CommonSourceNotFoundEditor",1324184600654
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184600712
+closed,editor,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.sourcelookup.CommonSourceNotFoundEditor",1324184600713
+activated,view,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugView",1324184609066
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184616176
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184618491
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184627279
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184627536
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184627824
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184628408
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184629632
+activated,view,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.ExpressionView",1324184630539
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184632115
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184633140
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184634010
+activated,view,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.ExpressionView",1324184639106
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184656524
+activated,view,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugView",1324184658458
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184658520
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184659584
+activated,view,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.ExpressionView",1324184664310
+activated,view,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugView",1324184677333
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.Terminate",1324184680634
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184684954
+activated,perspective,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.JavaPerspective",1324184689302
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324184694156
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184708183
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324184715744
+activated,view,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.PackageExplorer",1324184725276
+opened,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184740526
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184740560
+activated,view,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.PackageExplorer",1324184756941
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184761899
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184770783
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1324184778316
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.paste",1324184779657
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324184781016
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.delete",1324184787229
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.delete",1324184787538
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324184799396
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184802672
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184803633
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184804846
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184806471
+activated,perspective,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugPerspective",1324184821385
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184823413
+activated,view,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugView",1324184825043
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184825121
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184825416
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184825656
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184825840
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184826208
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184826776
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.Terminate",1324184832411
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184833799
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184839442
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184844780
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324184864961
+activated,perspective,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.JavaPerspective",1324184873692
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184875930
+activated,view,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.PackageExplorer",1324184882989
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184883017
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184885457
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.cut",1324184901627
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.paste",1324184903257
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324184904504
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184926655
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324184931053
+activated,perspective,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugPerspective",1324184940693
+activated,view,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugView",1324184943515
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184943624
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184944048
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184944320
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184944857
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184945560
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184946656
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.StepOver",1324184947328
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.Resume",1324184949689
+activated,perspective,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.JavaPerspective",1324184981557
+activated,editor,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui.CompilationUnitEditor",1324184981576
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324184984408
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.cut",1324185012950
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.paste",1324185013462
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185014736
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185017721
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185019344
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185019358
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185019360
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185044997
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185045920
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185045923
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185045925
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185054597
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185055623
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185055638
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185055640
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.cut",1324185068436
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185068877
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185070346
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185070348
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185070350
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185075674
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185079058
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185080341
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185080344
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185080346
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324185083070
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324185083151
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324185084226
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324185126632
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185169404
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185170764
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185170766
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185170768
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185181484
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185183137
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185183139
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185183141
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324185192580
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324185202592
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1324185209029
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.paste",1324185209976
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185210577
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185211957
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185211959
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185211961
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.cut",1324185215950
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185216424
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185218001
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185218003
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185218005
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.undo",1324185225224
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185225890
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185226887
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185226889
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185226891
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185235722
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185236903
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185236905
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185236907
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185237925
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185237928
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185237930
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185244361
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185244363
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185244366
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185244486
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185244489
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185244491
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324185250812
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1324185257706
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185257726
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185257729
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185257731
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185260937
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185260940
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185260943
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185261054
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185261056
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185261059
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185266857
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185266860
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185266870
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185266998
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185267001
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185267003
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185270696
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185270699
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185270702
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185270812
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185270814
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185270816
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185277044
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185277046
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185277048
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185277153
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185277155
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185277157
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185282155
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185282157
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185282159
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185282269
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185282271
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185282273
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185319019
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185320190
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185320192
+error,log,,,"devicelist.xml: Failed to parse file C:\\CSTE\\HNAD\\res\\drawable\\smallcheckbox.xml",1324185320194
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185333637
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1324185336400
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324185338976
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324185342789
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324185347806
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.paste",1324185348814
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324185352199
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1324185354245
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324185355702
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.paste",1324185356868
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185357701
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.delete",1324185361571
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.delete",1324185361855
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324185368167
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185375142
+activated,editor,com.android.ide.eclipse.adt,15.0.1.v201111031820-219398,"com.android.ide.eclipse.editors.layout.LayoutEditor",1324185376430
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.delete",1324185377879
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.delete",1324185378979
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1324185433072

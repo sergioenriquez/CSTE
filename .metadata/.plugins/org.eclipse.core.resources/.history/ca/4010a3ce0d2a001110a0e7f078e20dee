@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical" >
+	    
+        
+    </LinearLayout>
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical" >
+	
+	    <Button
+	       android:text="USTATUS"
+	       android:layout_height="wrap_content"
+	       android:layout_width="match_parent"
+	       android:layout_gravity="right"
+	       android:padding="12dp"
+	       android:gravity="center" />
+	    <Button
+	       android:text="NOP"
+	       android:layout_height="wrap_content"
+	       android:layout_width="match_parent"
+	       android:layout_gravity="right"
+	       android:padding="12dp"
+	       android:gravity="center" />
+	    <Button
+	       android:text="SMAI"
+	       android:layout_height="wrap_content"
+	       android:layout_width="match_parent"
+	       android:layout_gravity="right"
+	       android:padding="12dp"
+	       android:gravity="center" />
+	    <Button
+	       android:text="SMAF"
+	       android:layout_height="wrap_content"
+	       android:layout_width="match_parent"
+	       android:layout_gravity="right"
+	       android:padding="12dp"
+	       android:gravity="center" />
+	    <Button
+	       android:text="DADC"
+	       android:layout_height="wrap_content"
+	       android:layout_width="match_parent"
+	       android:layout_gravity="right"
+	       android:padding="12dp"
+	       android:gravity="center" />
+	    <Button
+	       android:text="ST"
+	       android:layout_height="wrap_content"
+	       android:layout_width="match_parent"
+	       android:layout_gravity="right"
+	       android:padding="12dp"
+	       android:gravity="center" />
+	    <Button
+	       android:text="ARMT"
+	       android:layout_height="wrap_content"
+	       android:layout_width="match_parent"
+	       android:layout_gravity="right"
+	       android:padding="12dp"
+	       android:gravity="center" />
+	    <Button
+	       android:text="ARMT"
+	       android:layout_height="wrap_content"
+	       android:layout_width="match_parent"
+	       android:layout_gravity="right"
+	       android:padding="12dp"
+	       android:gravity="center" />
+	    <Button
+	       android:text="CTI"
+	       android:layout_height="wrap_content"
+	       android:layout_width="match_parent"
+	       android:layout_gravity="right"
+	       android:padding="12dp"
+	       android:gravity="center" />
+	    <Button
+	       android:text="SIS"
+	       android:layout_height="wrap_content"
+	       android:layout_width="match_parent"
+	       android:layout_gravity="right"
+	       android:padding="12dp"
+	       android:gravity="center" />
+	    <Button
+	       android:text="SLU"
+	       android:layout_height="wrap_content"
+	       android:layout_width="match_parent"
+	       android:layout_gravity="right"
+	       android:padding="12dp"
+	       android:gravity="center" />
+	    <Button
+	       android:text="EL"
+	       android:layout_height="wrap_content"
+	       android:layout_width="match_parent"
+	       android:layout_gravity="right"
+	       android:padding="12dp"
+	       android:gravity="center" />
+	</LinearLayout>
+</LinearLayout>

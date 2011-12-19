@@ -9,27 +9,59 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <application android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
+    <application 	android:icon="@drawable/icon" 
+        			android:label="@string/app_name" 
+        			android:theme="@android:style/Theme.NoTitleBar">
         
         <uses-library android:name="com.android.future.usb.accessory" />
         
-        <activity android:name=".hnad.HnadLaunch"
-                  android:label="@string/app_name">
+        <service  android:name=".hnad.HnadCoreService"
+           		  android:enabled="true">
+        </service>
+        
+        <activity android:name=".hnad.LauncherActivity"
+                  android:label="Launcher"
+                  android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        
-        <activity android:name=".usb.UsbAccessoryActivity" android:label="HNAD Usb"
-			android:taskAffinity="" android:launchMode="singleInstance">
-			<intent-filter>
+            
+            <intent-filter>
 				<action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
 			</intent-filter>
 
-			<meta-data android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
-				android:resource="@xml/accessory_filter" />
+			<meta-data 	android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
+						android:resource="@xml/accessory_filter" />
+        </activity>
+        
+        <activity android:name=".hnad.LoginActivity"
+                  android:label="@string/login_title"
+                  android:screenOrientation="portrait">
+        </activity>
+        
+        <activity android:name=".hnad.DeviceListActivity"
+                  android:label="@string/devlist_title"
+                  android:screenOrientation="portrait">
+        </activity>
+        
+        <activity android:name=".hnad.DeviceDetailsActivity"
+                  android:label="@string/devdetails_title"
+                  android:screenOrientation="portrait">
+        </activity>
+        
+        <activity android:name=".hnad.EventLogActivity"
+                  android:label="@string/devdetails_title"
+                  android:screenOrientation="portrait">
+        </activity>
+        
+        <activity 	android:name=".hnad.DeviceInfoActivity">
 		</activity>
+		<activity 	android:name=".hnad.DeviceLogActivity">
+		</activity>
+		<activity 	android:name=".hnad.DeviceCmdActivity">
+		</activity>
+
 
     </application>
 </manifest>

@@ -1,0 +1,36 @@
+package cste.android.hnad;
+
+import java.util.List;
+
+import cste.android.R;
+import cste.hnad.Device;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+public class DeviceListAdapter extends ArrayAdapter<Device>{
+	int resource;
+	
+	public DeviceListAdapter(Context context, int textViewResourceId,List<Device> objects) {
+		super(context, textViewResourceId, objects);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+		Device item = getItem(position);
+        if (convertView == null) {
+            LayoutInflater vi = (LayoutInflater) getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE);
+            convertView = vi.inflate(this.resource, null);
+        }
+
+        TextView devID = (TextView) convertView.findViewById(R.id.deviceid);
+        devID.setText(item.id);
+
+        return convertView;
+    }
+}

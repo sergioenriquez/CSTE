@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <TextView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:text="Enter the authentication credentials for this HNAD unit" />
+	<TextView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:layout_marginLeft="25dp"
+	    android:text="Username" />
+	<EditText
+        android:id="@+id/authUserLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="5dp"
+        android:inputType="text"
+        android:singleLine="true"
+        android:hint="username" />
+	<TextView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:layout_marginLeft="25dp"
+	    android:text="Password" />
+	<EditText
+        android:id="@+id/authPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="5dp"
+        android:password="true"
+        android:singleLine="true"
+        android:hint="password" />
+	<LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
+        
+	    <Button
+	        android:id="@+id/authLogin"
+	        android:text="login"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="18dp"
+            android:singleLine="true"
+            
+            
+            android:layout_weight="3"
+            android:layout_gravity="right"
+            android:padding="12dp"
+            android:gravity="center" />
+    </LinearLayout>
+</LinearLayout>

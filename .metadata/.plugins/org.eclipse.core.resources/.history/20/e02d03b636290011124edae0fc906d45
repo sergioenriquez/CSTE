@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox 
+	        android:id="@+id/dcplink"
+	        android:text="DCP Link"
+	       	android:button="@drawable/smallcheckbox"
+	       	android:textSize="12sp"
+	        android:editable="false"
+	        android:checked="true"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+        <CheckBox 
+	        android:id="@+id/usblink"
+	        android:text="Usb Interface"
+	        android:textSize="12sp"
+	        android:button="@drawable/smallcheckbox"
+	        android:editable="false"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+        <CheckBox 
+	        android:id="@+id/keysavalible"
+	        android:text="Keys Availible"
+	        android:textSize="12sp"
+	        android:button="@drawable/smallcheckbox"
+	        android:editable="false"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	</LinearLayout>
+
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+        <TextView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+
+	    android:textSize="15sp"
+	    android:text="Visible"
+        android:minwidth="20"/>
+        <TextView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:layout_marginRight="150sp"
+	    android:textSize="15sp"
+	    android:text="ID"/>
+        <TextView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:textSize="15sp"
+	    android:text="Type"/>
+	</LinearLayout>
+	<ListView
+        android:id="@+id/devicesList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

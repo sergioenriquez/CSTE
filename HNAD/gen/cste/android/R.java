@@ -12,14 +12,63 @@ public final class R {
     }
     public static final class drawable {
         public static final int background_holo_dark=0x7f020000;
-        public static final int icon=0x7f020001;
+        public static final int btn_check_buttonless_off=0x7f020001;
+        public static final int btn_check_buttonless_on=0x7f020002;
+        public static final int ic_menu_devlog=0x7f020003;
+        public static final int ic_menu_login=0x7f020004;
+        public static final int ic_tab_devcmd=0x7f020005;
+        public static final int ic_tab_devinfo=0x7f020006;
+        public static final int icon=0x7f020007;
+        public static final int signalcheckbox=0x7f020008;
+        public static final int smallcheckbox=0x7f020009;
+        public static final int stat_sys_wifi_signal_0=0x7f02000a;
+        public static final int stat_sys_wifi_signal_4=0x7f02000b;
+    }
+    public static final class id {
+        public static final int authLogin=0x7f070009;
+        public static final int authPassword=0x7f070008;
+        public static final int authUserLink=0x7f070007;
+        public static final int dcplink=0x7f070000;
+        public static final int debugText=0x7f07000b;
+        public static final int deviceid=0x7f070005;
+        public static final int devicesList=0x7f070003;
+        public static final int devicetype=0x7f070006;
+        public static final int devicevisible=0x7f070004;
+        public static final int eventlog=0x7f07000c;
+        public static final int keysavalible=0x7f070002;
+        public static final int logout=0x7f07000e;
+        public static final int remember=0x7f07000a;
+        public static final int settings=0x7f07000d;
+        public static final int upload=0x7f07000f;
+        public static final int usblink=0x7f070001;
+        public static final int viewkeys=0x7f070011;
+        public static final int viewtrip=0x7f070010;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int devcmdtab=0x7f030000;
+        public static final int devicedetails=0x7f030001;
+        public static final int devicelist=0x7f030002;
+        public static final int devicelistitem=0x7f030003;
+        public static final int devinfotab=0x7f030004;
+        public static final int login=0x7f030005;
+    }
+    public static final class menu {
+        public static final int devicedetails_menu=0x7f060000;
+        public static final int devicelist_menu=0x7f060001;
+        public static final int login_menu=0x7f060002;
     }
     public static final class string {
         public static final int app_name=0x7f050001;
+        public static final int devdetails_title=0x7f050004;
+        public static final int devlist_title=0x7f050003;
+        public static final int eventlog=0x7f050007;
         public static final int hello=0x7f050000;
+        public static final int login_title=0x7f050002;
+        public static final int logout=0x7f050006;
+        public static final int settings=0x7f050005;
+        public static final int upload=0x7f050008;
+        public static final int viewkeys=0x7f05000a;
+        public static final int viewtrip=0x7f050009;
     }
     public static final class xml {
         public static final int accessory_filter=0x7f040000;

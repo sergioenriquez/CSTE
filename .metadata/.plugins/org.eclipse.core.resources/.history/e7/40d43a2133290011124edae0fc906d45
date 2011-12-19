@@ -1,0 +1,7 @@
+package cste.hnad;
+
+public class Device {
+	public Device(boolean visible, String id, String type){
+		
+	}
+}

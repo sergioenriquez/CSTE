@@ -31,8 +31,13 @@ void loop() {
   byte msg[3];
   
   if (acc.isConnected()) {
-    int len = acc.read(msg, sizeof(msg), 1);
-//    analogWrite(led1Pin,(sensorValue/1024.0)*255);
+    //int len = acc.read(msg, sizeof(msg), 1);
+    sensorValue = analogRead(sensorPin);
+    msg[0] = 0x01;
+    msg[1] = sensorValue >> 8;
+    msg[2] = sensorValue & 0xFF;
+    acc.write(msg,3);
+
   digitalWrite(led1Pin,HIGH);
   digitalWrite(led2Pin,LOW);
     

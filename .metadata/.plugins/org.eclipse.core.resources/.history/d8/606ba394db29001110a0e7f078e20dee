@@ -1,0 +1,13 @@
+package cste.android.hnad;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class LauncherActivity extends Activity {
+	static final String TAG = "UsbAccessoryActivity";
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+}

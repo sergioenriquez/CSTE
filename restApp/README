@@ -1,0 +1,30 @@
+README - Android-REST-HTM-Application
+
+Authors:
+	* Andrew Hays
+	* Sergio Enriquez
+
+Description
+	This android application was developed to provide a client program for use with the 
+	human task management system developed by Daniel Schulte. The application uses a RESTful
+	interface to exchange data with a web server in charge of storing the task and user information.
+	A user may store the login information for multiple accounts, edit or create tasks for each one offline,
+	and then synchronized them with the server one a network connection is availible.
+	
+Login
+	To store the login information for a new user, on the home screen press the MENU key and then select the add user button. 
+	Enter the user URI previously assigned by the server, and also the username and password.
+	
+	When the application is re-launched, it will display a list of the account previously used with this deveice. To view the task 
+	list for a user, click on one of the entries displayed.
+	
+Task management
+	From the task list screen, press the MENU key to display a menu screen with the options to add a new task, sort or filter the displayed tasks, 
+	synchronize with the server, or go back to the accounts screen.
+	
+	To view the task details, simply click on one of the displayed entries. To edit or delete a task, click and hold one of the entries to display
+	a contextual menu with these options.
+	
+	When editing a task, a text tag may be added to help organize and search this task later. Tags should be separated by a comma when entered.
+	
+	
