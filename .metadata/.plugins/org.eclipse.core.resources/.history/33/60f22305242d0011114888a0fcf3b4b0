@@ -1,0 +1,14 @@
+package cste.android.core;
+import static cste.android.activities.PreferencesActivity.*;
+public class HnadTcpClient {
+	String server;
+	int port;
+	
+	protected void loadSettings(){
+		
+	}
+	
+	public void sendPacket(){
+		
+	}
+}

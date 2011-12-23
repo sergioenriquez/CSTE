@@ -1,0 +1,5 @@
+package cste.hnad;
+
+public enum HnadCoreEvent {
+
+}

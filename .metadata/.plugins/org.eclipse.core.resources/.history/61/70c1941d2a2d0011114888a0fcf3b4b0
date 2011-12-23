@@ -1,0 +1,51 @@
+package cste.android.core;
+
+import java.net.Socket;
+
+import cste.hnad.HnadTcpClientInterface;
+import android.app.Service;
+import android.content.SharedPreferences;
+
+import static cste.android.activities.PreferencesActivity.*;
+
+
+public class HnadTcpClient implements Runnable,HnadTcpClientInterface{
+	String server = "";
+	int port = 0;
+	public static Service hostService;
+	SharedPreferences mSettings;
+	Socket s;
+	
+	public static void setServiceHost(Service host){
+		
+	}
+	
+	public HnadTcpClient(Service host){
+
+		mSettings = hostService.getSharedPreferences(PREFERENCES_FILE, MODE_PRIVATE); 
+	}
+	
+	protected void loadSettings(){
+		//SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		
+		server = mSettings.getString(SERVER_ADDRESS, "0.0.0.0");
+		port = mSettings.getInt(SERVER_PORT, 0);
+	}
+	
+	public void sendPacket(){
+		loadSettings();
+		//send packet
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean connectToServer() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="cste.android"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="11"/>
+    <uses-feature android:name="android.hardware.usb.accessory" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application 	android:icon="@drawable/icon" 
+        			android:label="@string/app_name" 
+        			android:theme="@android:style/Theme.NoTitleBar">
+        
+        <uses-library android:name="com.android.future.usb.accessory" />
+        
+        <service  android:name=".core.HnadCoreService"
+           		  android:enabled="true">
+         	<intent-filter>
+				<action android:name="cste.android.core.HNADCORESERVICE" />
+			</intent-filter>
+        </service>
+        
+        <activity android:name=".activities.LauncherActivity"
+                  android:label="@string/app_name" 
+                  android:launchMode="singleTask">
+                  
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            
+            <intent-filter>
+				<action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
+			</intent-filter>
+
+			<meta-data 	android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
+						android:resource="@xml/accessory_filter" />
+        </activity>
+        
+        <activity android:name=".activities.LoginActivity"
+                  android:label="@string/login_title"
+                  android:excludeFromRecents="true"
+                  android:screenOrientation="portrait">
+        </activity>
+        
+        <activity android:name=".activities.DeviceListActivity"
+                  android:label="@string/devlist_title"
+                  android:screenOrientation="portrait">
+        </activity>
+        
+        <activity android:name=".activities.DeviceDetailsActivity"
+                  android:label="@string/devdetails_title"
+                  android:screenOrientation="portrait">
+        </activity>
+        
+        <activity android:name=".activities.EventLogActivity"
+                  android:label="@string/devdetails_title"
+                  android:screenOrientation="portrait">
+        </activity>
+        
+        <activity 	android:name=".activities.DeviceInfoActivity">
+		</activity>
+		
+		<activity 	android:name=".activities.DeviceLogActivity">
+		</activity>
+		
+		<activity 	android:name=".activities.DeviceCmdActivity">
+		</activity>
+
+    </application>
+</manifest>

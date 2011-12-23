@@ -12,44 +12,39 @@ AndroidAccessory acc("CSTE Project",
 		     "0000000012345678");
 
 int sensorPin = A0;    // select the input pin for the potentiometer
-int led1Pin = 10;      // select the pin for the LED
-int led2Pin = 11;      // select the pin for the LED
+int ledPin = 13;      // select the pin for the LED
+
 int sensorValue = 0;  // variable to store the value coming from the sensor
 
 void setup() {
-  
-  Serial.begin(115200);
-  Serial.print("\r\nStart");
+  Serial1.begin(9600);
   acc.powerOn();
-
-  // declare the ledPin as an OUTPUT:
-  pinMode(led1Pin, OUTPUT);  
-  pinMode(led2Pin, OUTPUT); 
+  pinMode(ledPin, OUTPUT);  
 }
 
 void loop() {
-  byte msg[3];
+  byte msg[128];
+  int len;
   
   if (acc.isConnected()) {
-    //int len = acc.read(msg, sizeof(msg), 1);
-    sensorValue = analogRead(sensorPin);
-    msg[0] = 0x01;
-    msg[1] = sensorValue >> 8;
-    msg[2] = sensorValue & 0xFF;
-    acc.write(msg,3);
-
-  digitalWrite(led1Pin,HIGH);
-  digitalWrite(led2Pin,LOW);
+    digitalWrite(ledPin, HIGH);
     
+    // pass data from zigbee to android
+    len = 0;
+    while(Serial1.available()){
+      msg[len++] = Serial1.read();
+    }
+    if(len>0)
+      acc.write(msg,len);
+    
+    //pass data from android to zigbee
+    len = acc.read(msg, sizeof(msg), 1);
+    if(len>0)
+      Serial1.write(msg,len);
+    
+    delay(1);
   }else {
-    digitalWrite(led1Pin,LOW);
-    digitalWrite(led2Pin,HIGH);
-//    analogWrite(led2Pin,(sensorValue/1024.0)*255);
+    digitalWrite(ledPin, LOW);
   }
-  // read the value from the sensor:
-  //sensorValue = analogRead(sensorPin);    
-   
-  //analogWrite(led1Pin,(sensorValue/1024.0)*255);   
-  // stop the program for for <sensorValue> milliseconds:
-  delay(100);                  
+  delay(10);                  
 }

@@ -1,0 +1,30 @@
+package cste.android.core;
+
+import android.app.Service;
+import android.content.SharedPreferences;
+
+import static cste.android.activities.PreferencesActivity.*;
+
+
+public class HnadTcpClient {
+	String server = "";
+	int port = 0;
+	private Service mHostService;
+	SharedPreferences settings = mHostService.getSharedPreferences(PREFERENCES_FILE, MODE_PRIVATE); 
+	
+	public HnadTcpClient(Service host){
+		this.mHostService = host;
+		mSettings = mHostService.getSharedPreferences(PREFERENCES_FILE, MODE_PRIVATE); 
+	}
+	
+	protected void loadSettings(){
+		//SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		
+		server = mSettings.getString(SERVER_ADDRESS, "0.0.0.0");
+		port = settings.getInt(SERVER_PORT, 0);
+	}
+	
+	public void sendPacket(){
+		
+	}
+}

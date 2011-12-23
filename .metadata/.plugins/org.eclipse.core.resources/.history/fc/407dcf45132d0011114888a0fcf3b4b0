@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/settings" android:title="@string/settings" android:icon="@icons/ic_menu_manage"></item>
+    <item android:id="@+id/logout" android:title="@string/logout" android:icon="@icons/ic_lock_power_off"></item>
+    <item android:id="@+id/eventlog" android:title="@string/eventlog" android:icon="@icons/ic_menu_recent_history"></item>
+    <item android:id="@+id/upload" android:title="@string/upload" android:icon="@android:drawable/ic_menu_upload"></item>
+    <item android:id="@+id/viewtrip" android:title="@string/viewtrip" android:icon="@android:drawable/ic_menu_compass"></item>
+    <item android:id="@+id/viewkeys" android:title="@string/viewkeys" android:icon="@android:drawable/ic_menu_view"></item>
+
+    
+
+</menu>

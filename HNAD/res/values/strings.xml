@@ -8,8 +8,10 @@
     <string name="settings">NAD Settings</string>
     <string name="logout">Log Out</string>
     <string name="eventlog">View Event Log</string>
-    
+    <string name="exit">Exit Program</string>
     <string name="upload">Upload Data</string>
     <string name="viewtrip">Edit Trip Info</string>
     <string name="viewkeys">View DCP Keys</string>
+    <string name="viewkeys_title">Stored DCP Keys</string>
+    <string name="preferences_title">HNAD Preferences</string>
 </resources>

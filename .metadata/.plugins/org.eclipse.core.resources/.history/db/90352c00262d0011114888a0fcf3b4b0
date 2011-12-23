@@ -1,0 +1,24 @@
+package cste.android.core;
+
+import cste.android.activities.PreferencesActivity;
+import android.app.Service;
+import android.content.SharedPreferences;
+
+import static cste.android.activities.PreferencesActivity.*;
+
+
+public class HnadTcpClient {
+	String server = "";
+	int port = 0;
+	private Service mHostService;
+	
+	protected void loadSettings(){
+		//SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		mHostService.getSharedPreferences("", MODE_PRIVATE); 
+)
+	}
+	
+	public void sendPacket(){
+		
+	}
+}

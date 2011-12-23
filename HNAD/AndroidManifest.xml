@@ -15,13 +15,16 @@
         
         <uses-library android:name="com.android.future.usb.accessory" />
         
-        <service  android:name=".hnad.HnadCoreService"
+        <service  android:name=".core.HnadCoreService"
            		  android:enabled="true">
+         	<intent-filter>
+				<action android:name="cste.android.core.HNADCORESERVICE" />
+			</intent-filter>
         </service>
         
-        <activity android:name=".hnad.LauncherActivity"
-                  android:label="Launcher"
-                  android:launchMode="singleTask">
+        <activity android:name=".activities.LauncherActivity"
+                  android:label="@string/app_name">
+                  
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -35,33 +38,39 @@
 						android:resource="@xml/accessory_filter" />
         </activity>
         
-        <activity android:name=".hnad.LoginActivity"
+        <activity android:name=".activities.LoginActivity"
                   android:label="@string/login_title"
-                  android:screenOrientation="portrait">
+                  android:excludeFromRecents="true">
         </activity>
         
-        <activity android:name=".hnad.DeviceListActivity"
-                  android:label="@string/devlist_title"
-                  android:screenOrientation="portrait">
+        <activity android:name=".activities.DeviceListActivity"
+                  android:label="@string/devlist_title">
         </activity>
         
-        <activity android:name=".hnad.DeviceDetailsActivity"
-                  android:label="@string/devdetails_title"
-                  android:screenOrientation="portrait">
+        <activity android:name=".activities.DeviceDetailsActivity"
+                  android:label="@string/devdetails_title">
         </activity>
         
-        <activity android:name=".hnad.EventLogActivity"
-                  android:label="@string/devdetails_title"
-                  android:screenOrientation="portrait">
+        <activity android:name=".activities.EventLogActivity"
+                  android:label="@string/devdetails_title">
         </activity>
         
-        <activity 	android:name=".hnad.DeviceInfoActivity">
+        <activity android:name=".activities.PreferencesActivity"
+                  android:label="@string/preferences_title">
+        </activity>
+        
+        <activity android:name=".activities.DeviceKeysActivity"
+                  android:label="@string/viewkeys_title">
+        </activity>
+        
+        <activity 	android:name=".activities.DeviceInfoActivity">
 		</activity>
-		<activity 	android:name=".hnad.DeviceLogActivity">
+		
+		<activity 	android:name=".activities.DeviceLogActivity">
 		</activity>
-		<activity 	android:name=".hnad.DeviceCmdActivity">
+		
+		<activity 	android:name=".activities.DeviceCmdActivity">
 		</activity>
-
 
     </application>
 </manifest>
