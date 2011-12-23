@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="38" version="2.0">
+<workbench progressCount="34" version="2.0">
 <workbenchAdvisor/>
-<window height="1048" maximized="true" width="3304" x="-59" y="46">
+<window height="1070" maximized="true" width="3174" x="-232" y="41">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="458"/>
@@ -23,16 +23,16 @@
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.browser.editor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="com.android.ide.eclipse.editors.layout.LayoutEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="com.android.ide.eclipse.editors.layout.LayoutEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
-<page aggregateWorkingSetId="Aggregate for window 1324006387392" focus="true" label="Workspace - Debug">
+<page aggregateWorkingSetId="Aggregate for window 1324006387392" focus="true" label="Workspace - Java">
 <editors>
-<editorArea activeWorkbook="DefaultEditorWorkbook">
+<editorArea activeWorkbook="org.eclipse.ui.internal.EditorStack@51a39578">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -41,89 +41,50 @@
 <part id="2"/>
 <part id="3"/>
 <part id="4"/>
-<part id="5"/>
-<part id="6"/>
-<part id="7"/>
-<part id="8"/>
-<part id="9"/>
-<part id="10"/>
-<part id="11"/>
 </presentation>
 </folder>
 </info>
-<info part="org.eclipse.ui.internal.EditorStack@7d1be6d3" ratio="0.5976" ratioLeft="747" ratioRight="503" relationship="2" relative="DefaultEditorWorkbook">
+<info part="org.eclipse.ui.internal.EditorStack@51a39578" ratio="0.42524117" ratioLeft="529" ratioRight="715" relationship="2" relative="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
-<part id="3"/>
-<part id="4"/>
-<part id="5"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="devicedetails.xml" partName="devicedetails.xml" path="C:/CSTE/HNAD/res/layout/devicedetails.xml" title="devicedetails.xml" tooltip="HNAD/res/layout/devicedetails.xml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/layout/devicedetails.xml"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="KmfClientImpl.java" partName="KmfClientImpl.java" path="C:/CSTE/DCP/src/cste/dcp/kmf/KmfClientImpl.java" title="KmfClientImpl.java" tooltip="DCP/src/cste/dcp/kmf/KmfClientImpl.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DCP/src/cste/dcp/kmf/KmfClientImpl.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="968" selectionTopPixel="24"/>
 </editor>
-<editor id="com.android.ide.eclipse.editors.drawable.DrawableEditor" name="ic_tab_devinfo.xml" partName="ic_tab_devinfo.xml" path="C:/CSTE/HNAD/res/drawable/ic_tab_devinfo.xml" title="ic_tab_devinfo.xml" tooltip="HNAD/res/drawable/ic_tab_devinfo.xml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/drawable/ic_tab_devinfo.xml"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IpWrapperImpl.java" partName="IpWrapperImpl.java" path="C:/CSTE/ICD/src/cste/ip/IpWrapperImpl.java" title="IpWrapperImpl.java" tooltip="ICD/src/cste/ip/IpWrapperImpl.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/ip/IpWrapperImpl.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1431" selectionTopPixel="635"/>
 </editor>
-<editor id="com.android.ide.eclipse.editors.drawable.DrawableEditor" name="ic_tab_devcmd.xml" partName="ic_tab_devcmd.xml" path="C:/CSTE/HNAD/res/drawable/ic_tab_devcmd.xml" title="ic_tab_devcmd.xml" tooltip="HNAD/res/drawable/ic_tab_devcmd.xml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/drawable/ic_tab_devcmd.xml"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HnadTcpClientInterface.java" partName="HnadTcpClientInterface.java" path="C:/CSTE/HNAD/src/cste/hnad/HnadTcpClientInterface.java" title="HnadTcpClientInterface.java" tooltip="HNAD/src/cste/hnad/HnadTcpClientInterface.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/hnad/HnadTcpClientInterface.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="132" selectionTopPixel="0"/>
 </editor>
-<editor id="com.android.ide.eclipse.editors.drawable.DrawableEditor" name="ic_menu_devlog.xml" partName="ic_menu_devlog.xml" path="C:/CSTE/HNAD/res/drawable/ic_menu_devlog.xml" title="ic_menu_devlog.xml" tooltip="HNAD/res/drawable/ic_menu_devlog.xml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/drawable/ic_menu_devlog.xml"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ServerThread.java" partName="ServerThread.java" path="C:/CSTE/KMF/src/cste/kmf/server/ServerThread.java" title="ServerThread.java" tooltip="KMF/src/cste/kmf/server/ServerThread.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/KMF/src/cste/kmf/server/ServerThread.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1694" selectionTopPixel="0"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceDetailsActivity.java" partName="DeviceDetailsActivity.java" path="C:/CSTE/HNAD/src/cste/android/hnad/DeviceDetailsActivity.java" title="DeviceDetailsActivity.java" tooltip="HNAD/src/cste/android/hnad/DeviceDetailsActivity.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/hnad/DeviceDetailsActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1480" selectionTopPixel="104"/>
+<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DcpApp.java" partName="DcpApp.java" path="C:/CSTE/DCP/src/cste/dcp/DcpApp.java" title="DcpApp.java" tooltip="DCP/src/cste/dcp/DcpApp.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DCP/src/cste/dcp/DcpApp.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="716" selectionTopPixel="223"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceInfoActivity.java" partName="DeviceInfoActivity.java" path="C:/CSTE/HNAD/src/cste/android/hnad/DeviceInfoActivity.java" title="DeviceInfoActivity.java" tooltip="HNAD/src/cste/android/hnad/DeviceInfoActivity.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/hnad/DeviceInfoActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="469" selectionTopPixel="0"/>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NetworkHandler.java" partName="NetworkHandler.java" path="C:/CSTE/HNAD/src/cste/android/core/NetworkHandler.java" title="NetworkHandler.java" tooltip="HNAD/src/cste/android/core/NetworkHandler.java" workbook="org.eclipse.ui.internal.EditorStack@51a39578">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/core/NetworkHandler.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1132" selectionTopPixel="122"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceCmdActivity.java" partName="DeviceCmdActivity.java" path="C:/CSTE/HNAD/src/cste/android/hnad/DeviceCmdActivity.java" title="DeviceCmdActivity.java" tooltip="HNAD/src/cste/android/hnad/DeviceCmdActivity.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/hnad/DeviceCmdActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="352" selectionTopPixel="0"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HnadCoreService.java" partName="HnadCoreService.java" path="C:/CSTE/HNAD/src/cste/android/core/HnadCoreService.java" title="HnadCoreService.java" tooltip="HNAD/src/cste/android/core/HnadCoreService.java" workbook="org.eclipse.ui.internal.EditorStack@51a39578">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/core/HnadCoreService.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1651" selectionTopPixel="1"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceLogActivity.java" partName="DeviceLogActivity.java" path="C:/CSTE/HNAD/src/cste/android/hnad/DeviceLogActivity.java" title="DeviceLogActivity.java" tooltip="HNAD/src/cste/android/hnad/DeviceLogActivity.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/hnad/DeviceLogActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="17" selectionOffset="135" selectionTopPixel="0"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.menu.MenuEditor" name="devicedetails_menu.xml" partName="devicedetails_menu.xml" path="C:/CSTE/HNAD/res/menu/devicedetails_menu.xml" title="devicedetails_menu.xml" tooltip="HNAD/res/menu/devicedetails_menu.xml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/menu/devicedetails_menu.xml"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="devinfotab.xml" partName="devinfotab.xml" path="C:/CSTE/HNAD/res/layout/devinfotab.xml" title="devinfotab.xml" tooltip="HNAD/res/layout/devinfotab.xml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/layout/devinfotab.xml"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LauncherActivity.java" partName="LauncherActivity.java" path="C:/CSTE/HNAD/src/cste/android/hnad/LauncherActivity.java" title="LauncherActivity.java" tooltip="HNAD/src/cste/android/hnad/LauncherActivity.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/hnad/LauncherActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1520" selectionTopPixel="606"/>
-</editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UsbCommHandler.java" partName="UsbCommHandler.java" path="C:/CSTE/HNAD/src/cste/android/usb/UsbCommHandler.java" title="UsbCommHandler.java" tooltip="HNAD/src/cste/android/usb/UsbCommHandler.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/usb/UsbCommHandler.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3576" selectionTopPixel="1411"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" partName="HNAD Manifest" path="C:/CSTE/HNAD/AndroidManifest.xml" title="HNAD Manifest" tooltip="HNAD/AndroidManifest.xml" workbook="org.eclipse.ui.internal.EditorStack@7d1be6d3">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/AndroidManifest.xml"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="devicelistitem.xml" partName="devicelistitem.xml" path="C:/CSTE/HNAD/res/layout/devicelistitem.xml" title="devicelistitem.xml" tooltip="HNAD/res/layout/devicelistitem.xml" workbook="org.eclipse.ui.internal.EditorStack@7d1be6d3">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/layout/devicelistitem.xml"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.menu.MenuEditor" name="login_menu.xml" partName="login_menu.xml" path="C:/CSTE/HNAD/res/menu/login_menu.xml" title="login_menu.xml" tooltip="HNAD/res/menu/login_menu.xml" workbook="org.eclipse.ui.internal.EditorStack@7d1be6d3">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/menu/login_menu.xml"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="login.xml" partName="login.xml" path="C:/CSTE/HNAD/res/layout/login.xml" title="login.xml" tooltip="HNAD/res/layout/login.xml" workbook="org.eclipse.ui.internal.EditorStack@7d1be6d3">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/layout/login.xml"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="devcmdtab.xml" partName="devcmdtab.xml" path="C:/CSTE/HNAD/res/layout/devcmdtab.xml" title="devcmdtab.xml" tooltip="HNAD/res/layout/devcmdtab.xml" workbook="org.eclipse.ui.internal.EditorStack@7d1be6d3">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/layout/devcmdtab.xml"/>
-</editor>
-<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UsbAccessoryActivity.java" partName="UsbAccessoryActivity.java" path="C:/CSTE/HNAD/src/cste/android/usb/UsbAccessoryActivity.java" title="UsbAccessoryActivity.java" tooltip="HNAD/src/cste/android/usb/UsbAccessoryActivity.java" workbook="org.eclipse.ui.internal.EditorStack@7d1be6d3">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/usb/UsbAccessoryActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="930" selectionTopPixel="0"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PreferencesActivity.java" partName="PreferencesActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/PreferencesActivity.java" title="PreferencesActivity.java" tooltip="HNAD/src/cste/android/activities/PreferencesActivity.java" workbook="org.eclipse.ui.internal.EditorStack@51a39578">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/PreferencesActivity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="16" selectionOffset="149" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -179,8 +140,9 @@
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
 <category IMemento.internal.id="Warnings"/>
+<category IMemento.internal.id="Errors"/>
 </expanded>
-<columnWidths org.eclipse.ui.ide.locationField="0" org.eclipse.ui.ide.markerType="0" org.eclipse.ui.ide.pathField="0" org.eclipse.ui.ide.resourceField="0" org.eclipse.ui.ide.severityAndDescriptionField="0"/>
+<columnWidths org.eclipse.ui.ide.locationField="64" org.eclipse.ui.ide.markerType="94" org.eclipse.ui.ide.pathField="124" org.eclipse.ui.ide.resourceField="94" org.eclipse.ui.ide.severityAndDescriptionField="460"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
@@ -221,7 +183,9 @@
 </view>
 <view id="org.eclipse.mylyn.tasks.ui.views.tasks" partName="Task List">
 <viewState linkWithEditor="true" presentation="org.eclipse.mylyn.tasks.ui.categorized">
-<sorter groupBy="CATEGORY_QUERY">&#x0A;<sorter>&#x0A;<sort0 sortDirection="1" sortKey="PRIORITY"/>
+<sorter groupBy="CATEGORY_QUERY">
+<sorter>
+<sort0 sortDirection="1" sortKey="PRIORITY"/>
 <sort1 sortDirection="1" sortKey="RANK"/>
 <sort2 sortDirection="1" sortKey="DATE_CREATED"/>
 <sort3 sortDirection="1" sortKey="NONE"/>
@@ -243,7 +207,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.debug.ui.DebugView" activePerspective="org.eclipse.debug.ui.DebugPerspective">
+<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -308,20 +272,20 @@
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <view id="org.eclipse.jdt.ui.PackageExplorer"/>
 <fastViewBars>
+<fastViewBar fastViewLocation="131072" id="org.eclipse.ui.internal.ViewStack@1c8825a5" orientation="512" selectedTabId="org.eclipse.ui.views.ContentOutline" style="0">
+<fastViews>
+<view id="org.eclipse.mylyn.tasks.ui.views.tasks" ratio="0.3"/>
+<view id="org.eclipse.ui.views.ContentOutline" ratio="0.3"/>
+</fastViews>
+</fastViewBar>
 <fastViewBar fastViewLocation="1024" id="bottom" orientation="256" selectedTabId="org.eclipse.ui.console.ConsoleView" style="0">
 <fastViews>
 <view id="org.eclipse.ui.views.ProblemView" ratio="0.3"/>
 <view id="org.eclipse.jdt.ui.JavadocView" ratio="0.3"/>
 <view id="org.eclipse.jdt.ui.SourceView" ratio="0.3"/>
-<view id="org.eclipse.ui.console.ConsoleView" ratio="0.29989213"/>
+<view id="org.eclipse.ui.console.ConsoleView" ratio="0.2994709"/>
 <view id="com.android.ide.eclipse.ddms.views.LogCatView" ratio="0.29989213"/>
 <view id="org.eclipse.search.ui.views.SearchView" ratio="0.29989213"/>
-</fastViews>
-</fastViewBar>
-<fastViewBar fastViewLocation="131072" id="org.eclipse.ui.internal.ViewStack@1c8825a5" orientation="512" selectedTabId="org.eclipse.ui.views.ContentOutline" style="0">
-<fastViews>
-<view id="org.eclipse.mylyn.tasks.ui.views.tasks" ratio="0.3"/>
-<view id="org.eclipse.ui.views.ContentOutline" ratio="0.3"/>
 </fastViews>
 </fastViewBar>
 </fastViewBars>
@@ -347,9 +311,9 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.20468947" ratioLeft="323" ratioRight="1255" relationship="2" relative="left"/>
+<info part="org.eclipse.ui.editorss" ratio="0.20875634" ratioLeft="329" ratioRight="1247" relationship="2" relative="left"/>
 <info folder="true" part="bottom" ratio="0.7547771" ratioLeft="711" ratioRight="231" relationship="4" relative="org.eclipse.ui.editorss">
-<folder appearance="2" expanded="2">
+<folder appearance="2" expanded="0">
 <page content="org.eclipse.ui.views.ProblemView" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="LabelNotFound"/>
@@ -362,7 +326,7 @@
 </folder>
 </info>
 <info folder="true" part="org.eclipse.ui.internal.ViewStack@1c8825a5" ratio="0.7493333" ratioLeft="562" ratioRight="188" relationship="2" relative="org.eclipse.ui.editorss">
-<folder appearance="2" expanded="2">
+<folder appearance="2" expanded="0">
 <page content="org.eclipse.mylyn.tasks.ui.views.tasks" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
@@ -418,14 +382,14 @@
 <perspective_action id="org.eclipse.wst.xml.ui.perspective"/>
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
-<view id="org.eclipse.ui.console.ConsoleView"/>
-<view id="org.eclipse.ui.views.TaskList"/>
-<view id="com.android.ide.eclipse.ddms.views.LogCatView"/>
 <view id="org.eclipse.debug.ui.DebugView"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <view id="org.eclipse.debug.ui.VariableView"/>
 <view id="org.eclipse.debug.ui.BreakpointView"/>
 <view id="org.eclipse.debug.ui.ExpressionView"/>
+<view id="org.eclipse.ui.views.TaskList"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="com.android.ide.eclipse.ddms.views.LogCatView"/>
 <fastViewBars/>
 <layout>
 <mainWindow>
@@ -449,20 +413,13 @@
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.74920636" ratioLeft="708" ratioRight="237" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
-<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
-<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
-<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.57961786" ratioLeft="546" ratioRight="396" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.debug.ui.DisplayView" label="LabelNotFound"/>
 <page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-<part id="1"/>
-<part id="2"/>
-</presentation>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.41737893" ratioLeft="293" ratioRight="409" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
@@ -473,19 +430,31 @@
 </folder>
 </info>
 <info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.49969605" ratioLeft="822" ratioRight="823" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder activePageID="org.eclipse.debug.ui.ExpressionView" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.debug.ui.BreakpointView" appearance="2" expanded="2">
 <page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
 <page content="org.eclipse.debug.ui.BreakpointView" label="Breakpoints"/>
 <page content="org.eclipse.debug.ui.ExpressionView" label="Expressions"/>
+<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
 <page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
+<part id="3"/>
 </presentation>
 </folder>
 </info>
 </mainWindow>
+<detachedWindow height="702" width="1635" x="1704" y="212">
+<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</detachedWindow>
 </layout>
 </perspective>
 <perspective editorAreaTrimState="2" editorAreaVisible="0" fixed="0" version="0.016">
@@ -576,121 +545,164 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/hnad/DeviceCmdActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" path="/HNAD/AndroidManifest.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/HNAD/res/layout/devinfotab.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/HNAD/res/layout/devicelistitem.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/HNAD/res/layout/devcmdtab.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.menu.MenuEditor" path="/HNAD/res/menu/login_menu.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/HNAD/res/layout/login.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" path="/HNAD/AndroidManifest.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/usb/UsbAccessoryActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/HNAD/res/layout/devinfotab.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/hnad/LauncherActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/usb/UsbCommHandler.java"/>
-<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;java.lang(Thread.class"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/HnadCoreService.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/NetworkHandler.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DCP/src/cste/dcp/kmf/KmfClientImpl.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/HnadTcpClient.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/hnad/HnadTcpClientInterface.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/activities/PreferencesActivity.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/KMF/src/cste/kmf/server/ServerThread.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DCP/src/cste/dcp/DcpApp.java"/>
 </editors>
-<item historyLabel="devinfotab.xml" index="2"/>
-<item historyLabel="HNAD Manifest" index="1"/>
-<item historyLabel="devicelistitem.xml" index="3"/>
-<item historyLabel="devinfotab.xml" index="2"/>
-<item historyLabel="devicelistitem.xml" index="3"/>
-<item historyLabel="devinfotab.xml" index="2"/>
-<item historyLabel="devicelistitem.xml" index="3"/>
-<item historyLabel="devcmdtab.xml" index="4"/>
-<item historyLabel="devicelistitem.xml" index="3"/>
-<item historyLabel="login_menu.xml" index="5"/>
-<item historyLabel="login.xml" index="6"/>
-<item historyLabel="devcmdtab.xml" index="4"/>
-<item historyLabel="DeviceCmdActivity.java" index="0">
-<position info="not_deleted" x="352" y="0"/>
+<item historyLabel="KmfClientImpl.java" index="2">
+<position info="not_deleted" x="519" y="29"/>
 </item>
-<item historyLabel="login.xml" index="6"/>
-<item historyLabel="devcmdtab.xml" index="4"/>
-<item historyLabel="login.xml" index="6"/>
-<item historyLabel="devcmdtab.xml" index="4"/>
-<item historyLabel="devinfotab.xml" index="2"/>
-<item historyLabel="devcmdtab.xml" index="4"/>
-<item historyLabel="devinfotab.xml" index="2"/>
-<item historyLabel="devcmdtab.xml" index="4"/>
-<item historyLabel="devinfotab.xml" index="2"/>
-<item historyLabel="devcmdtab.xml" index="4"/>
-<item historyLabel="HNAD Manifest" index="7"/>
-<item historyLabel="UsbAccessoryActivity.java" index="8">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="devinfotab.xml" index="9"/>
-<item historyLabel="LauncherActivity.java" index="10">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="LauncherActivity.java" index="10">
-<position info="not_deleted" x="993" y="0"/>
-</item>
-<item historyLabel="LauncherActivity.java" index="10">
-<position info="not_deleted" x="1522" y="0"/>
-</item>
-<item historyLabel="LauncherActivity.java" index="10">
-<position info="not_deleted" x="1556" y="0"/>
-</item>
-<item historyLabel="LauncherActivity.java" index="10">
-<position info="not_deleted" x="1522" y="0"/>
-</item>
-<item historyLabel="UsbCommHandler.java" index="11">
+<item historyLabel="NetworkHandler.java" index="1">
 <position/>
 </item>
-<item historyLabel="UsbAccessoryActivity.java" index="8">
-<position info="not_deleted" x="930" y="0"/>
+<item historyLabel="HnadTcpClient.java" index="3">
+<position info="not_deleted" x="980" y="0"/>
 </item>
-<item historyLabel="UsbCommHandler.java" index="11">
+<item historyLabel="HnadTcpClientInterface.java" index="4">
+<position info="not_deleted" x="127" y="0"/>
+</item>
+<item historyLabel="KmfClientImpl.java" index="2">
+<position info="not_deleted" x="1455" y="15"/>
+</item>
+<item historyLabel="HnadTcpClientInterface.java" index="4">
+<position info="not_deleted" x="127" y="0"/>
+</item>
+<item historyLabel="HnadTcpClientInterface.java" index="4">
+<position info="not_deleted" x="127" y="0"/>
+</item>
+<item historyLabel="HnadTcpClient.java" index="3">
+<position info="not_deleted" x="812" y="13"/>
+</item>
+<item historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="485" y="0"/>
+</item>
+<item historyLabel="HnadCoreService.java" index="0">
+<position info="not_deleted" x="1645" y="0"/>
+</item>
+<item historyLabel="HnadTcpClient.java" index="3">
+<position info="not_deleted" x="799" y="0"/>
+</item>
+<item historyLabel="HnadTcpClient.java" index="3">
+<position info="not_deleted" x="678" y="14"/>
+</item>
+<item historyLabel="HnadCoreService.java" index="0">
+<position info="not_deleted" x="1315" y="0"/>
+</item>
+<item historyLabel="NetworkHandler.java" index="1">
 <position/>
 </item>
-<item historyLabel="UsbCommHandler.java" index="11">
+<item historyLabel="HnadTcpClient.java" index="3">
+<position info="not_deleted" x="404" y="0"/>
+</item>
+<item historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="1231" y="0"/>
+</item>
+<item historyLabel="HnadTcpClientInterface.java" index="4">
+<position info="not_deleted" x="39" y="22"/>
+</item>
+<item historyLabel="NetworkHandler.java" index="1">
 <position/>
 </item>
-<item historyLabel="UsbCommHandler.java" index="11">
+<item historyLabel="HnadTcpClientInterface.java" index="4">
+<position info="not_deleted" x="132" y="0"/>
+</item>
+<item historyLabel="HnadTcpClient.java" index="3">
+<position info="not_deleted" x="404" y="0"/>
+</item>
+<item historyLabel="HnadTcpClient.java" index="3">
+<position info="not_deleted" x="983" y="0"/>
+</item>
+<item historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="1432" y="0"/>
+</item>
+<item historyLabel="PreferencesActivity.java" index="5">
+<position info="not_deleted" x="149" y="16"/>
+</item>
+<item historyLabel="HnadTcpClient.java" index="3">
+<position info="not_deleted" x="596" y="0"/>
+</item>
+<item historyLabel="HnadTcpClientInterface.java" index="4">
+<position info="not_deleted" x="132" y="0"/>
+</item>
+<item historyLabel="KmfClientImpl.java" index="2">
+<position info="not_deleted" x="1219" y="0"/>
+</item>
+<item historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="1379" y="0"/>
+</item>
+<item historyLabel="HnadTcpClient.java" index="3">
+<position info="not_deleted" x="624" y="0"/>
+</item>
+<item historyLabel="NetworkHandler.java" index="1">
 <position/>
 </item>
-<item historyLabel="UsbCommHandler.java" index="11">
+<item historyLabel="HnadTcpClient.java" index="3">
+<position info="not_deleted" x="659" y="140"/>
+</item>
+<item historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="1005" y="0"/>
+</item>
+<item historyLabel="HnadTcpClient.java" index="3">
+<position info="not_deleted" x="624" y="0"/>
+</item>
+<item historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="864" y="0"/>
+</item>
+<item historyLabel="HnadTcpClient.java" index="3">
 <position/>
 </item>
-<item historyLabel="UsbCommHandler.java" index="11">
+<item historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="1377" y="0"/>
+</item>
+<item historyLabel="HnadTcpClient.java" index="3">
 <position/>
 </item>
-<item historyLabel="UsbCommHandler.java" index="11">
+<item historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="1459" y="0"/>
+</item>
+<item historyLabel="HnadTcpClient.java" index="3">
 <position/>
 </item>
-<item historyLabel="UsbCommHandler.java" index="11">
+<item historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="751" y="0"/>
+</item>
+<item historyLabel="HnadTcpClient.java" index="3">
 <position/>
 </item>
-<item historyLabel="UsbCommHandler.java" index="11">
-<position/>
+<item historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="751" y="0"/>
 </item>
-<item historyLabel="Thread.class" index="12">
-<position/>
+<item historyLabel="KmfClientImpl.java" index="2">
+<position info="not_deleted" x="1415" y="0"/>
 </item>
-<item historyLabel="UsbAccessoryActivity.java" index="8">
-<position info="not_deleted" x="930" y="0"/>
+<item historyLabel="HnadCoreService.java" index="0">
+<position info="not_deleted" x="1651" y="0"/>
 </item>
-<item historyLabel="LauncherActivity.java" index="10">
-<position info="not_deleted" x="1365" y="0"/>
+<item historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="862" y="0"/>
 </item>
-<item historyLabel="UsbCommHandler.java" index="11">
-<position info="not_deleted" x="4741" y="0"/>
+<item historyLabel="KmfClientImpl.java" index="2">
+<position info="not_deleted" x="1434" y="0"/>
 </item>
-<item historyLabel="Thread.class" index="12">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="864" y="0"/>
 </item>
-<item historyLabel="LauncherActivity.java" index="10">
-<position info="not_deleted" x="1520" y="0"/>
+<item historyLabel="KmfClientImpl.java" index="2">
+<position info="not_deleted" x="968" y="0"/>
 </item>
-<item historyLabel="UsbCommHandler.java" index="11">
-<position info="not_deleted" x="4754" y="0"/>
+<item historyLabel="ServerThread.java" index="6">
+<position info="not_deleted" x="1694" y="0"/>
 </item>
-<item historyLabel="UsbCommHandler.java" index="11">
-<position info="not_deleted" x="4759" y="0"/>
+<item historyLabel="DcpApp.java" index="7">
+<position info="not_deleted" x="716" y="0"/>
 </item>
-<item active="true" historyLabel="UsbCommHandler.java" index="11">
-<position info="not_deleted" x="3576" y="0"/>
+<item active="true" historyLabel="NetworkHandler.java" index="1">
+<position info="not_deleted" x="586" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -700,9 +712,11 @@
 <trimLayout>
 <trimArea IMemento.internal.id="16384">
 <trimItem IMemento.internal.id="left"/>
+<trimItem IMemento.internal.id="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
 </trimArea>
 <trimArea IMemento.internal.id="131072">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@1c8825a5"/>
+<trimItem IMemento.internal.id="org.eclipse.debug.internal.ui.ToolsFolderView"/>
 </trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
@@ -713,54 +727,52 @@
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
 <trimItem IMemento.internal.id="bottom"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@685210de"/>
 </trimArea>
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UsbCommHandler.java" tooltip="HNAD/src/cste/android/usb/UsbCommHandler.java">
-<persistable path="/HNAD/src/cste/android/usb/UsbCommHandler.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DcpApp.java" tooltip="DCP/src/cste/dcp/DcpApp.java">
+<persistable path="/DCP/src/cste/dcp/DcpApp.java"/>
 </file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="Thread.class" tooltip="java.lang.Thread">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;java.lang(Thread.class"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ServerThread.java" tooltip="KMF/src/cste/kmf/server/ServerThread.java">
+<persistable path="/KMF/src/cste/kmf/server/ServerThread.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LauncherActivity.java" tooltip="HNAD/src/cste/android/hnad/LauncherActivity.java">
-<persistable path="/HNAD/src/cste/android/hnad/LauncherActivity.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PreferencesActivity.java" tooltip="HNAD/src/cste/android/activities/PreferencesActivity.java">
+<persistable path="/HNAD/src/cste/android/activities/PreferencesActivity.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UsbAccessoryActivity.java" tooltip="HNAD/src/cste/android/usb/UsbAccessoryActivity.java">
-<persistable path="/HNAD/src/cste/android/usb/UsbAccessoryActivity.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HnadCoreService.java" tooltip="HNAD/src/cste/android/core/HnadCoreService.java">
+<persistable path="/HNAD/src/cste/android/core/HnadCoreService.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="login.xml" tooltip="HNAD/res/layout/login.xml">
-<persistable path="/HNAD/res/layout/login.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HnadTcpClientInterface.java" tooltip="HNAD/src/cste/hnad/HnadTcpClientInterface.java">
+<persistable path="/HNAD/src/cste/hnad/HnadTcpClientInterface.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.menu.MenuEditor" name="login_menu.xml" tooltip="HNAD/res/menu/login_menu.xml">
-<persistable path="/HNAD/res/menu/login_menu.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NetworkHandler.java" tooltip="HNAD/src/cste/android/core/NetworkHandler.java">
+<persistable path="/HNAD/src/cste/android/core/NetworkHandler.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="devcmdtab.xml" tooltip="HNAD/res/layout/devcmdtab.xml">
-<persistable path="/HNAD/res/layout/devcmdtab.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HnadTcpClient.java" tooltip="HNAD/src/cste/android/core/HnadTcpClient.java">
+<persistable path="/HNAD/src/cste/android/core/HnadTcpClient.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="devicelistitem.xml" tooltip="HNAD/res/layout/devicelistitem.xml">
-<persistable path="/HNAD/res/layout/devicelistitem.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IpWrapperImpl.java" tooltip="ICD/src/cste/ip/IpWrapperImpl.java">
+<persistable path="/ICD/src/cste/ip/IpWrapperImpl.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.menu.MenuEditor" name="devicelist_menu.xml" tooltip="HNAD/res/menu/devicelist_menu.xml">
-<persistable path="/HNAD/res/menu/devicelist_menu.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="KmfClientImpl.java" tooltip="DCP/src/cste/dcp/kmf/KmfClientImpl.java">
+<persistable path="/DCP/src/cste/dcp/kmf/KmfClientImpl.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="devinfotab.xml" tooltip="HNAD/res/layout/devinfotab.xml">
-<persistable path="/HNAD/res/layout/devinfotab.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AndroNadActivity.java" tooltip="OldAndroNAD/src/hnad/android/Activity/AndroNadActivity.java">
+<persistable path="/OldAndroNAD/src/hnad/android/Activity/AndroNadActivity.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.menu.MenuEditor" name="devicedetails_menu.xml" tooltip="HNAD/res/menu/devicedetails_menu.xml">
-<persistable path="/HNAD/res/menu/devicedetails_menu.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SettingsActivity.java" tooltip="OldAndroNAD/src/hnad/android/Activity/SettingsActivity.java">
+<persistable path="/OldAndroNAD/src/hnad/android/Activity/SettingsActivity.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="HNAD/AndroidManifest.xml">
-<persistable path="/HNAD/AndroidManifest.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceKeysActivity.java" tooltip="HNAD/src/cste/android/activities/DeviceKeysActivity.java">
+<persistable path="/HNAD/src/cste/android/activities/DeviceKeysActivity.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceLogActivity.java" tooltip="HNAD/src/cste/android/hnad/DeviceLogActivity.java">
-<persistable path="/HNAD/src/cste/android/hnad/DeviceLogActivity.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HnadCoreEvent.java" tooltip="HNAD/src/cste/hnad/HnadCoreEvent.java">
+<persistable path="/HNAD/src/cste/hnad/HnadCoreEvent.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceCmdActivity.java" tooltip="HNAD/src/cste/android/hnad/DeviceCmdActivity.java">
-<persistable path="/HNAD/src/cste/android/hnad/DeviceCmdActivity.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceInfoActivity.java" tooltip="HNAD/src/cste/android/hnad/DeviceInfoActivity.java">
-<persistable path="/HNAD/src/cste/android/hnad/DeviceInfoActivity.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MsgType.java" tooltip="ICD/src/cste/messages/MsgType.java">
+<persistable path="/ICD/src/cste/messages/MsgType.java"/>
 </file>
 </mruList>
 </workbench>

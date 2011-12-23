@@ -1,7 +1,0 @@
-package cste.android.usb;
-
-import android.app.Activity;
-
-public class UsbAccessoryActivity extends Activity {
-
-}

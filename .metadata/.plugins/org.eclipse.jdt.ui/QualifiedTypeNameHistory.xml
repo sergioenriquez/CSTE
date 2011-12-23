@@ -23,15 +23,10 @@
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.app.LauncherActivity"/>
 <fullyQualifiedTypeName name="com.android.future.usb.UsbManager"/>
-<fullyQualifiedTypeName name="android.os.Bundle"/>
-<fullyQualifiedTypeName name="com.android.future.usb.UsbAccessory"/>
 <fullyQualifiedTypeName name="android.app.NotificationManager"/>
 <fullyQualifiedTypeName name="android.os.Binder"/>
 <fullyQualifiedTypeName name="android.app.Notification"/>
 <fullyQualifiedTypeName name="android.app.PendingIntent"/>
-<fullyQualifiedTypeName name="android.content.ServiceConnection"/>
-<fullyQualifiedTypeName name="android.content.ComponentName"/>
-<fullyQualifiedTypeName name="android.os.IBinder"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.os.Message"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
@@ -40,5 +35,20 @@
 <fullyQualifiedTypeName name="android.content.res.Resources"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="cste.android.R"/>
+<fullyQualifiedTypeName name="android.os.Parcelable"/>
+<fullyQualifiedTypeName name="android.os.Bundle"/>
+<fullyQualifiedTypeName name="com.android.future.usb.UsbAccessory"/>
+<fullyQualifiedTypeName name="android.os.Parcel"/>
+<fullyQualifiedTypeName name="android.content.ServiceConnection"/>
+<fullyQualifiedTypeName name="android.content.ComponentName"/>
+<fullyQualifiedTypeName name="android.os.IBinder"/>
 <fullyQualifiedTypeName name="cste.android.R.layout"/>
+<fullyQualifiedTypeName name="cste.android.core.HnadCoreService.Events"/>
+<fullyQualifiedTypeName name="android.content.SharedPreferences"/>
+<fullyQualifiedTypeName name="cste.android.activities.PreferencesActivity"/>
+<fullyQualifiedTypeName name="cste.hnad.HnadTcpClientInterface"/>
+<fullyQualifiedTypeName name="cste.interfaces.IpWrapper"/>
+<fullyQualifiedTypeName name="java.net.Socket"/>
+<fullyQualifiedTypeName name="java.io.OutputStream"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
 </qualifiedTypeNameHistroy>

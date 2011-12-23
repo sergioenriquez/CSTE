@@ -1,7 +1,0 @@
-package cste.android.core;
-
-public class HnadTcpClient {
-	public void sendPacket(){
-		
-	}
-}
