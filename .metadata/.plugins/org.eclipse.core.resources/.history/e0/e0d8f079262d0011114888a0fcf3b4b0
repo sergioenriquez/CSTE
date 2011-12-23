@@ -1,0 +1,10 @@
+package cste.android.activities;
+
+import android.app.Activity;
+
+public class PreferencesActivity extends Activity {
+	public static final String PREFERENCES_FILE = "MyPrefsFile";
+	public static final String SERVER_ADDRESS = "dcpServerAddress";
+	
+
+}

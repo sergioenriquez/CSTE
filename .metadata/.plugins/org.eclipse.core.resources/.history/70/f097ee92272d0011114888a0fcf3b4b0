@@ -1,0 +1,17 @@
+package cste.android.core;
+import cste.hnad.HnadTcpClientInterface;
+
+public class NetworkHandler{
+	private HnadTcpClientInterface mClient;
+
+	
+	public void HnadTcpClientInterface(HnadTcpClientInterface client){
+		this.mClient = client;
+	}
+	
+	
+	public void loginToDCP(String username,String password){
+		
+	}
+
+}

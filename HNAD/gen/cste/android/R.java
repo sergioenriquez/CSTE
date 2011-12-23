@@ -14,18 +14,28 @@ public final class R {
         public static final int background_holo_dark=0x7f020000;
         public static final int btn_check_buttonless_off=0x7f020001;
         public static final int btn_check_buttonless_on=0x7f020002;
-        public static final int ic_menu_devlog=0x7f020003;
-        public static final int ic_menu_login=0x7f020004;
-        public static final int ic_tab_devcmd=0x7f020005;
-        public static final int ic_tab_devinfo=0x7f020006;
-        public static final int icon=0x7f020007;
-        public static final int signalcheckbox=0x7f020008;
-        public static final int smallcheckbox=0x7f020009;
-        public static final int stat_sys_wifi_signal_0=0x7f02000a;
-        public static final int stat_sys_wifi_signal_4=0x7f02000b;
+        public static final int ic_lock_power_off=0x7f020003;
+        public static final int ic_menu_add=0x7f020004;
+        public static final int ic_menu_compass=0x7f020005;
+        public static final int ic_menu_delete=0x7f020006;
+        public static final int ic_menu_devlog=0x7f020007;
+        public static final int ic_menu_login=0x7f020008;
+        public static final int ic_menu_manage=0x7f020009;
+        public static final int ic_menu_preferences=0x7f02000a;
+        public static final int ic_menu_recent_history=0x7f02000b;
+        public static final int ic_menu_stop=0x7f02000c;
+        public static final int ic_menu_upload=0x7f02000d;
+        public static final int ic_menu_view=0x7f02000e;
+        public static final int ic_tab_devcmd=0x7f02000f;
+        public static final int ic_tab_devinfo=0x7f020010;
+        public static final int icon=0x7f020011;
+        public static final int signalcheckbox=0x7f020012;
+        public static final int smallcheckbox=0x7f020013;
+        public static final int stat_sys_wifi_signal_0=0x7f020014;
+        public static final int stat_sys_wifi_signal_4=0x7f020015;
     }
     public static final class id {
-        public static final int authLogin=0x7f070009;
+        public static final int authLoginBtn=0x7f070009;
         public static final int authPassword=0x7f070008;
         public static final int authUserLink=0x7f070007;
         public static final int dcplink=0x7f070000;
@@ -35,6 +45,7 @@ public final class R {
         public static final int devicetype=0x7f070006;
         public static final int devicevisible=0x7f070004;
         public static final int eventlog=0x7f07000c;
+        public static final int exit=0x7f070012;
         public static final int keysavalible=0x7f070002;
         public static final int logout=0x7f07000e;
         public static final int remember=0x7f07000a;
@@ -63,13 +74,16 @@ public final class R {
         public static final int devdetails_title=0x7f050004;
         public static final int devlist_title=0x7f050003;
         public static final int eventlog=0x7f050007;
+        public static final int exit=0x7f050008;
         public static final int hello=0x7f050000;
         public static final int login_title=0x7f050002;
         public static final int logout=0x7f050006;
+        public static final int preferences_title=0x7f05000d;
         public static final int settings=0x7f050005;
-        public static final int upload=0x7f050008;
-        public static final int viewkeys=0x7f05000a;
-        public static final int viewtrip=0x7f050009;
+        public static final int upload=0x7f050009;
+        public static final int viewkeys=0x7f05000b;
+        public static final int viewkeys_title=0x7f05000c;
+        public static final int viewtrip=0x7f05000a;
     }
     public static final class xml {
         public static final int accessory_filter=0x7f040000;

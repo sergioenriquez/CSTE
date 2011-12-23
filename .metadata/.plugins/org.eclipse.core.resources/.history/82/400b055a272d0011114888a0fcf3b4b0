@@ -1,0 +1,22 @@
+package cste.android.core;
+
+public class NetworkHandler implements Runnable{
+	private HnadTcpClientInterface mClient;
+	
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void HnadTcpClientInterface(HnadTcpClientInterface client){
+		
+	}
+	
+	
+	public void loginToDCP(String username,String password){
+		
+	}
+
+}

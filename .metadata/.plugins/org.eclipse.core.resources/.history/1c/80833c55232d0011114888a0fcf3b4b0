@@ -1,0 +1,11 @@
+package cste.android.core;
+
+public class NetworkHandler implements Runnable{
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,5 @@
+package cste.android.core;
+
+public class NetworkHandler implements Runnable{
+
+}

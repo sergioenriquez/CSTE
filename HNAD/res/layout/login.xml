@@ -47,7 +47,7 @@
         android:layout_marginRight="25dp">
         
 	    <Button
-	        android:id="@+id/authLogin"
+	        android:id="@+id/authLoginBtn"
 	        android:text="login"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
