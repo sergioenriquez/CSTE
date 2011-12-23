@@ -1,7 +1,0 @@
-package cste.android.hnad;
-
-import android.widget.ArrayAdapter;
-
-public class DeviceListAdapter extends ArrayAdapter<String>{
-	int resource;
-}

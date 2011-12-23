@@ -1,7 +1,0 @@
-package cste.android.hnad;
-
-import android.os.Handler;
-
-public class UsbMessageHandler extends Handler {
-
-}
