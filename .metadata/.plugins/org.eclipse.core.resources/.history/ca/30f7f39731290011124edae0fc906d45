@@ -1,8 +1,0 @@
-package cste.android.hnad;
-
-import org.fern.rest.android.ArrayAdapter;
-import org.fern.rest.android.user.User;
-
-public class DeviceListAdapter extends ArrayAdapter<String>{
-
-}

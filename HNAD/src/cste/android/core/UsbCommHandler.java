@@ -156,17 +156,17 @@ public class UsbCommHandler extends BroadcastReceiver implements Runnable {
 			try {
 				ret = mInputStream.read(buffer);
 			} catch (IOException e) {
+				//TODO
 				break;
 			}
 			
 			if(ret>0)
 			{
-				try {
-					this.mOutputStream.write(buffer, 0, ret);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					break;
-				}
+				Message m = Message.obtain(mHandler,PACKET_RECEIVED);
+				Bundle data = new Bundle();
+				data.putByteArray("content", buffer);
+				m.setData(data);
+				mHandler.sendMessage(m);
 			}
 		}
 //

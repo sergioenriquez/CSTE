@@ -1,5 +1,6 @@
 package cste.hnad;
 
+import cste.messages.IcdMsg;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
@@ -17,11 +18,10 @@ public class CsdMessageHandler extends Handler {
 	public void handleMessage(Message msg) {
 		switch (msg.what) {
 		case PACKET_RECEIVED:
-			//SwitchMsg o = (SwitchMsg) msg.obj;
-			//handleSwitchMessage(o);
-			int content = msg.arg1;
-			
-			mHnadCore.packetReceived(content);
+			byte[] packet = msg.getData().getByteArray("content");
+			IcdMsg icdMsg = new IcdMsg(packet);
+
+			mHnadCore.packetReceived(icdMsg);
 			// signal something
 			break;
 		default:

@@ -23,6 +23,7 @@ import cste.android.activities.LoginActivity;
 import cste.hnad.CsdMessageHandler;
 import cste.hnad.Device;
 import cste.hnad.HnadCoreInterface;
+import cste.messages.IcdMsg;
 
 public class HnadCoreService extends Service implements HnadCoreInterface{
 	
@@ -131,15 +132,18 @@ public class HnadCoreService extends Service implements HnadCoreInterface{
 	/***
 	 * 
 	 */
-	public void packetReceived(int content) {
+	public void packetReceived(IcdMsg msg) {
 		// TODO Auto-generated method stub
+		
+		// do something with the content
+		// decrypt if necesary
 		
 		int itemChanged = 0;
 		
 		
-		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG);
-		intent.putExtra(Events.DEVLIST_CHANGED,content);
-		sendBroadcast(intent);
+//		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG);
+//		intent.putExtra(Events.DEVLIST_CHANGED,msg);
+//		sendBroadcast(intent);
 
 		//add a device to the list
 	}
