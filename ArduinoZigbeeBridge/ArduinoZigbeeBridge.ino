@@ -17,7 +17,7 @@ int ledPin = 13;      // select the pin for the LED
 int sensorValue = 0;  // variable to store the value coming from the sensor
 
 void setup() {
-  Serial1.begin(9600);
+  Serial.begin(115200);
   acc.powerOn();
   pinMode(ledPin, OUTPUT);  
 }
@@ -31,8 +31,8 @@ void loop() {
     
     // pass data from zigbee to android
     len = 0;
-    while(Serial1.available()){
-      msg[len++] = Serial1.read();
+    while(Serial.available()){
+      msg[len++] = Serial.read();
     }
     if(len>0)
       acc.write(msg,len);
@@ -40,7 +40,7 @@ void loop() {
     //pass data from android to zigbee
     len = acc.read(msg, sizeof(msg), 1);
     if(len>0)
-      Serial1.write(msg,len);
+      Serial.write(msg,len);
     
     delay(1);
   }else {
