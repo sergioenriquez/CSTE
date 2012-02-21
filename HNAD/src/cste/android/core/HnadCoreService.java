@@ -24,6 +24,7 @@ import cste.hnad.CsdMessageHandler;
 import cste.hnad.Device;
 import cste.hnad.HnadCoreInterface;
 import cste.messages.IcdMsg;
+import cste.misc.*;
 
 public class HnadCoreService extends Service implements HnadCoreInterface{
 	
@@ -71,6 +72,12 @@ public class HnadCoreService extends Service implements HnadCoreInterface{
 		mDeviceList.add(new Device(true,"bbbb","asdas"));
 
 		//showNotification();
+		byte []dest = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
+		byte []msg = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
+		byte [] zigbeePkt = ZigbeeAPI.buildPkt(dest,msg);
+		
+		
+		int x = 1;
 	}
 	
 	@Override
