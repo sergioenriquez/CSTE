@@ -1,3 +1,3 @@
-#Tue Dec 20 22:28:48 PST 2011
-prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="ret"/>\r\n<expression enabled\="true" text\="val"/>\r\n<expression enabled\="true" text\="buffer"/>\r\n</watchExpressions>\r\n
+#Tue Feb 21 18:07:06 PST 2012
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="mAccessory"/>\r\n<expression enabled\="true" text\="mOutputStream"/>\r\n<expression enabled\="true" text\="pendingTxList"/>\r\n<expression enabled\="true" text\="mAccessory"/>\r\n</watchExpressions>\r\n
 eclipse.preferences.version=1

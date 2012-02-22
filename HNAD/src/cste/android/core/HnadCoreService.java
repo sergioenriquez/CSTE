@@ -70,23 +70,15 @@ public class HnadCoreService extends Service implements HnadCoreInterface{
 		mDeviceList.add(new Device(true,"aaaa","yyy"));
 		mDeviceList.add(new Device(true,"bbbb","yzxcy"));
 		mDeviceList.add(new Device(true,"bbbb","asdas"));
-
-		//showNotification();
-		byte []dest = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
-		byte []msg = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
-		byte [] zigbeePkt = ZigbeeAPI.buildPkt(dest,msg);
-		
-		
-		int x = 1;
 	}
 	
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
 
-        Bundle b = intent.getExtras();
-        if ( b != null && b.containsKey("usbAccesory") )
-        	mUsbCommHandler.openUsbAccesory();
+        //Bundle b = intent.getExtras();
+        //if ( b != null && b.containsKey("usbAccesory") )
+        	mUsbCommHandler.openExistingUSBaccessory();
         
         if ( mIsLoggedIn){
 			Intent devListIntent = new Intent(getApplicationContext(), DeviceListActivity.class);
@@ -113,7 +105,12 @@ public class HnadCoreService extends Service implements HnadCoreInterface{
 	@Override
 	public void uploadData() {
 		// TODO Auto-generated method stub
+		byte []dest = {0x00,0x00,0x00,0x00,0x00,0x00,(byte) 0xFF,(byte) 0xFF};
+		byte []msg = {0x11,0x22,0x33,0x44,0x55,0x66,0x77,(byte) 0x88};
+		byte [] zigbeePkt = ZigbeeAPI.buildPkt(dest,msg);
 		
+		if( !mUsbCommHandler.transmit(zigbeePkt) )
+			toast("Device not availible");
 	}
 
 	private void showNotification() {       
@@ -134,12 +131,25 @@ public class HnadCoreService extends Service implements HnadCoreInterface{
         // Tell the user we stopped.
         //Toast.makeText(this, R.string.local_service_stopped, Toast.LENGTH_SHORT).show();
     }
+    
+    /***
+     * 
+     */
+    @Override
+    public void onUsbStateChanged(boolean connected){
+    	if(connected)
+    		toast("USB was connected");
+    	else
+    		toast("USB was disconnected");
+    }
+    
 
-	@Override
 	/***
 	 * 
 	 */
-	public void packetReceived(IcdMsg msg) {
+    @Override
+	public void onPacketReceived(IcdMsg msg) {
+    	toast("pkt received");
 		// TODO Auto-generated method stub
 		
 		// do something with the content
@@ -155,6 +165,12 @@ public class HnadCoreService extends Service implements HnadCoreInterface{
 		//add a device to the list
 	}
 	
+    
+    
+    private void toast(String msg){
+    	Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+    
 	public class Events{
 		public static final String HNAD_CORE_EVENT_MSG = "cste.hnad.android.HNAD_CORE_EVENT";
 		public static final String DEVLIST_CHANGED = "DEVLIST_CHANGED";

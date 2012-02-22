@@ -8834,3 +8834,183 @@ org.eclipse.core.internal.resources.ResourceException: Resource '/restApp/res' d
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
 !SUBENTRY 1 org.eclipse.core.resources 4 368 2012-01-01 19:11:46.120
 !MESSAGE Resource '/restApp/res' does not exist.
+!SESSION 2012-02-21 12:51:38.117 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_30
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.java.product -data C:\cste -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-02-21 12:52:39.398
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Container.members(Container.java:265)
+	at org.eclipse.core.internal.resources.Container.members(Container.java:248)
+	at com.android.ide.eclipse.adt.internal.sdk.Sdk$6.run(Sdk.java:1196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-02-21 12:52:39.399
+!MESSAGE Resource '/HNAD/res' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-02-21 12:52:39.418
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/OldAndroNAD/res' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Container.members(Container.java:265)
+	at org.eclipse.core.internal.resources.Container.members(Container.java:248)
+	at com.android.ide.eclipse.adt.internal.sdk.Sdk$6.run(Sdk.java:1196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-02-21 12:52:39.419
+!MESSAGE Resource '/OldAndroNAD/res' does not exist.
+
+!ENTRY org.eclipse.jdt.debug 4 125 2012-02-21 16:17:40.474
+!MESSAGE Internal error logged from JDI Debug: 
+!STACK 1
+org.eclipse.debug.core.DebugException: Breakpoint does not have an associated marker.
+	at org.eclipse.debug.core.model.Breakpoint.ensureMarker(Breakpoint.java:268)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.getSuspendPolicy(JavaBreakpoint.java:911)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.getJDISuspendPolicy(JavaBreakpoint.java:618)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.configureRequest(JavaBreakpoint.java:465)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaLineBreakpoint.createLineBreakpointRequest(JavaLineBreakpoint.java:286)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaLineBreakpoint.newRequests(JavaLineBreakpoint.java:268)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.createRequest(JavaBreakpoint.java:442)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.createRequests(JavaBreakpoint.java:568)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.addToTarget(JavaBreakpoint.java:532)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaLineBreakpoint.addToTarget(JavaLineBreakpoint.java:161)
+	at org.eclipse.jdt.internal.debug.core.model.JDIDebugTarget.breakpointAdded(JDIDebugTarget.java:1206)
+	at org.eclipse.debug.internal.core.BreakpointManager$BreakpointNotifier.run(BreakpointManager.java:920)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.debug.internal.core.BreakpointManager$BreakpointNotifier.notify(BreakpointManager.java:946)
+	at org.eclipse.debug.internal.core.BreakpointManager.fireUpdate(BreakpointManager.java:860)
+	at org.eclipse.debug.internal.core.BreakpointManager.addBreakpoints(BreakpointManager.java:579)
+	at org.eclipse.debug.internal.core.BreakpointManager.addBreakpoints(BreakpointManager.java:549)
+	at org.eclipse.debug.internal.core.BreakpointManager.addBreakpoint(BreakpointManager.java:542)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.register(JavaBreakpoint.java:194)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaLineBreakpoint$1.run(JavaLineBreakpoint.java:150)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at org.eclipse.debug.core.model.Breakpoint.run(Breakpoint.java:335)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaLineBreakpoint.<init>(JavaLineBreakpoint.java:153)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaLineBreakpoint.<init>(JavaLineBreakpoint.java:132)
+	at org.eclipse.jdt.debug.core.JDIDebugModel.createLineBreakpoint(JDIDebugModel.java:274)
+	at org.eclipse.jdt.internal.debug.ui.actions.ToggleBreakpointAdapter$2.run(ToggleBreakpointAdapter.java:245)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2012-02-21 16:17:40.474
+!MESSAGE Breakpoint does not have an associated marker.
+
+!ENTRY org.eclipse.debug.core 4 125 2012-02-21 16:17:40.475
+!MESSAGE Error logged from Debug Core: 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 1013 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:56)
+	at org.eclipse.core.internal.resources.Marker.getAttribute(Marker.java:97)
+	at org.eclipse.debug.internal.ui.views.breakpoints.BreakpointSetOrganizer.getWorkingsetAttributeFromMarker(BreakpointSetOrganizer.java:377)
+	at org.eclipse.debug.internal.ui.views.breakpoints.BreakpointSetOrganizer.breakpointsAdded(BreakpointSetOrganizer.java:174)
+	at org.eclipse.debug.internal.core.BreakpointManager$BreakpointsNotifier.run(BreakpointManager.java:984)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.debug.internal.core.BreakpointManager$BreakpointsNotifier.notify(BreakpointManager.java:1009)
+	at org.eclipse.debug.internal.core.BreakpointManager.fireUpdate(BreakpointManager.java:863)
+	at org.eclipse.debug.internal.core.BreakpointManager.addBreakpoints(BreakpointManager.java:579)
+	at org.eclipse.debug.internal.core.BreakpointManager.addBreakpoints(BreakpointManager.java:549)
+	at org.eclipse.debug.internal.core.BreakpointManager.addBreakpoint(BreakpointManager.java:542)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.register(JavaBreakpoint.java:194)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaLineBreakpoint$1.run(JavaLineBreakpoint.java:150)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at org.eclipse.debug.core.model.Breakpoint.run(Breakpoint.java:335)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaLineBreakpoint.<init>(JavaLineBreakpoint.java:153)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaLineBreakpoint.<init>(JavaLineBreakpoint.java:132)
+	at org.eclipse.jdt.debug.core.JDIDebugModel.createLineBreakpoint(JDIDebugModel.java:274)
+	at org.eclipse.jdt.internal.debug.ui.actions.ToggleBreakpointAdapter$2.run(ToggleBreakpointAdapter.java:245)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2012-02-21 16:17:40.475
+!MESSAGE Marker id 1013 not found.
+
+!ENTRY org.eclipse.jdt.debug.ui 4 4 2012-02-21 16:17:40.475
+!MESSAGE Marker id 1013 not found.
+
+!ENTRY org.eclipse.jdt.debug 4 125 2012-02-21 17:59:19.877
+!MESSAGE Internal error logged from JDI Debug: 
+!STACK 1
+org.eclipse.debug.core.DebugException: Invalid stack frame
+	at org.eclipse.jdt.internal.debug.core.model.JDIStackFrame.getUnderlyingStackFrame(JDIStackFrame.java:1010)
+	at org.eclipse.jdt.internal.debug.core.model.JDIStackFrame.getUnderlyingThisObject(JDIStackFrame.java:700)
+	at org.eclipse.jdt.internal.debug.core.model.JDIStackFrame.getThis(JDIStackFrame.java:1058)
+	at org.eclipse.jdt.internal.debug.ui.JavaDebugHover.getHoverInfo2(JavaDebugHover.java:362)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:141)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:82)
+	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:166)
+!SUBENTRY 1 org.eclipse.jdt.debug 4 100 2012-02-21 17:59:19.877
+!MESSAGE Invalid stack frame
+
+!ENTRY org.eclipse.jdt.debug 4 120 2012-02-21 18:00:25.673
+!MESSAGE Exception processing async thread queue
+!SUBENTRY 1 org.eclipse.jdt.debug 4 120 2012-02-21 18:00:25.674
+!MESSAGE Exception processing async thread queue
+!STACK 0
+com.sun.jdi.VMDisconnectedException: Got IOException from Virtual Machine
+	at org.eclipse.jdi.internal.connect.PacketReceiveManager.getReply(PacketReceiveManager.java:165)
+	at org.eclipse.jdi.internal.connect.PacketReceiveManager.getReply(PacketReceiveManager.java:180)
+	at org.eclipse.jdi.internal.MirrorImpl.requestVM(MirrorImpl.java:174)
+	at org.eclipse.jdi.internal.MirrorImpl.requestVM(MirrorImpl.java:230)
+	at org.eclipse.jdi.internal.VirtualMachineImpl.allClasses(VirtualMachineImpl.java:355)
+	at org.eclipse.jdi.internal.VirtualMachineImpl.allRefTypes(VirtualMachineImpl.java:382)
+	at org.eclipse.jdi.internal.ReferenceTypeImpl.nestedTypes(ReferenceTypeImpl.java:1105)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.BinaryBasedSourceGenerator.buildTypeDeclaration(BinaryBasedSourceGenerator.java:310)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.BinaryBasedSourceGenerator.buildTypeDeclaration(BinaryBasedSourceGenerator.java:145)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.BinaryBasedSourceGenerator.buildSource(BinaryBasedSourceGenerator.java:74)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.EvaluationSourceGenerator.getInstanceSourceMapper(EvaluationSourceGenerator.java:195)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.EvaluationSourceGenerator.getSource(EvaluationSourceGenerator.java:214)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.ASTEvaluationEngine.getCompiledExpression(ASTEvaluationEngine.java:226)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.ASTEvaluationEngine.evaluate(ASTEvaluationEngine.java:115)
+	at org.eclipse.jdt.internal.debug.ui.JavaWatchExpressionDelegate$EvaluationRunnable.run(JavaWatchExpressionDelegate.java:144)
+	at org.eclipse.jdt.internal.debug.core.model.JDIThread$ThreadJob.run(JDIThread.java:2756)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.jdt.debug 4 120 2012-02-21 18:01:16.829
+!MESSAGE Exception processing async thread queue
+!SUBENTRY 1 org.eclipse.jdt.debug 4 120 2012-02-21 18:01:16.829
+!MESSAGE Exception processing async thread queue
+!STACK 0
+com.sun.jdi.VMDisconnectedException: Got IOException from Virtual Machine
+	at org.eclipse.jdi.internal.connect.PacketReceiveManager.getReply(PacketReceiveManager.java:165)
+	at org.eclipse.jdi.internal.connect.PacketReceiveManager.getReply(PacketReceiveManager.java:180)
+	at org.eclipse.jdi.internal.MirrorImpl.requestVM(MirrorImpl.java:174)
+	at org.eclipse.jdi.internal.MirrorImpl.requestVM(MirrorImpl.java:230)
+	at org.eclipse.jdi.internal.VirtualMachineImpl.allClasses(VirtualMachineImpl.java:355)
+	at org.eclipse.jdi.internal.VirtualMachineImpl.allRefTypes(VirtualMachineImpl.java:382)
+	at org.eclipse.jdi.internal.ReferenceTypeImpl.nestedTypes(ReferenceTypeImpl.java:1105)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.BinaryBasedSourceGenerator.buildTypeDeclaration(BinaryBasedSourceGenerator.java:310)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.BinaryBasedSourceGenerator.buildTypeDeclaration(BinaryBasedSourceGenerator.java:315)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.BinaryBasedSourceGenerator.buildTypeDeclaration(BinaryBasedSourceGenerator.java:145)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.BinaryBasedSourceGenerator.buildSource(BinaryBasedSourceGenerator.java:74)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.EvaluationSourceGenerator.getInstanceSourceMapper(EvaluationSourceGenerator.java:195)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.EvaluationSourceGenerator.getSource(EvaluationSourceGenerator.java:214)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.ASTEvaluationEngine.getCompiledExpression(ASTEvaluationEngine.java:226)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.ASTEvaluationEngine.evaluate(ASTEvaluationEngine.java:115)
+	at org.eclipse.jdt.internal.debug.ui.JavaWatchExpressionDelegate$EvaluationRunnable.run(JavaWatchExpressionDelegate.java:144)
+	at org.eclipse.jdt.internal.debug.core.model.JDIThread$ThreadJob.run(JDIThread.java:2756)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.jdt.debug 4 120 2012-02-21 18:01:16.829
+!MESSAGE Exception processing async thread queue
+!STACK 0
+com.sun.jdi.VMDisconnectedException: Got IOException from Virtual Machine
+	at org.eclipse.jdi.internal.connect.PacketSendManager.sendPacket(PacketSendManager.java:80)
+	at org.eclipse.jdi.internal.MirrorImpl.requestVM(MirrorImpl.java:170)
+	at org.eclipse.jdi.internal.MirrorImpl.requestVM(MirrorImpl.java:230)
+	at org.eclipse.jdi.internal.VirtualMachineImpl.allClasses(VirtualMachineImpl.java:355)
+	at org.eclipse.jdi.internal.VirtualMachineImpl.allRefTypes(VirtualMachineImpl.java:382)
+	at org.eclipse.jdi.internal.ReferenceTypeImpl.nestedTypes(ReferenceTypeImpl.java:1105)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.BinaryBasedSourceGenerator.buildTypeDeclaration(BinaryBasedSourceGenerator.java:310)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.BinaryBasedSourceGenerator.buildTypeDeclaration(BinaryBasedSourceGenerator.java:145)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.BinaryBasedSourceGenerator.buildSource(BinaryBasedSourceGenerator.java:74)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.EvaluationSourceGenerator.getInstanceSourceMapper(EvaluationSourceGenerator.java:195)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.EvaluationSourceGenerator.getSource(EvaluationSourceGenerator.java:214)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.ASTEvaluationEngine.getCompiledExpression(ASTEvaluationEngine.java:226)
+	at org.eclipse.jdt.internal.debug.eval.ast.engine.ASTEvaluationEngine.evaluate(ASTEvaluationEngine.java:115)
+	at org.eclipse.jdt.internal.debug.ui.JavaWatchExpressionDelegate$EvaluationRunnable.run(JavaWatchExpressionDelegate.java:144)
+	at org.eclipse.jdt.internal.debug.core.model.JDIThread$ThreadJob.run(JDIThread.java:2756)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)

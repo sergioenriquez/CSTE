@@ -35,8 +35,10 @@ public class ZigbeeAPI {
 		tmp.put((byte) (0xFF - sum));
 		
 		//escape special chars
-		ByteBuffer pkt = ByteBuffer.allocate(tmp.capacity());
-		for(int s=0; s<0 ; s++)
+		ByteBuffer escapedSeq = ByteBuffer.allocate(tmp.capacity()*2);
+		int newSize=0;
+		escapedSeq.put(DELIMETER);
+		for(int s=1; s<tmp.capacity() ; s++,newSize++)
 		{
 			byte c = tmp.get(s);
 			if( c == 0x7E || 
@@ -44,13 +46,17 @@ public class ZigbeeAPI {
 				c == 0x11 ||
 				c == 0x13)
 			{
-				pkt.put((byte)0x7D);
-				pkt.put((byte) (c ^ 0x20));
+				escapedSeq.put((byte)0x7D);
+				escapedSeq.put((byte) (c ^ 0x20));
+				newSize++;
 			}
 			else
-				pkt.put(c);
+				escapedSeq.put(c);
 		}
+		byte []zigbeePkt = new byte[newSize];
+		escapedSeq.rewind();
+		escapedSeq.get(zigbeePkt);
 		
-		return pkt.array();
+		return zigbeePkt;
 	}
 }

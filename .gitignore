@@ -4,3 +4,5 @@
 *.apk
 *.onetoc2
 .metadata/
+.metadata/.mylyn/
+.metadata/.plugins/

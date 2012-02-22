@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cste.android.R;
 import cste.android.core.HnadCoreService;
+import cste.misc.ZigbeeAPI;
 
 /***
  * Lets user enter their login credentials to authenticated with the DCP server. If successful it will then launch the device details activity.
@@ -34,6 +35,7 @@ import cste.android.core.HnadCoreService;
 public class LoginActivity extends Activity {
 	static final String TAG = "HNAD Login";
 	
+	private HnadCoreService mHnadCoreService = null;
 	private Button loginButton;
 	private boolean mIsBound;
 
@@ -74,6 +76,8 @@ public class LoginActivity extends Activity {
             case R.id.settings:
             	Intent intent = new Intent(getApplicationContext(), PreferencesActivity.class);
                 startActivity(intent);
+                mHnadCoreService.uploadData(); //TODO just a test
+       
                 break;
             case R.id.exit:
             	this.stopService(new Intent("cste.android.core.HNADCORESERVICE"));
@@ -120,14 +124,13 @@ public class LoginActivity extends Activity {
 	}
     
     private ServiceConnection mConnection = new ServiceConnection() {
-    	private HnadCoreService mBoundService;
 		public void onServiceConnected(ComponentName className, IBinder service) {
-			mBoundService = ((HnadCoreService.LocalBinder)service).getService();
+			mHnadCoreService = ((HnadCoreService.LocalBinder)service).getService();
 			//Toast.makeText(getApplicationContext(), "Login - Service bound", Toast.LENGTH_SHORT).show();
 		}
 		
 		public void onServiceDisconnected(ComponentName className) {
-			mBoundService = null;
+			mHnadCoreService = null;
 		}
 	};
 	
