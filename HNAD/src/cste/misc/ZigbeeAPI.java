@@ -1,28 +1,30 @@
 package cste.misc;
 
-import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 
+import android.util.Log;
+
 public class ZigbeeAPI {
+	private static final String TAG = "Zigbee API";
 	
 	private static final int ADDR_SIZE = 8;
 	private static final int OVERHEAD = 7 + ADDR_SIZE;
 	private static final byte DELIMETER = 0x7E;
 	private static final byte CMD_64BIT = 0x00;
 	private static final byte FRAME_ACK_ID = 0x00;
-	private static final byte ACK_REQ = 0x04;
+	private static final byte ACK_REQ = 0x01; //disable ACK
 	
-	
-	
+	/***
+	 * Based on API level 2, supports 64 bit addresses with no ACK
+	 * @param dest
+	 * @param msg
+	 * @return
+	 */
 	public static byte [] buildPkt(byte []dest, byte []msg){
-		//byte []tmp = new byte[msg.length + OVERHEAD];
 		ByteBuffer tmp = ByteBuffer.allocate(msg.length + OVERHEAD);
 		if( dest.length != ADDR_SIZE)
 			return tmp.array(); // only 64bit address supported 
-		
-		tmp.put(DELIMETER);
-		tmp.put((byte) 0x00);
-		tmp.put((byte)(msg.length + ADDR_SIZE + 3));
+
 		tmp.put(CMD_64BIT);
 		tmp.put(FRAME_ACK_ID);
 		tmp.put(dest);
@@ -38,7 +40,9 @@ public class ZigbeeAPI {
 		ByteBuffer escapedSeq = ByteBuffer.allocate(tmp.capacity()*2);
 		int newSize=0;
 		escapedSeq.put(DELIMETER);
-		for(int s=1; s<tmp.capacity() ; s++,newSize++)
+		escapedSeq.put((byte) 0x00);
+		escapedSeq.put((byte)(msg.length + ADDR_SIZE + 3));
+		for(int s=0; s<tmp.capacity() ; s++,newSize++)
 		{
 			byte c = tmp.get(s);
 			if( c == 0x7E || 
@@ -58,5 +62,61 @@ public class ZigbeeAPI {
 		escapedSeq.get(zigbeePkt);
 		
 		return zigbeePkt;
+	}
+	
+	public static final byte RX_64BIT = (byte) 0x80;
+	public static final byte RX_16BIT = (byte) 0x81;
+	
+	/***
+	 * Unwraps the data delivered by the Zigbee transceiver
+	 * @param msg
+	 * @return
+	 */
+	@SuppressWarnings("unused")
+	public static ZigbeePkt parsePkt(byte[] msg)
+	{
+		ByteBuffer temp = ByteBuffer.wrap(msg);
+		ByteBuffer data = ByteBuffer.allocate(temp.capacity());
+		for(int i=0;i<temp.capacity();i++)
+		{
+			byte c = temp.get();
+			if(	c == 0x7D )
+			{
+				c = temp.get();
+				c ^= 0x20;
+				i++;
+				data.put(c);
+			}
+			else
+				data.put(c);
+		}
+		data.rewind();
+		data.get();//delimeter
+		short payloadSize = data.getShort();
+		byte type = data.get();
+		
+		int addrSize;
+		if(type == RX_64BIT)
+			addrSize = 8;
+		else if(type == RX_16BIT)
+			addrSize = 2;
+		else
+		{
+			Log.w(TAG, "Zigbee packet type not known");
+			return new ZigbeePkt(type);
+		}
+		
+		byte[] source = new byte[addrSize];
+		data.get(source);
+		
+		int rssi = data.get();
+		byte opt = data.get();
+		
+		byte[] payload = new byte[payloadSize];
+		data.get(payload);
+		
+		byte checkSum = data.get();
+		
+		return new ZigbeePkt(type,rssi,opt,source,payload);
 	}
 }

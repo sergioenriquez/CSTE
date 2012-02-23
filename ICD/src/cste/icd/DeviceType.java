@@ -24,7 +24,7 @@ public enum DeviceType {
 
 	public static DeviceType fromValue(int type){
 		for(DeviceType d : DeviceType.values()){
-			 if ( d.toByte() == type)
+			 if ( d.getBytes() == type)
 				 return d;
 		}
 		return INVALID;
@@ -32,7 +32,7 @@ public enum DeviceType {
 	 
 
 	
-	public byte toByte(){
+	public byte getBytes(){
 		return (byte)typeCode;
 	}
 	

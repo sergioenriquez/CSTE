@@ -59,6 +59,8 @@ public class LoginActivity extends Activity {
         this.registerReceiver(mDeviceUpdateReceiver, filter); 
         
         doBindService();
+        
+       
     }
 
     

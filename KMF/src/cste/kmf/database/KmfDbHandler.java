@@ -89,7 +89,7 @@ public class KmfDbHandler {
     			psUpdate = conn.prepareStatement(UPDATE_RECORD_QUERY);
     			psUpdate.setBytes(1, record.getRekeyKey());
     			psUpdate.setBytes(2, record.getLTK());
-    			psUpdate.setBytes(3, new byte[]{record.getDeviceType().toByte()}); // need to cast as byte array
+    			psUpdate.setBytes(3, new byte[]{record.getDeviceType().getBytes()}); // need to cast as byte array
     			psUpdate.setInt(4, record.getRekeyCtr());
     			psUpdate.setBytes(5, record.getUID());
     			psUpdate.executeUpdate();
@@ -114,7 +114,7 @@ public class KmfDbHandler {
 			psInsert.setBytes(1, record.getUID());
 	    	psInsert.setBytes(2, record.getRekeyKey());
 	    	psInsert.setBytes(3, record.getLTK());
-	    	psInsert.setBytes(4, new byte[]{record.getDeviceType().toByte()}); // need to cast as byte array
+	    	psInsert.setBytes(4, new byte[]{record.getDeviceType().getBytes()}); // need to cast as byte array
 	    	psInsert.setInt(5, record.getRekeyCtr());
 	    	psInsert.executeUpdate();
 		} catch (SQLException e) {

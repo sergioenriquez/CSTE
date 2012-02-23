@@ -82,8 +82,8 @@ public class IcdHeader {
 	
 	public byte[] getBytes(){
 		ByteBuffer b = ByteBuffer.allocate(ICD_HEADER_LENGTH);
-		b.put(devType.toByte());
-		b.put(msgType.toByte());
+		b.put(devType.getBytes());
+		b.put(msgType.getBytes());
 		b.putInt(msgLen);
 		b.put(devUID.getBytes());
 		b.put(icdRev);

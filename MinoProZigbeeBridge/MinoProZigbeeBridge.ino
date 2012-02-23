@@ -32,11 +32,8 @@ void toggleLED();
 void setup()
 {
   Serial.begin(115200);
-  if (Usb.Init() == -1) 
-  {
-    Serial.println("OSCOKIRQ failed to assert");
-    while(1); //halt
-  }//if (Usb.Init() == -1...
+  while(Usb.Init() == -1) 
+    delay( 100 );  
 }
 
 void loop()
@@ -45,25 +42,22 @@ void loop()
   uint16_t len = 64;
   uint8_t msg[128] = { 0x00 };
   
-  uint8_t test[] = { 0x01 , 0x02 , 0x03 , 0x04 };
-
   Usb.Task();
   
-  if( adk.isReady() == false )
-     return;
- 
-  //pass data from android to zigbee
-  rcode = adk.RcvData(&len,msg);
-  if(len>0)
-    Serial.write(msg,len);
-      
-  // pass data from zigbee to android
-  len = 0;
-  while(Serial.available())
-    msg[len++] = Serial.read();
-  if(len>0)
-    adk.SndData(len,msg);
-    
+  if( adk.isReady() == true )
+  {
+    //pass data from android to zigbee
+    rcode = adk.RcvData(&len,msg);
+    if(len>0)
+      Serial.write(msg,len);
+        
+    // pass data from zigbee to android
+    len = 0;
+    while(Serial.available())
+      msg[len++] = Serial.read();
+    if(len>0)
+      adk.SndData(len,msg);
+  } 
   delay( 10 );     
 }
 

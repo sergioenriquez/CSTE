@@ -5,6 +5,7 @@ import static cste.icd.ICD.Hex;
 import java.nio.ByteBuffer;
 
 public class DeviceUID {
+	static public final int SIZE = 8;
 	final byte[] deviceUID;
 	
 	public static DeviceUID fromBuffer(ByteBuffer b){
@@ -13,17 +14,23 @@ public class DeviceUID {
 		return new DeviceUID(temp);
 	}
 	
+	//TODO remove 
 	public static DeviceUID fromByteArray(byte[] arr){
 		return new DeviceUID(arr.clone());
 	}
 	
+	//TODO remove 
 	public static DeviceUID fromString(String uid){
 		byte[] temp = Hex.unmarshal(uid);
 		return new DeviceUID(temp);
 	}
 	
-	DeviceUID(byte[] deviceUID){
+	public DeviceUID(byte[] deviceUID){
 		this.deviceUID = deviceUID;
+	}
+	
+	public DeviceUID(String deviceUID){
+		this.deviceUID = hexStringToByteArray(deviceUID);
 	}
 	
 	public boolean isValid(){
@@ -41,4 +48,14 @@ public class DeviceUID {
 	public String toString(){
 		return Hex.marshal(deviceUID);
 	}
+
+	public static byte[] hexStringToByteArray(String s) {
+        int len = s.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                                 + Character.digit(s.charAt(i+1), 16));
+        }
+        return data;
+    }
 }

@@ -16,21 +16,20 @@ public enum MsgType{
 	DEV_TO_SENSOR_RESTRICTED_CMD(0xC2),
 	ENCRYPYION_REKEY			(0xE0),
 	// 0xE1 - 0xE9 reserved for key management
-	NADA_MSG					(0x00),
-	INVALID						(0xFF);
-	
+	NADA_MSG					(0xFF),
+	INVALID						(0xFE);
 	
 	private final int typeCode;
 	
 	public static MsgType fromValue(int type){
 		for(MsgType d : MsgType.values()){
-			 if ( d.toByte() == type)
+			 if ( d.getBytes() == type)
 				 return d;
 		}
 		return INVALID;
 	}
 	
-	public byte toByte(){
+	public byte getBytes(){
 		return (byte)typeCode;
 	}
 	

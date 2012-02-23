@@ -1,11 +1,16 @@
 package cste.hnad;
 
 import cste.messages.IcdMsg;
+import cste.misc.ZigbeeAPI;
+import cste.misc.ZigbeePkt;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 public class CsdMessageHandler extends Handler {
+	private static final String TAG = "CSD Msg Handler";
+	
 	public static final int DEVICE_CONNECTED = 1;
 	public static final int DEVICE_DISCONNECTED = 2;
 	public static final int PACKET_RECEIVED = 3;
@@ -27,11 +32,9 @@ public class CsdMessageHandler extends Handler {
 			mHnadCore.onUsbStateChanged(false);
 			break;
 		case PACKET_RECEIVED:
-			byte[] packet = msg.getData().getByteArray("content");
-			IcdMsg icdMsg = new IcdMsg(packet);
-
-			mHnadCore.onPacketReceived(icdMsg);
-			// signal something
+			byte[] rawData = msg.getData().getByteArray("content");
+			ZigbeePkt pkt = ZigbeeAPI.parsePkt(rawData);
+			mHnadCore.onPacketReceived(pkt);
 			break;
 		default:
 
