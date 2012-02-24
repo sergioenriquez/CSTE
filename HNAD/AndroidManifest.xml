@@ -13,12 +13,12 @@
 
     <application 	android:icon="@drawable/icon" 
         			android:label="@string/app_name" 
-        			android:theme="@android:style/Theme.NoTitleBar">
+        			> <!--  android:theme="@android:style/Theme.NoTitleBar" -->
         
         <uses-library android:name="com.android.future.usb.accessory" />
         
-        <service  android:name=".core.HnadCoreService"
-           		  android:enabled="true">
+        <service android:name=".core.HnadCoreService"
+           		 android:enabled="true">
          	<intent-filter>
 				<action android:name="cste.android.core.HNADCORESERVICE" />
 			</intent-filter>
@@ -49,11 +49,11 @@
                   android:label="@string/devlist_title">
         </activity>
         
-        <activity android:name=".activities.DeviceDetailsActivity"
+        <activity android:name=".activities.DeviceInfoTabActivity"
                   android:label="@string/devdetails_title">
         </activity>
         
-        <activity android:name=".activities.EventLogActivity"
+        <activity android:name=".activities.HNADEventLogActivity"
                   android:label="@string/devdetails_title">
         </activity>
         
@@ -65,7 +65,7 @@
                   android:label="@string/viewkeys_title">
         </activity>
         
-        <activity 	android:name=".activities.DeviceInfoActivity">
+        <activity 	android:name=".activities.DeviceDetailsActivity">
 		</activity>
 		
 		<activity 	android:name=".activities.DeviceLogActivity">

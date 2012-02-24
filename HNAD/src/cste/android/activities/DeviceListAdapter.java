@@ -1,10 +1,5 @@
 package cste.android.activities;
 
-import java.util.List;
-
-import cste.android.R;
-import cste.hnad.Device;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import cste.android.R;
+import cste.hnad.Device;
 
 public class DeviceListAdapter extends ArrayAdapter<Device>{
 	int resourceID;
@@ -33,10 +30,10 @@ public class DeviceListAdapter extends ArrayAdapter<Device>{
         devSignal.setChecked(dev.visible);
 
         TextView devID = (TextView) convertView.findViewById(R.id.deviceid);
-        devID.setText(dev.uid);
+        devID.setText(dev.devUID.toString());
         
         TextView devType = (TextView) convertView.findViewById(R.id.devicetype);
-        devType.setText(dev.type);
+        devType.setText(dev.devType.toString());
 
         return convertView;
     }

@@ -17,7 +17,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 import cste.android.R;
-import cste.android.activities.DeviceDetailsActivity;
+import cste.android.activities.DeviceInfoTabActivity;
 import cste.android.activities.DeviceListActivity;
 import cste.android.activities.LoginActivity;
 import cste.hnad.CsdMessageHandler;
@@ -71,10 +71,10 @@ public class HnadCoreService extends Service implements HnadCoreInterface{
 		mNadaBroadcaster = new NADABroadcaster(this,mNadaHandler,mUsbCommHandler);
 		mUsbReconnectTimer = new Timer("USB reconnect timer",true);
 		mDeviceMap = new Hashtable<String,Device>(10);
-		mDeviceMap.put("keu", new Device(true,"keu","ECOC"));
+		mDeviceMap.put("smpl", new Device(new DeviceUID("1122334455667788"),DeviceType.ECM0));
 
 		mMsgWaitingList = new ArrayList<DeviceUID>();
-		mMsgWaitingList.add(new DeviceUID("FFFFFFFFFFFFFFFF") );
+		//mMsgWaitingList.add(new DeviceUID("FFFFFFFFFFFFFFFF") );
 	}
 	
 	@Override
@@ -157,23 +157,31 @@ public class HnadCoreService extends Service implements HnadCoreInterface{
     private void handleIcdMsg(IcdMsg msg)
     {
     	String key = msg.getHeader().getDevUID().toString();
+    	Device device;
     	if( mDeviceMap.containsKey( key ) )
     	{
-        	//toast("pkt from UID " + key);
-        	
-    	}
-    	else
+    		device = mDeviceMap.get(key);
+    		device.msgAsc++;
+    		
+    	}else
     	{
-    		mDeviceMap.put(key, new Device(
-    				true,
-    				key,
-    				msg.getHeader().getDevType().toString()));
+    		device = new Device(
+    				msg.getHeader().getDevUID(),
+    				msg.getHeader().getDevType());
+    		
+    		mDeviceMap.put(key, device);
     		
     		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVLIST_CHANGED,key);
     		sendBroadcast(intent);
     		
-    		showNewDeviceNotification( key);
+    		showNewDeviceNotification(device);
     	}
+    	
+    	Intent testIntent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVICE_INFO_CHANGED,false);
+		testIntent.putExtra("Device",device);
+		sendBroadcast(testIntent);
+    	
+		
     }
     
     /***************************/
@@ -202,14 +210,14 @@ public class HnadCoreService extends Service implements HnadCoreInterface{
 		return mBinder;
 	}
     
-	private void showNewDeviceNotification(String key) {       
+	private void showNewDeviceNotification(Device device) {       
 		// In this sample, we'll use the same text for the ticker and the expanded notification        
 		//TODO go to the device details for this new device
 		CharSequence title = "HNAD app";
-		CharSequence text = "Device detected " + key;        // Set the icon, scrolling text and timestamp        
+		CharSequence text = "Device detected " + device.devUID;        // Set the icon, scrolling text and timestamp        
 		Notification notification = new Notification(R.drawable.stat_sys_wifi_signal_0, text, System.currentTimeMillis());        // The PendingIntent to launch our activity if the user selects this notification        
-		Intent intent = new Intent(this, DeviceDetailsActivity.class);
-		intent.putExtra("deviceKey", key); // TODO fill actual device
+		Intent intent = new Intent(this, DeviceInfoTabActivity.class);
+		intent.putExtra("device", device); // TODO fill actual device
 		intent.putExtra("clearNotifications",true); // TODO fill actual device
 		
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, 0);        // Set the info for the views that show in the notification panel.        
@@ -218,8 +226,10 @@ public class HnadCoreService extends Service implements HnadCoreInterface{
 		mNM.notify(NEW_DEVICE_NOTIFICATION, notification);    
 	}
 
+	//TODO make into enum
 	public class Events{
 		public static final String HNAD_CORE_EVENT_MSG = "cste.hnad.android.HNAD_CORE_EVENT";
+		public static final String DEVICE_INFO_CHANGED = "DEVICE_INFO_CHANGED";
 		public static final String DEVLIST_CHANGED = "DEVLIST_CHANGED";
 		public static final String LOGIN_RESULT = "LOGIN_RESULT";
 		public static final String UPLOAD_DATA = "UPLOAD_DATA";
