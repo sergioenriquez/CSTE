@@ -4,21 +4,16 @@ import static cste.android.activities.PreferencesActivity.SERVER_ADDRESS;
 import static cste.android.activities.PreferencesActivity.SERVER_PORT;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 import android.app.Service;
 import android.content.SharedPreferences;
 import cste.PacketTypes.DcpPacketTypes;
-import cste.PacketTypes.KmfPacketTypes;
-import cste.hnad.HnadTcpClientInterface;
 import cste.interfaces.IpWrapper;
 import cste.ip.IpPacket;
-import cste.ip.IpWrapperImpl;
 
 public class NetworkHandler {
 	private static String server = "";

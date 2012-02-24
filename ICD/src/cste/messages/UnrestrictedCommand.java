@@ -2,8 +2,6 @@ package cste.messages;
 
 import java.nio.ByteBuffer;
 
-import cste.icd.DeviceType;
-
 public class UnrestrictedCommand {
 	public static final int SECTION_SIZE = 2;
 	public byte commandCode;

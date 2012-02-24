@@ -35,25 +35,33 @@ public final class R {
         public static final int stat_sys_wifi_signal_4=0x7f020015;
     }
     public static final class id {
-        public static final int authLoginBtn=0x7f070009;
-        public static final int authPassword=0x7f070008;
-        public static final int authUserLink=0x7f070007;
+        public static final int authLoginBtn=0x7f070011;
+        public static final int authPassword=0x7f070010;
+        public static final int authUserLink=0x7f07000f;
         public static final int dcplink=0x7f070000;
-        public static final int debugText=0x7f07000b;
+        public static final int debugText=0x7f070013;
+        public static final int devAlarmOn=0x7f07000b;
+        public static final int devConveyance=0x7f07000a;
+        public static final int devDoor=0x7f07000c;
+        public static final int devManifest=0x7f070009;
+        public static final int devOpMoce=0x7f07000d;
+        public static final int devRssi=0x7f07000e;
+        public static final int devSeal=0x7f070008;
+        public static final int devUID=0x7f070007;
         public static final int deviceid=0x7f070005;
         public static final int devicesList=0x7f070003;
         public static final int devicetype=0x7f070006;
         public static final int devicevisible=0x7f070004;
-        public static final int eventlog=0x7f07000c;
-        public static final int exit=0x7f070012;
+        public static final int eventlog=0x7f070014;
+        public static final int exit=0x7f07001a;
         public static final int keysavalible=0x7f070002;
-        public static final int logout=0x7f07000e;
-        public static final int remember=0x7f07000a;
-        public static final int settings=0x7f07000d;
-        public static final int upload=0x7f07000f;
+        public static final int logout=0x7f070016;
+        public static final int remember=0x7f070012;
+        public static final int settings=0x7f070015;
+        public static final int upload=0x7f070017;
         public static final int usblink=0x7f070001;
-        public static final int viewkeys=0x7f070011;
-        public static final int viewtrip=0x7f070010;
+        public static final int viewkeys=0x7f070019;
+        public static final int viewtrip=0x7f070018;
     }
     public static final class layout {
         public static final int devcmdtab=0x7f030000;

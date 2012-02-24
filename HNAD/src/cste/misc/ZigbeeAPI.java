@@ -67,13 +67,14 @@ public class ZigbeeAPI {
 	public static final byte RX_64BIT = (byte) 0x80;
 	public static final byte RX_16BIT = (byte) 0x81;
 	
+	
+	//TODO handle other msg types
 	/***
 	 * Unwraps the data delivered by the Zigbee transceiver
 	 * @param msg
 	 * @return
 	 */
-	@SuppressWarnings("unused")
-	public static ZigbeePkt parsePkt(byte[] msg)
+	public static ZigbeeFrame parsePkt(byte[] msg)
 	{
 		ByteBuffer temp = ByteBuffer.wrap(msg);
 		ByteBuffer data = ByteBuffer.allocate(temp.capacity());
@@ -92,10 +93,10 @@ public class ZigbeeAPI {
 		}
 		data.rewind();
 		data.get();//delimeter
-		short payloadSize = data.getShort();
+		short frameSize = data.getShort();
 		byte type = data.get();
 		
-		int addrSize;
+		short addrSize;
 		if(type == RX_64BIT)
 			addrSize = 8;
 		else if(type == RX_16BIT)
@@ -103,7 +104,7 @@ public class ZigbeeAPI {
 		else
 		{
 			Log.w(TAG, "Zigbee packet type not known");
-			return new ZigbeePkt(type);
+			return new ZigbeeFrame(type);
 		}
 		
 		byte[] source = new byte[addrSize];
@@ -112,11 +113,17 @@ public class ZigbeeAPI {
 		int rssi = data.get();
 		byte opt = data.get();
 		
-		byte[] payload = new byte[payloadSize];
-		data.get(payload);
-		
-		byte checkSum = data.get();
-		
-		return new ZigbeePkt(type,rssi,opt,source,payload);
+		short payloadSize = (short) (frameSize-addrSize-3);
+		if( payloadSize > 0)
+		{
+			byte[] payload = new byte[payloadSize];
+			data.get(payload);
+			return new ZigbeeFrame(type,rssi,opt,source,payload);
+		}
+		else
+		{
+			 Log.w(TAG, "Bad frame size received");
+			 return new ZigbeeFrame(type);
+		}
 	}
 }

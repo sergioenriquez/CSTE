@@ -1,6 +1,6 @@
 package cste.icd;
 import static cste.icd.ICD.UID_LENGTH;
-import static cste.icd.ICD.Hex;
+import static cste.icd.Utility.*;
 
 import java.nio.ByteBuffer;
 
@@ -21,7 +21,7 @@ public class DeviceUID {
 	
 	//TODO remove 
 	public static DeviceUID fromString(String uid){
-		byte[] temp = Hex.unmarshal(uid);
+		byte[] temp = strToHex(uid);
 		return new DeviceUID(temp);
 	}
 	
@@ -46,7 +46,7 @@ public class DeviceUID {
 	
 	@Override
 	public String toString(){
-		return Hex.marshal(deviceUID);
+		return hexToStr(deviceUID);
 	}
 
 	public static byte[] hexStringToByteArray(String s) {

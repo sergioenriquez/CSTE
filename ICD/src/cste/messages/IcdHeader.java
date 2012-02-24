@@ -24,8 +24,8 @@ public class IcdHeader {
 		return devType;
 	}
 	
-	public byte[] getDevUID(){
-		return devUID.getBytes();
+	public DeviceUID getDevUID(){
+		return devUID;
 	}
 	
 	public int getMsgLen(){
@@ -40,13 +40,11 @@ public class IcdHeader {
 		return msgAsc;
 	}
 	
-	public static IcdHeader fromBytes( byte[] header) {
-		if ( header.length == ICD_HEADER_LENGTH){
-			ByteBuffer b = ByteBuffer.wrap(header);
-			
+	public static IcdHeader fromBuffer( ByteBuffer b) {
+		if ( b.capacity() >= ICD_HEADER_LENGTH){
 			DeviceType devType = DeviceType.fromValue(b.get());
 			MsgType msgType = MsgType.fromValue(b.get());
-			int msgLen = b.getInt();
+			int msgLen = b.get();
 			DeviceUID devUID = DeviceUID.fromBuffer(b);
 			byte icdRev = b.get();
 			int msgAsc = b.getInt();

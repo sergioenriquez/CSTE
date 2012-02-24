@@ -1,8 +1,8 @@
 package cste.android.activities;
 
-import cste.android.R;
-import android.app.Activity;
+import android.app.NotificationManager;
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TabHost;
+import cste.android.R;
+import cste.android.core.HnadCoreService;
+import cste.hnad.Device;
 
 public class DeviceDetailsActivity extends TabActivity  {
 	@Override
@@ -22,7 +25,16 @@ public class DeviceDetailsActivity extends TabActivity  {
         TabHost.TabSpec spec;
         Intent intent;
         
+        if( getIntent().hasExtra("clearNotifications"));
+        {
+        	NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        	manager.cancel(HnadCoreService.NEW_DEVICE_NOTIFICATION);
+        }
+        
+        String key = getIntent().getStringExtra("deviceKey");
+        
         intent = new Intent().setClass(this, DeviceInfoActivity.class);
+        intent.putExtra("deviceKey", key);
         spec = tabHost.newTabSpec("Info").setIndicator("Info",res.getDrawable(R.drawable.ic_tab_devinfo)).setContent(intent);
         tabHost.addTab(spec);
         
@@ -47,7 +59,6 @@ public class DeviceDetailsActivity extends TabActivity  {
 	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
         switch (item.getItemId()) {
             case R.id.eventlog:
 

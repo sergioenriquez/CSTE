@@ -16,29 +16,27 @@ import android.widget.TextView;
 public class DeviceListAdapter extends ArrayAdapter<Device>{
 	int resourceID;
 	
-	public DeviceListAdapter(Context context, int textViewResourceId,List<Device> objects) {
-		super(context, textViewResourceId, objects);
+	public DeviceListAdapter(Context context, int textViewResourceId) {
+		super(context, textViewResourceId);
 		this.resourceID = textViewResourceId;
 	}
 
 	@Override
     public View getView(int position, View convertView, ViewGroup parent) {
-		Device item = getItem(position);
+		Device dev = getItem(position);
         if (convertView == null) {
             LayoutInflater vi = (LayoutInflater) getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(this.resourceID, null);
-
-
         }
         
         CheckBox devSignal = (CheckBox)convertView.findViewById(R.id.devicevisible);
-        devSignal.setChecked(item.visible);
+        devSignal.setChecked(dev.visible);
 
         TextView devID = (TextView) convertView.findViewById(R.id.deviceid);
-        devID.setText(item.id);
+        devID.setText(dev.uid);
         
         TextView devType = (TextView) convertView.findViewById(R.id.devicetype);
-        devType.setText(item.type);
+        devType.setText(dev.type);
 
         return convertView;
     }

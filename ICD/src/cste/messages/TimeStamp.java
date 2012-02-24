@@ -33,7 +33,6 @@ public class TimeStamp {
 	}
 	
 	public static TimeStamp blank(){
-		Calendar now = Calendar.getInstance();
 		return new TimeStamp(0,0,0,0,0,0,0,0);
 	}
 	

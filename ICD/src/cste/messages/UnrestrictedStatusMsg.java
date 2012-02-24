@@ -17,9 +17,10 @@ public class UnrestrictedStatusMsg {
 	public byte checksum;
 	
 	
-	public static UnrestrictedStatusMsg fromBytes(byte[] content) {
+	public static UnrestrictedStatusMsg fromBuffer(ByteBuffer b) {
+		if ( b.remaining() < SECTION_SIZE )
+			return null;
 		
-		ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH , SECTION_SIZE);
 		byte deviceSectionCode = b.get();
 		byte encryptionErrorCode = b.get();
 		int rekeyCtr = b.getInt();

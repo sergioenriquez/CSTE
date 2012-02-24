@@ -2,7 +2,7 @@ package cste.icd;
 
 public enum DeviceType {
 	INVALID (0x00),
-	HNAD_N 	(0x92),
+	FNAD_N 	(0x92),
 	HNAD_A	(0x91),
 	HNAD_I	(0x90),	
 	KMF		(0x89),
@@ -29,9 +29,7 @@ public enum DeviceType {
 		}
 		return INVALID;
 	}
-	 
-
-	
+	 	
 	public byte getBytes(){
 		return (byte)typeCode;
 	}
@@ -42,7 +40,7 @@ public enum DeviceType {
 			return 0;
 		case DCP:
 			return 1;
-		case HNAD_N:
+		case FNAD_N:
 		case HNAD_A:
 		case HNAD_I:
 		case HNAD_S:
@@ -56,6 +54,38 @@ public enum DeviceType {
 			return 3;
 		default:
 			return -1;
+		}
+	}
+
+	@Override
+	public String toString(){
+		switch(this){
+		case KMF:
+			return "KMF";
+		case DCP:
+			return "DCP";
+		case FNAD_N:
+			return "FNAD Non-Root";
+		case HNAD_A:
+			return "HNAD Arming only";
+		case HNAD_I:
+			return "HNAD Non-secure";
+		case HNAD_S:
+			return "HNAD Secure";
+		case FNAD_S:
+			return "FNAD Secure";
+		case FNAD_I:
+			return "FNAD Non-secure";
+		case ECM0:
+			return "ECM Type 0";
+		case WAOS:
+			return "Wireless AoS";
+		case ECOC:
+			return "ECoC";
+		case CSD:
+			return "CSD";
+		default:
+			return "NA";
 		}
 	}
 }

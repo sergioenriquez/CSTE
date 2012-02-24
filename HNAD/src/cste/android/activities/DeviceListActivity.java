@@ -1,10 +1,14 @@
 package cste.android.activities;
 
+import static cste.android.core.HnadCoreService.Events.*;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.List;
-import cste.android.R;
-import cste.android.core.HnadCoreService;
-import cste.hnad.Device;
+import java.util.Map;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -19,11 +23,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-
-import static cste.android.core.HnadCoreService.Events.*;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ListView;
+import cste.android.R;
+import cste.android.core.HnadCoreService;
+import cste.hnad.Device;
 
 /***
  * Displays a list of all the devices currently or previously visible
@@ -33,42 +39,44 @@ import static cste.android.core.HnadCoreService.Events.*;
 public class DeviceListActivity extends Activity {
 	static final String TAG = "DeviceList";
 	
-	//private List<Device> mDeviceList; // move into handler class
 	private DeviceListAdapter mDeviceListAdapter;
 	private ListView mDeviceListView;
 	private boolean mIsBound = false;
 	private HnadCoreService mHnadCoreService = null;
+	private CheckBox mUsbCheckbox;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.devicelist);
-        
-        List<Device> devList = new ArrayList<Device>();//hnadCore.getDeviceList();
-        mDeviceListAdapter = new DeviceListAdapter(this,R.layout.devicelistitem,devList );
+
+        mDeviceListAdapter = new DeviceListAdapter(this,R.layout.devicelistitem);
         mDeviceListView = (ListView) findViewById(R.id.devicesList);
         mDeviceListView.setAdapter(mDeviceListAdapter);
         
+        mUsbCheckbox = (CheckBox)findViewById(R.id.usblink);
+        
         mDeviceListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView parent, View view, int position, long id) {
-            	Intent intent = new Intent(getApplicationContext(), DeviceDetailsActivity.class);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+            	Device dev = mDeviceListAdapter.getItem(position);
+        	  	Intent intent = new Intent(getApplicationContext(), DeviceDetailsActivity.class);
+        	  	intent.putExtra("deviceKey", dev.uid);
                 startActivity(intent);
             }
         });
 
-        IntentFilter filter = new IntentFilter();
-		filter.addAction(HnadCoreService.Events.HNAD_CORE_EVENT_MSG);
-        this.registerReceiver(mDeviceUpdateReceiver, filter);
-        
+        this.registerReceiver(mDeviceUpdateReceiver, new IntentFilter(HnadCoreService.Events.HNAD_CORE_EVENT_MSG));
         doBindService();
     }
 	
 	private void reloadDeviceList(){
 		mDeviceListAdapter.clear();
-		List<Device> devList = mHnadCoreService.getDeviceList();
-		for(Device d: devList)
-			mDeviceListAdapter.add(d);
+		
+		Enumeration<Device> devices = mHnadCoreService.getDeviceList().elements();
+		while(devices.hasMoreElements())
+			mDeviceListAdapter.add(devices.nextElement());
 	}
 	
 	@Override
@@ -121,18 +129,20 @@ public class DeviceListActivity extends Activity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			
-			//Toast.makeText(getApplicationContext(), String.valueOf(intent.getIntExtra("itemChanged", 0)), Toast.LENGTH_SHORT).show();
-			
-			
-			String action = intent.getAction();
-			if (action.equals(DEVLIST_CHANGED)) {
+			if ( intent.hasExtra(DEVLIST_CHANGED) ) {
+				String devChanged = intent.getStringExtra(DEVLIST_CHANGED);
 				reloadDeviceList();
-				
-				
+			}
+			
+			if ( intent.hasExtra(USB_STATE_CHANGED))
+			{
+				boolean usbState = intent.getBooleanExtra(USB_STATE_CHANGED, false);
+				mUsbCheckbox.setChecked(usbState);
 			}
 		}
 	};
 	
+	//TODO this should be part of a custom abstract class to avoid repetition
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			mHnadCoreService = ((HnadCoreService.LocalBinder)service).getService();

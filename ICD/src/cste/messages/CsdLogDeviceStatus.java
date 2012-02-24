@@ -2,8 +2,6 @@ package cste.messages;
 
 import java.nio.ByteBuffer;
 
-import cste.icd.DeviceType;
-
 public class CsdLogDeviceStatus {
 	
 	public static final int CSD_STATUS_SIZE = 51;

@@ -3,6 +3,7 @@ package cste.android.core;
 import android.os.Handler;
 import cste.messages.NADA;
 import cste.misc.ZigbeeAPI;
+import static cste.icd.Utility.*;
 
 //TODO clear channel assesment?
 
@@ -11,16 +12,16 @@ public class NADABroadcaster implements Runnable{
 	private int msgSendCnt = 0;
 	
 	private Handler mHandler;
-	private UsbCommHandler mUsbCommHandler;
+	private UsbCommManager mUsbCommHandler;
 	private HnadCoreService mParent;
 	
 	//burst tx rate of 20ms for 1 sec, then 0.5 sec quiet
 	private final int BURST_CNT = 50;
 	private final int SHORT_DELAY = 20;
 	private final int LONG_DELAY = 500;
-	private final byte[] BROADCAST_ADDRESS	= hexStringToByteArray("000000000000FFFF");
+	private final byte[] BROADCAST_ADDRESS	= strToHex("000000000000FFFF");
 	
-	public NADABroadcaster(HnadCoreService parent, Handler handler, UsbCommHandler usbHandler)
+	public NADABroadcaster(HnadCoreService parent, Handler handler, UsbCommManager usbHandler)
 	{
 		mHandler = handler;
 		mUsbCommHandler = usbHandler;
@@ -57,13 +58,5 @@ public class NADABroadcaster implements Runnable{
 		}
 	}//end run
 	
-	public static byte[] hexStringToByteArray(String s) {
-        int len = s.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                                 + Character.digit(s.charAt(i+1), 16));
-        }
-        return data;
-    }
+	
 }

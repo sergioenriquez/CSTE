@@ -1,9 +1,8 @@
 package cste.android.activities;
 
-import cste.android.R;
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.TextView;
+import cste.android.R;
 
 public class DeviceCmdActivity extends Activity {
 	@Override

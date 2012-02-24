@@ -1,10 +1,7 @@
 package cste.android.activities;
 
-import static cste.android.core.HnadCoreService.Events.*;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import com.android.future.usb.UsbAccessory;
+import static cste.android.core.HnadCoreService.Events.HNAD_CORE_EVENT_MSG;
+import static cste.android.core.HnadCoreService.Events.LOGIN_RESULT;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -14,18 +11,13 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.ParcelFileDescriptor;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 import cste.android.R;
 import cste.android.core.HnadCoreService;
-import cste.misc.ZigbeeAPI;
 
 /***
  * Lets user enter their login credentials to authenticated with the DCP server. If successful it will then launch the device details activity.
@@ -48,9 +40,8 @@ public class LoginActivity extends Activity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            	Intent intent = new Intent(getApplicationContext(), DeviceListActivity.class);
-                startActivity(intent);
-                finish();
+            	//TODO show progress bar
+            	mHnadCoreService.login("username", "password");
             }
         });
         
@@ -59,11 +50,8 @@ public class LoginActivity extends Activity {
         this.registerReceiver(mDeviceUpdateReceiver, filter); 
         
         doBindService();
-        
-       
     }
 
-    
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = new MenuInflater(this);
@@ -76,8 +64,8 @@ public class LoginActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings:
-            	Intent intent = new Intent(getApplicationContext(), PreferencesActivity.class);
-                startActivity(intent);
+            	//Intent intent = new Intent(getApplicationContext(), PreferencesActivity.class);
+                //startActivity(intent);
                 mHnadCoreService.uploadData(); //TODO just a test
        
                 break;
@@ -92,19 +80,11 @@ public class LoginActivity extends Activity {
 	private final BroadcastReceiver mDeviceUpdateReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			String action = intent.getAction();
-			//Toast.makeText(getApplicationContext(), String.valueOf(intent.getIntExtra("itemChanged", 0)), Toast.LENGTH_SHORT).show();
-			if( action.equals(LOGIN_RESULT)){
-				
+			if( intent.getBooleanExtra(LOGIN_RESULT, false)){
+            	Intent activityIntent = new Intent(getApplicationContext(), DeviceListActivity.class);
+                startActivity(activityIntent);
+                finish();
 			}
-
-//			if (DEVICES_UPDATED.equals("")) {
-//				//TODO
-//				TextView tv = (TextView)findViewById(R.id.debugText);
-//				tv.setText("Sensor: " + String.valueOf(intent.getIntExtra("itemChanged", 0)));
-//				//Toast.makeText(getApplicationContext(), String.valueOf(intent.getIntExtra("itemChanged", 0)), Toast.LENGTH_SHORT).show();
-//				
-//			}
 		}
 	};
 

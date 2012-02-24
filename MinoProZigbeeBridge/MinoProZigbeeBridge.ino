@@ -6,7 +6,7 @@
 #include <usbhub.h>
 #include <avr/pgmspace.h>
 #include <address.h>
-
+#include <avr/wdt.h>
 #include <adk.h>
 
 USB Usb;
@@ -31,13 +31,18 @@ void toggleLED();
 
 void setup()
 {
+  //wdt_disable();
+  //wdt_reset();
   Serial.begin(115200);
+  
   while(Usb.Init() == -1) 
     delay( 100 );  
 }
 
 void loop()
 {
+  //wdt_reset();
+  
   uint8_t rcode;
   uint16_t len = 64;
   uint8_t msg[128] = { 0x00 };
@@ -46,6 +51,8 @@ void loop()
   
   if( adk.isReady() == true )
   {
+    //wdt_reset();
+    
     //pass data from android to zigbee
     rcode = adk.RcvData(&len,msg);
     if(len>0)
@@ -58,6 +65,12 @@ void loop()
     if(len>0)
       adk.SndData(len,msg);
   } 
+  else
+  {
+      //wdt_enable(WDTO_4S);
+      //wdt_reset();
+  }
+  
   delay( 10 );     
 }
 

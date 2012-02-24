@@ -11,26 +11,12 @@ import java.security.*;
 
 import javax.crypto.*;
 import javax.crypto.spec.*;
-import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+import static cste.icd.Utility.*;
 
 @SuppressWarnings("unused")
 public class ICD {	
-	
-	
-	public static byte[] hexStringToByteArray(String s) {
-        int len = s.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                                 + Character.digit(s.charAt(i+1), 16));
-        }
-        return data;
-    }
-	
-	
 	// discard ICD messages if the Rev Number is not the same as this ICD implementation
-	protected static HexBinaryAdapter Hex = new HexBinaryAdapter();
-	
+
 	private static final boolean DISCARD_WRONG_VERSION = true;
 	
 	// use encryption where required
@@ -326,7 +312,7 @@ public class ICD {
 		System.arraycopy(intToByteArray(rekeyCtr), 0, cipher, 12, 4);
 		
 		byte[] generatedKey = encryptAES(receiverRekeyKey,cipher);
-		String gen2 = Hex.marshal(generatedKey);
+		String gen2 = hexToStr(generatedKey);
 		return generatedKey;
 	}
 	
