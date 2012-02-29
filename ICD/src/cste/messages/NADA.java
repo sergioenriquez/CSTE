@@ -5,6 +5,8 @@ import java.util.List;
 
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
+import cste.icd.MsgType;
+import cste.icd.TimeStamp;
 
 public class NADA {
 	final int NADA_MIN_SIZE = 31;

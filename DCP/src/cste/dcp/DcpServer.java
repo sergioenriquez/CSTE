@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
 
+import cste.icd.DeviceUID;
 import cste.interfaces.IpWrapper;
 import cste.interfaces.KeyProvider;
 import cste.ip.IpWrapperImpl;
@@ -26,7 +27,7 @@ public class DcpServer implements Runnable, KeyProvider{
 	}
     
 	@Override
-	public byte[] getEncryptionKey(byte[] destinationDevUID) {
+	public byte[] getEncryptionKey(DeviceUID destinationUID) {
 		// TODO Auto-generated method stub
 		return null;
 	}

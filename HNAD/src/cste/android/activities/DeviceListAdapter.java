@@ -26,14 +26,14 @@ public class DeviceListAdapter extends ArrayAdapter<Device>{
             convertView = vi.inflate(this.resourceID, null);
         }
         
-        CheckBox devSignal = (CheckBox)convertView.findViewById(R.id.devicevisible);
-        devSignal.setChecked(dev.visible);
+        //CheckBox devSignal = (CheckBox)convertView.findViewById(R.id.devicevisible);
+        //devSignal.setChecked(dev.visible);
 
-        TextView devID = (TextView) convertView.findViewById(R.id.deviceid);
-        devID.setText(dev.devUID.toString());
+        TextView devType = (TextView) convertView.findViewById(R.id.deviceid);
+        devType.setText(dev.UID().toString());
         
-        TextView devType = (TextView) convertView.findViewById(R.id.devicetype);
-        devType.setText(dev.devType.toString());
+        TextView devID = (TextView) convertView.findViewById(R.id.devicetype);
+        devID.setText(dev.devType().toString());
 
         return convertView;
     }

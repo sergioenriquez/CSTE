@@ -18,8 +18,8 @@ public class EcocRestrictedEventData {
 	public byte[] reserved;
 	
 	
-	public static EcocRestrictedEventData fromBytes(byte[] content) {
-		ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH + EventLogMsg.EVENT_LOG_COMMON_HEADER, SECTION_SIZE);
+	public static EcocRestrictedEventData fromBuffer(ByteBuffer b) {
+		//ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH + EventLogMsg.EVENT_LOG_COMMON_HEADER, SECTION_SIZE);
 		byte ackAscNum = b.get();
 		byte operatingMode = b.get();
 		byte sensorMode = b.get();

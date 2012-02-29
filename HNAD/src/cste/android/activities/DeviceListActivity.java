@@ -1,7 +1,7 @@
 package cste.android.activities;
 
-import static cste.android.core.HnadCoreService.Events.DEVLIST_CHANGED;
-import static cste.android.core.HnadCoreService.Events.USB_STATE_CHANGED;
+import static cste.android.core.HNADService.Events.DEVLIST_CHANGED;
+import static cste.android.core.HNADService.Events.USB_STATE_CHANGED;
 
 import java.util.Enumeration;
 
@@ -40,16 +40,20 @@ public class DeviceListActivity extends HnadBaseActivity {
         mDeviceListView = (ListView) findViewById(R.id.devicesList);
         mDeviceListView.setAdapter(mDeviceListAdapter);
         
-        mUsbCheckbox = (CheckBox)findViewById(R.id.usblink);
+        //mUsbCheckbox = (CheckBox)findViewById(R.id.usblink);
         
         mDeviceListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
+            	
             	Device dev = mDeviceListAdapter.getItem(position);
-        	  	Intent intent = new Intent(getApplicationContext(), DeviceInfoTabActivity.class);
+            	mHnadCoreService.getDeviceStatus(dev);
+            	
+            	
+        	  	Intent intent = new Intent(getApplicationContext(), DeviceInfoActivity.class);
         	  	intent.putExtra("device", dev);
-                startActivity(intent);
+                //startActivity(intent);
             }
         });
     }
@@ -70,8 +74,8 @@ public class DeviceListActivity extends HnadBaseActivity {
 		
 		if ( data.containsKey(USB_STATE_CHANGED))
 		{
-			boolean usbState = data.getBoolean(USB_STATE_CHANGED, false);
-			mUsbCheckbox.setChecked(usbState);
+			//boolean usbState = data.getBoolean(USB_STATE_CHANGED, false);
+			//mUsbCheckbox.setChecked(usbState);
 		}
 	}
 	

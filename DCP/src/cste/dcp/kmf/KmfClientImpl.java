@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import cste.PacketTypes.KmfPacketTypes;
 import cste.dcp.NetDevice;
 import cste.dcp.interfaces.KmfClient;
+import cste.icd.DeviceUID;
 import cste.icd.ICD;
 import cste.interfaces.IpWrapper;
 import cste.interfaces.KeyProvider;
@@ -154,7 +155,7 @@ public class KmfClientImpl implements KmfClient,KeyProvider{
 	}
 
 	@Override
-	public byte[] getEncryptionKey(byte[] destinationDevUID) {
+	public byte[] getEncryptionKey(DeviceUID destinationUID) {
 		// TODO Auto-generated method stub
 		return DCP_LTK;
 	}

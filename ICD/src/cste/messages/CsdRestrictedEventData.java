@@ -17,8 +17,8 @@ public class CsdRestrictedEventData {
 	public byte doorStatus;
 	public byte[] reserved;
 
-	public static CsdRestrictedEventData fromBytes(byte[] content) {
-		ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH + EventLogMsg.EVENT_LOG_COMMON_HEADER, SECTION_SIZE);
+	public static CsdRestrictedEventData fromBuffer(ByteBuffer b) {
+		//ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH + EventLogMsg.EVENT_LOG_COMMON_HEADER, SECTION_SIZE);
 		byte ackAscNum = b.get();
 		byte operatingMode = b.get();
 		byte sensorMode = b.get();

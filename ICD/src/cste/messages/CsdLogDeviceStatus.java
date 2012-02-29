@@ -2,20 +2,19 @@ package cste.messages;
 
 import java.nio.ByteBuffer;
 
-public class CsdLogDeviceStatus {
+public class CsdLogDeviceStatus extends IcdPayload{
 	
 	public static final int CSD_STATUS_SIZE = 51;
 	
-	public byte operatingMode;
-	public byte restrictedStatus;
-	public byte alarmStatus;
-	public byte[] conveyanceID;
-	public byte doorStatus;
-	public byte cmdMsgType;
-	public byte cmdOpCode;
+	public final byte operatingMode;
+	public final byte restrictedStatus;
+	public final byte alarmStatus;
+	public final byte[] conveyanceID;
+	public final byte doorStatus;
+	public final byte cmdMsgType;
+	public final byte cmdOpCode;
 
-	public static CsdLogDeviceStatus fromBytes(byte[] content) {
-		ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH + EventLogMsg.EVENT_LOG_COMMON_HEADER, CSD_STATUS_SIZE);
+	public static CsdLogDeviceStatus fromBuffer(ByteBuffer b) {
 		byte operatingMode = b.get();
 		byte restrictedStatus = b.get();
 		byte alarmStatus = b.get();
@@ -52,6 +51,7 @@ public class CsdLogDeviceStatus {
 		this.cmdOpCode = cmdOpCode;
 	}
 	
+	@Override
 	public byte[] getBytes() {
 		ByteBuffer b = ByteBuffer.allocate(CSD_STATUS_SIZE);
 		b.put(operatingMode);
@@ -62,5 +62,17 @@ public class CsdLogDeviceStatus {
 		b.put(cmdMsgType);
 		b.put(cmdOpCode);
 		return b.array();
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "";
+	}
+
+	@Override
+	public byte getSize() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

@@ -1,6 +1,6 @@
 package cste.android.activities;
 
-import static cste.android.core.HnadCoreService.Events.LOGIN_RESULT;
+import static cste.android.core.HNADService.Events.LOGIN_RESULT;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;

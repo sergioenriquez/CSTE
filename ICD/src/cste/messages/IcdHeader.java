@@ -4,13 +4,15 @@ import java.nio.ByteBuffer;
 
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
+import cste.icd.MsgType;
 
 public class IcdHeader {
 	public static final int ICD_HEADER_LENGTH = 16;
+	public static final int ICD_NONCE_LENGTH = 8;
 	
 	final DeviceType devType;
 	final MsgType msgType;
-	final int msgLen;
+	final byte msgLen;
 	final DeviceUID devUID;
 	
 	final byte icdRev;
@@ -28,8 +30,12 @@ public class IcdHeader {
 		return devUID;
 	}
 	
-	public int getMsgLen(){
+	public int getPayloadSize(){
 		return msgLen;
+	}
+	
+	public int getHdrSize(){
+		return ICD_HEADER_LENGTH;
 	}
 	
 	public int getIcdRev(){
@@ -44,7 +50,7 @@ public class IcdHeader {
 		if ( b.capacity() >= ICD_HEADER_LENGTH){
 			DeviceType devType = DeviceType.fromValue(b.get());
 			MsgType msgType = MsgType.fromValue(b.get());
-			int msgLen = b.get();
+			byte msgLen = b.get();
 			DeviceUID devUID = DeviceUID.fromBuffer(b);
 			byte icdRev = b.get();
 			int msgAsc = b.getInt();
@@ -65,7 +71,7 @@ public class IcdHeader {
 	public IcdHeader(
 			DeviceType devType,
 			MsgType msgType,
-			int msgLen,
+			byte msgLen,
 			DeviceUID devUID,
 			byte icdRev,
 			int msgAsc
@@ -78,11 +84,26 @@ public class IcdHeader {
 		this.msgAsc = msgAsc;
 	}
 	
+	/***
+	 * Generates the nonce value needed by the encryption function
+	 * @return
+	 */
+	public byte[] getNonce()
+	{
+		ByteBuffer b = ByteBuffer.allocate(8);
+		b.put(devType.getBytes());
+		b.put(msgType.getBytes());
+		b.put(msgLen);
+		b.put(icdRev);
+		b.putInt(msgAsc);
+		return b.array();
+	}
+	
 	public byte[] getBytes(){
 		ByteBuffer b = ByteBuffer.allocate(ICD_HEADER_LENGTH);
 		b.put(devType.getBytes());
 		b.put(msgType.getBytes());
-		b.putInt(msgLen);
+		b.put(msgLen);
 		b.put(devUID.getBytes());
 		b.put(icdRev);
 		b.putInt(msgAsc);

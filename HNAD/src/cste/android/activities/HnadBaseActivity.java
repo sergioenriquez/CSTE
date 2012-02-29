@@ -3,7 +3,7 @@
  */
 package cste.android.activities;
 
-import static cste.android.core.HnadCoreService.Events.HNAD_CORE_EVENT_MSG;
+import static cste.android.core.HNADService.Events.HNAD_CORE_EVENT_MSG;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -13,14 +13,14 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import cste.android.core.HnadCoreService;
+import cste.android.core.HNADService;
 
 /**
  * @author enriquez
  *
  */
 public abstract class HnadBaseActivity extends Activity{
-	protected HnadCoreService mHnadCoreService = null;
+	protected HNADService mHnadCoreService = null;
 	protected boolean mIsBound = false;
 	
 	@Override
@@ -39,7 +39,7 @@ public abstract class HnadBaseActivity extends Activity{
 	
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
-			mHnadCoreService = ((HnadCoreService.LocalBinder)service).getService();
+			mHnadCoreService = ((HNADService.LocalBinder)service).getService();
 			onCoreServiceCBound();
 		}
 		
@@ -63,7 +63,7 @@ public abstract class HnadBaseActivity extends Activity{
 	};
 
 	private void doBindService() {
-		bindService(new Intent(this,HnadCoreService.class), mConnection, Context.BIND_AUTO_CREATE);    
+		bindService(new Intent(this,HNADService.class), mConnection, Context.BIND_AUTO_CREATE);    
 		mIsBound = true;
 	}
 	

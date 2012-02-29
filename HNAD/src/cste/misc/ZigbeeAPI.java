@@ -11,8 +11,13 @@ public class ZigbeeAPI {
 	private static final int OVERHEAD = 7 + ADDR_SIZE;
 	private static final byte DELIMETER = 0x7E;
 	private static final byte CMD_64BIT = 0x00;
-	private static final byte FRAME_ACK_ID = 0x00;
-	private static final byte ACK_REQ = 0x01; //disable ACK
+	
+	public static final byte RX_64BIT = (byte) 0x80;
+	public static final byte RX_16BIT = (byte) 0x81;
+	public static final byte TX_STATUS = (byte) 0x89;
+
+	private static final byte NO_ACK = 0x01;
+	private static final byte ACK_REQ = 0x00;
 	
 	/***
 	 * Based on API level 2, supports 64 bit addresses with no ACK
@@ -20,19 +25,22 @@ public class ZigbeeAPI {
 	 * @param msg
 	 * @return
 	 */
-	public static byte [] buildPkt(byte []dest, byte []msg){
+	public static byte [] buildPkt(byte []dest, byte frameID, byte []msg){
 		ByteBuffer tmp = ByteBuffer.allocate(msg.length + OVERHEAD);
 		if( dest.length != ADDR_SIZE)
 			return tmp.array(); // only 64bit address supported 
 
 		tmp.put(CMD_64BIT);
-		tmp.put(FRAME_ACK_ID);
+		tmp.put(frameID);
 		tmp.put(dest);
-		tmp.put(ACK_REQ);
+		if( frameID == 0)
+			tmp.put(NO_ACK);
+		else
+			tmp.put(ACK_REQ);
 		tmp.put(msg);
 		
 		byte sum = 0x00;
-		for( int i=3 ; i < OVERHEAD+msg.length-1 ; i++ )
+		for( int i=0 ; i < OVERHEAD+msg.length-1 ; i++ )
 			sum += tmp.get(i);
 		tmp.put((byte) (0xFF - sum));
 		
@@ -64,8 +72,7 @@ public class ZigbeeAPI {
 		return zigbeePkt;
 	}
 	
-	public static final byte RX_64BIT = (byte) 0x80;
-	public static final byte RX_16BIT = (byte) 0x81;
+
 	
 	
 	//TODO handle other msg types
@@ -101,6 +108,12 @@ public class ZigbeeAPI {
 			addrSize = 8;
 		else if(type == RX_16BIT)
 			addrSize = 2;
+		else if( type == TX_STATUS)
+		{
+			byte frameACK = data.get();
+			byte txStatus = data.get();
+			return new ZigbeeFrame(type,frameACK,txStatus);
+		}
 		else
 		{
 			Log.w(TAG, "Zigbee packet type not known");

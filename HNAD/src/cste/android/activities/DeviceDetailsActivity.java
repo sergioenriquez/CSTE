@@ -20,13 +20,18 @@ public class DeviceDetailsActivity extends HnadBaseActivity {
         
         Device dev = getIntent().getParcelableExtra("device");
         
-        devUID = (TextView)findViewById(R.id.devUID);
-        devType = (TextView)findViewById(R.id.devType);
-        devSealID = (TextView)findViewById(R.id.devSeal);
-        
-        devUID.setText(dev.devUID.toString());
-        devType.setText(dev.devType.toString());
-        devSealID.setText(dev.sealID);
+//        devUID = (TextView)findViewById(R.id.devUID);
+//        devType = (TextView)findViewById(R.id.devType);
+//        devSealID = (TextView)findViewById(R.id.devSeal);
+//        
+//        devUID.setText(dev.devUID.toString());
+//        devType.setText(dev.devType.toString());
+//        devSealID.setText(dev.sealID);
+	}
+	@Override
+	protected void onCoreServiceCBound()
+	{
+		//mHnadCoreService
 	}
 
 	@Override

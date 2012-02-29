@@ -13,8 +13,8 @@ public class EcocLogDeviceStatus {
 	public byte[] gpsLocation;
 	public byte lockStatus;
 
-	public static EcocLogDeviceStatus fromBytes(byte[] content) {
-		ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH + EventLogMsg.EVENT_LOG_COMMON_HEADER, ECOC_STATUS_SIZE);
+	public static EcocLogDeviceStatus fromBuffer(ByteBuffer b) {
+		//ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH + EventLogMsg.EVENT_LOG_COMMON_HEADER, ECOC_STATUS_SIZE);
 		byte ackAscNum = b.get();
 		byte operatingMode = b.get();
 		byte restrictedStatus = b.get();

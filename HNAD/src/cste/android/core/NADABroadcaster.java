@@ -13,15 +13,15 @@ public class NADABroadcaster implements Runnable{
 	
 	private Handler mHandler;
 	private UsbCommManager mUsbCommHandler;
-	private HnadCoreService mParent;
+	private HNADService mParent;
 	
-	//burst tx rate of 20ms for 1 sec, then 0.5 sec quiet
-	private final int BURST_CNT = 50;
-	private final int SHORT_DELAY = 20;
-	private final int LONG_DELAY = 500;
+	//burst tx rate of 80ms for 1 sec, then 1.0 sec quiet
+	private final int BURST_CNT = 13;
+	private final int SHORT_DELAY = 80;
+	private final int LONG_DELAY = 960;
 	private final byte[] BROADCAST_ADDRESS	= strToHex("000000000000FFFF");
 	
-	public NADABroadcaster(HnadCoreService parent, Handler handler, UsbCommManager usbHandler)
+	public NADABroadcaster(HNADService parent, Handler handler, UsbCommManager usbHandler)
 	{
 		mHandler = handler;
 		mUsbCommHandler = usbHandler;
@@ -33,14 +33,14 @@ public class NADABroadcaster implements Runnable{
 		enabled = true;
 
 		NADA nadaMsg = new NADA(mParent.thisDevType,
-								0x01,
+								0x03,
 								mParent.dcpDevType,
 								mParent.dcpUID,
 								mParent.lvl2DevType,
 								mParent.lvl2UID,
 								mParent.mMsgWaitingList);
 		
-		byte [] zigbeePkt = ZigbeeAPI.buildPkt(BROADCAST_ADDRESS,nadaMsg.getBytes());
+		byte [] zigbeePkt = ZigbeeAPI.buildPkt(BROADCAST_ADDRESS,(byte)0x00,nadaMsg.getBytes());
 		
 		if( !mUsbCommHandler.transmit(zigbeePkt) )
 			enabled = false;

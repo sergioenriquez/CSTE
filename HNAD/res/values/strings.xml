@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, LoadScreen!</string>
-    <string name="app_name">CSTE Hnad</string>
+    <string name="app_name">CSTE HNAD</string>
     <string name="login_title">Login to DCP</string>
-    <string name="devlist_title">Devices in range</string>
+    <string name="devlist_title">Known CSD Devices</string>
     <string name="devdetails_title">CSD information</string>
     <string name="settings">NAD Settings</string>
     <string name="logout">Log Out</string>
@@ -14,4 +13,15 @@
     <string name="viewkeys">View DCP Keys</string>
     <string name="viewkeys_title">Stored DCP Keys</string>
     <string name="preferences_title">HNAD Preferences</string>
+    
+    
+    <string name="uid">UID: </string>
+    <string name="type">Dev Type: </string>
+    <string name="sealid">Seal ID: </string>
+    <string name="manifest">Manifest: </string>
+    
+    <string name="doorStatus">Door </string>
+    <string name="alarm">Alarm </string>
+    <string name="opmode">Op Mode </string>
+    <string name="signal">Signal </string>
 </resources>

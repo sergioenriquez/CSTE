@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
 import cste.PacketTypes.KmfPacketTypes;
+import cste.icd.DeviceUID;
 import cste.icd.ICD;
 import cste.interfaces.IpWrapper;
 import cste.interfaces.KeyProvider;
@@ -35,7 +36,7 @@ public class IpWrapperImpl implements IpWrapper{
 				byte[] payloadWithNonce = new byte[payload.length + UID_LENGTH];
 				System.arraycopy(senderUID, 0, payloadWithNonce, 0, UID_LENGTH);
 				System.arraycopy(payload, 0, payloadWithNonce, UID_LENGTH, payload.length);
-				byte[] encryptedPayloadWithNonce = ICD.encryptAES(payloadWithNonce, kp.getEncryptionKey(destinationUID));
+				byte[] encryptedPayloadWithNonce = ICD.encryptAES(payloadWithNonce, kp.getEncryptionKey(DeviceUID.fromByteArray(destinationUID)));
 				payloadSize = encryptedPayloadWithNonce.length;
 				payloadSent = encryptedPayloadWithNonce;
 			}
@@ -88,7 +89,7 @@ public class IpWrapperImpl implements IpWrapper{
 		p.setSenderUID(senderUID);
 		
 		if( KmfPacketTypes.encryptionUsed(functionCode)){
-			byte[] payloadWithNonce = ICD.decryptAES(receivedPayload, kp.getEncryptionKey(senderUID));
+			byte[] payloadWithNonce = ICD.decryptAES(receivedPayload, kp.getEncryptionKey(DeviceUID.fromByteArray(senderUID)));
 			byte[] nonce = new byte[UID_LENGTH];
 			byte[] payload = new byte[receivedPayload.length-UID_LENGTH];
 			System.arraycopy(payloadWithNonce, 0, nonce, 0, UID_LENGTH);

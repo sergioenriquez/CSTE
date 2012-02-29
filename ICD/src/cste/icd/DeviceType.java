@@ -1,25 +1,32 @@
 package cste.icd;
 
 public enum DeviceType {
-	INVALID (0x00),
-	FNAD_N 	(0x92),
-	HNAD_A	(0x91),
-	HNAD_I	(0x90),	
-	KMF		(0x89),
-	DCP  	(0x88),
-	FNAD_S	(0x87),
-	HNAD_S	(0x86),
-	FNAD_I	(0x85),
-	ECM0  	(0x84),
-	WAOS	(0x83),
-	ECOC	(0x82),
-	CSD		(0x81),
-	ACSD	(0x80);
+	INVALID ((byte)0x00,"Invalid Type"),
+	FNAD_N 	((byte)0x92,"FNAD Non-Root"),
+	HNAD_A	((byte)0x91,"HNAD Arming only"),
+	HNAD_I	((byte)0x90,"HNAD Non-secure"),	
+	KMF		((byte)0x89,"KMF"),
+	DCP  	((byte)0x88,"DCP"),
+	FNAD_S	((byte)0x87,"FNAD Secure"),
+	HNAD_S	((byte)0x86,"HNAD Secure"),
+	FNAD_I	((byte)0x85,"FNAD Non-Secure"),
+	ECM0  	((byte)0x84,"ECM Type 0"),
+	WAOS	((byte)0x83,"Wireless AoS"),
+	ECOC	((byte)0x82,"ECoC"),
+	CSD		((byte)0x81,"CSD"),
+	ACSD	((byte)0x80,"ACSD");
+	
+	private final byte typeCode;
+	private final String name;
 	 
-	private final int typeCode;
-	 
-	DeviceType(int type){
+	DeviceType(byte type, String name){
 		this.typeCode = type;
+		this.name = name;
+	}
+	
+	@Override
+	public String toString(){
+		return name;
 	}
 
 	public static DeviceType fromValue(int type){
@@ -31,7 +38,7 @@ public enum DeviceType {
 	}
 	 	
 	public byte getBytes(){
-		return (byte)typeCode;
+		return typeCode;
 	}
 	
 	public int getLevel(){
@@ -54,38 +61,6 @@ public enum DeviceType {
 			return 3;
 		default:
 			return -1;
-		}
-	}
-
-	@Override
-	public String toString(){
-		switch(this){
-		case KMF:
-			return "KMF";
-		case DCP:
-			return "DCP";
-		case FNAD_N:
-			return "FNAD Non-Root";
-		case HNAD_A:
-			return "HNAD Arming only";
-		case HNAD_I:
-			return "HNAD Non-secure";
-		case HNAD_S:
-			return "HNAD Secure";
-		case FNAD_S:
-			return "FNAD Secure";
-		case FNAD_I:
-			return "FNAD Non-secure";
-		case ECM0:
-			return "ECM Type 0";
-		case WAOS:
-			return "Wireless AoS";
-		case ECOC:
-			return "ECoC";
-		case CSD:
-			return "CSD";
-		default:
-			return "NA";
 		}
 	}
 }

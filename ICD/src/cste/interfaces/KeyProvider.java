@@ -1,5 +1,7 @@
 package cste.interfaces;
 
+import cste.icd.DeviceUID;
+
 public interface KeyProvider {
-	public byte[] getEncryptionKey(byte[] destinationDevUID);
+	public byte[] getEncryptionKey(DeviceUID destinationUID);
 }

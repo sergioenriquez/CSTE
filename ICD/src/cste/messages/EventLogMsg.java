@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 import cste.icd.DeviceType;
 
-public class EventLogMsg {
+public class EventLogMsg extends IcdPayload{
 	public static final int EVENT_LOG_COMMON_HEADER = 10;
 	
 	public byte ackNo;
@@ -17,8 +17,8 @@ public class EventLogMsg {
 	
 	//TODO add accessor functions
 	
-	public static EventLogMsg fromBytes(DeviceType type,byte[] content) {
-		ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH,EVENT_LOG_COMMON_HEADER);
+	public static EventLogMsg fromBuffer(DeviceType type,ByteBuffer b) {
+		//ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH,EVENT_LOG_COMMON_HEADER);
 		
 		byte ackNo = b.get();
 		byte eventType = b.get();
@@ -26,9 +26,9 @@ public class EventLogMsg {
 		Object statusData = null;
 		
 		if ( type == DeviceType.CSD)
-			statusData = CsdLogDeviceStatus.fromBytes(content);
+			statusData = CsdLogDeviceStatus.fromBuffer(b);
 		else if ( type == DeviceType.ECOC)
-			statusData = EcocLogDeviceStatus.fromBytes(content);
+			statusData = EcocLogDeviceStatus.fromBuffer(b);
 		else
 			return null;
 
@@ -79,5 +79,11 @@ public class EventLogMsg {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "";
+	}
+
+	@Override
+	public byte getSize() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

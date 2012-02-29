@@ -2,38 +2,26 @@ package cste.hnad;
 
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
+import cste.icd.SecurityDevice;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Device implements Parcelable{
+/***
+ * Parcelable version of the generic security device
+ * @author User
+ *
+ */
+public class Device extends SecurityDevice implements Parcelable{
+	protected boolean visible;
+	protected byte rssi;	
 	
-	public DeviceUID devUID;
-	public DeviceType devType;
-	public int msgAsc;
-	public byte rssi;	
-	
-	public String sealID;
-	public String manifestID;
-	public String conveyanceID;
-	
-	public boolean visible;
-	boolean alarmOn;
-	boolean doorOpen;
-	boolean opMode;
-	
-	public Device(DeviceUID devUID, DeviceType devType ){
-		this.devUID = devUID;
-		this.devType = devType;
-		this.msgAsc = 0;
-		this.rssi = 0;
-		this.sealID = "NA1";
-		this.manifestID = "NA2";
-		this.conveyanceID = "NA3";
-		this.alarmOn = false;
-		this.doorOpen = false;
-		this.opMode = false;
+	public Device(DeviceUID devUID, DeviceType devType)
+	{
+		super(devUID, devType);
+		visible = false;
+		rssi = 0;
 	}
-
+	
 	@Override
 	public int describeContents() {
 		return 0;
@@ -54,7 +42,8 @@ public class Device implements Parcelable{
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(devUID.toString());
 		dest.writeByte(devType.getBytes());
-		dest.writeInt(msgAsc);
+		dest.writeInt(rxAscension);
+		dest.writeInt(txAscension);
 		dest.writeByte(rssi);
 		dest.writeString(sealID);
 		dest.writeString(manifestID);
@@ -66,9 +55,11 @@ public class Device implements Parcelable{
 	}
 	
 	private Device(Parcel in) {
+		super(null,null);
 		devUID = new DeviceUID(in.readString());
 		devType = DeviceType.fromValue(in.readByte());
-		msgAsc = in.readInt();
+		rxAscension = in.readInt();
+		txAscension = in.readInt();
 		rssi = in.readByte();
 		sealID = in.readString();
 		manifestID = in.readString();

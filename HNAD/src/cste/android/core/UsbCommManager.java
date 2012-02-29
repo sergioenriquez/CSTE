@@ -124,7 +124,7 @@ public class UsbCommManager extends BroadcastReceiver{
 				return false; // no permission, this should not happen normally 
 			}
 		} else {
-			Log.d(TAG, "mAccessory is null");
+			Log.d(TAG, "USB device is not connected");
 			return false;
 		}
 	}
@@ -242,6 +242,9 @@ public class UsbCommManager extends BroadcastReceiver{
 	 */
 	boolean transmit(byte[] message)
 	{
+		if( message == null || message.length == 0)
+			return false;
+		
 		if( mAccessory != null){
 			if ( pendingTxList.size() < 50)
 			{

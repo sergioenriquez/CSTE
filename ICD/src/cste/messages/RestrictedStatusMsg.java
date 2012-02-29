@@ -4,22 +4,22 @@ import java.nio.ByteBuffer;
 
 import cste.icd.DeviceType;
 
-public class RestrictedStatusMsg {
+public class RestrictedStatusMsg extends IcdPayload {
 	public static final int RESTRICTED_EVENT_COMMON_HEADER = 1;
 	public byte errorCode;
 	public Object dataSection;
 	private DeviceType type;
 	
-	public static RestrictedStatusMsg fromBytes(DeviceType type,byte[] content) {
-		ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH,RESTRICTED_EVENT_COMMON_HEADER);
+	public static RestrictedStatusMsg fromBuffer(DeviceType type,ByteBuffer b) {
+		//ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH,RESTRICTED_EVENT_COMMON_HEADER);
 		
 		byte errorCode = b.get();
 		Object dataSection = null;
 		
 		if ( type == DeviceType.CSD)
-			dataSection = CsdRestrictedEventData.fromBytes(content);
+			dataSection = CsdRestrictedEventData.fromBuffer(b);
 		else if ( type == DeviceType.ECOC)
-			dataSection = EcocRestrictedEventData.fromBytes(content);
+			dataSection = EcocRestrictedEventData.fromBuffer(b);
 		else
 			return null;
 
@@ -60,5 +60,11 @@ public class RestrictedStatusMsg {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "";
+	}
+
+	@Override
+	public byte getSize() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

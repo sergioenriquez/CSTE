@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 
-public class UnrestrictedStatusMsg {
+public class UnrestrictedStatusMsg extends IcdPayload {
 	public static final int SECTION_SIZE = 15;
 	private DeviceType type;
 	public byte deviceSectionCode;
@@ -14,9 +14,7 @@ public class UnrestrictedStatusMsg {
 	public int rekeyCtr;
 	public DeviceUID senderUID;
 	public byte ascNumber;
-	public byte checksum;
-	
-	
+
 	public static UnrestrictedStatusMsg fromBuffer(ByteBuffer b) {
 		if ( b.remaining() < SECTION_SIZE )
 			return null;
@@ -25,17 +23,15 @@ public class UnrestrictedStatusMsg {
 		byte encryptionErrorCode = b.get();
 		int rekeyCtr = b.getInt();
 		DeviceUID senderUID = DeviceUID.fromBuffer(b);
-		
 		byte ascNumber = b.get();
-		byte checksum = b.get();
-
+	
 		return new UnrestrictedStatusMsg(
 				deviceSectionCode,
 				encryptionErrorCode,
 				rekeyCtr,
 				senderUID,
-				ascNumber,
-				checksum);
+				ascNumber
+				);
 	}
 	
 	public UnrestrictedStatusMsg(
@@ -43,14 +39,29 @@ public class UnrestrictedStatusMsg {
 			byte encryptionErrorCode,
 			int  rekeyCtr,
 			DeviceUID senderUID,
-			byte ascNumber,
-			byte checksum
-			){
+			byte ascNumber){
 		this.deviceSectionCode = deviceSectionCode;
 		this.encryptionErrorCode = encryptionErrorCode;
 		this.rekeyCtr = rekeyCtr;
 		this.senderUID = senderUID;
 		this.ascNumber = ascNumber;
-		this.checksum = checksum;
+	}
+
+	@Override
+	public byte[] getBytes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "";
+	}
+
+	@Override
+	public byte getSize() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

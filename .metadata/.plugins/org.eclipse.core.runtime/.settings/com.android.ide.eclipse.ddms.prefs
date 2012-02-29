@@ -1,7 +1,7 @@
-#Tue Feb 21 20:02:12 PST 2012
+#Fri Feb 24 19:24:49 PST 2012
 threadPanel.stack.col0=130
 emulatorControl.waypoint.desc=107
-logcat.view.colsize.Time=168
+logcat.view.colsize.Time=146
 emulatorControl.track.first=122
 logcat.view.colsize.PID=50
 emulatorControl.waypoint.elevation=53
@@ -9,14 +9,14 @@ com.android.ide.eclipse.ddms.explorer.permissions=76
 com.android.ide.eclipse.ddms.explorer.time=42
 com.android.ide.eclipse.ddms.explorer.info=76
 com.android.ide.eclipse.ddms.explorer.data=73
-logcat.view.colsize.Tag=107
-logcat.view.colsize.Level=29
+logcat.view.colsize.Tag=154
+logcat.view.colsize.Level=47
 emulatorControl.waypoint.name=79
 allocPanel.Col00=74
 allocPanel.stack.col4=48
 allocPanel.stack.col3=44
 allocPanel.stack.col2=317
-logcat.view.colsize.Application=143
+logcat.view.colsize.Application=166
 allocPanel.stack.col1=112
 allocPanel.Col4=45
 allocPanel.stack.col0=130
@@ -36,7 +36,7 @@ devicePanel.Col4=113
 heapPanel.col4=78
 threadPanel.Col3=45
 heapPanel.col3=78
-logcat.view.colsize.Text=980
+logcat.view.colsize.Text=1275
 threadPanel.Col2=72
 heapPanel.col2=78
 threadPanel.Col1=44

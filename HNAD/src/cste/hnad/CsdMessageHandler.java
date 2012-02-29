@@ -13,10 +13,10 @@ public class CsdMessageHandler extends Handler {
 	public static final int DEVICE_DISCONNECTED = 2;
 	public static final int MSG_RECEIVED 		= 3;
 
-	private HnadCoreInterface mHnadCore;
+	private HNADServiceInterface mHnadCore;
 	
 	
-	public CsdMessageHandler(HnadCoreInterface hnad){
+	public CsdMessageHandler(HNADServiceInterface hnad){
 		this.mHnadCore = hnad;
 	}
 	

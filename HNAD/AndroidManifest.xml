@@ -10,14 +10,13 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     
-
     <application 	android:icon="@drawable/icon" 
         			android:label="@string/app_name" 
-        			> <!--  android:theme="@android:style/Theme.NoTitleBar" -->
+        			android:theme="@android:style/Theme.NoTitleBar">
         
         <uses-library android:name="com.android.future.usb.accessory" />
         
-        <service android:name=".core.HnadCoreService"
+        <service android:name=".core.HNADService"
            		 android:enabled="true">
          	<intent-filter>
 				<action android:name="cste.android.core.HNADCORESERVICE" />
@@ -49,7 +48,7 @@
                   android:label="@string/devlist_title">
         </activity>
         
-        <activity android:name=".activities.DeviceInfoTabActivity"
+        <activity android:name=".activities.DeviceInfoActivity"
                   android:label="@string/devdetails_title">
         </activity>
         

@@ -3,24 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
-	<CheckBox 
-        android:id="@+id/devicevisible"
-       	android:button="@drawable/signalcheckbox"
-       	android:textSize="12sp"
-        android:enabled="false"
-        android:checked="true"
-        android:layout_width="60dp"
-        android:focusable="false"
-		android:layout_height="wrap_content"/>
-    <TextView  
+	<ImageView
+	    android:id="@+id/devicevisible"
+	    android:layout_width="60dp"
+	    android:layout_height="wrap_content"
+	    android:scaleType="fitStart"
+	    android:src="@drawable/stat_sys_wifi_signal_4" />
+    <TextView
         android:id="@+id/deviceid"
-        android:text="DEVICE ID"
-	    android:layout_width="150dp"
-	    android:layout_height="wrap_content"/>
-    <TextView  
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="DEVICE ID" />
+    <TextView
         android:id="@+id/devicetype"
-        android:text="TYPE"
-	    android:layout_width="wrap_content" 
-	    android:layout_height="wrap_content" 
-	    android:layout_marginRight="30sp"/>
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="TYPE" />
+
 </LinearLayout>
