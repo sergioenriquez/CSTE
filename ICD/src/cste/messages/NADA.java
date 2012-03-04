@@ -6,13 +6,14 @@ import java.util.List;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.icd.MsgType;
+import cste.icd.NadaTimeDelay;
 import cste.icd.TimeStamp;
 
 public class NADA {
 	final int NADA_MIN_SIZE = 31;
 	final DeviceType devType;
 	final MsgType msgType = MsgType.NADA_MSG;
-	final byte timeDelayCode;
+	final NadaTimeDelay timeDelayCode;
 	final TimeStamp timestamp;
 	final DeviceType lvl1DevType;
 	final DeviceUID lvl1UID;
@@ -22,7 +23,7 @@ public class NADA {
 	
 	public NADA(
 		DeviceType devType,
-		int delayCode,
+		NadaTimeDelay delayCode,
 		DeviceType lvl1DevType,
 		DeviceUID lvl1UID,
 		DeviceType lvl2DevType,
@@ -30,8 +31,7 @@ public class NADA {
 		List<DeviceUID> msgWaitingList){
 		
 		this.devType = devType;
-		//this.timeDelayCode = (byte)(0x10); // 
-		this.timeDelayCode = (byte)(0x01 | delayCode<<4 );
+		this.timeDelayCode = delayCode;
 		this.timestamp = TimeStamp.now();	
 		this.lvl1DevType = lvl1DevType;
 		this.lvl1UID = lvl1UID;
@@ -45,7 +45,7 @@ public class NADA {
 		ByteBuffer temp = ByteBuffer.allocate(NADA_MIN_SIZE + msgWaitingList.size()*DeviceUID.SIZE);
 		temp.put(devType.getBytes());
 		temp.put(msgType.getBytes());
-		temp.put(timeDelayCode);
+		temp.put(timeDelayCode.getBytes());
 		temp.put(timestamp.getBytes());
 		temp.put(lvl1DevType.getBytes());
 		temp.put(lvl1UID.getBytes());

@@ -1,7 +1,7 @@
 package cste.kmf;
 
-import static cste.icd.ICD.ENCRYPTION_KEY_LENGTH;
-import static cste.icd.ICD.UID_LENGTH;
+import static cste.icd.Constants.ENCRYPTION_KEY_LENGTH;
+import static cste.icd.Constants.UID_LENGTH;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 

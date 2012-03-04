@@ -1,10 +1,11 @@
 package cste.icd;
-import static cste.icd.ICD.UID_LENGTH;
+import static cste.icd.Constants.UID_LENGTH;
 import static cste.icd.Utility.*;
 
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 
-public class DeviceUID {
+public class DeviceUID implements Serializable{
 	static public final int SIZE = 8;
 	final byte[] deviceUID;
 	

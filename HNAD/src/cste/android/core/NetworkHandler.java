@@ -1,7 +1,4 @@
 package cste.android.core;
-import static cste.android.activities.PreferencesActivity.PREFERENCES_FILE;
-import static cste.android.activities.PreferencesActivity.SERVER_ADDRESS;
-import static cste.android.activities.PreferencesActivity.SERVER_PORT;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -24,7 +21,7 @@ public class NetworkHandler {
 
 	public static void setServiceHost(Service host){
 		hostService = host;
-		mSettings = host.getSharedPreferences(PREFERENCES_FILE, 0);
+		//mSettings = host.getSharedPreferences(PREFERENCES_FILE, 0);
 		
 		// TODO init ipwrapper
 	}
@@ -44,8 +41,8 @@ public class NetworkHandler {
 
 	
 	protected void loadSettings(){
-		server = mSettings.getString(SERVER_ADDRESS, "0.0.0.0");
-		port = mSettings.getInt(SERVER_PORT, 0);
+		//server = mSettings.getString(SERVER_ADDRESS, "0.0.0.0");
+		//port = mSettings.getInt(SERVER_PORT, 0);
 	}
 
 	protected class HnadNetworkClientThread implements Runnable {

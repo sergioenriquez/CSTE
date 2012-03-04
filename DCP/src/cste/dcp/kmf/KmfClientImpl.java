@@ -12,7 +12,7 @@ import cste.PacketTypes.KmfPacketTypes;
 import cste.dcp.NetDevice;
 import cste.dcp.interfaces.KmfClient;
 import cste.icd.DeviceUID;
-import cste.icd.ICD;
+import cste.icd.Constants;
 import cste.interfaces.IpWrapper;
 import cste.interfaces.KeyProvider;
 import cste.ip.IpPacket;
@@ -138,7 +138,7 @@ public class KmfClientImpl implements KmfClient,KeyProvider{
 				bOut.write(device.getUID());
 				bOut.write(device.getRekeyKey());
 				bOut.write(device.getRekeyCtr());
-				bOut.write( ICD.generateLTK(device.getRekeyKey() ) );
+				bOut.write( Constants.generateLTK(device.getRekeyKey() ) );
 			} catch (IOException e) {
 				System.err.println("Error sending packet");
 				return false;

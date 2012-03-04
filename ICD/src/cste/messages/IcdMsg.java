@@ -2,15 +2,21 @@ package cste.messages;
 
 import java.nio.ByteBuffer;
 
+import cste.components.ComModule;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.icd.MsgType;
-import cste.icd.SecurityDevice;
 import cste.icd.UnrestrictedCmdType;
 import cste.interfaces.KeyProvider;
 import static cste.icd.Utility.*;
 
+/***
+ * 
+ * @author Sergio Enriquez
+ *
+ */
 public class IcdMsg {
+	private static String TAG = "ICD Msg class";
 	public enum MsgStatus{
 		BAD_CHEKSUM,
 		WRONG_SIZE,
@@ -20,32 +26,35 @@ public class IcdMsg {
 		MISSING_PARAMETERS,
 		OK
 	}
-	private static DeviceType thisDeviceType = DeviceType.INVALID;
-	private static DeviceUID thisUID = DeviceUID.fromString("0000000000000000");
-	private static byte revICD = 0x00;
-	private static KeyProvider keyProvider = null;
 	
-	final private DeviceUID destinationUID;
+	private static DeviceType ThisDevType = null;
+	private static DeviceUID ThisUID = null;
+	private static byte IcdRev = 0;
+	private static KeyProvider KeyProvider = null;
+	private static boolean EncryptionEnabled = false;
+	
 	final private IcdHeader headerData;
 	final private IcdPayload payload;
 	final private MsgStatus msgStatus;
+	
 
 	/***
-	 * Call this function before needing to genereate any messages to configure this device 
+	 * This function should be called one before generating any ICD packets.
 	 * @param type
 	 * @param uid
 	 * @param rev
 	 */
-	public static void configure(DeviceType type, DeviceUID uid, byte rev, KeyProvider keyProv){
-		thisDeviceType = type;
-		thisUID = uid;
-		revICD = rev;
-		keyProvider = keyProv;
+	public static void configure(boolean encryptionEnabled, DeviceType type, DeviceUID uid, byte rev, KeyProvider keyProv){
+		EncryptionEnabled = encryptionEnabled;
+		ThisDevType = type;
+		ThisUID = uid;
+		IcdRev = rev;
+		KeyProvider = keyProv;
 	}
 
 	/***
-	 * Creates an ICD message object from a byte array
-	 * If its invalid it will return am empty message with the error code specified
+	 * Creates an ICD message object from an byte array input
+	 * If there is an error it will return an empty message object with the error code set
 	 * @param payload
 	 * @return
 	 */
@@ -57,52 +66,76 @@ public class IcdMsg {
 	}
 	
 	/***
-	 * Creates a new ICD message based on the payload and destination
-	 * Encryption will be performed if nescesary
+	 * Creates a new ICD message byte array based on the destination, msg type, and parameters
+	 * Encryption will be performed if required. It will return null if there is an error.
 	 * @param dest
 	 * @param msgType
 	 * @param payload
-	 * @return
+	 * @return byte array if successful, null if error
 	 */
-	public static IcdMsg create(SecurityDevice dest, MsgType msgType, Object ... params){
+	public static byte[] buildIcdMsg(ComModule destination, MsgType msgType, Object ... params){
 		IcdPayload payload = null;
-		DeviceType devType = thisDeviceType;
-		
+		DeviceType devType = ThisDevType;
+
 		switch(msgType)
 		{
 		case DEV_CMD_RESTRICTED:
 			devType = DeviceType.DCP;
 			if( params.length >= 1)
 			{
-				if ( dest.devType() == DeviceType.ECOC || dest.devType() == DeviceType.ECM0 )
+				if ( destination.devType() == DeviceType.ECOC || destination.devType() == DeviceType.ECM0 )
 					payload = RestrictedEcocCmd.create(params);
-				else if ( dest.devType() == DeviceType.ACSD || dest.devType() == DeviceType.CSD)
+				else if ( destination.devType() == DeviceType.ACSD || destination.devType() == DeviceType.CSD)
 					payload = RestrictedEcocCmd.create(params); //TODO replace with appropiate type
+				else
+					Log(TAG, "Config error");
 			}
 			break;
-			
 		case DEV_CMD_UNRESTRICTED:
 			devType = DeviceType.DCP;
 			if( params.length == 1)
 				payload = new UnrestrictedCommand((UnrestrictedCmdType)params[0]);
+			else
+				Log(TAG, "Config error");
 		default:
+			Log(TAG, "Trying to build unsupported icd msg type");
 		}
-		//something went wrong building the payload
-		if( payload == null)
-			return new IcdMsg(MsgStatus.MISSING_PARAMETERS);
 		
-		IcdHeader headerData = new IcdHeader(
+		if( payload == null)
+			return null;
+		
+		IcdHeader header = new IcdHeader(
 				devType,
 				msgType,
 				payload.getSize(),
-				thisUID,
-				revICD,
-				dest.getTxAsc());
+				ThisUID,
+				IcdRev,
+				destination.getTxAsc());
+		
+		byte []headerBytes = header.getBytes();
+		byte []payloadBytes = payload.getBytes();
+		if (EncryptionEnabled && msgType.isEncypted()){
+			byte[] key = KeyProvider.getEncryptionKey(destination.UID());
+			payloadBytes = encrypt(payloadBytes,key, header.getNonce());
+			if ( payloadBytes == null)
+				return null;
+		} 
+		
+		ByteBuffer buffer = ByteBuffer.allocate(header.getHdrSize() + payload.getSize());
+		buffer.put(headerBytes);
+		buffer.put(payloadBytes);
 		
 		if( msgType == MsgType.DEV_CMD_UNRESTRICTED)
-			((UnrestrictedCommand)payload).putChecksum(headerData);
-
-		return new IcdMsg(dest.UID(),headerData,payload);
+		{
+			byte chkSum = 0;
+			for(byte b : headerBytes)
+				chkSum += b;
+			for(byte b : payloadBytes)
+				chkSum += b;
+			buffer.put(chkSum);
+		}
+		
+		return buffer.array();
 	}
 
 	public MsgType msgType(){
@@ -120,44 +153,15 @@ public class IcdMsg {
 	public MsgStatus getStatus(){
 		return msgStatus;
 	}
-
-	/***
-	 * Generates the byte array for this message and applies encryption to it if needed	
-	 * @return
-	 */
-	public byte[] getBytes(){
-		if( payload == null)
-			return null;
-		byte []payloadBytes = payload.getBytes();
-		if (headerData.msgType.isEncypted()){
-			byte[] key = keyProvider.getEncryptionKey(destinationUID);
-			payloadBytes = encrypt(payloadBytes,key, headerData.getNonce());
-			if ( payloadBytes == null)
-				return null;
-		}
-
-		byte []headerBytes = headerData.getBytes();
-		ByteBuffer buffer = ByteBuffer.allocate(headerData.getHdrSize() + payloadBytes.length);
-		buffer.put(headerBytes);
-		buffer.put(payloadBytes);
-		return buffer.array();
-	}
-
-//byte chkSum = 0;
-//for(byte b : headerBytes)
-//	chkSum += b;
-//for(byte b : payloadBytes)
-//	chkSum += b;
 	
 	public String toString(){
 		if( headerData == null || payload == null)
 			return "NO DATA";
 		else
-			return headerData.toString() + payload.toString();
+			return headerData.toString() + " " + payload.toString();
 	}
 
 	private IcdMsg(MsgStatus error){
-		this.destinationUID = null;
 		this.headerData = null;
 		this.payload = null;
 		this.msgStatus = error;
@@ -167,7 +171,6 @@ public class IcdMsg {
 			DeviceUID destinationUID,
 			IcdHeader headerData,
 			IcdPayload payload){
-		this.destinationUID = destinationUID;
 		this.headerData = headerData;
 		this.payload = payload;
 		this.msgStatus = MsgStatus.OK;
@@ -211,15 +214,14 @@ public class IcdMsg {
 		case NADA_MSG:
 			break;
 		default:
-			MsgType x = headerData.getMsgType();
-			return new IcdMsg(MsgStatus.WRONG_SIZE);
-			
-			// LOG error?
+			MsgType type = headerData.getMsgType();
+			Log(TAG, "Received unknown msg type " + type.toString());
+			return new IcdMsg(MsgStatus.BAD_CONFIG);
 		}
 
 		if( msgContent == null)
 			return new IcdMsg(MsgStatus.WRONG_SIZE);
 
-		return new IcdMsg(thisUID, headerData,msgContent);
+		return new IcdMsg(ThisUID, headerData,msgContent);
 	}
 }	

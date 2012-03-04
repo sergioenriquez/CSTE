@@ -24,4 +24,17 @@
     <string name="alarm">Alarm </string>
     <string name="opmode">Op Mode </string>
     <string name="signal">Signal </string>
+    
+    <string name="nadaPrompt">Select NADA burst rate </string>
+    <string-array name="nada_timing">
+        <item>20ms</item>
+        <item>40ms</item>
+        <item>80ms</item>
+        <item>100ms</item>
+        <item>200ms</item>
+        <item>400ms</item>
+        <item>800ms</item>
+        <item>1000ms</item>
+    </string-array>
+    
 </resources>

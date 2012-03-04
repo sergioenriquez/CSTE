@@ -1,6 +1,6 @@
 package cste.ip;
 
-import static cste.icd.ICD.UID_LENGTH;
+import static cste.icd.Constants.UID_LENGTH;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,9 +9,11 @@ import java.util.Arrays;
 
 import cste.PacketTypes.KmfPacketTypes;
 import cste.icd.DeviceUID;
-import cste.icd.ICD;
+import cste.icd.Constants;
 import cste.interfaces.IpWrapper;
 import cste.interfaces.KeyProvider;
+
+import static cste.icd.Utility.*;
 
 public class IpWrapperImpl implements IpWrapper{
 	final byte ICD_REVISION = (byte)0x01;
@@ -36,9 +38,9 @@ public class IpWrapperImpl implements IpWrapper{
 				byte[] payloadWithNonce = new byte[payload.length + UID_LENGTH];
 				System.arraycopy(senderUID, 0, payloadWithNonce, 0, UID_LENGTH);
 				System.arraycopy(payload, 0, payloadWithNonce, UID_LENGTH, payload.length);
-				byte[] encryptedPayloadWithNonce = ICD.encryptAES(payloadWithNonce, kp.getEncryptionKey(DeviceUID.fromByteArray(destinationUID)));
-				payloadSize = encryptedPayloadWithNonce.length;
-				payloadSent = encryptedPayloadWithNonce;
+				//byte[] encryptedPayloadWithNonce = Constants.encryptAES(payloadWithNonce, kp.getEncryptionKey(DeviceUID.fromByteArray(destinationUID)));
+				//payloadSize = encryptedPayloadWithNonce.length;
+				//payloadSent = encryptedPayloadWithNonce;
 			}
 			else{
 				payloadSize = payload.length;
@@ -89,17 +91,17 @@ public class IpWrapperImpl implements IpWrapper{
 		p.setSenderUID(senderUID);
 		
 		if( KmfPacketTypes.encryptionUsed(functionCode)){
-			byte[] payloadWithNonce = ICD.decryptAES(receivedPayload, kp.getEncryptionKey(DeviceUID.fromByteArray(senderUID)));
-			byte[] nonce = new byte[UID_LENGTH];
-			byte[] payload = new byte[receivedPayload.length-UID_LENGTH];
-			System.arraycopy(payloadWithNonce, 0, nonce, 0, UID_LENGTH);
-			System.arraycopy(payloadWithNonce, UID_LENGTH, payload, 0, payload.length);
-			if ( Arrays.equals(nonce, senderUID )){
-				p.setPayload(payload);
-			}else
-			{
-				return null;
-			}
+			//byte[] payloadWithNonce = Constants.decryptAES(receivedPayload, kp.getEncryptionKey(DeviceUID.fromByteArray(senderUID)));
+			//byte[] nonce = new byte[UID_LENGTH];
+			//byte[] payload = new byte[receivedPayload.length-UID_LENGTH];
+			//System.arraycopy(payloadWithNonce, 0, nonce, 0, UID_LENGTH);
+			//System.arraycopy(payloadWithNonce, UID_LENGTH, payload, 0, payload.length);
+			//if ( Arrays.equals(nonce, senderUID )){
+			//	p.setPayload(payload);
+			//}else
+			//{
+			//	return null;
+			//}
 		}else
 			p.setPayload(receivedPayload);
 		

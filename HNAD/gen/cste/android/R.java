@@ -8,6 +8,9 @@
 package cste.android;
 
 public final class R {
+    public static final class array {
+        public static final int nada_timing=0x7f070000;
+    }
     public static final class attr {
     }
     public static final class color {
@@ -39,62 +42,68 @@ public final class R {
         public static final int stat_sys_wifi_signal_4=0x7f020015;
     }
     public static final class id {
-        public static final int authLoginBtn=0x7f080022;
-        public static final int authPassword=0x7f080021;
-        public static final int authUserLink=0x7f080020;
-        public static final int button1=0x7f080015;
-        public static final int button2=0x7f080016;
-        public static final int button3=0x7f080017;
-        public static final int button4=0x7f080018;
-        public static final int button5=0x7f08001a;
-        public static final int button6=0x7f08001b;
-        public static final int button7=0x7f08001c;
-        public static final int button8=0x7f08001d;
-        public static final int deviceid=0x7f080002;
-        public static final int devicesList=0x7f080000;
-        public static final int devicetype=0x7f080003;
-        public static final int devicevisible=0x7f080001;
-        public static final int eventlog=0x7f080024;
-        public static final int exit=0x7f08002a;
-        public static final int imageView1=0x7f08001e;
-        public static final int linearLayout10=0x7f08001f;
-        public static final int logout=0x7f080026;
-        public static final int remember=0x7f080023;
-        public static final int settings=0x7f080025;
-        public static final int tableLayout1=0x7f080004;
-        public static final int tableLayout2=0x7f08000d;
-        public static final int tableLayout3=0x7f080013;
-        public static final int tableRow1=0x7f080005;
-        public static final int tableRow2=0x7f080007;
-        public static final int tableRow3=0x7f080009;
-        public static final int tableRow4=0x7f08000b;
-        public static final int tableRow5=0x7f08000e;
-        public static final int tableRow6=0x7f08000f;
-        public static final int tableRow7=0x7f080014;
-        public static final int tableRow8=0x7f080019;
-        public static final int textView2=0x7f080006;
-        public static final int textView4=0x7f080008;
-        public static final int textView6=0x7f08000a;
-        public static final int textView8=0x7f08000c;
-        public static final int toggleButton1=0x7f080010;
-        public static final int toggleButton2=0x7f080011;
-        public static final int toggleButton3=0x7f080012;
-        public static final int upload=0x7f080027;
-        public static final int viewkeys=0x7f080029;
-        public static final int viewtrip=0x7f080028;
+        public static final int authLoginBtn=0x7f090027;
+        public static final int authPassword=0x7f090026;
+        public static final int authUserLink=0x7f090025;
+        public static final int button1=0x7f09001a;
+        public static final int button2=0x7f09001b;
+        public static final int button3=0x7f09001c;
+        public static final int button4=0x7f09001d;
+        public static final int button5=0x7f09001f;
+        public static final int button6=0x7f090020;
+        public static final int button7=0x7f090021;
+        public static final int button8=0x7f090022;
+        public static final int dcpServer=0x7f090003;
+        public static final int deviceid=0x7f090008;
+        public static final int devicesList=0x7f090006;
+        public static final int devicetype=0x7f090009;
+        public static final int devicevisible=0x7f090007;
+        public static final int ecryptionOn=0x7f090004;
+        public static final int eventlog=0x7f090029;
+        public static final int exit=0x7f09002f;
+        public static final int ftpServer=0x7f090002;
+        public static final int imageView1=0x7f090023;
+        public static final int linearLayout10=0x7f090024;
+        public static final int logout=0x7f09002b;
+        public static final int nadaRate=0x7f090005;
+        public static final int remember=0x7f090028;
+        public static final int settings=0x7f09002a;
+        public static final int tableLayout1=0x7f090000;
+        public static final int tableLayout2=0x7f090012;
+        public static final int tableLayout3=0x7f090018;
+        public static final int tableRow1=0x7f09000a;
+        public static final int tableRow2=0x7f09000c;
+        public static final int tableRow3=0x7f09000e;
+        public static final int tableRow4=0x7f090010;
+        public static final int tableRow5=0x7f090013;
+        public static final int tableRow6=0x7f090014;
+        public static final int tableRow7=0x7f090019;
+        public static final int tableRow8=0x7f09001e;
+        public static final int textView2=0x7f09000b;
+        public static final int textView4=0x7f09000d;
+        public static final int textView6=0x7f09000f;
+        public static final int textView8=0x7f090011;
+        public static final int thidUID=0x7f090001;
+        public static final int toggleButton1=0x7f090015;
+        public static final int toggleButton2=0x7f090016;
+        public static final int toggleButton3=0x7f090017;
+        public static final int upload=0x7f09002c;
+        public static final int viewkeys=0x7f09002e;
+        public static final int viewtrip=0x7f09002d;
     }
     public static final class layout {
-        public static final int devcmdtab=0x7f030000;
-        public static final int devicedetails=0x7f030001;
-        public static final int devicelist=0x7f030002;
-        public static final int devicelistitem=0x7f030003;
-        public static final int devinfotab=0x7f030004;
-        public static final int login=0x7f030005;
+        public static final int configlayout=0x7f030000;
+        public static final int devcmdtab=0x7f030001;
+        public static final int devicedetails=0x7f030002;
+        public static final int devicelist=0x7f030003;
+        public static final int devicelistitem=0x7f030004;
+        public static final int devinfotab=0x7f030005;
+        public static final int login=0x7f030006;
     }
     public static final class menu {
-        public static final int devicedetails_menu=0x7f070000;
-        public static final int devicelist_menu=0x7f070001;
-        public static final int login_menu=0x7f070002;
+        public static final int devicedetails_menu=0x7f080000;
+        public static final int devicelist_menu=0x7f080001;
+        public static final int login_menu=0x7f080002;
     }
     public static final class string {
         public static final int alarm=0x7f060012;
@@ -107,6 +116,7 @@ public final class R {
         public static final int login_title=0x7f060001;
         public static final int logout=0x7f060005;
         public static final int manifest=0x7f060010;
+        public static final int nadaPrompt=0x7f060015;
         public static final int opmode=0x7f060013;
         public static final int preferences_title=0x7f06000c;
         public static final int sealid=0x7f06000f;

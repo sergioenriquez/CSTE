@@ -56,7 +56,7 @@
                   android:label="@string/devdetails_title">
         </activity>
         
-        <activity android:name=".activities.PreferencesActivity"
+        <activity android:name=".activities.ConfigActivity"
                   android:label="@string/preferences_title">
         </activity>
         

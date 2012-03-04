@@ -1,6 +1,7 @@
 package cste.android.core;
 
 import android.os.Handler;
+import cste.icd.NadaTimeDelay;
 import cste.messages.NADA;
 import cste.misc.ZigbeeAPI;
 import static cste.icd.Utility.*;
@@ -10,6 +11,7 @@ import static cste.icd.Utility.*;
 public class NADABroadcaster implements Runnable{
 	private boolean enabled = false;
 	private int msgSendCnt = 0;
+	private NadaTimeDelay delayCode = NadaTimeDelay.D100;
 	
 	private Handler mHandler;
 	private UsbCommManager mUsbCommHandler;
@@ -17,7 +19,6 @@ public class NADABroadcaster implements Runnable{
 	
 	//burst tx rate of 80ms for 1 sec, then 1.0 sec quiet
 	private final int BURST_CNT = 13;
-	private final int SHORT_DELAY = 80;
 	private final int LONG_DELAY = 960;
 	private final byte[] BROADCAST_ADDRESS	= strToHex("000000000000FFFF");
 	
@@ -33,7 +34,7 @@ public class NADABroadcaster implements Runnable{
 		enabled = true;
 
 		NADA nadaMsg = new NADA(mParent.thisDevType,
-								0x03,
+								delayCode,
 								mParent.dcpDevType,
 								mParent.dcpUID,
 								mParent.lvl2DevType,
@@ -49,7 +50,7 @@ public class NADABroadcaster implements Runnable{
 		{
 			msgSendCnt++;
 			if( msgSendCnt < BURST_CNT)
-				mHandler.postDelayed(this, SHORT_DELAY);
+				mHandler.postDelayed(this, delayCode.getMsDelay());
 			else
 			{
 				mHandler.postDelayed(this, LONG_DELAY);

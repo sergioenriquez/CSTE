@@ -43,6 +43,7 @@ public class UsbCommManager extends BroadcastReceiver{
 	private boolean mPermissionRequestPending;
 	private Service mHostService;
 	private boolean isConnected = false;
+	protected boolean isRegistered = false;
 	
 	private ArrayBlockingQueue<byte[]> pendingTxList;
 	
@@ -57,11 +58,19 @@ public class UsbCommManager extends BroadcastReceiver{
 		mUsbManager = UsbManager.getInstance(hostService);
 		
 		mPermissionIntent = PendingIntent.getBroadcast(hostService, 0, new Intent(ACTION_USB_PERMISSION), 0);
-		IntentFilter filter = new IntentFilter();
-		filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
-		filter.addAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED);
-		filter.addAction(UsbManager.EXTRA_PERMISSION_GRANTED);
-		hostService.registerReceiver(this, filter);
+		isRegistered = false;
+	}
+	
+	protected void registerReceiver(){
+		if( !isRegistered )
+		{
+			IntentFilter filter = new IntentFilter();
+			filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
+			filter.addAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED);
+			filter.addAction(UsbManager.EXTRA_PERMISSION_GRANTED);
+			mHostService.registerReceiver(this, filter);
+			isRegistered = true;
+		}
 	}
 	
 	boolean testUSB()
@@ -107,7 +116,7 @@ public class UsbCommManager extends BroadcastReceiver{
 	 * 
 	 */
 	public boolean openExistingUSBaccessory(){
-
+		registerReceiver();
 		UsbAccessory[] accessories = mUsbManager.getAccessoryList();
 		mAccessory = (accessories == null ? null : accessories[0]);
 		if (mAccessory != null) {
@@ -203,7 +212,7 @@ public class UsbCommManager extends BroadcastReceiver{
 				try {
 					ret = mInputStream.read(buffer);
 				} catch (IOException e) {
-					Log.e(TAG,e.getMessage());
+					Log.e(TAG,"I/O Error");
 					closeAccessory();
 					break;
 				}
@@ -257,13 +266,17 @@ public class UsbCommManager extends BroadcastReceiver{
 		
 		return false;
 	}
-
+	
 	/***
 	 * 
 	 */
-	public void deRegister(){
+	public void closeDevice(){
 		closeAccessory();
-		mHostService.unregisterReceiver(this);
+		if(isRegistered)
+		{
+			mHostService.unregisterReceiver(this);
+			isRegistered = false;
+		}
 	}
 	
 }//end class

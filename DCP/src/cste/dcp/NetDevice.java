@@ -1,7 +1,7 @@
 package cste.dcp;
 
 import cste.icd.DeviceType;
-import cste.icd.ICD;
+import cste.icd.Constants;
 
 /**
  * Represents a secure container device or a NAD/FNAD
@@ -52,7 +52,7 @@ public class NetDevice {
 		this.devTypeCode = devTypeCode;
 		this.devUID = devUID;
 		this.devRekeyKey = devRekeyKey;
-		this.devLTK = ICD.generateLTK(devRekeyKey);
+		this.devLTK = Constants.generateLTK(devRekeyKey);
 		this.rekeyCtr = 0;
 	}
 

@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +18,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import cste.android.R;
-import cste.hnad.Device;
+import cste.components.ComModule;
+import cste.hnad.EcocDevice;
 
 /***
  * Displays a list of all the devices currently or previously visible
@@ -39,21 +41,16 @@ public class DeviceListActivity extends HnadBaseActivity {
         mDeviceListAdapter = new DeviceListAdapter(this,R.layout.devicelistitem);
         mDeviceListView = (ListView) findViewById(R.id.devicesList);
         mDeviceListView.setAdapter(mDeviceListAdapter);
-        
-        //mUsbCheckbox = (CheckBox)findViewById(R.id.usblink);
-        
+
         mDeviceListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-            	
-            	Device dev = mDeviceListAdapter.getItem(position);
+            	ComModule dev = mDeviceListAdapter.getItem(position);
             	mHnadCoreService.getDeviceStatus(dev);
-            	
-            	
         	  	Intent intent = new Intent(getApplicationContext(), DeviceInfoActivity.class);
-        	  	intent.putExtra("device", dev);
-                //startActivity(intent);
+        	  	intent.putExtra("device",(Parcelable) dev);
+                startActivity(intent);
             }
         });
     }
@@ -82,7 +79,7 @@ public class DeviceListActivity extends HnadBaseActivity {
 	private void reloadDeviceList(){
 		mDeviceListAdapter.clear();
 		
-		Enumeration<Device> devices = mHnadCoreService.getDeviceList().elements();
+		Enumeration<ComModule> devices = mHnadCoreService.getDeviceList().elements();
 		while(devices.hasMoreElements())
 			mDeviceListAdapter.add(devices.nextElement());
 	}
@@ -99,9 +96,10 @@ public class DeviceListActivity extends HnadBaseActivity {
 
         switch (item.getItemId()) {
             case R.id.settings:
-            	startActivity(new Intent(getApplicationContext(), PreferencesActivity.class));
+            	startActivity(new Intent(getApplicationContext(), ConfigActivity.class));
                 break;
             case R.id.logout:
+            	mHnadCoreService.logout();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             	finish();
                 break;

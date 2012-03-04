@@ -8,9 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import cste.android.R;
-import cste.hnad.Device;
+import cste.components.ComModule;
+import cste.hnad.EcocDevice;
 
-public class DeviceListAdapter extends ArrayAdapter<Device>{
+public class DeviceListAdapter extends ArrayAdapter<ComModule>{
 	int resourceID;
 	
 	public DeviceListAdapter(Context context, int textViewResourceId) {
@@ -20,7 +21,7 @@ public class DeviceListAdapter extends ArrayAdapter<Device>{
 
 	@Override
     public View getView(int position, View convertView, ViewGroup parent) {
-		Device dev = getItem(position);
+		ComModule dev = getItem(position);
         if (convertView == null) {
             LayoutInflater vi = (LayoutInflater) getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(this.resourceID, null);

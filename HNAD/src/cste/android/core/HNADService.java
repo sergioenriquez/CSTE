@@ -10,18 +10,23 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 import cste.android.R;
-import cste.android.activities.HnadConfigurationTabActivity;
+import cste.android.activities.DeviceInfoActivity;
 import cste.android.activities.DeviceListActivity;
 import cste.android.activities.LoginActivity;
+import cste.android.db.DbHandler;
+import cste.components.ComModule;
 import cste.hnad.CsdMessageHandler;
-import cste.hnad.Device;
+import cste.hnad.EcocDevice;
 import cste.hnad.HNADServiceInterface;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
@@ -51,8 +56,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	public final byte icdRev 		= 0x02;//0x02
 	
 	List<DeviceUID> mMsgWaitingList;
-	private Hashtable<String,Device> mDeviceMap;
-	
+
 	private boolean mIsLoggedIn = false;
 	private NADABroadcaster mNadaBroadcaster;
 	private CsdMessageHandler mCsdMessageHandler;
@@ -60,30 +64,43 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	private NetworkHandler mNetworkHandler;
 	private NotificationManager mNM;
 	private Handler mNadaHandler = new Handler();
+	private DbHandler db;
 	
 	private final IBinder mBinder = new LocalBinder();
 	private Timer mUsbReconnectTimer;
 
 	/*****************************/
 
-	public Hashtable<String,Device> getDeviceList(){
-		return mDeviceMap;
+	private SharedPreferences settings;// = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+
+	public SharedPreferences getSettingsFile(){
+		return settings;
+	}
+	
+	public void loadSettings(){
+		
+	}
+
+	public Hashtable<String,ComModule> getDeviceList(){
+		return db.getStoredDevices();
 	}
 
 	@Override
 	public void onCreate() {
 		mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		settings = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
 		
 		NetworkHandler.setServiceHost(this);
+		loadSettings();//TODO X
+		IcdMsg.configure(false,thisDevType, thisUID, icdRev, this);
 		
-		IcdMsg.configure(thisDevType, thisUID, icdRev, this);
+		db = new DbHandler(this);
+        db.open();
 		
 		mCsdMessageHandler = new CsdMessageHandler(this);
 		mUsbCommHandler = new UsbCommManager(this,mCsdMessageHandler);
 		mNadaBroadcaster = new NADABroadcaster(this,mNadaHandler,mUsbCommHandler);
-		mUsbReconnectTimer = new Timer("USB reconnect timer",true);
-		mDeviceMap = new Hashtable<String,Device>(10);
-		
+		mUsbReconnectTimer = null;
 		//mDeviceMap.put("0013A20040715FD8", new Device(new DeviceUID("0013A20040715FD8"),DeviceType.CSD));
 		//mDeviceMap.put("0013A20040760BB4", new Device(new DeviceUID("0013A20040760BB4"),DeviceType.ACSD));
 		//mDeviceMap.put("0013A200406BE0C3", new Device(new DeviceUID("0013A200406BE0C3"),DeviceType.ECOC));
@@ -117,6 +134,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.LOGIN_RESULT,true);
 		sendBroadcast(intent);
 		
+		mUsbReconnectTimer = new Timer("USB reconnect timer",true);
 		mUsbReconnectTimer.scheduleAtFixedRate(new TimerTask(){
 			@Override
 			public void run() {
@@ -124,12 +142,23 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 					this.cancel();
 			}}, 100, 1000);// delay start 100ms, retry every second
 	}
+	
+	@Override
+	/***
+	 * Stops transmitting or receiving 802.15.4 messages
+	 */
+	public void logout() {
+		stopRadioComm();
+	}
+
 
 	@Override
 	public void uploadData() {
 		// TODO Auto-generated method stub	
 
 	}
+	
+	
 	
 	@Override
 	public byte[] getEncryptionKey(DeviceUID destinationUID) {
@@ -139,11 +168,11 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	}				   //678780B177F9748B3D4CCB670A6938F1
 	
 	@Override
-	public void getDeviceStatus(Device dev) {
+	public void getDeviceStatus(ComModule dev) {
 		dev.incTxAsc();
-		IcdMsg msg = IcdMsg.create(dev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SL);
+		byte[] icdMsg = IcdMsg.buildIcdMsg(dev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SL);
 		//IcdMsg msg = IcdMsg.create(dev, MsgType.DEV_CMD_UNRESTRICTED, UnrestrictedCmdType.REQUEST);
-		byte [] zigbeeFrame = ZigbeeAPI.buildPkt(dev.UID().getBytes(),(byte)0x01,msg.getBytes());
+		byte [] zigbeeFrame = ZigbeeAPI.buildPkt(dev.UID().getBytes(),(byte)0x01,icdMsg);
 		this.mUsbCommHandler.transmit(zigbeeFrame);
 	}
 
@@ -192,41 +221,42 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     private void handleIcdMsg(IcdMsg msg)
     {
     	String key = msg.header().getDevUID().toString();
-    	Device device;
-    	if( mDeviceMap.containsKey( key ) )
+    	ComModule storedDevice = db.getDevice(msg.header().getDevUID());
+    	if( storedDevice != null )
     	{
-    		device = mDeviceMap.get(key);
+    		
     	}else
     	{
-    		device = new Device(
-    				msg.header().getDevUID(),
-    				msg.header().getDevType());
-    		device.setTxAsc(60);
-    		
-    		
-    		mDeviceMap.put(key, device);
+    		storedDevice = new EcocDevice( msg.header().getDevUID());
+    		db.storeDevice(storedDevice);
     		
     		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVLIST_CHANGED,key);
     		sendBroadcast(intent);
-    		
-    		showNewDeviceNotification(device);
+    		showNewDeviceNotification(storedDevice);
     	}
     	
     	Intent testIntent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVICE_INFO_CHANGED,false);
-		testIntent.putExtra("Device",device);
+		testIntent.putExtra("Device",(Parcelable)storedDevice);
 		sendBroadcast(testIntent);
-    	
-		
     }
     
     /***************************/
+    
+    protected void stopRadioComm(){
+		mNadaHandler.removeCallbacksAndMessages(mNadaBroadcaster);
+		mUsbCommHandler.closeDevice();
+		if( mUsbReconnectTimer != null)
+			mUsbReconnectTimer.cancel();
+		}
     
     @Override
     public void onDestroy() {
         // Cancel the persistent notification.
     	toast("Service exit");
+    	db.close();
         mNM.cancel(NEW_DEVICE_NOTIFICATION);
-        mUsbCommHandler.deRegister();
+
+        stopRadioComm();
     }
 
     private void toast(String msg){
@@ -246,14 +276,14 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		return mBinder;
 	}
     
-	private void showNewDeviceNotification(Device device) {       
+	private void showNewDeviceNotification(ComModule device) {       
 		// In this sample, we'll use the same text for the ticker and the expanded notification        
 		//TODO go to the device details for this new device
 		CharSequence title = "HNAD app";
 		CharSequence text = "Device detected " + device.UID();        // Set the icon, scrolling text and timestamp        
 		Notification notification = new Notification(R.drawable.stat_sys_wifi_signal_0, text, System.currentTimeMillis());        // The PendingIntent to launch our activity if the user selects this notification        
-		Intent intent = new Intent(this, HnadConfigurationTabActivity.class);
-		intent.putExtra("device", device); // TODO fill actual device
+		Intent intent = new Intent(this, DeviceInfoActivity.class);
+		intent.putExtra("device", (Parcelable)device); // TODO fill actual device
 		intent.putExtra("clearNotifications",true); // TODO fill actual device
 		
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, 0);        // Set the info for the views that show in the notification panel.        

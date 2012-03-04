@@ -7,11 +7,11 @@ import java.net.Socket;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import static cste.PacketTypes.KmfPacketTypes.*;
-import static cste.icd.ICD.ENCRYPTION_KEY_LENGTH;
-import static cste.icd.ICD.UID_LENGTH;
+import static cste.icd.Constants.ENCRYPTION_KEY_LENGTH;
+import static cste.icd.Constants.UID_LENGTH;
 import cste.PacketTypes.KmfPacketTypes;
 import cste.icd.DeviceType;
-import cste.icd.ICD;
+import cste.icd.Constants;
 import cste.interfaces.IpWrapper;
 import cste.ip.IpPacket;
 import cste.ip.IpWrapperImpl;
@@ -97,7 +97,7 @@ public class ServerThread implements Runnable{
 		byte[] rekeyKey = currentRecord.getRekeyKey();
 
 		byte[] currentLTK = currentRecord.getLTK();
-		newLTK = ICD.encryptAES(currentLTK,rekeyKey);
+		//newLTK = Constants.encryptAES(currentLTK,rekeyKey);
 
 		if ( newLTK == null){
 			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
@@ -153,13 +153,13 @@ public class ServerThread implements Runnable{
 		
 		switch(senderDevLvl){
 		case 0:
-			generatedTCK = ICD.generateTCK_L0(
+			generatedTCK = Constants.generateTCK_L0(
 					recordB.getRekeyKey(), 
 					KmfApp.getKmfUID(), 
 					recordA.getRekeyCtr());
 			break;
 		case 1:
-			generatedTCK = ICD.generateTCK_L1(
+			generatedTCK = Constants.generateTCK_L1(
 					recordA.getUID(),
 					recordB.getLTK());
 			break;
