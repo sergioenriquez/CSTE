@@ -20,6 +20,7 @@ public class IcdMsg {
 	public enum MsgStatus{
 		BAD_CHEKSUM,
 		WRONG_SIZE,
+		ENCRYPTION_ERROR,
 		EMPTY_MSG,
 		OTHER,
 		BAD_CONFIG,
@@ -44,11 +45,11 @@ public class IcdMsg {
 	 * @param uid
 	 * @param rev
 	 */
-	public static void configure(boolean encryptionEnabled, DeviceType type, DeviceUID uid, byte rev, KeyProvider keyProv){
+	public static void configure(boolean encryptionEnabled, DeviceType type, DeviceUID uid, KeyProvider keyProv){
 		EncryptionEnabled = encryptionEnabled;
 		ThisDevType = type;
 		ThisUID = uid;
-		IcdRev = rev;
+		IcdRev = 0x02;
 		KeyProvider = keyProv;
 	}
 
@@ -135,6 +136,8 @@ public class IcdMsg {
 			buffer.put(chkSum);
 		}
 		
+		destination.incTxAsc();
+		
 		return buffer.array();
 	}
 
@@ -200,13 +203,29 @@ public class IcdMsg {
 			return new IcdMsg(MsgStatus.WRONG_SIZE);
 		}
 		
+		if (EncryptionEnabled && headerData.getMsgType().isEncypted()){
+			byte []encryptedPayload = new byte [headerData.getPayloadSize()];
+			buffer.get(encryptedPayload);
+			
+			byte[] key = KeyProvider.getEncryptionKey(headerData.devUID);
+			byte[] decryptedPayload = decrypt(encryptedPayload,key, headerData.getNonce());
+			if ( decryptedPayload == null)
+				return new IcdMsg(MsgStatus.ENCRYPTION_ERROR);
+			buffer = ByteBuffer.wrap(decryptedPayload);
+		}
+		
 		IcdPayload msgContent=null;
 		switch(headerData.getMsgType()){
 		case UNRESTRICTED_STATUS_MSG:
 			msgContent = UnrestrictedStatusMsg.fromBuffer(buffer);
 			break;
 		case RESTRICTED_STATUS_MSG:
-			msgContent = RestrictedStatusMsg.fromBuffer(headerData.getDevType(),buffer);
+			if( headerData.devType == DeviceType.ECOC || 
+				headerData.devType == DeviceType.ECM0)
+				msgContent = ECoCRestrictedStatus.fromBuffer(buffer);
+			else if (headerData.devType == DeviceType.CSD || 
+					headerData.devType == DeviceType.ACSD)
+				msgContent = ECoCRestrictedStatus.fromBuffer(buffer);
 			break;
 		case DEVICE_EVENT_LOG:
 			msgContent = EventLogMsg.fromBuffer(headerData.getDevType(),buffer);

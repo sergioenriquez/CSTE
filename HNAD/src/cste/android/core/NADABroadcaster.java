@@ -1,6 +1,8 @@
 package cste.android.core;
 
 import android.os.Handler;
+import cste.icd.DeviceType;
+import cste.icd.DeviceUID;
 import cste.icd.NadaTimeDelay;
 import cste.messages.NADA;
 import cste.misc.ZigbeeAPI;
@@ -17,10 +19,15 @@ public class NADABroadcaster implements Runnable{
 	private UsbCommManager mUsbCommHandler;
 	private HNADService mParent;
 	
-	//burst tx rate of 80ms for 1 sec, then 1.0 sec quiet
-	private final int BURST_CNT = 13;
-	private final int LONG_DELAY = 960;
+	//burst tx 1 sec then 1 sec quiet
+	private int BurstCount = 13;
+	private int LongDelay = 1000;
 	private final byte[] BROADCAST_ADDRESS	= strToHex("000000000000FFFF");
+	
+	DeviceType dcpType;
+	DeviceUID dcpUID;
+	DeviceType lvl2Type;
+	DeviceUID lvl2UID;
 	
 	public NADABroadcaster(HNADService parent, Handler handler, UsbCommManager usbHandler)
 	{
@@ -28,17 +35,28 @@ public class NADABroadcaster implements Runnable{
 		mUsbCommHandler = usbHandler;
 		mParent = parent;
 	}
+	
+	public void config(int burstIndex,  DeviceType lvl2Type, DeviceUID lvl2UID, DeviceType dcpType, DeviceUID dcpUID){
+		this.lvl2Type = lvl2Type;
+		this.lvl2UID = lvl2UID;
+		
+		this.dcpType = dcpType;
+		this.dcpUID = dcpUID;
+		
+		delayCode = NadaTimeDelay.fromIndex(burstIndex);
+		BurstCount = 1000 / delayCode.getMsDelay();
+	}
 
 	@Override
 	public void run() {
 		enabled = true;
 
-		NADA nadaMsg = new NADA(mParent.thisDevType,
+		NADA nadaMsg = new NADA(DeviceType.FNAD_I,
 								delayCode,
-								mParent.dcpDevType,
-								mParent.dcpUID,
-								mParent.lvl2DevType,
-								mParent.lvl2UID,
+								dcpType,
+								dcpUID,
+								lvl2Type,
+								lvl2UID,
 								mParent.mMsgWaitingList);
 		
 		byte [] zigbeePkt = ZigbeeAPI.buildPkt(BROADCAST_ADDRESS,(byte)0x00,nadaMsg.getBytes());
@@ -49,11 +67,11 @@ public class NADABroadcaster implements Runnable{
 		if (enabled)
 		{
 			msgSendCnt++;
-			if( msgSendCnt < BURST_CNT)
+			if( msgSendCnt < BurstCount)
 				mHandler.postDelayed(this, delayCode.getMsDelay());
 			else
 			{
-				mHandler.postDelayed(this, LONG_DELAY);
+				mHandler.postDelayed(this, LongDelay);
 				msgSendCnt = 0;
 			}
 		}

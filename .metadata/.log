@@ -3286,3 +3286,454 @@ org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/layou
 
 !ENTRY com.android.ide.eclipse.adt 2 0 2012-03-03 17:03:56.712
 !MESSAGE configLayout.xml: Couldn't resolve resource @string/planet_prompt
+!SESSION 2012-03-04 10:01:10.118 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.wst.sse.ui 4 4 2012-03-04 10:32:27.618
+!MESSAGE null
+!STACK 0
+java.lang.ArrayIndexOutOfBoundsException
+	at java.lang.System.arraycopy(Native Method)
+	at java.lang.AbstractStringBuilder.append(Unknown Source)
+	at java.lang.StringBuffer.append(Unknown Source)
+	at org.eclipse.jface.text.GapTextStore.get(GapTextStore.java:164)
+	at org.eclipse.wst.sse.core.internal.text.StructuredDocumentTextStore.get(StructuredDocumentTextStore.java:66)
+	at org.eclipse.wst.sse.core.internal.text.BasicStructuredDocument.get(BasicStructuredDocument.java:1210)
+	at org.eclipse.wst.xml.ui.internal.validation.DelegatingSourceValidator.validate(DelegatingSourceValidator.java:227)
+	at org.eclipse.wst.sse.ui.internal.reconcile.validator.ReconcileStepForValidator.validate(ReconcileStepForValidator.java:292)
+	at org.eclipse.wst.sse.ui.internal.reconcile.validator.ReconcileStepForValidator.reconcileModel(ReconcileStepForValidator.java:258)
+	at org.eclipse.jface.text.reconciler.AbstractReconcileStep.reconcile(AbstractReconcileStep.java:95)
+	at org.eclipse.wst.sse.ui.internal.reconcile.validator.ValidatorStrategy.reconcile(ValidatorStrategy.java:267)
+	at org.eclipse.wst.sse.ui.internal.reconcile.DocumentRegionProcessor.process(DocumentRegionProcessor.java:303)
+	at org.eclipse.wst.sse.ui.internal.reconcile.StructuredRegionProcessor.process(StructuredRegionProcessor.java:248)
+	at org.eclipse.wst.sse.ui.internal.reconcile.DirtyRegionProcessor.run(DirtyRegionProcessor.java:667)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-03-04 13:43:02.657
+!MESSAGE ecocdetails.xml: You must supply a layout_width attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-03-04 13:43:02.671
+!MESSAGE ecocdetails.xml: You must supply a layout_width attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-03-04 13:43:23.020
+!MESSAGE ecocdetails.xml: You must supply a layout_width attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-03-04 13:43:23.029
+!MESSAGE ecocdetails.xml: You must supply a layout_width attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-03-04 13:43:48.446
+!MESSAGE ecocdetails.xml: You must supply a layout_width attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-03-04 13:43:48.456
+!MESSAGE ecocdetails.xml: You must supply a layout_width attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-03-04 14:26:33.115
+!MESSAGE ecocdetails.xml: You must supply a layout_width attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-03-04 14:26:33.115
+!MESSAGE ecocdetails.xml: You must supply a layout_height attribute.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:26:33.116
+!MESSAGE ecocdetails.xml: ScrollView can host only one direct child
+!STACK 0
+java.lang.IllegalStateException: ScrollView can host only one direct child
+	at android.widget.ScrollView.addView(ScrollView.java:229)
+	at android.view.LayoutInflater.rInflate(LayoutInflater.java:627)
+	at android.view.LayoutInflater.inflate(LayoutInflater.java:408)
+	at android.view.LayoutInflater.inflate(LayoutInflater.java:296)
+	at com.android.layoutlib.bridge.impl.RenderSessionImpl.inflate(RenderSessionImpl.java:279)
+	at com.android.layoutlib.bridge.Bridge.createSession(Bridge.java:318)
+	at com.android.ide.common.rendering.LayoutLibrary.createSession(LayoutLibrary.java:325)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.RenderService.createRenderSession(RenderService.java:372)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.renderWithBridge(GraphicalEditorPart.java:1323)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.recomputeLayout(GraphicalEditorPart.java:1077)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.activated(GraphicalEditorPart.java:903)
+	at com.android.ide.eclipse.adt.internal.editors.layout.LayoutEditor.partActivated(LayoutEditor.java:412)
+	at com.android.ide.eclipse.adt.internal.editors.layout.LayoutEditor.partBroughtToTop(LayoutEditor.java:421)
+	at org.eclipse.ui.internal.PartListenerList$2.run(PartListenerList.java:87)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:888)
+	at org.eclipse.ui.internal.PartListenerList.fireEvent(PartListenerList.java:57)
+	at org.eclipse.ui.internal.PartListenerList.firePartBroughtToTop(PartListenerList.java:85)
+	at org.eclipse.ui.internal.PartService.firePartBroughtToTop(PartService.java:208)
+	at org.eclipse.ui.internal.WorkbenchPagePartList.firePartBroughtToTop(WorkbenchPagePartList.java:76)
+	at org.eclipse.ui.internal.WorkbenchPagePartList.fireActiveEditorChanged(WorkbenchPagePartList.java:52)
+	at org.eclipse.ui.internal.PartList.setActiveEditor(PartList.java:162)
+	at org.eclipse.ui.internal.WorkbenchPage.makeActiveEditor(WorkbenchPage.java:1281)
+	at org.eclipse.ui.internal.WorkbenchPage.setActivePart(WorkbenchPage.java:3530)
+	at org.eclipse.ui.internal.WorkbenchPage.requestActivation(WorkbenchPage.java:3077)
+	at org.eclipse.ui.internal.PartPane.requestActivation(PartPane.java:279)
+	at org.eclipse.ui.internal.EditorPane.requestActivation(EditorPane.java:98)
+	at org.eclipse.ui.internal.PartPane.handleEvent(PartPane.java:237)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1053)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1077)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1058)
+	at org.eclipse.swt.widgets.Shell.setActiveControl(Shell.java:1424)
+	at org.eclipse.swt.widgets.Shell.WM_MOUSEACTIVATE(Shell.java:2297)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4205)
+	at org.eclipse.swt.widgets.Canvas.windowProc(Canvas.java:341)
+	at org.eclipse.swt.widgets.Decorations.windowProc(Decorations.java:1598)
+	at org.eclipse.swt.widgets.Shell.windowProc(Shell.java:2038)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4886)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProcW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProc(OS.java:2454)
+	at org.eclipse.swt.widgets.Scrollable.callWindowProc(Scrollable.java:80)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4253)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4886)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProcW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProc(OS.java:2454)
+	at org.eclipse.swt.widgets.Scrollable.callWindowProc(Scrollable.java:80)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4253)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4886)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProcW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProc(OS.java:2454)
+	at org.eclipse.swt.widgets.Scrollable.callWindowProc(Scrollable.java:80)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4253)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4886)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProcW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProc(OS.java:2454)
+	at org.eclipse.swt.widgets.Scrollable.callWindowProc(Scrollable.java:80)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4253)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4886)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProcW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProc(OS.java:2454)
+	at org.eclipse.swt.widgets.Scrollable.callWindowProc(Scrollable.java:80)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4253)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4886)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProcW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProc(OS.java:2454)
+	at org.eclipse.swt.widgets.Scrollable.callWindowProc(Scrollable.java:80)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4253)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4886)
+	at org.eclipse.swt.internal.win32.OS.PeekMessageW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.PeekMessage(OS.java:3024)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3652)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1384)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:46:31.419
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:46:31.419
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:46:31.428
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:46:31.428
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:46:39.173
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:46:39.173
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:46:47.557
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:46:47.557
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:46:51.948
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:46:51.948
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY org.eclipse.ui 4 0 2012-03-04 14:46:51.948
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.w3c.dom.DOMException
+	at org.eclipse.wst.xml.core.internal.document.NodeContainer.removeChild(NodeContainer.java:375)
+	at com.android.ide.eclipse.adt.internal.editors.uimodel.UiElementNode.deleteXmlNode(UiElementNode.java:1120)
+	at com.android.ide.eclipse.adt.internal.editors.ui.tree.UiActions$1.run(UiActions.java:170)
+	at com.android.ide.eclipse.adt.internal.editors.AndroidXmlEditor.wrapEditXmlModel(AndroidXmlEditor.java:963)
+	at com.android.ide.eclipse.adt.internal.editors.AndroidXmlEditor.wrapEditXmlModel(AndroidXmlEditor.java:890)
+	at com.android.ide.eclipse.adt.internal.editors.ui.tree.UiActions.doRemove(UiActions.java:159)
+	at com.android.ide.eclipse.adt.internal.editors.ui.tree.UiTreeBlock.doTreeRemove(UiTreeBlock.java:690)
+	at com.android.ide.eclipse.adt.internal.editors.ui.tree.UiTreeBlock$7.widgetSelected(UiTreeBlock.java:448)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:234)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1053)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4066)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3657)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1384)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:46:54.162
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:46:54.162
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:46:57.730
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:46:57.730
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:47:05.521
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:47:05.522
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:47:09.469
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:47:09.469
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:47:20.779
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:47:20.779
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:47:20.790
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:47:20.790
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:47:26.174
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:47:26.174
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:47:28.671
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:47:28.671
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:47:36.929
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:47:36.930
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:47:36.944
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:47:36.944
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:47:39.910
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:47:39.910
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:47:57.578
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:47:57.578
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-03-04 14:47:57.593
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:326)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:200)
+	at org.eclipse.core.internal.resources.Resource.findMarkers(Resource.java:1013)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.getMarkers(EclipseLintClient.java:315)
+	at com.android.ide.eclipse.adt.internal.lint.LintRunner$CheckFileJob.run(LintRunner.java:196)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-03-04 14:47:57.593
+!MESSAGE Resource '/HNAD/res/menu/devicedetails_menu.xml' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-03-04 16:54:32.588
+!MESSAGE configlayout.xml: Couldn't resolve resource @string/nadaBurst
+
+!ENTRY com.android.ide.eclipse.adt 1 0 2012-03-04 17:51:10.449
+!MESSAGE com.android.ide.eclipse.adt
+
+!ENTRY org.eclipse.jdt.debug 4 125 2012-03-04 18:28:33.155
+!MESSAGE Internal error logged from JDI Debug: 
+!STACK 0
+org.eclipse.jdi.TimeoutException: Timeout occurred while waiting for packet 4742.
+	at org.eclipse.jdi.internal.connect.PacketReceiveManager.getReply(PacketReceiveManager.java:171)
+	at org.eclipse.jdi.internal.connect.PacketReceiveManager.getReply(PacketReceiveManager.java:180)
+	at org.eclipse.jdi.internal.MirrorImpl.requestVM(MirrorImpl.java:174)
+	at org.eclipse.jdi.internal.MirrorImpl.requestVM(MirrorImpl.java:192)
+	at org.eclipse.jdi.internal.MirrorImpl.requestVM(MirrorImpl.java:222)
+	at org.eclipse.jdi.internal.ReferenceTypeImpl.interfaces(ReferenceTypeImpl.java:600)
+	at org.eclipse.jdi.internal.ReferenceTypeImpl.allFields(ReferenceTypeImpl.java:702)
+	at org.eclipse.jdi.internal.ReferenceTypeImpl.allFields(ReferenceTypeImpl.java:706)
+	at org.eclipse.jdi.internal.ReferenceTypeImpl.allFields(ReferenceTypeImpl.java:713)
+	at org.eclipse.jdi.internal.ReferenceTypeImpl.allFields(ReferenceTypeImpl.java:713)
+	at org.eclipse.jdt.internal.debug.core.model.JDIObjectValue.getField(JDIObjectValue.java:189)
+	at org.eclipse.jdt.internal.debug.ui.JavaDebugHover.getHoverInfo2(JavaDebugHover.java:362)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:141)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:82)
+	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:166)
+
+!ENTRY com.android.ide.eclipse.adt 1 0 2012-03-04 18:37:37.455
+!MESSAGE com.android.ide.eclipse.adt

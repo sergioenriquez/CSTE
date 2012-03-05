@@ -17,9 +17,9 @@ public class RestrictedStatusMsg extends IcdPayload {
 		Object dataSection = null;
 		
 		if ( type == DeviceType.CSD)
-			dataSection = CsdRestrictedEventData.fromBuffer(b);
+			dataSection = CsdRestrictedStatus.fromBuffer(b);
 		else if ( type == DeviceType.ECOC)
-			dataSection = EcocRestrictedEventData.fromBuffer(b);
+			dataSection = ECoCRestrictedStatus.fromBuffer(b);
 		else
 			return null;
 
@@ -42,16 +42,16 @@ public class RestrictedStatusMsg extends IcdPayload {
 	
 	public byte[] getBytes() {
 		ByteBuffer b = null;
-		if ( type == DeviceType.CSD){
-			b = ByteBuffer.allocate(RESTRICTED_EVENT_COMMON_HEADER + CsdRestrictedEventData.SECTION_SIZE);
-			b.put(errorCode);
-			b.put( ((CsdRestrictedEventData)dataSection).getBytes() );
-		}
-		else if ( type == DeviceType.CSD){
-			b = ByteBuffer.allocate(RESTRICTED_EVENT_COMMON_HEADER + EcocRestrictedEventData.SECTION_SIZE);
-			b.put(errorCode);
-			b.put( ((EcocRestrictedEventData)dataSection).getBytes() );
-		}
+//		if ( type == DeviceType.CSD){
+//			b = ByteBuffer.allocate(RESTRICTED_EVENT_COMMON_HEADER + CsdRestrictedEventData.SECTION_SIZE);
+//			b.put(errorCode);
+//			b.put( ((CsdRestrictedEventData)dataSection).getBytes() );
+//		}
+//		else if ( type == DeviceType.CSD){
+//			b = ByteBuffer.allocate(RESTRICTED_EVENT_COMMON_HEADER + EcocRestrictedEventData.SECTION_SIZE);
+//			b.put(errorCode);
+//			b.put( ((EcocRestrictedEventData)dataSection).getBytes() );
+//		}
 
 		return b.array();
 	}

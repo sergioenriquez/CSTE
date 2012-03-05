@@ -18,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import cste.android.R;
+import cste.android.core.HNADService.Events;
 import cste.components.ComModule;
 import cste.hnad.EcocDevice;
 
@@ -47,8 +48,7 @@ public class DeviceListActivity extends HnadBaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
             	ComModule dev = mDeviceListAdapter.getItem(position);
-            	mHnadCoreService.getDeviceStatus(dev);
-        	  	Intent intent = new Intent(getApplicationContext(), DeviceInfoActivity.class);
+        	  	Intent intent = new Intent(getApplicationContext(), ECoCInfoActivity.class);
         	  	intent.putExtra("device",(Parcelable) dev);
                 startActivity(intent);
             }
@@ -67,6 +67,10 @@ public class DeviceListActivity extends HnadBaseActivity {
 		if ( data.containsKey(DEVLIST_CHANGED) ) {
 			//String devChanged = data.getString(DEVLIST_CHANGED);
 			reloadDeviceList();
+		}
+		
+		if ( data.containsKey(Events.DEVICE_INFO_CHANGED) ) {
+			//TODO update device rssi icon
 		}
 		
 		if ( data.containsKey(USB_STATE_CHANGED))
@@ -100,21 +104,16 @@ public class DeviceListActivity extends HnadBaseActivity {
                 break;
             case R.id.logout:
             	mHnadCoreService.logout();
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            	Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
             	finish();
                 break;
             case R.id.eventlog:
-
-                break;
-                
+                break;    
             case R.id.upload:
-
                 break;
-                
             case R.id.viewtrip:
-
                 break;
-                
             case R.id.viewkeys:
                 startActivity(new Intent(getApplicationContext(), DeviceKeysActivity.class));
                 break;

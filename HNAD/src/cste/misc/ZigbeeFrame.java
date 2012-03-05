@@ -1,7 +1,7 @@
 package cste.misc;
 
 public class ZigbeeFrame {
-	public final int rssi;
+	public final byte rssi;
 	public final byte type;
 	public final byte opt;
 	public final byte[] sourceAddrs;
@@ -39,7 +39,7 @@ public class ZigbeeFrame {
 	
 	public ZigbeeFrame(
 			byte type,
-			int rssi,
+			byte rssi,
 			byte opt,
 			byte[] sourceAddrs,
 			byte[] payload)

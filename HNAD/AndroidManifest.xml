@@ -12,7 +12,7 @@
     
     <application 	android:icon="@drawable/icon" 
         			android:label="@string/app_name" 
-        			android:theme="@android:style/Theme.NoTitleBar">
+        			> <!-- android:theme="@android:style/Theme.NoTitleBar" -->
         
         <uses-library android:name="com.android.future.usb.accessory" />
         
@@ -48,12 +48,16 @@
                   android:label="@string/devlist_title">
         </activity>
         
-        <activity android:name=".activities.DeviceInfoActivity"
+        <activity android:name=".activities.ECoCInfoActivity"
                   android:label="@string/devdetails_title">
         </activity>
         
-        <activity android:name=".activities.HNADEventLogActivity"
-                  android:label="@string/devdetails_title">
+        <activity android:name=".activities.EventLogHNADActivity"
+                  android:label="@string/eventlog_title">
+        </activity>
+        
+        <activity android:name=".activities.EventLogDeviceActivity"
+                  android:label="@string/eventlog_title">
         </activity>
         
         <activity android:name=".activities.ConfigActivity"
@@ -64,14 +68,9 @@
                   android:label="@string/viewkeys_title">
         </activity>
         
-        <activity 	android:name=".activities.DeviceDetailsActivity">
-		</activity>
-		
-		<activity 	android:name=".activities.DeviceLogActivity">
-		</activity>
-		
-		<activity 	android:name=".activities.DeviceCmdActivity">
-		</activity>
-
+        <activity android:name=".activities.WaypointEditActivity"
+                  android:label="@string/waypoints_title">
+        </activity>
+        
     </application>
 </manifest>

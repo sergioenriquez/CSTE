@@ -2,8 +2,11 @@
 <resources>
     <string name="app_name">CSTE HNAD</string>
     <string name="login_title">Login to DCP</string>
-    <string name="devlist_title">Known CSD Devices</string>
+    <string name="devlist_title">Known CM Devices</string>
     <string name="devdetails_title">CSD information</string>
+    <string name="waypoints_title">Waypoint Configuration</string>
+    <string name="eventlog_title">Waypoint Configuration</string>
+    
     <string name="settings">NAD Settings</string>
     <string name="logout">Log Out</string>
     <string name="eventlog">View Event Log</string>
@@ -13,19 +16,28 @@
     <string name="viewkeys">View DCP Keys</string>
     <string name="viewkeys_title">Stored DCP Keys</string>
     <string name="preferences_title">HNAD Preferences</string>
+    <string name="uid">UID</string>
+    <string name="type">Type</string>
+    <string name="sealid">Seal ID</string>
+    <string name="manifest">Manifest</string>
+    <string name="doorStatus">Door</string>
+    <string name="alarm">Alarm</string>
+    <string name="opmode">OpMode</string>
+    <string name="signal">Signal</string>
+    <string name="ackNo">ACK No.</string>
+    <string name="na">N/A</string>
+    <string name="deviceCommads">Device Commands</string>
+    <string name="generalInfo">General Info</string>
     
+    <string name="devUID">Device UID</string>
+    <string name="hnadUID">HNAD UID</string>
+    <string name="ftpAddrs">FTP Address</string>
+    <string name="dcpAddrs">DCP Address</string>
+    <string name="dcpUID">DCP UID</string>
+    <string name="useEnc">Use Encryption</string>
     
-    <string name="uid">UID: </string>
-    <string name="type">Dev Type: </string>
-    <string name="sealid">Seal ID: </string>
-    <string name="manifest">Manifest: </string>
-    
-    <string name="doorStatus">Door </string>
-    <string name="alarm">Alarm </string>
-    <string name="opmode">Op Mode </string>
-    <string name="signal">Signal </string>
-    
-    <string name="nadaPrompt">Select NADA burst rate </string>
+
+    <string name="nadaPrompt">NADA burst rate </string>
     <string-array name="nada_timing">
         <item>20ms</item>
         <item>40ms</item>

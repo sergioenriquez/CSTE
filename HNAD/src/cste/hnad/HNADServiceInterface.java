@@ -2,6 +2,7 @@ package cste.hnad;
 
 import android.content.SharedPreferences;
 import cste.components.ComModule;
+import cste.icd.DeviceUID;
 import cste.misc.ZigbeeFrame;
 
 public interface HNADServiceInterface {
@@ -10,7 +11,8 @@ public interface HNADServiceInterface {
 	public void login(String username,String password);
 	public void uploadData();
 	
-	public void getDeviceStatus(ComModule dest);
+	public void getDeviceStatus(DeviceUID destination);
+	public void getDeviceLog(DeviceUID destination);
 	public SharedPreferences getSettingsFile();
 	public void logout(); 
 }

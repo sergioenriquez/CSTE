@@ -1,103 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<TableLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/tableLayout1"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" 
+	android:stretchColumns="1">
+       
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hnadUID"/>
+        <EditText
+            android:id="@+id/thisUID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/hnadUID"
+            android:singleLine="true"/>
+    </TableRow>
+       
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dcpUID"/>
+        <EditText
+            android:id="@+id/dcpUID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/dcpUID"
+            android:singleLine="true"/>
+    </TableRow>
     
-    <TableLayout
-        android:id="@+id/tableLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:stretchColumns="1">
-        
-        <TableRow
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Device UID"  /> <!-- "@string/uid"  -->
-            <EditText
-                android:id="@+id/thidUID"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:singleLine="true"/>
-        </TableRow>
-        
-        
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="FTP Server"  /> <!-- "@string/uid"  -->
-            <EditText
-                android:id="@+id/ftpServer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:singleLine="true"/>
-        </TableRow>
-        
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DCP Server"  /> <!-- "@string/uid"  -->
-            <EditText
-                android:id="@+id/dcpServer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:singleLine="true"/>
-        </TableRow>
-        
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DCP UID"  /> <!-- "@string/uid"  -->
-            <EditText
-                android:id="@+id/thidUID"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:singleLine="true"/>
-        </TableRow>
-        
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Use Encryption"  /> <!-- "@string/uid"  -->
-            <CheckBox 
-		        android:id="@+id/ecryptionOn"
-	
-		        android:layout_width="wrap_content"
-				android:layout_height="wrap_content"/>
-        </TableRow>
-        
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NADA burst rate"  /> <!-- "@string/uid"  -->
-            <Spinner 
-		        android:id="@+id/nadaRate"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:prompt="@string/nadaPrompt"
-    />
+            android:layout_height="wrap_content"
+            android:text="@string/dcpAddrs"/>
+        <EditText
+            android:id="@+id/dcpServer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/dcpAddrs"
+            android:singleLine="true"/>
+    </TableRow>
+    
+       
+	<TableRow
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content">
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/ftpAddrs"/>
+	    <EditText
+	        android:id="@+id/ftpServer"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/ftpAddrs"
+	        android:singleLine="true"/>
+	</TableRow>
 
-        </TableRow>
-        
-	</TableLayout>
-	
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/useEnc"/>
+        <CheckBox 
+			android:id="@+id/ecryptionOn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+    </TableRow>
     
-</LinearLayout>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nadaPrompt"/>
+        <Spinner 
+			android:id="@+id/nadaRate"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:prompt="@string/nadaPrompt"/>
+    </TableRow>
+       
+</TableLayout>

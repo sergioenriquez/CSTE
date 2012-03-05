@@ -25,4 +25,27 @@ public enum NadaTimeDelay {
 	public int getMsDelay(){
 		return msDelay;
 	}
+	
+	public static NadaTimeDelay fromIndex(int index){
+		switch(index){
+		case 0:
+			return NadaTimeDelay.D20;
+		case 1:
+			return NadaTimeDelay.D40;
+		case 2:
+			return NadaTimeDelay.D80;
+		case 3:
+			return NadaTimeDelay.D100;
+		case 4:
+			return NadaTimeDelay.D200;
+		case 5:
+			return NadaTimeDelay.D400;
+		case 6:
+			return NadaTimeDelay.D800;
+		case 7:
+			return NadaTimeDelay.D1000;
+		default :
+			return NadaTimeDelay.D20;
+		}
+	}
 }

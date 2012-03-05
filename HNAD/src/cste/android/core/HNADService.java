@@ -1,6 +1,7 @@
 package cste.android.core;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Timer;
@@ -20,7 +21,7 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 import cste.android.R;
-import cste.android.activities.DeviceInfoActivity;
+import cste.android.activities.ECoCInfoActivity;
 import cste.android.activities.DeviceListActivity;
 import cste.android.activities.LoginActivity;
 import cste.android.db.DbHandler;
@@ -35,6 +36,7 @@ import cste.icd.EcocCmdType;
 import cste.icd.UnrestrictedCmdType;
 import cste.interfaces.KeyProvider;
 import cste.messages.IcdMsg;
+import cste.messages.RestrictedStatus;
 import cste.misc.ZigbeeAPI;
 import cste.misc.ZigbeeFrame;
 import static cste.icd.Utility.strToHex;
@@ -47,8 +49,7 @@ import static cste.icd.Utility.strToHex;
 public class HNADService extends Service implements HNADServiceInterface, KeyProvider{
 	private static final String TAG = "HNAD Core Service";
 	//Test ECOC device does not recognize secure HNAD type? Will use FNAD for now...
-	public DeviceType thisDevType 	= DeviceType.FNAD_I; //HNAD_S
-	public DeviceUID thisUID 		= new DeviceUID("0013A20040715FD8");//F354B5448C619A6C
+
 	public DeviceType dcpDevType 	= DeviceType.INVALID;
 	public DeviceUID dcpUID 		= new DeviceUID("0000000000000000");
 	public DeviceType lvl2DevType 	= DeviceType.HNAD_S;
@@ -65,7 +66,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	private NotificationManager mNM;
 	private Handler mNadaHandler = new Handler();
 	private DbHandler db;
-	
+	private Hashtable<String,ComModule> devTable;
 	private final IBinder mBinder = new LocalBinder();
 	private Timer mUsbReconnectTimer;
 
@@ -73,37 +74,28 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 
 	private SharedPreferences settings;// = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
 
-	public SharedPreferences getSettingsFile(){
-		return settings;
-	}
-	
-	public void loadSettings(){
-		
-	}
-
 	public Hashtable<String,ComModule> getDeviceList(){
-		return db.getStoredDevices();
+		return devTable;
 	}
 
 	@Override
 	public void onCreate() {
 		mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-		settings = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-		
 		NetworkHandler.setServiceHost(this);
-		loadSettings();//TODO X
-		IcdMsg.configure(false,thisDevType, thisUID, icdRev, this);
-		
 		db = new DbHandler(this);
         db.open();
+        devTable = db.getStoredDevices();
 		
 		mCsdMessageHandler = new CsdMessageHandler(this);
 		mUsbCommHandler = new UsbCommManager(this,mCsdMessageHandler);
 		mNadaBroadcaster = new NADABroadcaster(this,mNadaHandler,mUsbCommHandler);
 		mUsbReconnectTimer = null;
+		
+		settings = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+		loadSettings();//TODO X
 		//mDeviceMap.put("0013A20040715FD8", new Device(new DeviceUID("0013A20040715FD8"),DeviceType.CSD));
 		//mDeviceMap.put("0013A20040760BB4", new Device(new DeviceUID("0013A20040760BB4"),DeviceType.ACSD));
-		//mDeviceMap.put("0013A200406BE0C3", new Device(new DeviceUID("0013A200406BE0C3"),DeviceType.ECOC));
+		//devTable.put("0013A200406BE0C3", new EcocDevice(new DeviceUID("0013A200406BE0C3")));
 
 		mMsgWaitingList = new ArrayList<DeviceUID>();
 	}
@@ -149,33 +141,111 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	 */
 	public void logout() {
 		stopRadioComm();
+		//save data to database
+		Enumeration<ComModule> devices = devTable.elements();
+		while(devices.hasMoreElements())
+			db.storeDevice(devices.nextElement());
 	}
-
 
 	@Override
 	public void uploadData() {
 		// TODO Auto-generated method stub	
 
 	}
-	
-	
-	
+
 	@Override
 	public byte[] getEncryptionKey(DeviceUID destinationUID) {
 		byte[] key = new byte[16];
-		//TODO use database to retrieve keys 1234567890ABCDEF1234567890ABCDEF
-		return strToHex("1234567890ABCDEF1234567890ABCDEF"); //1234567890ABCDEF1234567890ABCDEF
-	}				   //678780B177F9748B3D4CCB670A6938F1
+		//TODO use database to retrieve key from device record
+		return strToHex("1234567890ABCDEF1234567890ABCDEF"); 
+	}
+	
+	protected static byte frameACK = 0;
 	
 	@Override
-	public void getDeviceStatus(ComModule dev) {
-		dev.incTxAsc();
-		byte[] icdMsg = IcdMsg.buildIcdMsg(dev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SL);
-		//IcdMsg msg = IcdMsg.create(dev, MsgType.DEV_CMD_UNRESTRICTED, UnrestrictedCmdType.REQUEST);
-		byte [] zigbeeFrame = ZigbeeAPI.buildPkt(dev.UID().getBytes(),(byte)0x01,icdMsg);
+	public void getDeviceStatus(DeviceUID destination) {
+		ComModule dev = this.devTable.get(destination.toString());
+		if( dev == null)
+			return;
+
+		byte []icdMsg = IcdMsg.buildIcdMsg(dev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SMAF);
+		byte []zigbeeFrame = ZigbeeAPI.buildPkt(dev.UID().getBytes(),(byte)(frameACK++),icdMsg);
+		this.mUsbCommHandler.transmit(zigbeeFrame);
+	}
+	
+	@Override
+	public void getDeviceLog(DeviceUID destination) {
+		ComModule dev = this.devTable.get(destination.toString());
+		if( dev == null)
+			return;
+		
+		byte []icdMsg = IcdMsg.buildIcdMsg(dev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SL);
+		byte []zigbeeFrame = ZigbeeAPI.buildPkt(dev.UID().getBytes(),(byte)(frameACK++),icdMsg);
 		this.mUsbCommHandler.transmit(zigbeeFrame);
 	}
 
+    @Override
+	public void onPacketReceived(ZigbeeFrame frm) {
+    	if( frm.type == ZigbeeAPI.RX_64BIT)
+    	{
+    		IcdMsg msg = IcdMsg.fromBytes(frm.payload);
+    		if( msg.getStatus() == IcdMsg.MsgStatus.OK)
+    		{
+    			String key = msg.header().getDevUID().toString();
+    			EcocDevice deviceSrc = (EcocDevice)devTable.get(key);
+
+    	    	if( deviceSrc == null )
+    	    	{
+    	    		deviceSrc = new EcocDevice( msg.header().getDevUID());
+    	    		devTable.put(key, deviceSrc);
+
+    	    		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVLIST_CHANGED,key);
+    	    		sendBroadcast(intent);
+    	    		showNewDeviceNotification(deviceSrc);
+    	    	}
+    	    	deviceSrc.rssi = (byte)frm.rssi;
+    			handleIcdMsg(msg,deviceSrc);
+    		}
+    		else
+    			Log.w(TAG,"Received ICD msg with an error");
+    	}else if( frm.type == ZigbeeAPI.TX_STATUS ){
+    		if( frm.statusCode != 0)
+    			toast("NO ACK");
+    		else
+    			toast("ACK");
+    	}
+    	else
+    	{
+    		toast("Other");
+    	}
+	}
+    
+    /***
+     * 
+     * @param msg
+     */
+    private void handleIcdMsg(IcdMsg msg, ComModule deviceSrc)
+    {
+    	
+    	
+    	//TODO log this event
+    	switch(msg.header().getMsgType()){
+    	case RESTRICTED_STATUS_MSG:
+    		deviceSrc.setRestrictedStatus((RestrictedStatus)msg.payload());
+    		break;
+    		default:
+    	}
+    	deviceSrc.setRxAsc(msg.header().getMsgAsc());
+    	Intent testIntent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVICE_INFO_CHANGED,false);
+		testIntent.putExtra("device",(Parcelable)deviceSrc);
+		sendBroadcast(testIntent);
+    }
+    
+    
+    
+    /***************************/
+    
+    
     @Override
     public void onUsbStateChanged(boolean connected){
     	if(connected)
@@ -197,51 +267,26 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     	}
     }
     
-    @Override
-	public void onPacketReceived(ZigbeeFrame frm) {
-    	if( frm.type == ZigbeeAPI.RX_64BIT)
-    	{
-    		IcdMsg msg = IcdMsg.fromBytes(frm.payload);
-    		if( msg.getStatus() == IcdMsg.MsgStatus.OK)
-    			handleIcdMsg(msg);
-    		else
-    			Log.w(TAG,"Received ICD msg with an error");
-    	}else if( frm.type == ZigbeeAPI.TX_STATUS ){
-    		if( frm.statusCode != 0)
-    			toast("NO ACK");
-    		else
-    			toast("ACK");
-    	}
+    public SharedPreferences getSettingsFile(){
+		return settings;
 	}
     
     /***
-     * 
-     * @param msg
-     */
-    private void handleIcdMsg(IcdMsg msg)
-    {
-    	String key = msg.header().getDevUID().toString();
-    	ComModule storedDevice = db.getDevice(msg.header().getDevUID());
-    	if( storedDevice != null )
-    	{
-    		
-    	}else
-    	{
-    		storedDevice = new EcocDevice( msg.header().getDevUID());
-    		db.storeDevice(storedDevice);
-    		
-    		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVLIST_CHANGED,key);
-    		sendBroadcast(intent);
-    		showNewDeviceNotification(storedDevice);
-    	}
-    	
-    	Intent testIntent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVICE_INFO_CHANGED,false);
-		testIntent.putExtra("Device",(Parcelable)storedDevice);
-		sendBroadcast(testIntent);
-    }
-    
-    /***************************/
-    
+	 * Reload settings from the preferences file and confiure the ICD msg class
+	 */
+	protected void loadSettings(){
+		boolean useEncryption = settings.getBoolean(SettingsKey.USE_ENC, false);
+		String thisUIDStr = settings.getString(SettingsKey.THIS_UID, "0013A20040715FD8");
+		String dcpUIDStr = settings.getString(SettingsKey.DCP_UID, "0013A20040715FD8");
+		int burstIndex = settings.getInt(SettingsKey.NADA_BURST, 0);
+		
+		DeviceUID thisUID = new DeviceUID(thisUIDStr);
+		DeviceUID dcpUID = new DeviceUID(dcpUIDStr);
+		
+		IcdMsg.configure(useEncryption,DeviceType.FNAD_I, thisUID, this);	
+		mNadaBroadcaster.config(burstIndex, DeviceType.HNAD_S, thisUID, DeviceType.DCP, dcpUID);
+	}
+	
     protected void stopRadioComm(){
 		mNadaHandler.removeCallbacksAndMessages(mNadaBroadcaster);
 		mUsbCommHandler.closeDevice();
@@ -282,7 +327,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		CharSequence title = "HNAD app";
 		CharSequence text = "Device detected " + device.UID();        // Set the icon, scrolling text and timestamp        
 		Notification notification = new Notification(R.drawable.stat_sys_wifi_signal_0, text, System.currentTimeMillis());        // The PendingIntent to launch our activity if the user selects this notification        
-		Intent intent = new Intent(this, DeviceInfoActivity.class);
+		Intent intent = new Intent(this, ECoCInfoActivity.class);
 		intent.putExtra("device", (Parcelable)device); // TODO fill actual device
 		intent.putExtra("clearNotifications",true); // TODO fill actual device
 		
@@ -291,8 +336,20 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		notification.vibrate = new long[]{Notification.DEFAULT_VIBRATE};
 		mNM.notify(NEW_DEVICE_NOTIFICATION, notification);    
 	}
+	
+	public class SettingsKey{
+		public static final String USERNAME = "USERNAME";
+		public static final String PASSWORD = "PASSWORD";
+		public static final String REMEMBER_PASS = "REMEMBER_PASS";
+		
+		public static final String THIS_UID = "THIS_UID";
+		public static final String DCP_UID = "DCP_UID";
+		public static final String DCP_ADDR = "DCP_ADDR";
+		public static final String FTP_ADDR = "FTP_ADDR";
+		public static final String USE_ENC = "USE_ENC";
+		public static final String NADA_BURST = "NADA_BURST";
+	}
 
-	//TODO make into enum
 	public class Events{
 		public static final String HNAD_CORE_EVENT_MSG = "cste.hnad.android.HNAD_CORE_EVENT";
 		public static final String DEVICE_INFO_CHANGED = "DEVICE_INFO_CHANGED";

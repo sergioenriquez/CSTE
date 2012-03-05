@@ -12,11 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import cste.android.R;
-import cste.android.db.DbHandler;
-import cste.hnad.EcocDevice;
-import cste.icd.DeviceUID;
+import cste.android.core.HNADService.SettingsKey;
 
 /***
  * Lets user enter their login credentials to authenticated with the DCP server. If successful it will then launch the device details activity.
@@ -25,8 +22,7 @@ import cste.icd.DeviceUID;
  */
 public class LoginActivity extends HnadBaseActivity {
 	static final String TAG = "HNAD Login";
-	
-	
+
 	private EditText usernameText;
 	private EditText passwordText;
 	private CheckBox rememberLoginBox;
@@ -57,9 +53,9 @@ public class LoginActivity extends HnadBaseActivity {
 	{
     	//load saved settings
     	SharedPreferences settings = mHnadCoreService.getSettingsFile();
-    	String username = settings.getString(SETTINGS_USERNAME, "user");
-    	String password = settings.getString(SETTINGS_PASSWORD, "");
-    	boolean rememberPassword = settings.getBoolean(SETTINGS_REMEMBER, false);
+    	String username = settings.getString(SettingsKey.USERNAME, "user");
+    	String password = settings.getString(SettingsKey.PASSWORD, "");
+    	boolean rememberPassword = settings.getBoolean(SettingsKey.REMEMBER_PASS, false);
     	
     	usernameText.setText(username);
     	passwordText.setText(password);
@@ -81,13 +77,10 @@ public class LoginActivity extends HnadBaseActivity {
 			}
 		}
 	}
-    
-    protected final String SETTINGS_USERNAME = "username";
-    protected final String SETTINGS_PASSWORD = "password";
-    protected final String SETTINGS_REMEMBER = "rememberPassword";
-    
+
     @Override
     protected void onStop() {
+    	super.onStop();
     	SharedPreferences settings = mHnadCoreService.getSettingsFile();
     	SharedPreferences.Editor editor = settings.edit();
 
@@ -95,15 +88,14 @@ public class LoginActivity extends HnadBaseActivity {
     	String password = passwordText.getText().toString();
     	boolean rememberPassword = rememberLoginBox.isChecked();
     	
-    	editor.putString(SETTINGS_USERNAME, username);
-    	editor.putBoolean(SETTINGS_REMEMBER, rememberPassword);
+    	editor.putString(SettingsKey.USERNAME, username);
+    	editor.putBoolean(SettingsKey.REMEMBER_PASS, rememberPassword);
     	if( rememberPassword )
-    		editor.putString(SETTINGS_PASSWORD, password);
+    		editor.putString(SettingsKey.PASSWORD, password);
     	else
-    		editor.putString(SETTINGS_PASSWORD, "");
+    		editor.putString(SettingsKey.PASSWORD, "");
     	
     	editor.commit();
-    	super.onStop();
     }
 
 	@Override

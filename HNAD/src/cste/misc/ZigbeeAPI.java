@@ -123,7 +123,7 @@ public class ZigbeeAPI {
 		byte[] source = new byte[addrSize];
 		data.get(source);
 		
-		int rssi = data.get();
+		byte rssi = data.get();
 		byte opt = data.get();
 		
 		short payloadSize = (short) (frameSize-addrSize-3);

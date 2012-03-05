@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
+import cste.messages.RestrictedStatus;
 import static cste.icd.Utility.*;
 import static cste.icd.Constants.*;
 /***
@@ -25,11 +26,17 @@ public abstract class ComModule implements Serializable{
 	protected int rxAscension; //for encrypted msg
 	protected int txAscension; //for encrypted msg
 	
-	public byte errorCode;
-	public byte[] statusData;
+	protected RestrictedStatus latestStatus = null;
+
 	public byte[] tck; //TODO
+	public byte[] ltk; //TODO
+	
 	protected byte icdRev; //TODO
 	
+	public void setRestrictedStatus(RestrictedStatus latestStatus){
+		this.latestStatus = latestStatus;
+	}
+
 	public ComModule(DeviceUID devUID){
 		this.devUID = devUID;
 		this.rxAscension = 1;
