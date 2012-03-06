@@ -3,8 +3,8 @@ package cste.hnad;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import cste.misc.ZigbeeAPI;
-import cste.misc.ZigbeeFrame;
+import cste.misc.XbeeAPI;
+import cste.misc.XbeeFrame;
 
 public class CsdMessageHandler extends Handler {
 	private static final String TAG = "CSD Msg Handler";
@@ -33,8 +33,9 @@ public class CsdMessageHandler extends Handler {
 			break;
 		case MSG_RECEIVED:
 			byte[] rawData = msg.getData().getByteArray("content");
-			ZigbeeFrame pkt = ZigbeeAPI.parsePkt(rawData);
-			mHnadCore.onPacketReceived(pkt);
+			XbeeAPI.parseFrame(rawData);
+			//ZigbeeFrame pkt = XbeeAPI.parseFrame(rawData);
+			//mHnadCore.onPacketReceived(pkt);
 			Log.i(TAG,"Pkt from ");
 			break;
 		default:

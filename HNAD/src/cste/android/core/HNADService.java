@@ -10,6 +10,7 @@ import java.util.TimerTask;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -33,12 +34,13 @@ import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.icd.MsgType;
 import cste.icd.EcocCmdType;
+import cste.icd.TimeStamp;
 import cste.icd.UnrestrictedCmdType;
 import cste.interfaces.KeyProvider;
 import cste.messages.IcdMsg;
 import cste.messages.RestrictedStatus;
-import cste.misc.ZigbeeAPI;
-import cste.misc.ZigbeeFrame;
+import cste.misc.XbeeAPI;
+import cste.misc.XbeeFrame;
 import static cste.icd.Utility.strToHex;
 
 /***
@@ -70,6 +72,12 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	private final IBinder mBinder = new LocalBinder();
 	private Timer mUsbReconnectTimer;
 
+	private ProgressDialog pd;
+	
+	private void showProgressDialog(){
+		pd = ProgressDialog.show(this, "Working..", "Refreshing Device Information", true, true);
+	}
+
 	/*****************************/
 
 	private SharedPreferences settings;// = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
@@ -90,10 +98,11 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		mUsbCommHandler = new UsbCommManager(this,mCsdMessageHandler);
 		mNadaBroadcaster = new NADABroadcaster(this,mNadaHandler,mUsbCommHandler);
 		mUsbReconnectTimer = null;
+		XbeeAPI.setRadioInterface(mUsbCommHandler);
 		
 		settings = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
 		loadSettings();//TODO X
-		//mDeviceMap.put("0013A20040715FD8", new Device(new DeviceUID("0013A20040715FD8"),DeviceType.CSD));
+		devTable.put("0013A20040715FD8", new EcocDevice(new DeviceUID("0013A20040715FD8")));
 		//mDeviceMap.put("0013A20040760BB4", new Device(new DeviceUID("0013A20040760BB4"),DeviceType.ACSD));
 		//devTable.put("0013A200406BE0C3", new EcocDevice(new DeviceUID("0013A200406BE0C3")));
 
@@ -130,7 +139,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		mUsbReconnectTimer.scheduleAtFixedRate(new TimerTask(){
 			@Override
 			public void run() {
-				if ( mUsbCommHandler.openExistingUSBaccessory() )
+				if ( mUsbCommHandler.openDevice() )
 					this.cancel();
 			}}, 100, 1000);// delay start 100ms, retry every second
 	}
@@ -159,34 +168,77 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		//TODO use database to retrieve key from device record
 		return strToHex("1234567890ABCDEF1234567890ABCDEF"); 
 	}
-	
-	protected static byte frameACK = 0;
-	
-	@Override
-	public void getDeviceStatus(DeviceUID destination) {
-		ComModule dev = this.devTable.get(destination.toString());
-		if( dev == null)
-			return;
 
-		byte []icdMsg = IcdMsg.buildIcdMsg(dev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SMAF);
-		byte []zigbeeFrame = ZigbeeAPI.buildPkt(dev.UID().getBytes(),(byte)(frameACK++),icdMsg);
-		this.mUsbCommHandler.transmit(zigbeeFrame);
+	public enum DeviceCommands{
+		SET_TIME,
+		SET_TRIPINFO,
+		SET_WAYPOINTS,
+		SET_ALARM_OFF,
+		SET_ALARM_ON,
+		SET_COMMISION_OFF,
+		SET_COMMISION_ON,
+		GET_RESTRICTED_STATUS,
+		GET_EVENT_LOG,
+		CLEAR_EVENT_LOG
 	}
 	
 	@Override
-	public void getDeviceLog(DeviceUID destination) {
-		ComModule dev = this.devTable.get(destination.toString());
-		if( dev == null)
+	public void sendDevCmd(DeviceUID destUID, DeviceCommands cmd) {
+		ComModule destDev = this.devTable.get(destUID.toString());
+		if( destDev == null){
+			Log.w(TAG, destUID.toString() + " not stored, cannot send command");
 			return;
+		}
+
+		byte []icdMsg = null;
 		
-		byte []icdMsg = IcdMsg.buildIcdMsg(dev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SL);
-		byte []zigbeeFrame = ZigbeeAPI.buildPkt(dev.UID().getBytes(),(byte)(frameACK++),icdMsg);
-		this.mUsbCommHandler.transmit(zigbeeFrame);
+		switch(cmd){
+		case SET_TIME:
+			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.ST, TimeStamp.now());
+			break;
+		case SET_TRIPINFO:
+			//TODO Set conveyane id
+			//icdMsg = IcdMsg.buildIcdMsg(dev, MsgType.DEV_CMD_RESTRICTED, CWT);
+			break;
+		case SET_WAYPOINTS:
+			//TODO send waypoint list
+			//icdMsg = IcdMsg.buildIcdMsg(dev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SMAF);
+			break;
+		case SET_ALARM_OFF:
+			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SMAT);
+			break;
+		case SET_ALARM_ON:
+			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SMAF);
+			break;
+		case SET_COMMISION_OFF:
+			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.DAHH);
+			break;
+		case SET_COMMISION_ON:
+			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SMAT);
+			break;
+		case GET_RESTRICTED_STATUS:
+			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.NOP);
+			break;
+		case GET_EVENT_LOG:
+			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SL);
+			break;
+		case CLEAR_EVENT_LOG:
+			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.EL);
+		default:
+			Log.w(TAG, "Command not supported");
+			return;
+		}
+
+		byte[] destAddrs = destDev.UID().getBytes();
+		XbeeAPI.transmitPkt(destAddrs,icdMsg);
+		//byte []zigbeeFrame = XbeeAPI.buildPkt(destDev.UID().getBytes(),(byte)(frameACK++),icdMsg);
+		//this.mUsbCommHandler.transmit(zigbeeFrame);
 	}
+
 
     @Override
-	public void onPacketReceived(ZigbeeFrame frm) {
-    	if( frm.type == ZigbeeAPI.RX_64BIT)
+	public void onFrameReceived(XbeeFrame frm) {
+    	if( frm.type == XbeeAPI.RX_64BIT)
     	{
     		IcdMsg msg = IcdMsg.fromBytes(frm.payload);
     		if( msg.getStatus() == IcdMsg.MsgStatus.OK)
@@ -208,17 +260,12 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     		}
     		else
     			Log.w(TAG,"Received ICD msg with an error");
-    	}else if( frm.type == ZigbeeAPI.TX_STATUS ){
-    		if( frm.statusCode != 0)
-    			toast("NO ACK");
-    		else
-    			toast("ACK");
-    	}
-    	else
-    	{
-    		toast("Other");
     	}
 	}
+    
+    public void onRadioTransmitResult(boolean success){
+
+    }
     
     /***
      * 
@@ -226,8 +273,6 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
      */
     private void handleIcdMsg(IcdMsg msg, ComModule deviceSrc)
     {
-    	
-    	
     	//TODO log this event
     	switch(msg.header().getMsgType()){
     	case RESTRICTED_STATUS_MSG:
@@ -240,12 +285,9 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		testIntent.putExtra("device",(Parcelable)deviceSrc);
 		sendBroadcast(testIntent);
     }
-    
-    
-    
+
     /***************************/
-    
-    
+
     @Override
     public void onUsbStateChanged(boolean connected){
     	if(connected)

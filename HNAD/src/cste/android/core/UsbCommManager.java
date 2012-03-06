@@ -24,12 +24,14 @@ import android.util.Log;
 
 import com.android.future.usb.UsbAccessory;
 import com.android.future.usb.UsbManager;
+
+import cste.hnad.RadioCommInterface;
 /***
  * Provides an interface to transmit and receive from the arduino USB host device connected to the phone
  * @author Sergio Enriquez
  *
  */
-public class UsbCommManager extends BroadcastReceiver{
+public class UsbCommManager extends BroadcastReceiver implements RadioCommInterface{
 	private static final String TAG = "USB Comm Handler";
 	private static final String ACTION_USB_PERMISSION = "cste.android.usb.action.USB_PERMISSION";
 
@@ -115,7 +117,7 @@ public class UsbCommManager extends BroadcastReceiver{
 	 * Query the USB manager to find if there is an attached accessory, and open it
 	 * 
 	 */
-	public boolean openExistingUSBaccessory(){
+	public boolean openDevice(){
 		registerReceiver();
 		UsbAccessory[] accessories = mUsbManager.getAccessoryList();
 		mAccessory = (accessories == null ? null : accessories[0]);
@@ -249,7 +251,7 @@ public class UsbCommManager extends BroadcastReceiver{
 	 * @param message
 	 * @return
 	 */
-	boolean transmit(byte[] message)
+	public boolean transmit(byte[] message)
 	{
 		if( message == null || message.length == 0)
 			return false;
@@ -267,8 +269,9 @@ public class UsbCommManager extends BroadcastReceiver{
 		return false;
 	}
 	
+
 	/***
-	 * 
+	 * Closes the file object and release used resources
 	 */
 	public void closeDevice(){
 		closeAccessory();

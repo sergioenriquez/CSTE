@@ -5,7 +5,7 @@ import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.icd.NadaTimeDelay;
 import cste.messages.NADA;
-import cste.misc.ZigbeeAPI;
+import cste.misc.XbeeAPI;
 import static cste.icd.Utility.*;
 
 //TODO clear channel assesment?
@@ -22,7 +22,7 @@ public class NADABroadcaster implements Runnable{
 	//burst tx 1 sec then 1 sec quiet
 	private int BurstCount = 13;
 	private int LongDelay = 1000;
-	private final byte[] BROADCAST_ADDRESS	= strToHex("000000000000FFFF");
+	
 	
 	DeviceType dcpType;
 	DeviceUID dcpUID;
@@ -59,10 +59,7 @@ public class NADABroadcaster implements Runnable{
 								lvl2UID,
 								mParent.mMsgWaitingList);
 		
-		byte [] zigbeePkt = ZigbeeAPI.buildPkt(BROADCAST_ADDRESS,(byte)0x00,nadaMsg.getBytes());
-		
-		if( !mUsbCommHandler.transmit(zigbeePkt) )
-			enabled = false;
+		XbeeAPI.transmitPkt(XbeeAPI.BROADCAST_ADDRESS, nadaMsg.getBytes());
 
 		if (enabled)
 		{

@@ -1,10 +1,16 @@
 package cste.misc;
 
-import java.nio.ByteBuffer;
+import static cste.icd.Utility.strToHex;
 
+import java.nio.ByteBuffer;
+import java.util.Hashtable;
+
+import cste.android.core.HNADService;
+import cste.components.ComModule;
+import cste.hnad.RadioCommInterface;
 import android.util.Log;
 
-public class ZigbeeAPI {
+public class XbeeAPI {
 	private static final String TAG = "Zigbee API";
 	
 	private static final int ADDR_SIZE = 8;
@@ -19,24 +25,75 @@ public class ZigbeeAPI {
 	private static final byte NO_ACK = 0x01;
 	private static final byte ACK_REQ = 0x00;
 	
+	public static final byte[] BROADCAST_ADDRESS = strToHex("000000000000FFFF");
+	
+	private static RadioCommInterface comInterface;
+	private static HNADService service; // TODO replace with interface
+
+	protected static byte nextFrameAck = 0;
+	protected static Hashtable<Byte,RetryTxItem> txTable = new Hashtable<Byte, RetryTxItem>();
+	
+	public static final int MAX_RETRY_ATTEMPTS = 3;
+	public static final int TIMEOUT_PERIOD = 500;
+
+	//BCAST
+	
+	/***
+	 * 
+	 */
+	public static void setRadioInterface(RadioCommInterface radioInterface){
+		comInterface = radioInterface;
+	}
+	
+	public static void onTransmitResult(boolean success, byte frameAck){
+		RetryTxItem item = txTable.get(frameAck);
+		if( item == null){
+			Log.e(TAG,"Retransmit table item is missing");
+			return;
+		}
+		item.clearTimer();
+		
+		if( success )
+			service.onRadioTransmitResult(true);
+		else{
+			if(item.retryAttempts < MAX_RETRY_ATTEMPTS)
+			{
+				Log.i(TAG,"No ACK received, retrying");
+				comInterface.transmit(item.payload);
+				item.retryAttempts++;
+				item.restartTimer();
+			}else{
+				service.onRadioTransmitResult(false);
+			}
+		}
+	}
+	
+	public static void transmitPkt(byte []dest, byte []payload){
+		boolean needAck = dest.equals(BROADCAST_ADDRESS) ? false : true;
+		
+		byte[] frame = buildFrame(dest,payload,needAck);
+
+		if( comInterface.transmit(frame) && needAck){
+			txTable.put(nextFrameAck,  new RetryTxItem(nextFrameAck, frame) );
+			nextFrameAck++;
+		}
+	}
+
 	/***
 	 * Based on API level 2, supports 64 bit addresses with no ACK
 	 * @param dest
 	 * @param msg
 	 * @return
 	 */
-	public static byte [] buildPkt(byte []dest, byte frameID, byte []msg){
+	protected static byte[] buildFrame(byte []dest, byte []msg, boolean needAck){
 		ByteBuffer tmp = ByteBuffer.allocate(msg.length + OVERHEAD);
 		if( dest.length != ADDR_SIZE)
 			return tmp.array(); // only 64bit address supported 
 
 		tmp.put(CMD_64BIT);
-		tmp.put(frameID);
+		tmp.put( needAck ? nextFrameAck : (byte)0);
 		tmp.put(dest);
-		if( frameID == 0)
-			tmp.put(NO_ACK);
-		else
-			tmp.put(ACK_REQ);
+		tmp.put( needAck ? ACK_REQ : NO_ACK);
 		tmp.put(msg);
 		
 		byte sum = 0x00;
@@ -71,17 +128,14 @@ public class ZigbeeAPI {
 		
 		return zigbeePkt;
 	}
-	
 
-	
-	
 	//TODO handle other msg types
 	/***
 	 * Unwraps the data delivered by the Zigbee transceiver
 	 * @param msg
 	 * @return
 	 */
-	public static ZigbeeFrame parsePkt(byte[] msg)
+	public static void parseFrame(byte[] msg)
 	{
 		ByteBuffer temp = ByteBuffer.wrap(msg);
 		ByteBuffer data = ByteBuffer.allocate(temp.capacity());
@@ -112,12 +166,15 @@ public class ZigbeeAPI {
 		{
 			byte frameACK = data.get();
 			byte txStatus = data.get();
-			return new ZigbeeFrame(type,frameACK,txStatus);
+			if(txStatus != 0x00 )
+				onTransmitResult(false,frameACK);
+			else
+				onTransmitResult(true, frameACK);
+			return;
 		}
-		else
-		{
-			Log.w(TAG, "Zigbee packet type not known");
-			return new ZigbeeFrame(type);
+		else{
+			Log.e(TAG, "Zigbee packet type not known");
+			return;
 		}
 		
 		byte[] source = new byte[addrSize];
@@ -131,12 +188,9 @@ public class ZigbeeAPI {
 		{
 			byte[] payload = new byte[payloadSize];
 			data.get(payload);
-			return new ZigbeeFrame(type,rssi,opt,source,payload);
+			service.onFrameReceived(new XbeeFrame(type,rssi,opt,source,payload));
 		}
 		else
-		{
 			 Log.w(TAG, "Bad frame size received");
-			 return new ZigbeeFrame(type);
-		}
 	}
 }
