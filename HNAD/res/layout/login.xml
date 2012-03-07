@@ -13,7 +13,7 @@
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
 	    android:layout_marginLeft="25dp"
-	    android:text="Username" />
+	    android:text="User" />
 	<EditText
         android:id="@+id/authUserLink"
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
         android:layout_marginBottom="5dp"
         android:inputType="text"
         android:singleLine="true"
-        android:hint="username" />
+        android:enabled="false"/>
 	<TextView  
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 

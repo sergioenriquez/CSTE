@@ -19,7 +19,7 @@ public class RestrictedStatusMsg extends IcdPayload {
 		if ( type == DeviceType.CSD)
 			dataSection = CsdRestrictedStatus.fromBuffer(b);
 		else if ( type == DeviceType.ECOC)
-			dataSection = ECoCRestrictedStatus.fromBuffer(b);
+			dataSection = new ECoCRestrictedStatus(b);
 		else
 			return null;
 

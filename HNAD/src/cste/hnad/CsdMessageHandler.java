@@ -33,7 +33,8 @@ public class CsdMessageHandler extends Handler {
 			break;
 		case MSG_RECEIVED:
 			byte[] rawData = msg.getData().getByteArray("content");
-			XbeeAPI.parseFrame(rawData);
+			int size = msg.getData().getInt("size");
+			XbeeAPI.parseFrame(rawData,size);
 			//ZigbeeFrame pkt = XbeeAPI.parseFrame(rawData);
 			//mHnadCore.onPacketReceived(pkt);
 			Log.i(TAG,"Pkt from ");

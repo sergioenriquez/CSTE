@@ -1,6 +1,11 @@
 package cste.android.core;
 
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
 import android.os.Handler;
+import cste.components.ComModule;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.icd.NadaTimeDelay;
@@ -11,29 +16,33 @@ import static cste.icd.Utility.*;
 //TODO clear channel assesment?
 
 public class NADABroadcaster implements Runnable{
-	private boolean enabled = false;
-	private int msgSendCnt = 0;
-	private NadaTimeDelay delayCode = NadaTimeDelay.D100;
+	protected boolean enabled = false;
+	protected int msgSendCnt = 0;
+	protected NadaTimeDelay delayCode = NadaTimeDelay.D100;
 	
-	private Handler mHandler;
-	private UsbCommManager mUsbCommHandler;
-	private HNADService mParent;
+	protected Handler mHandler;
+	protected UsbCommManager mUsbCommHandler;
+	protected HNADService mParent;
 	
 	//burst tx 1 sec then 1 sec quiet
-	private int BurstCount = 13;
-	private int LongDelay = 1000;
+	protected int BurstCount = 13;
+	protected int LongDelay = 1000;
 	
 	
-	DeviceType dcpType;
-	DeviceUID dcpUID;
-	DeviceType lvl2Type;
-	DeviceUID lvl2UID;
+	protected DeviceType dcpType;
+	protected DeviceUID dcpUID;
+	protected DeviceType lvl2Type;
+	protected DeviceUID lvl2UID;
+	protected List<DeviceUID> mMsgWaitingList;
+	
+	protected static final int MAX_MSG_WAITING_CNT = 5;
 	
 	public NADABroadcaster(HNADService parent, Handler handler, UsbCommManager usbHandler)
 	{
 		mHandler = handler;
 		mUsbCommHandler = usbHandler;
 		mParent = parent;
+		mMsgWaitingList = new ArrayList<DeviceUID>();
 	}
 	
 	public void config(int burstIndex,  DeviceType lvl2Type, DeviceUID lvl2UID, DeviceType dcpType, DeviceUID dcpUID){
@@ -50,6 +59,18 @@ public class NADABroadcaster implements Runnable{
 	@Override
 	public void run() {
 		enabled = true;
+		
+		mMsgWaitingList.clear();
+		Enumeration<ComModule> devices = mParent.getDeviceList().elements();
+		int msgWaitCnt = 0;
+		while(devices.hasMoreElements())
+		{
+			ComModule dev = devices.nextElement();
+			if( dev.pendingTxMsgCnt > 0 && msgWaitCnt < MAX_MSG_WAITING_CNT){
+				msgWaitCnt++;
+				mMsgWaitingList.add(dev.UID());
+			}
+		}
 
 		NADA nadaMsg = new NADA(DeviceType.FNAD_I,
 								delayCode,
@@ -57,7 +78,7 @@ public class NADABroadcaster implements Runnable{
 								dcpUID,
 								lvl2Type,
 								lvl2UID,
-								mParent.mMsgWaitingList);
+								mMsgWaitingList);
 		
 		XbeeAPI.transmitPkt(XbeeAPI.BROADCAST_ADDRESS, nadaMsg.getBytes());
 

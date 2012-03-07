@@ -40,6 +40,7 @@ public abstract class HnadBaseActivity extends Activity{
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			mHnadCoreService = ((HNADService.LocalBinder)service).getService();
+			mIsBound = true;
 			onCoreServiceCBound();
 		}
 		
@@ -64,7 +65,6 @@ public abstract class HnadBaseActivity extends Activity{
 
 	private void doBindService() {
 		bindService(new Intent(this,HNADService.class), mConnection, Context.BIND_AUTO_CREATE);    
-		mIsBound = true;
 	}
 	
 	private void doUnbindService() {    

@@ -3,12 +3,15 @@ package cste.misc;
 import static cste.icd.Utility.strToHex;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.Hashtable;
 
 import cste.android.core.HNADService;
 import cste.components.ComModule;
+import cste.hnad.HNADServiceInterface;
 import cste.hnad.RadioCommInterface;
 import android.util.Log;
+import android.widget.Toast;
 
 public class XbeeAPI {
 	private static final String TAG = "Zigbee API";
@@ -26,15 +29,16 @@ public class XbeeAPI {
 	private static final byte ACK_REQ = 0x00;
 	
 	public static final byte[] BROADCAST_ADDRESS = strToHex("000000000000FFFF");
+	public static final byte[] BAD_ADDRESS = strToHex("0000000000000000");
 	
 	private static RadioCommInterface comInterface;
-	private static HNADService service; // TODO replace with interface
+	public static HNADServiceInterface mHnadService; // TODO replace with interface
 
 	protected static byte nextFrameAck = 0;
 	protected static Hashtable<Byte,RetryTxItem> txTable = new Hashtable<Byte, RetryTxItem>();
 	
 	public static final int MAX_RETRY_ATTEMPTS = 3;
-	public static final int TIMEOUT_PERIOD = 500;
+	public static final int TIMEOUT_PERIOD = 1000;
 
 	//BCAST
 	
@@ -45,37 +49,57 @@ public class XbeeAPI {
 		comInterface = radioInterface;
 	}
 	
-	public static void onTransmitResult(boolean success, byte frameAck){
+	public static void setHnadService(HNADServiceInterface mHnadService){
+		XbeeAPI.mHnadService = mHnadService;
+	}
+	
+	public static synchronized void onTransmitResult(boolean success, byte frameAck){
 		RetryTxItem item = txTable.get(frameAck);
 		if( item == null){
-			Log.e(TAG,"Retransmit table item is missing");
+			Log.w(TAG,"Retransmit table item not found");
 			return;
 		}
 		item.clearTimer();
 		
 		if( success )
-			service.onRadioTransmitResult(true);
+		{
+			txTable.remove(frameAck);
+			mHnadService.onRadioTransmitResult(true,item.destination);
+		}
 		else{
-			if(item.retryAttempts < MAX_RETRY_ATTEMPTS)
-			{
+			if(item.retryAttempts < MAX_RETRY_ATTEMPTS){
 				Log.i(TAG,"No ACK received, retrying");
 				comInterface.transmit(item.payload);
 				item.retryAttempts++;
 				item.restartTimer();
 			}else{
-				service.onRadioTransmitResult(false);
+				txTable.remove(frameAck);
+				mHnadService.onRadioTransmitResult(false,item.destination);
+				Toast.makeText(mHnadService.getContext(), "No reply received", Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
 	
-	public static void transmitPkt(byte []dest, byte []payload){
+	public static synchronized void transmitPkt(byte []dest, byte []payload){
+		if( dest == null || payload == null){
+			Log.e(TAG,"Tried to transmit a null packet");
+			mHnadService.onRadioTransmitResult(false,dest);
+			return;
+		}
+		
 		boolean needAck = dest.equals(BROADCAST_ADDRESS) ? false : true;
 		
 		byte[] frame = buildFrame(dest,payload,needAck);
-
-		if( comInterface.transmit(frame) && needAck){
-			txTable.put(nextFrameAck,  new RetryTxItem(nextFrameAck, frame) );
-			nextFrameAck++;
+		boolean txResult = comInterface.transmit(frame);
+		
+		if( needAck ){
+			if ( txResult ){
+				txTable.put(nextFrameAck,  new RetryTxItem(nextFrameAck, frame, dest) );
+				nextFrameAck++;
+			}else{
+				Toast.makeText(mHnadService.getContext(), "USB interface not availible", Toast.LENGTH_SHORT).show();
+				mHnadService.onRadioTransmitResult(false,dest);
+			}
 		}
 	}
 
@@ -128,6 +152,30 @@ public class XbeeAPI {
 		
 		return zigbeePkt;
 	}
+	
+	private static boolean checksumOK(ByteBuffer buffer){
+		buffer.get();//delimeter
+		short size = buffer.getShort();//size
+		if( size > 64){
+			Log.w(TAG,"test 1");
+		}
+		
+		int i;
+		byte sum = 0;
+		for(i=3;i<size+3;i++){
+			if( i >= buffer.capacity())
+				return false;
+			sum += buffer.get(i);
+		}
+
+		byte calcCheckSum = (byte) (0xFF  - sum);
+		byte checksum = buffer.get(i);
+		buffer.rewind();
+		if ( calcCheckSum == checksum)
+			return true;
+		else
+			return false;
+	}
 
 	//TODO handle other msg types
 	/***
@@ -135,25 +183,32 @@ public class XbeeAPI {
 	 * @param msg
 	 * @return
 	 */
-	public static void parseFrame(byte[] msg)
+	public static void parseFrame(byte[] msg,int sizeIn)
 	{
-		ByteBuffer temp = ByteBuffer.wrap(msg);
+		ByteBuffer temp = ByteBuffer.allocate(sizeIn);
+		temp.put(msg, 0, sizeIn);
+		temp.rewind();
 		ByteBuffer data = ByteBuffer.allocate(temp.capacity());
-		for(int i=0;i<temp.capacity();i++)
-		{
+		//remove escape chars
+		for(int i=0;i<sizeIn;i++){
 			byte c = temp.get();
-			if(	c == 0x7D )
-			{
+			if(	c == 0x7D ){
 				c = temp.get();
 				c ^= 0x20;
 				i++;
 				data.put(c);
-			}
-			else
+			}else
 				data.put(c);
 		}
+		
 		data.rewind();
-		data.get();//delimeter
+		
+//		if ( !checksumOK(data) ){
+//			Log.w(TAG, "Received Xbee frame with bad checksum");
+//			return;
+//		}
+		
+		data.get();//remove delimeter
 		short frameSize = data.getShort();
 		byte type = data.get();
 		
@@ -173,22 +228,23 @@ public class XbeeAPI {
 			return;
 		}
 		else{
-			Log.e(TAG, "Zigbee packet type not known");
+			Log.w(TAG, "Zigbee packet type not known");
 			return;
 		}
 		
 		byte[] source = new byte[addrSize];
 		data.get(source);
-		
+
 		byte rssi = data.get();
 		byte opt = data.get();
 		
 		short payloadSize = (short) (frameSize-addrSize-3);
+
 		if( payloadSize > 0)
 		{
 			byte[] payload = new byte[payloadSize];
 			data.get(payload);
-			service.onFrameReceived(new XbeeFrame(type,rssi,opt,source,payload));
+			mHnadService.onFrameReceived(new XbeeFrame(type,rssi,opt,source,payload));
 		}
 		else
 			 Log.w(TAG, "Bad frame size received");

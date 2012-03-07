@@ -18,9 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:stretchColumns="0,1">
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <TableRow>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -32,11 +30,8 @@
                 android:text="@string/type"
                 android:textSize="12dp"/>
         </TableRow>
-        
-		<!-- VALUE -->
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+
+        <TableRow><!-- VALUE -->
             <TextView
                 android:id="@+id/devUID"
                 android:layout_width="wrap_content"
@@ -48,41 +43,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/na"/>
         </TableRow>
-		
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/sealid"
-                android:textSize="12dp"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/manifest"
-                android:textSize="12dp"/>
-        </TableRow>
         
-        <!-- VALUE -->
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <TextView
-                android:id="@+id/sealID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/na"/>
-            <TextView
-                android:id="@+id/manifestID"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/na"/>
-        </TableRow>
-        
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+        <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,11 +57,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="12dp"/>
         </TableRow>
-        
-        <!-- VALUE -->
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+
+        <TableRow><!-- VALUE -->
             <TextView
                 android:id="@+id/rssiVal"
                 android:layout_width="wrap_content"
@@ -111,16 +70,51 @@
                 android:layout_height="wrap_content"
                 android:text="@string/na"/>
         </TableRow>
+		
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/gps"
+                android:textSize="12dp"/>
+        </TableRow>
+
+        <TableRow><!-- VALUE -->
+            <TextView
+                android:layout_span="2"
+                android:id="@+id/gpsLoc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/na"/>
+        </TableRow>
+        
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/conveyance"
+                android:textSize="12dp"/>
+        </TableRow>
+        
+        
+        <TableRow><!-- VALUE -->
+            <TextView
+                android:layout_span="2"
+                android:id="@+id/conveyanceID"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/na"/>
+        </TableRow>
 
     </TableLayout>
     
+    <!-- 
     <TextView
         android:layout_marginTop="10dp"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:text="@string/deviceCommads"
 	    android:stretchColumns="*"/>
-	
 	<TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
@@ -138,12 +132,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Set Trip Info"/>
-            
         </TableRow>
-        
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <TableRow>
 			<Button
                 android:id="@+id/setWaypointBtn"
                 android:layout_width="0dp"
@@ -155,10 +145,7 @@
                 android:layout_height="wrap_content"
                 android:text="Decomission"/>
         </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <TableRow>
             <Button
                 android:id="@+id/resetAlarmBtn"
                 android:layout_width="0dp"
@@ -169,28 +156,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="View Event Log"/>
-           
         </TableRow>
 	</TableLayout>
-
+	 -->
+	 
 	<TableLayout
         android:id="@+id/tableLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:stretchColumns="*">
-        
-	    <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+	    <TableRow>
 		    <TextView  
+		        android:layout_marginTop="10dp"
 			    android:layout_width="fill_parent" 
 			    android:layout_height="wrap_content" 
 			   	android:text="Alarm Status" />
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <TableRow>
 	        <CheckBox 
 		        android:id="@+id/lockOpenBox"
 		        android:text="Lock Open"
@@ -207,10 +190,7 @@
 				android:textSize="12dp"/>
         </TableRow>
         
-        <TableRow
-            android:id="@+id/tableRow7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <TableRow>
 			<CheckBox 
 		        android:id="@+id/offCourseBox"
 		        android:text="Off Route"
@@ -227,18 +207,14 @@
 				android:textSize="12dp"/>
         </TableRow>
 
-	     <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+	     <TableRow>
 			<TextView  
 			    android:layout_width="fill_parent" 
 			    android:layout_height="wrap_content" 
 		    	android:text="Device Errors" />
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <TableRow>
 			<CheckBox 
 		        android:id="@+id/configMalfunctionBox"
 		        android:text="Config Malfunction"
@@ -255,9 +231,7 @@
 				android:textSize="12dp"/>
         </TableRow>
         
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <TableRow>
 			<CheckBox 
 		        android:id="@+id/commisionFailedBox"
 		        android:text="Commision Failed"
@@ -274,9 +248,7 @@
 				android:textSize="12dp"/>
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <TableRow>
 			<CheckBox 
 		        android:id="@+id/sensorMalfunctionBox"
 		        android:text="Sensor Malfunction"
@@ -293,9 +265,7 @@
 				android:textSize="12dp"/>
 		</TableRow>
 		
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TableRow>
 			<CheckBox 
 		        android:id="@+id/invalidCommandBox"
 		        android:text="Invalid Command"
@@ -312,9 +282,7 @@
 				android:textSize="12dp"/>
 		</TableRow>
 		
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <TableRow>
 			<CheckBox 
 		        android:id="@+id/ackFailureBox"
 		        android:text="ACK Failure"
@@ -331,9 +299,7 @@
 				android:textSize="12dp"/>
 		</TableRow>
 		
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <TableRow>
 			<CheckBox 
 		        android:id="@+id/sensorEnableFailedBox"
 		        android:text="Sensor Enable Failed"

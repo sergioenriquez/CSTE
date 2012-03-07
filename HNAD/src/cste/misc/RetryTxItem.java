@@ -8,12 +8,14 @@ public class RetryTxItem implements Runnable {
 	public int retryAttempts;
 	protected Handler mHandler;
 	public byte[] payload;
+	public byte[] destination;
 
-	public RetryTxItem(byte ackNo, byte[] payload){
+	public RetryTxItem(byte ackNo, byte[] payload, byte[] destination){
 		this.ackNo = ackNo;
 		this.mHandler = new Handler();
 		this.retryAttempts = 0;
 		this.payload = payload;
+		this.destination = destination;
 		restartTimer();
 	}
 	

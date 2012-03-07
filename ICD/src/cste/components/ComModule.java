@@ -23,10 +23,17 @@ public abstract class ComModule implements Serializable{
 	private static final long serialVersionUID = 2340395912239234229L;
 	protected DeviceUID devUID;
 	protected DeviceType devType;
-	protected int rxAscension; //for encrypted msg
-	protected int txAscension; //for encrypted msg
+	public int rxAscension; //for encrypted msg
+	public int txAscension; //for encrypted msg
+	public int pendingTxMsgCnt;
+	public byte rssi;	
+	public boolean inRange;
 	
 	protected RestrictedStatus latestStatus = null;
+	
+	public RestrictedStatus getRestrictedStatus(){
+		return latestStatus;
+	}
 
 	public byte[] tck; //TODO
 	public byte[] ltk; //TODO
@@ -42,6 +49,10 @@ public abstract class ComModule implements Serializable{
 		this.rxAscension = 1;
 		this.txAscension = 1;
 		this.icdRev = 0x02;
+		
+		pendingTxMsgCnt = 0;
+		rssi = 0;
+		inRange = false;
 		
 		tck = new byte[ENCRYPTION_KEY_LENGTH];
 	}
@@ -61,7 +72,7 @@ public abstract class ComModule implements Serializable{
 			out.close();
 			result = bos.toByteArray();
 		} catch (IOException e) {
-			Log(TAG,"io error");
+			Log(TAG,e.getMessage());
 		} 
 		return result;
 	}
@@ -90,29 +101,5 @@ public abstract class ComModule implements Serializable{
 	public DeviceType devType()
 	{
 		return devType;
-	}
-	
-	public int getRxAsc(){
-		return txAscension;
-	}
-	
-	public int getTxAsc(){
-		return txAscension;
-	}
-	
-	public void setRxAsc(int rxAscension){
-		this.rxAscension = rxAscension;
-	}
-	
-	public void setTxAsc(int txAscension){
-		this.txAscension = txAscension;
-	}
-	
-	public void incTxAsc(){
-		txAscension++;
-	}
-	
-	public void incRxAsc(){
-		rxAscension++;
 	}
 }

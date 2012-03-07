@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/item1" android:title="View Event Log"></item>
-    <item android:id="@+id/item2" android:title="Refresh"></item>
-    <item android:id="@+id/item3" android:title="View Waypoints"></item>
+    <item android:id="@+id/refresh" android:title="Refresh" android:icon="@drawable/ic_menu_refresh"></item><item android:id="@+id/viewEventLog" android:title="View Event Log" android:icon="@drawable/ic_menu_recent_history"></item>
+    
+    <item android:id="@+id/clearAlarm" android:title="Clear Alarm" android:icon="@drawable/ic_menu_mark"></item>
+    
+    
+    <item android:id="@+id/setTrip" android:icon="@drawable/ic_menu_compass" android:title="Set Trip Info"></item><item android:id="@+id/commission" android:title="Commission" android:icon="@drawable/ic_menu_preferences"></item><item android:id="@+id/erase" android:title="Erase Record" android:icon="@drawable/ic_menu_close_clear_cancel"></item>
+    <item android:id="@+id/assn" android:title="Set Assension"></item>
 
     
 

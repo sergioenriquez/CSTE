@@ -19,12 +19,14 @@
     <string name="uid">UID</string>
     <string name="type">Type</string>
     <string name="sealid">Seal ID</string>
-    <string name="manifest">Manifest</string>
+    <string name="manifest">Manifest ID</string>
+    <string name="conveyance">Conveyance ID</string>
+    <string name="gps">GPS Location</string>
     <string name="doorStatus">Door</string>
     <string name="alarm">Alarm</string>
     <string name="opmode">OpMode</string>
     <string name="signal">Signal</string>
-    <string name="ackNo">ACK No.</string>
+    <string name="ackNo">Rx Ack #</string>
     <string name="na">N/A</string>
     <string name="deviceCommads">Device Commands</string>
     <string name="generalInfo">General Info</string>

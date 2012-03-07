@@ -2,28 +2,39 @@ package cste.messages;
 
 import java.nio.ByteBuffer;
 
+import cste.icd.TimeStamp;
+
 public class ECoCRestrictedStatus extends RestrictedStatus{
 	public static final int DATA_SECTION_SIZE = 66;
 	
-	protected byte errorCode;
-	protected byte[] restrictedDataSection;
+	public byte errorCode;
 	
-	public static ECoCRestrictedStatus fromBuffer(ByteBuffer b) {
-		//ByteBuffer b = ByteBuffer.wrap(content,IcdHeader.ICD_HEADER_LENGTH + EventLogMsg.EVENT_LOG_COMMON_HEADER, SECTION_SIZE);
-		byte errorCode = b.get();
-		byte []restrictedDataSection = new byte[DATA_SECTION_SIZE];
-		b.get(restrictedDataSection);
+	public byte ackAscension;
+	public byte opMode;
+	public byte statusBits;
+	public byte errorBits;
+	public byte sensorErrorBits;
+	public byte[] coveyanceID;
+	public TimeStamp time;
+	public byte[] gpsLoc; //TODO use class for gps loc;
+	public byte alarmCode;
+	
+	public byte[] restrictedDataSection;
 
-		return new ECoCRestrictedStatus(
-				errorCode,
-				restrictedDataSection);
-	}
 	
-	public ECoCRestrictedStatus(
-			byte errorCode,
-			byte[] restrictedDataSection){
-		this.errorCode = errorCode;
-		this.restrictedDataSection = restrictedDataSection;
+	public ECoCRestrictedStatus(ByteBuffer b){
+		this.errorCode = b.get();
+		this.ackAscension = b.get();
+		this.opMode = b.get();
+		this.statusBits = b.get();
+		this.errorBits = b.get();
+		this.sensorErrorBits = b.get();
+		this.coveyanceID = new byte[16];
+		b.get(coveyanceID);
+		this.time = new TimeStamp(b);
+		this.gpsLoc = new byte[16];
+		b.get(gpsLoc);
+		this.alarmCode = b.get();
 	}
 	
 	public byte[] getBytes() {

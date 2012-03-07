@@ -2,6 +2,7 @@ package cste.hnad;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 import cste.components.ECoC;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
@@ -15,15 +16,13 @@ public class EcocDevice extends ECoC implements Parcelable{
 	/**
 	 * 
 	 */
+	private static final String TAG = "EcocDevice";
 	private static final long serialVersionUID = 2241983295406693238L;
-	public boolean visible;
-	public byte rssi;	
-	
+
 	public EcocDevice(DeviceUID devUID)
 	{
 		super(devUID);
-		visible = false;
-		rssi = 100;
+		pendingTxMsgCnt = 0;
 	}
 
 	@Override
@@ -55,6 +54,10 @@ public class EcocDevice extends ECoC implements Parcelable{
 		//dest.writeInt(txAscension);
 		//dest.writeByte(rssi);
 		byte []content = serialize(this);
+		if( content == null){
+			Log.e(TAG,"Unable to serialize object");
+			return;
+		}
 		int size = content.length;
 		dest.writeInt(size);
 		dest.writeByteArray(serialize(this));

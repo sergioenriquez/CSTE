@@ -13,9 +13,7 @@ public class CsdRestrictedStatus extends RestrictedStatus{
 		byte []restrictedDataSection = new byte[DATA_SECTION_SIZE];
 		b.get(restrictedDataSection);
 
-		return new ECoCRestrictedStatus(
-				errorCode,
-				restrictedDataSection);
+		return null;
 	}
 	
 	public CsdRestrictedStatus(

@@ -9,11 +9,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.ListView;
@@ -21,6 +24,7 @@ import cste.android.R;
 import cste.android.core.HNADService.Events;
 import cste.components.ComModule;
 import cste.hnad.EcocDevice;
+import cste.icd.DeviceUID;
 
 /***
  * Displays a list of all the devices currently or previously visible
@@ -40,8 +44,11 @@ public class DeviceListActivity extends HnadBaseActivity {
         setContentView(R.layout.devicelist);
 
         mDeviceListAdapter = new DeviceListAdapter(this,R.layout.devicelistitem);
+        mDeviceListAdapter.setNotifyOnChange(true);
         mDeviceListView = (ListView) findViewById(R.id.devicesList);
+        
         mDeviceListView.setAdapter(mDeviceListAdapter);
+        registerForContextMenu(mDeviceListView);
 
         mDeviceListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -65,12 +72,25 @@ public class DeviceListActivity extends HnadBaseActivity {
 	@Override
 	protected void handleCoreServiceMsg(Context context, Bundle data) {
 		if ( data.containsKey(DEVLIST_CHANGED) ) {
-			//String devChanged = data.getString(DEVLIST_CHANGED);
 			reloadDeviceList();
 		}
 		
 		if ( data.containsKey(Events.DEVICE_INFO_CHANGED) ) {
-			//TODO update device rssi icon
+			DeviceUID devUID = (DeviceUID)data.getSerializable("deviceUID");
+			ComModule changedCm = (ComModule)mHnadCoreService.getDeviceRecord(devUID);
+			if( changedCm == null)
+				return;
+			
+			int cnt = mDeviceListView.getCount();
+			for(int i=0;i<cnt; i++){
+				ComModule old = (ComModule)mDeviceListView.getItemAtPosition(i);
+				int hash = old.hashCode();
+				if( old.UID().equals(changedCm.UID())){
+					old = changedCm;
+					mDeviceListAdapter.notifyDataSetChanged();
+					break;
+				}
+			}       	
 		}
 		
 		if ( data.containsKey(USB_STATE_CHANGED))
@@ -94,6 +114,14 @@ public class DeviceListActivity extends HnadBaseActivity {
         inflater.inflate(R.menu.devicelist_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+	                                ContextMenuInfo menuInfo) {
+	    super.onCreateContextMenu(menu, v, menuInfo);
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.device_info_menu, menu);
+	}
 	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -120,4 +148,28 @@ public class DeviceListActivity extends HnadBaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	    
+	    ComModule cm = mDeviceListAdapter.getItem(info.position);
+	    
+	    switch (item.getItemId()) {
+	        case R.id.viewEventLog:
+	        	//info.position
+	            return true;
+	        case R.id.refresh:
+
+	            return true;
+	        case R.id.clearAlarm:
+
+	            return true;
+	        case R.id.erase:
+	        	mHnadCoreService.deleteDeviceRecord(cm.UID());
+	            return true;
+	        default:
+	            return super.onContextItemSelected(item);
+	    }
+	}
 }

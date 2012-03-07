@@ -1,6 +1,8 @@
 package cste.messages;
 
-public abstract class RestrictedStatus extends IcdPayload{
+import java.io.Serializable;
+
+public abstract class RestrictedStatus extends IcdPayload implements Serializable{
 	protected byte errorCode;
 	protected byte[] restrictedDataSection;
 }

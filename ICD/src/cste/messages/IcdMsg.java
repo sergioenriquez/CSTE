@@ -36,7 +36,7 @@ public class IcdMsg {
 	
 	final private IcdHeader headerData;
 	final private IcdPayload payload;
-	final private MsgStatus msgStatus;
+	final public MsgStatus msgStatus;
 	
 
 	/***
@@ -111,7 +111,7 @@ public class IcdMsg {
 				payload.getSize(),
 				ThisUID,
 				IcdRev,
-				destination.getTxAsc());
+				destination.txAscension);
 		
 		byte []headerBytes = header.getBytes();
 		byte []payloadBytes = payload.getBytes();
@@ -136,7 +136,7 @@ public class IcdMsg {
 			buffer.put(chkSum);
 		}
 		
-		destination.incTxAsc();
+		
 		
 		return buffer.array();
 	}
@@ -195,8 +195,9 @@ public class IcdMsg {
 	private static IcdMsg parseBytes(byte[] data){
 		ByteBuffer buffer = ByteBuffer.wrap(data);
 		
-		if ( !checksumOK(buffer) )
-			return new IcdMsg(MsgStatus.BAD_CHEKSUM);
+		//Only certain types have checksum
+		//if ( !checksumOK(buffer) )
+	//		return new IcdMsg(MsgStatus.BAD_CHEKSUM);
 		
 		IcdHeader headerData = IcdHeader.fromBuffer(buffer);
 		if ( headerData == null){
@@ -222,13 +223,15 @@ public class IcdMsg {
 		case RESTRICTED_STATUS_MSG:
 			if( headerData.devType == DeviceType.ECOC || 
 				headerData.devType == DeviceType.ECM0)
-				msgContent = ECoCRestrictedStatus.fromBuffer(buffer);
+				
+				msgContent = new ECoCRestrictedStatus(buffer);
 			else if (headerData.devType == DeviceType.CSD || 
 					headerData.devType == DeviceType.ACSD)
-				msgContent = ECoCRestrictedStatus.fromBuffer(buffer);
+				
+				//msgContent = ECoCRestrictedStatus.fromBuffer(buffer);
 			break;
 		case DEVICE_EVENT_LOG:
-			msgContent = EventLogMsg.fromBuffer(headerData.getDevType(),buffer);
+			//msgContent = EventLogMsg.fromBuffer(headerData.getDevType(),buffer);
 			break;
 		case NADA_MSG:
 			break;

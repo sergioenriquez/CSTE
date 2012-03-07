@@ -1,9 +1,10 @@
 package cste.icd;
 
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.util.Calendar;
 
-public class TimeStamp {
+public class TimeStamp implements Serializable{
 	final byte month;
 	final byte day;
 	final byte year;
@@ -12,6 +13,18 @@ public class TimeStamp {
 	final byte minute;
 	final byte second;
 	final byte secFrac;
+	
+	public TimeStamp(
+			ByteBuffer b){
+		this.month = b.get();
+		this.day = b.get();
+		this.year = b.get();
+		this.weekday = b.get();
+		this.hour = b.get();
+		this.minute = b.get();
+		this.second = b.get();
+		this.secFrac = b.get();
+	}
 	
 	public TimeStamp(
 			int month,

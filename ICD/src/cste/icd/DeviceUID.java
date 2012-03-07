@@ -4,6 +4,9 @@ import static cste.icd.Utility.*;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 public class DeviceUID implements Serializable{
 	static public final int SIZE = 8;
@@ -43,6 +46,21 @@ public class DeviceUID implements Serializable{
 	
 	public byte[] getBytes(){
 		return deviceUID;
+	}
+	
+	@Override 
+	public int hashCode() {
+	    return Arrays.hashCode(deviceUID);
+	}
+	
+	@Override
+	public boolean equals(Object  otherObj){
+		if ( this == otherObj ) 
+			return true;
+		if ( !(otherObj instanceof DeviceUID) ) 
+			return false;
+		DeviceUID otherUID = (DeviceUID)otherObj;
+		return Arrays.equals(otherUID.deviceUID, this.deviceUID);
 	}
 	
 	@Override

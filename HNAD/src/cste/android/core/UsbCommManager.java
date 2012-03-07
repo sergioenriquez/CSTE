@@ -209,7 +209,7 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 		@Override
 		public void run() {
 			int ret = 0;
-			byte[] buffer = new byte[16384];
+			byte[] buffer = new byte[1024];
 			while (mAccessory != null && ret >= 0) {
 				try {
 					ret = mInputStream.read(buffer);
@@ -224,6 +224,7 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 					Message m = Message.obtain(mHandler,MSG_RECEIVED);
 					Bundle data = new Bundle();
 					data.putByteArray("content", buffer);
+					data.putInt("size", ret);
 					m.setData(data);
 					mHandler.sendMessage(m);
 				}

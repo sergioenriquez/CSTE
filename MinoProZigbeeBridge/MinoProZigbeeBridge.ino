@@ -39,20 +39,19 @@ void setup()
     delay( 100 );  
 }
 
+uint8_t msg[256] = { 0x00 };
+
 void loop()
 {
   //wdt_reset();
   
   uint8_t rcode;
-  uint16_t len = 64;
-  uint8_t msg[128] = { 0x00 };
-  
+  uint16_t len = 128;
+
   Usb.Task();
   
   if( adk.isReady() == true )
   {
-    //wdt_reset();
-    
     //pass data from android to zigbee
     rcode = adk.RcvData(&len,msg);
     if(len>0)
@@ -63,7 +62,13 @@ void loop()
     while(Serial.available())
       msg[len++] = Serial.read();
     if(len>0)
+    {
+      int total = len;
       adk.SndData(len,msg);
+      if( total > 64 ){
+        adk.SndData(total-64,msg+64);
+      }
+    }
   } 
   else
   {
@@ -71,34 +76,6 @@ void loop()
       //wdt_reset();
   }
   
-  delay( 10 );     
-}
-
-void init_leds()
-{
-  LED_STATE = 0;
-  pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, LED_STATE);
-}
-
-void toggleLED()
-{
-  LED_STATE = LED_STATE ? 0 : 1;
-  digitalWrite(LED_PIN, LED_STATE);
-}
-
-void mirrorSerialMsg()
-{
-  uint8_t msg[128];
-  int i;
-  while(true)
-  {
-    i = 0;
-    while(Serial.available())
-      msg[i++] = Serial.read()+1;
-    if( i>0)
-      Serial.write(msg,i);
-    delay( 10 );  
-  }
+  delay( 5 );     
 }
 

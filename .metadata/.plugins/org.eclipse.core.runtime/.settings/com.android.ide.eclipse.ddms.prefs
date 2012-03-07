@@ -1,7 +1,8 @@
-#Sun Mar 04 20:45:42 PST 2012
+#Tue Mar 06 21:56:16 PST 2012
 threadPanel.stack.col0=130
 emulatorControl.waypoint.desc=107
 logcat.view.colsize.Time=146
+logcat.view.display.filters=false
 emulatorControl.track.first=122
 logcat.view.colsize.PID=50
 emulatorControl.waypoint.elevation=53
@@ -16,7 +17,7 @@ allocPanel.Col00=74
 allocPanel.stack.col4=48
 allocPanel.stack.col3=44
 allocPanel.stack.col2=317
-logcat.view.colsize.Application=166
+logcat.view.colsize.Application=116
 allocPanel.stack.col1=112
 allocPanel.Col4=45
 allocPanel.stack.col0=130

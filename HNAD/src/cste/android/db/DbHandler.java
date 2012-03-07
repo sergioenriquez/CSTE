@@ -62,9 +62,14 @@ public class DbHandler {
 		return cm;
 	}
 	
-	public Hashtable<String,ComModule> getStoredDevices(){
-
-		Hashtable<String, ComModule> deviceMap = new Hashtable<String,ComModule>(8);
+	public int deleteDeviceRecord(DeviceUID devUID){
+		ComModule cm = null;
+		String uid = devUID.toString();
+		return db.delete(DbConst.DEVICE_TABLE, DbConst.DEV_KEY_ID + " = ?",  new String[]{uid});
+	}
+	
+	public Hashtable<DeviceUID,ComModule> getStoredDevices(){
+		Hashtable<DeviceUID, ComModule> deviceMap = new Hashtable<DeviceUID,ComModule>(8);
 		Cursor c = db.query(DbConst.DEVICE_TABLE, 
 				null, // all columns
 				null, 
@@ -78,8 +83,13 @@ public class DbHandler {
         	ComModule cm = createCmFromCursor(c);
         	if(cm == null)
         		Log.e(TAG, "Unable to retrieve CM record from database");
-        	else
-        		deviceMap.put(cm.UID().toString(), cm);
+        	else{
+        		//reset some values that should not be stored between sessions
+        		cm.inRange = false;
+        		cm.rssi = 0;
+        		cm.pendingTxMsgCnt = 0;
+        		deviceMap.put(cm.UID(), cm);
+        	}
             c.moveToNext();
         }
         c.close();
