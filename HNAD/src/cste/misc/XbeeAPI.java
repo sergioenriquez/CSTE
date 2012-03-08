@@ -129,19 +129,16 @@ public class XbeeAPI {
 		escapedSeq.put(DELIMETER);
 		escapedSeq.put((byte) 0x00);
 		escapedSeq.put((byte)(msg.length + ADDR_SIZE + 3));
-		for(int s=0; s<tmp.capacity() ; s++,newSize++)
-		{
+		for(int s=0; s<tmp.capacity() ; s++,newSize++){
 			byte c = tmp.get(s);
 			if( c == 0x7E || 
 				c == 0x7D ||
 				c == 0x11 ||
-				c == 0x13)
-			{
+				c == 0x13){
 				escapedSeq.put((byte)0x7D);
 				escapedSeq.put((byte) (c ^ 0x20));
 				newSize++;
-			}
-			else
+			}else
 				escapedSeq.put(c);
 		}
 		byte []zigbeePkt = new byte[newSize];

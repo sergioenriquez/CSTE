@@ -1,8 +1,9 @@
 package cste.messages;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 
-import cste.icd.TimeStamp;
+import cste.icd.IcdTimestamp;
 
 public class ECoCRestrictedStatus extends RestrictedStatus{
 	public static final int DATA_SECTION_SIZE = 66;
@@ -15,13 +16,32 @@ public class ECoCRestrictedStatus extends RestrictedStatus{
 	public byte errorBits;
 	public byte sensorErrorBits;
 	public byte[] coveyanceID;
-	public TimeStamp time;
+	public IcdTimestamp time;
 	public byte[] gpsLoc; //TODO use class for gps loc;
 	public byte alarmCode;
 	
 	public byte[] restrictedDataSection;
-
 	
+	public String getConveyanceStr(){
+		String conveyanceName;
+		try {
+			conveyanceName = new String(coveyanceID, "US-ASCII");
+		} catch (UnsupportedEncodingException e) {
+			conveyanceName = "encoding error";
+		}
+		return conveyanceName;
+	}
+	
+	public String getGpsStr(){
+		String gpsStr;
+		try {
+			gpsStr = new String(gpsLoc, "US-ASCII");
+		} catch (UnsupportedEncodingException e) {
+			gpsStr = "encoding error";
+		}
+		return gpsStr;
+	}
+
 	public ECoCRestrictedStatus(ByteBuffer b){
 		this.errorCode = b.get();
 		this.ackAscension = b.get();
@@ -31,7 +51,7 @@ public class ECoCRestrictedStatus extends RestrictedStatus{
 		this.sensorErrorBits = b.get();
 		this.coveyanceID = new byte[16];
 		b.get(coveyanceID);
-		this.time = new TimeStamp(b);
+		this.time = new IcdTimestamp(b);
 		this.gpsLoc = new byte[16];
 		b.get(gpsLoc);
 		this.alarmCode = b.get();

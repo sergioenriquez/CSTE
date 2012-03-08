@@ -3,7 +3,7 @@ package cste.messages;
 import java.nio.ByteBuffer;
 
 import cste.icd.EcocCmdType;
-import cste.icd.TimeStamp;
+import cste.icd.IcdTimestamp;
 import static cste.icd.Utility.getEncryptedSize;
 
 public class RestrictedEcocCmd extends IcdPayload{
@@ -72,7 +72,7 @@ public class RestrictedEcocCmd extends IcdPayload{
 			//1 param
 			break;
 		case ST:
-			TimeStamp t = (TimeStamp)params[0];
+			IcdTimestamp t = (IcdTimestamp)params[0];
 			b.put(t.getBytes());
 			break;
 		case CWT:

@@ -35,7 +35,7 @@ import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.icd.MsgType;
 import cste.icd.EcocCmdType;
-import cste.icd.TimeStamp;
+import cste.icd.IcdTimestamp;
 import cste.icd.UnrestrictedCmdType;
 import cste.interfaces.KeyProvider;
 import cste.messages.IcdMsg;
@@ -172,7 +172,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		
 		switch(cmd){
 		case SET_TIME:
-			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.ST, TimeStamp.now());
+			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.ST, IcdTimestamp.now());
 			break;
 		case SET_TRIPINFO:
 			//TODO Set conveyane id

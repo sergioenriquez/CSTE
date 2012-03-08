@@ -64,6 +64,14 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 	CheckBox mConfigFailedBox;
 	CheckBox mSensorEnableFailedBox;
 	
+	static final byte BIT_0 = 0x01;
+	static final byte BIT_1 = 0x02;
+	static final byte BIT_2 = 0x04;
+	static final byte BIT_3 = 0x08;
+	static final byte BIT_4 = 0x10;
+	static final byte BIT_5 = 0x20;
+	static final byte BIT_6 = 0x40;
+	static final byte BIT_7 = (byte)0x80;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,7 +116,6 @@ public class ECoCInfoActivity extends HnadBaseActivity {
         reloadDeviceData();//showProgressDialog();
 	}
 
-
 	protected void reloadDeviceData(){
 		
 		mDeviceUIDTxt.setText(mECoCDev.UID().toString());
@@ -120,8 +127,8 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 		if( status == null)
 			return;
 		
-		mConveyanceID.setText(hexToStr(status.coveyanceID));
-		mGpsLocation.setText(hexToStr(status.gpsLoc));
+		mConveyanceID.setText(status.getConveyanceStr());
+		mGpsLocation.setText(status.getGpsStr());
 		
 		
 		mLockOpenBox.setChecked( (status.alarmCode & BIT_7) > 0);
@@ -146,7 +153,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 	@Override
 	protected void onCoreServiceCBound(){
 		mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_RESTRICTED_STATUS);
-		//showProgressDialog("Requesting Device Information");
+		showProgressDialog("Requesting Device Information");
 	}
 
 	@Override
@@ -182,11 +189,11 @@ public class ECoCInfoActivity extends HnadBaseActivity {
         switch (item.getItemId()) {
         case R.id.refresh:
         	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_RESTRICTED_STATUS);
-    		//showProgressDialog("Requesting Device Information");
+    		showProgressDialog("Requesting Device Information");
         	return true;
         case R.id.viewEventLog:
         	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_EVENT_LOG);
-    		//showProgressDialog("Requesting Event Log");
+    		showProgressDialog("Requesting Event Log");
             return true;
         case R.id.clearAlarm:
 
@@ -230,15 +237,6 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 	private void showProgressDialog(String msg){
 		pd = ProgressDialog.show(this, "Working..", msg , true, true);
 	}
-	
-	static final byte BIT_0 = 0x01;
-	static final byte BIT_1 = 0x02;
-	static final byte BIT_2 = 0x04;
-	static final byte BIT_3 = 0x08;
-	static final byte BIT_4 = 0x10;
-	static final byte BIT_5 = 0x20;
-	static final byte BIT_6 = 0x40;
-	static final byte BIT_7 = (byte)0x80;
 
 }//end class
 

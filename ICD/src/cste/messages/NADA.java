@@ -7,14 +7,14 @@ import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.icd.MsgType;
 import cste.icd.NadaTimeDelay;
-import cste.icd.TimeStamp;
+import cste.icd.IcdTimestamp;
 
 public class NADA {
 	final int NADA_MIN_SIZE = 31;
 	final DeviceType devType;
 	final MsgType msgType = MsgType.NADA_MSG;
 	final NadaTimeDelay timeDelayCode;
-	final TimeStamp timestamp;
+	final IcdTimestamp timestamp;
 	final DeviceType lvl1DevType;
 	final DeviceUID lvl1UID;
 	final DeviceType lvl2DevType;
@@ -32,7 +32,7 @@ public class NADA {
 		
 		this.devType = devType;
 		this.timeDelayCode = delayCode;
-		this.timestamp = TimeStamp.now();	
+		this.timestamp = IcdTimestamp.now();	
 		this.lvl1DevType = lvl1DevType;
 		this.lvl1UID = lvl1UID;
 		this.lvl2DevType = lvl2DevType;
