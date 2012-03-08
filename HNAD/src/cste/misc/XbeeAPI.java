@@ -40,8 +40,6 @@ public class XbeeAPI {
 	public static final int MAX_RETRY_ATTEMPTS = 3;
 	public static final int TIMEOUT_PERIOD = 1000;
 
-	//BCAST
-	
 	/***
 	 * 
 	 */
@@ -94,8 +92,8 @@ public class XbeeAPI {
 		
 		if( needAck ){
 			if ( txResult ){
-				//txTable.put(nextFrameAck,  new RetryTxItem(nextFrameAck, frame, dest) );
-				//nextFrameAck++;
+				txTable.put(nextFrameAck,  new RetryTxItem(nextFrameAck, frame, dest) );
+				nextFrameAck++;
 			}else{
 				Toast.makeText(mHnadService.getContext(), "USB interface not availible", Toast.LENGTH_SHORT).show();
 				mHnadService.onRadioTransmitResult(false,dest);
@@ -115,11 +113,9 @@ public class XbeeAPI {
 			return tmp.array(); // only 64bit address supported 
 
 		tmp.put(CMD_64BIT);
-		//tmp.put( needAck ? nextFrameAck : (byte)0);
-		tmp.put((byte)0);
+		tmp.put( needAck ? nextFrameAck : (byte)0);
 		tmp.put(dest);
-		//tmp.put( needAck ? ACK_REQ : NO_ACK);
-		tmp.put( NO_ACK);
+		tmp.put( needAck ? ACK_REQ : NO_ACK);
 		tmp.put(msg);
 		
 		byte sum = 0x00;
@@ -185,26 +181,27 @@ public class XbeeAPI {
 	 * @param msg
 	 * @return
 	 */
-	public static void parseFrame(byte[] msg,int sizeIn){
-		if( sizeIn < 3)
+	public static void parseFrame(byte[] msg,int msgSize){
+		if( msgSize < 3){
+			Log.w(TAG, "Received a frame with bad size");
 			return;
-		
-		
-		ByteBuffer temp = ByteBuffer.allocate(sizeIn);
-		ByteBuffer data = ByteBuffer.allocate(sizeIn);
-		temp.put(msg, 0, sizeIn);
-		Arrays.fill(msg, (byte)0);
+		}
+
+		ByteBuffer temp = ByteBuffer.allocate(msgSize);
+		ByteBuffer data = ByteBuffer.allocate(msgSize);
+		temp.put(msg, 0, msgSize);
 		temp.rewind();
 
 		temp.get();
 		short frameSize = temp.getShort();
-		if( frameSize > sizeIn || frameSize > 64){
-			Log.w(TAG, "Test");
+		if( frameSize > msgSize ){
+			Log.w(TAG, "Received a frame with bad size");
+			return;
 		}
 		temp.rewind();
 		
 		//remove escape chars
-		for(int i=0;i<sizeIn;i++){
+		for(int i=0;i<msgSize;i++){
 			byte c = temp.get();
 			if(	c == 0x7D ){
 				c = temp.get();
@@ -214,11 +211,7 @@ public class XbeeAPI {
 			}else
 				data.put(c);
 		}
-		
 		data.rewind();
-		
-		if(sizeIn>=63)
-			Log.w(TAG, "Test 2");
 		
 		if ( !checksumOK(data) ){
 			Log.w(TAG, "Received Xbee frame with bad checksum");
@@ -232,8 +225,6 @@ public class XbeeAPI {
 		short addrSize;
 		if(type == RX_64BIT)
 			addrSize = 8;
-		else if(type == RX_16BIT)
-			addrSize = 2;
 		else if( type == TX_STATUS){
 			byte frameACK = data.get();
 			byte txStatus = data.get();
@@ -244,7 +235,7 @@ public class XbeeAPI {
 			return;
 		}
 		else{
-			Log.w(TAG, "Zigbee packet type not known");
+			Log.w(TAG, "Zigbee packet type accepted: " + Byte.toString(type));
 			return;
 		}
 		
@@ -262,6 +253,6 @@ public class XbeeAPI {
 			mHnadService.onFrameReceived(new XbeeFrame(type,rssi,opt,source,payload));
 		}
 		else
-			 Log.w(TAG, "Bad frame size received");
+			Log.w(TAG, "Bad frame size received");
 	}
 }

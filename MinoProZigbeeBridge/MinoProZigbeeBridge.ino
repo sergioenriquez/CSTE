@@ -9,10 +9,7 @@
 #include <avr/wdt.h>
 #include <adk.h>
 
-
 USB Usb;
-
-
 ADK adk(&Usb,
         "CSTE Project",
         "Zigbee Bridge",
@@ -20,58 +17,45 @@ ADK adk(&Usb,
         "1.0",
         "http://www.android.com",
         "0000000012345678");
-        
-#define  LED_PIN       3
-uint8_t LED_STATE = 0;
 
 void setup();
 void loop();
+void serialInterrupt();
 
-void mirrorSerialMsg();
-void init_leds();
-void toggleLED();
+uint8_t msg_in[128];
+uint8_t msg_out[128];
+uint8_t sizeOut = 0;
 
 void setup()
 {
- // pinMode(10, OUTPUT);     
-  //digitalWrite(10, HIGH);   // set the LED on
-  //wdt_disable();
-  //wdt_reset();
   Serial.begin(115200);
-
   while(Usb.Init() == -1) 
     delay( 100 );  
+
+  sizeOut = 0;
 }
 
-uint8_t msg[256] = { 0x00 };
 int test = 0;
 uint16_t len = 128;
 uint8_t rcode;
 
 void loop()
 {
+  while(Serial.available())
+    msg_out[sizeOut++] = Serial.read();
+  
   Usb.Task();
-  if( adk.isReady() == true )
+  if( adk.isReady() == false )
+    return;
+
+  len = 128;
+  rcode = adk.RcvData(&len,msg_in);
+  if(len>0)
+    Serial.write(msg_in,len);
+
+  if(sizeOut>0)
   {
-    //pass data from android to zigbee
-    
-    len = 128;
-    rcode = adk.RcvData(&len,msg);
-    if(len>0)
-      Serial.write(msg,len);
-    
-
-    len = 0; 
-    //while(Serial.available() && len < 256)
-    //{ 
-      while(Serial.available())
-          msg[len++] = Serial.read();
-      //delay(1);       
-    //}
-    
-    if(len>0)
-          adk.SndData(len+1,msg); 
-  } 
-  delay( 0 );     
+    adk.SndData(sizeOut,msg_out);
+    sizeOut = 0; 
+  }
 }
-

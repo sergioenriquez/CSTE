@@ -66,8 +66,7 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 	}
 	
 	protected void registerReceiver(){
-		if( !isRegistered )
-		{
+		if( !isRegistered ){
 			IntentFilter filter = new IntentFilter();
 			filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
 			filter.addAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED);
@@ -77,8 +76,7 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 		}
 	}
 	
-	boolean testUSB()
-	{
+	boolean testUSB(){
 		try {
 			mOutputStream.write(0);
 		} catch (IOException e) {
@@ -99,7 +97,6 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 			accessory = UsbManager.getAccessory(intent);
 			if (accessory != null && accessory.equals(mAccessory)) {
 				closeAccessory();
-				
 			}
 		}else if (ACTION_USB_PERMISSION.equals(action)) {
 			synchronized (this) {
@@ -154,8 +151,7 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 			mInputStream = new FileInputStream(fd);
 			mOutputStream = new FileOutputStream(fd);
 			
-			if ( !testUSB() )
-			{
+			if ( !testUSB() ){
 				isConnected = false;
 				closeAccessory();
 				return false;
@@ -214,27 +210,13 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 			byte[] buffer = new byte[512];
 			while (mAccessory != null && ret >= 0) {
 				try {
-					//Arrays.fill(buffer, (byte)0);
 					ret = mInputStream.read(buffer);
-//					if( ret >= 60){
-//						//Thread.sleep(5);
-//						Log.w(TAG, "Max pkt size rec, waiting for rest...");
-//						int read = mInputStream.read(buffer, ret, 64);
-//						ret += read;
-//						Log.w(TAG, "...received");
-////						if( mInputStream.available() > 0){
-////							
-////						}
-//					}
 				} catch (IOException e) {
 					Log.e(TAG,"I/O Error");
 					closeAccessory();
 					break;
 				}
-				//catch (InterruptedException e) {}
-				
-				if(ret>0)
-				{
+				if(ret>0){
 					Message m = Message.obtain(mHandler,MSG_RECEIVED);
 					Bundle data = new Bundle();
 					data.putByteArray("content", buffer);
@@ -266,14 +248,12 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 	 * @param message
 	 * @return
 	 */
-	public boolean transmit(byte[] message)
-	{
+	public boolean transmit(byte[] message){
 		if( message == null || message.length == 0)
 			return false;
 		
 		if( mAccessory != null){
-			if ( pendingTxList.size() < 50)
-			{
+			if ( pendingTxList.size() < 50){
 				pendingTxList.add(message);
 				return true;
 			}
@@ -290,8 +270,7 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 	 */
 	public void closeDevice(){
 		closeAccessory();
-		if(isRegistered)
-		{
+		if(isRegistered){
 			mHostService.unregisterReceiver(this);
 			isRegistered = false;
 		}
