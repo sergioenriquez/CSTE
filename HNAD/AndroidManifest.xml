@@ -40,8 +40,8 @@
         </activity>
         
         <activity android:name=".activities.LoginActivity"
-                  android:label="@string/login_title"
-                  android:excludeFromRecents="true">
+                  android:label="@string/login_title">
+                  <!--  android:excludeFromRecents="true" --> 
         </activity>
         
         <activity android:name=".activities.DeviceListActivity"

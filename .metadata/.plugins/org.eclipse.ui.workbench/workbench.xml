@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="32" version="2.0">
+<workbench progressCount="34" version="2.0">
 <workbenchAdvisor/>
-<window height="1050" maximized="true" width="1683" x="-190" y="154">
+<window height="1050" maximized="true" minimized="true" width="1683" x="-190" y="154">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="313"/>
@@ -25,14 +25,14 @@
 <coolItem id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="com.android.ide.eclipse.editors.layout.LayoutEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.browser.editor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
 <page aggregateWorkingSetId="Aggregate for window 1330402922590" focus="true" label="Workspace - Debug">
 <editors>
-<editorArea activeWorkbook="org.eclipse.ui.internal.EditorStack@4fb22bb2">
+<editorArea activeWorkbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
 <info part="org.eclipse.ui.internal.EditorStack@2ea353d6">
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -45,7 +45,7 @@
 </presentation>
 </folder>
 </info>
-<info part="org.eclipse.ui.internal.EditorStack@4fb22bb2" ratio="0.46604362" ratioLeft="748" ratioRight="857" relationship="2" relative="org.eclipse.ui.internal.EditorStack@2ea353d6">
+<info part="org.eclipse.ui.internal.EditorStack@4fb22bb2" ratio="0.45794392" ratioLeft="735" ratioRight="870" relationship="2" relative="org.eclipse.ui.internal.EditorStack@2ea353d6">
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
@@ -59,11 +59,10 @@
 <part id="8"/>
 <part id="9"/>
 <part id="10"/>
-<part id="11"/>
 </presentation>
 </folder>
 </info>
-<info part="org.eclipse.ui.internal.EditorStack@793c8370" ratio="0.63800424" ratioLeft="601" ratioRight="341" relationship="4" relative="org.eclipse.ui.internal.EditorStack@4fb22bb2">
+<info part="org.eclipse.ui.internal.EditorStack@793c8370" ratio="0.641189" ratioLeft="604" ratioRight="338" relationship="4" relative="org.eclipse.ui.internal.EditorStack@4fb22bb2">
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
@@ -72,6 +71,30 @@
 </folder>
 </info>
 </editorArea>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="XbeeAPI.java" partName="XbeeAPI.java" path="C:/CSTE/HNAD/src/cste/misc/XbeeAPI.java" title="XbeeAPI.java" tooltip="HNAD/src/cste/misc/XbeeAPI.java" workbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/misc/XbeeAPI.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="5526" selectionTopPixel="2878"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HNADService.java" partName="HNADService.java" path="C:/CSTE/HNAD/src/cste/android/core/HNADService.java" title="HNADService.java" tooltip="HNAD/src/cste/android/core/HNADService.java" workbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/core/HNADService.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="10122" selectionTopPixel="4420"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceListActivity.java" partName="DeviceListActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/DeviceListActivity.java" title="DeviceListActivity.java" tooltip="HNAD/src/cste/android/activities/DeviceListActivity.java" workbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/DeviceListActivity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4761" selectionTopPixel="1685"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HnadBaseActivity.java" partName="HnadBaseActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/HnadBaseActivity.java" title="HnadBaseActivity.java" tooltip="HNAD/src/cste/android/activities/HnadBaseActivity.java" workbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/HnadBaseActivity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1038" selectionTopPixel="243"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceUID.java" partName="DeviceUID.java" path="C:/CSTE/ICD/src/cste/icd/DeviceUID.java" title="DeviceUID.java" tooltip="ICD/src/cste/icd/DeviceUID.java" workbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/DeviceUID.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1458" selectionTopPixel="544"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ECoCRestrictedStatus.java" partName="ECoCRestrictedStatus.java" path="C:/CSTE/ICD/src/cste/messages/ECoCRestrictedStatus.java" title="ECoCRestrictedStatus.java" tooltip="ICD/src/cste/messages/ECoCRestrictedStatus.java" workbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/messages/ECoCRestrictedStatus.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="20" selectionOffset="549" selectionTopPixel="104"/>
+</editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EcocDevice.java" partName="EcocDevice.java" path="C:/CSTE/HNAD/src/cste/hnad/EcocDevice.java" title="EcocDevice.java" tooltip="HNAD/src/cste/hnad/EcocDevice.java" workbook="org.eclipse.ui.internal.EditorStack@4fb22bb2">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/hnad/EcocDevice.java"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="576" selectionTopPixel="0"/>
@@ -92,21 +115,17 @@
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/db/DbHandler.java"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2437" selectionTopPixel="1028"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IcdMsg.java" partName="IcdMsg.java" path="C:/CSTE/ICD/src/cste/messages/IcdMsg.java" title="IcdMsg.java" tooltip="ICD/src/cste/messages/IcdMsg.java" workbook="org.eclipse.ui.internal.EditorStack@4fb22bb2">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/messages/IcdMsg.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4840" selectionTopPixel="3013"/>
-</editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UsbCommManager.java" partName="UsbCommManager.java" path="C:/CSTE/HNAD/src/cste/android/core/UsbCommManager.java" title="UsbCommManager.java" tooltip="HNAD/src/cste/android/core/UsbCommManager.java" workbook="org.eclipse.ui.internal.EditorStack@4fb22bb2">
+<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UsbCommManager.java" partName="UsbCommManager.java" path="C:/CSTE/HNAD/src/cste/android/core/UsbCommManager.java" title="UsbCommManager.java" tooltip="HNAD/src/cste/android/core/UsbCommManager.java" workbook="org.eclipse.ui.internal.EditorStack@4fb22bb2">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/core/UsbCommManager.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="5956" selectionTopPixel="2956"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="6274" selectionTopPixel="3066"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CsdMessageHandler.java" partName="CsdMessageHandler.java" path="C:/CSTE/HNAD/src/cste/hnad/CsdMessageHandler.java" title="CsdMessageHandler.java" tooltip="HNAD/src/cste/hnad/CsdMessageHandler.java" workbook="org.eclipse.ui.internal.EditorStack@4fb22bb2">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/hnad/CsdMessageHandler.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="564" selectionTopPixel="155"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="771" selectionTopPixel="84"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IcdHeader.java" partName="IcdHeader.java" path="C:/CSTE/ICD/src/cste/messages/IcdHeader.java" title="IcdHeader.java" tooltip="ICD/src/cste/messages/IcdHeader.java" workbook="org.eclipse.ui.internal.EditorStack@4fb22bb2">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/messages/IcdHeader.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1369" selectionTopPixel="1058"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1526" selectionTopPixel="942"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceType.java" partName="DeviceType.java" path="C:/CSTE/ICD/src/cste/icd/DeviceType.java" title="DeviceType.java" tooltip="ICD/src/cste/icd/DeviceType.java" workbook="org.eclipse.ui.internal.EditorStack@4fb22bb2">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/DeviceType.java"/>
@@ -120,37 +139,13 @@
 <input factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;java.lang(Thread.class"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
-<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="XbeeAPI.java" partName="XbeeAPI.java" path="C:/CSTE/HNAD/src/cste/misc/XbeeAPI.java" title="XbeeAPI.java" tooltip="HNAD/src/cste/misc/XbeeAPI.java" workbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/misc/XbeeAPI.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="5272" selectionTopPixel="2856"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HNADService.java" partName="HNADService.java" path="C:/CSTE/HNAD/src/cste/android/core/HNADService.java" title="HNADService.java" tooltip="HNAD/src/cste/android/core/HNADService.java" workbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/core/HNADService.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="7510" selectionTopPixel="513"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceListActivity.java" partName="DeviceListActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/DeviceListActivity.java" title="DeviceListActivity.java" tooltip="HNAD/src/cste/android/activities/DeviceListActivity.java" workbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/DeviceListActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4761" selectionTopPixel="1685"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HnadBaseActivity.java" partName="HnadBaseActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/HnadBaseActivity.java" title="HnadBaseActivity.java" tooltip="HNAD/src/cste/android/activities/HnadBaseActivity.java" workbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/HnadBaseActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1038" selectionTopPixel="243"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceUID.java" partName="DeviceUID.java" path="C:/CSTE/ICD/src/cste/icd/DeviceUID.java" title="DeviceUID.java" tooltip="ICD/src/cste/icd/DeviceUID.java" workbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/DeviceUID.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1458" selectionTopPixel="544"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ECoCRestrictedStatus.java" partName="ECoCRestrictedStatus.java" path="C:/CSTE/ICD/src/cste/messages/ECoCRestrictedStatus.java" title="ECoCRestrictedStatus.java" tooltip="ICD/src/cste/messages/ECoCRestrictedStatus.java" workbook="org.eclipse.ui.internal.EditorStack@2ea353d6">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/messages/ECoCRestrictedStatus.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="20" selectionOffset="549" selectionTopPixel="104"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ECoCInfoActivity.java" partName="ECoCInfoActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/ECoCInfoActivity.java" title="ECoCInfoActivity.java" tooltip="HNAD/src/cste/android/activities/ECoCInfoActivity.java" workbook="org.eclipse.ui.internal.EditorStack@793c8370">
+<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ECoCInfoActivity.java" partName="ECoCInfoActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/ECoCInfoActivity.java" title="ECoCInfoActivity.java" tooltip="HNAD/src/cste/android/activities/ECoCInfoActivity.java" workbook="org.eclipse.ui.internal.EditorStack@793c8370">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/ECoCInfoActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2815" selectionTopPixel="319"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2151" selectionTopPixel="589"/>
 </editor>
-<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HNADServiceInterface.java" partName="HNADServiceInterface.java" path="C:/CSTE/HNAD/src/cste/hnad/HNADServiceInterface.java" title="HNADServiceInterface.java" tooltip="HNAD/src/cste/hnad/HNADServiceInterface.java" workbook="org.eclipse.ui.internal.EditorStack@793c8370">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HNADServiceInterface.java" partName="HNADServiceInterface.java" path="C:/CSTE/HNAD/src/cste/hnad/HNADServiceInterface.java" title="HNADServiceInterface.java" tooltip="HNAD/src/cste/hnad/HNADServiceInterface.java" workbook="org.eclipse.ui.internal.EditorStack@793c8370">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/hnad/HNADServiceInterface.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="13" selectionOffset="908" selectionTopPixel="62"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="663" selectionTopPixel="62"/>
 </editor>
 </editors>
 <views>
@@ -159,8 +154,7 @@
 </view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
-<expanded>
-<category IMemento.internal.id="Warnings (81 items)"/>
+<expanded>&#x0A;<category IMemento.internal.id="Warnings (81 items)"/>
 <category IMemento.internal.id="Warnings"/>
 <category IMemento.internal.id="Errors"/>
 </expanded>
@@ -313,7 +307,7 @@
 <view id="org.eclipse.mylyn.tasks.ui.views.tasks"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <fastViewBars>
-<fastViewBar fastViewLocation="1024" id="bottom" orientation="256" selectedTabId="com.android.ide.eclipse.ddms.views.LogCatView" style="0">
+<fastViewBar fastViewLocation="1024" id="bottom" orientation="256" selectedTabId="org.eclipse.ui.console.ConsoleView" style="0">
 <fastViews>
 <view id="org.eclipse.ui.views.ProblemView" ratio="0.2994709"/>
 <view id="org.eclipse.jdt.ui.JavadocView" ratio="0.3"/>
@@ -479,7 +473,7 @@
 </folder>
 </info>
 </mainWindow>
-<detachedWindow height="503" width="716" x="1681" y="29">
+<detachedWindow height="503" width="632" x="1681" y="29">
 <folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
 <page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
 <page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
@@ -493,7 +487,7 @@
 </presentation>
 </folder>
 </detachedWindow>
-<detachedWindow height="599" width="1681" x="1679" y="448">
+<detachedWindow height="531" width="1681" x="1679" y="516">
 <folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
 <page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -501,7 +495,7 @@
 </presentation>
 </folder>
 </detachedWindow>
-<detachedWindow height="562" width="848" x="2495" y="29">
+<detachedWindow height="1050" width="677" x="2683" y="0">
 <folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
 <page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
@@ -519,157 +513,147 @@
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/misc/XbeeAPI.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/UsbCommManager.java"/>
-<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;java.lang(Thread.class"/>
 </editors>
 <item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5272" y="0"/>
+<position info="not_deleted" x="5703" y="0"/>
 </item>
 <item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5589" y="0"/>
+<position info="not_deleted" x="5493" y="0"/>
 </item>
 <item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5272" y="0"/>
+<position info="not_deleted" x="5206" y="0"/>
 </item>
 <item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5589" y="0"/>
+<position info="not_deleted" x="5436" y="0"/>
 </item>
 <item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5272" y="0"/>
+<position info="not_deleted" x="5436" y="0"/>
 </item>
 <item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5589" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5272" y="0"/>
+<position info="not_deleted" x="5158" y="0"/>
 </item>
 <item historyLabel="UsbCommManager.java" index="1">
-<position info="not_deleted" x="6288" y="0"/>
+<position info="not_deleted" x="6083" y="0"/>
 </item>
 <item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5272" y="0"/>
+<position info="not_deleted" x="5438" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5455" y="36"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5255" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5525" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5129" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5030" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5259" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5251" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5491" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5643" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5255" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5196" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5453" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5164" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5537" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5493" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5116" y="0"/>
 </item>
 <item historyLabel="UsbCommManager.java" index="1">
-<position info="not_deleted" x="6320" y="0"/>
+<position info="not_deleted" x="6100" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5164" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5517" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5584" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5539" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5689" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5539" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5436" y="0"/>
+</item>
+<item historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5255" y="0"/>
 </item>
 <item historyLabel="UsbCommManager.java" index="1">
-<position info="not_deleted" x="6275" y="0"/>
+<position info="not_deleted" x="6274" y="0"/>
 </item>
-<item historyLabel="Thread.class" index="2">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="UsbCommManager.java" index="1">
-<position info="not_deleted" x="6325" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5272" y="0"/>
-</item>
-<item historyLabel="UsbCommManager.java" index="1">
-<position info="not_deleted" x="6325" y="0"/>
-</item>
-<item historyLabel="UsbCommManager.java" index="1">
-<position info="not_deleted" x="6190" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5623" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="4659" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="4652" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="4651" y="0"/>
-</item>
-<item historyLabel="UsbCommManager.java" index="1">
-<position info="not_deleted" x="6190" y="0"/>
-</item>
-<item historyLabel="UsbCommManager.java" index="1">
-<position info="not_deleted" x="6325" y="0"/>
-</item>
-<item historyLabel="UsbCommManager.java" index="1">
-<position info="not_deleted" x="6307" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="4145" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="4631" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="4663" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="4675" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="4692" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="4115" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5589" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5451" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5175" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5671" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5175" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5270" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5225" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5254" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5272" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5356" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5384" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5671" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5175" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5272" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="4612" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5272" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="4612" y="17"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5272" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5505" y="0"/>
-</item>
-<item historyLabel="XbeeAPI.java" index="0">
-<position info="not_deleted" x="5272" y="0"/>
-</item>
-<item active="true" historyLabel="UsbCommManager.java" index="1">
-<position info="not_deleted" x="5956" y="0"/>
+<item active="true" historyLabel="XbeeAPI.java" index="0">
+<position info="not_deleted" x="5526" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -690,35 +674,14 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="Thread.class" tooltip="java.lang.Thread">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;java.lang(Thread.class"/>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="Handler.class" tooltip="android.os.Handler">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;android.os(Handler.class"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.menu.MenuEditor" name="device_info_menu.xml" tooltip="HNAD/res/menu/device_info_menu.xml">
-<persistable path="/HNAD/res/menu/device_info_menu.xml"/>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="FileInputStream.class" tooltip="java.io.FileInputStream">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;java.io(FileInputStream.class"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.menu.MenuEditor" name="devicelist_menu.xml" tooltip="HNAD/res/menu/devicelist_menu.xml">
-<persistable path="/HNAD/res/menu/devicelist_menu.xml"/>
-</file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="InvocationTargetException.class" tooltip="java.lang.reflect.InvocationTargetException">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;java.lang.reflect(InvocationTargetException.class"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MsgType.java" tooltip="ICD/src/cste/icd/MsgType.java">
-<persistable path="/ICD/src/cste/icd/MsgType.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceType.java" tooltip="ICD/src/cste/icd/DeviceType.java">
-<persistable path="/ICD/src/cste/icd/DeviceType.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IcdHeader.java" tooltip="ICD/src/cste/messages/IcdHeader.java">
-<persistable path="/ICD/src/cste/messages/IcdHeader.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CsdMessageHandler.java" tooltip="HNAD/src/cste/hnad/CsdMessageHandler.java">
-<persistable path="/HNAD/src/cste/hnad/CsdMessageHandler.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UsbCommManager.java" tooltip="HNAD/src/cste/android/core/UsbCommManager.java">
-<persistable path="/HNAD/src/cste/android/core/UsbCommManager.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NADABroadcaster.java" tooltip="HNAD/src/cste/android/core/NADABroadcaster.java">
-<persistable path="/HNAD/src/cste/android/core/NADABroadcaster.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="HNAD/AndroidManifest.xml">
+<persistable path="/HNAD/AndroidManifest.xml"/>
 </file>
 </mruList>
 </workbench>

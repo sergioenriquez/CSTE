@@ -94,8 +94,8 @@ public class XbeeAPI {
 		
 		if( needAck ){
 			if ( txResult ){
-				txTable.put(nextFrameAck,  new RetryTxItem(nextFrameAck, frame, dest) );
-				nextFrameAck++;
+				//txTable.put(nextFrameAck,  new RetryTxItem(nextFrameAck, frame, dest) );
+				//nextFrameAck++;
 			}else{
 				Toast.makeText(mHnadService.getContext(), "USB interface not availible", Toast.LENGTH_SHORT).show();
 				mHnadService.onRadioTransmitResult(false,dest);
@@ -115,9 +115,11 @@ public class XbeeAPI {
 			return tmp.array(); // only 64bit address supported 
 
 		tmp.put(CMD_64BIT);
-		tmp.put( needAck ? nextFrameAck : (byte)0);
+		//tmp.put( needAck ? nextFrameAck : (byte)0);
+		tmp.put((byte)0);
 		tmp.put(dest);
-		tmp.put( needAck ? ACK_REQ : NO_ACK);
+		//tmp.put( needAck ? ACK_REQ : NO_ACK);
+		tmp.put( NO_ACK);
 		tmp.put(msg);
 		
 		byte sum = 0x00;
@@ -183,12 +185,24 @@ public class XbeeAPI {
 	 * @param msg
 	 * @return
 	 */
-	public static void parseFrame(byte[] msg,int sizeIn)
-	{
+	public static void parseFrame(byte[] msg,int sizeIn){
+		if( sizeIn < 3)
+			return;
+		
+		
 		ByteBuffer temp = ByteBuffer.allocate(sizeIn);
+		ByteBuffer data = ByteBuffer.allocate(sizeIn);
 		temp.put(msg, 0, sizeIn);
+		Arrays.fill(msg, (byte)0);
 		temp.rewind();
-		ByteBuffer data = ByteBuffer.allocate(temp.capacity());
+
+		temp.get();
+		short frameSize = temp.getShort();
+		if( frameSize > sizeIn || frameSize > 64){
+			Log.w(TAG, "Test");
+		}
+		temp.rewind();
+		
 		//remove escape chars
 		for(int i=0;i<sizeIn;i++){
 			byte c = temp.get();
@@ -203,13 +217,16 @@ public class XbeeAPI {
 		
 		data.rewind();
 		
-//		if ( !checksumOK(data) ){
-//			Log.w(TAG, "Received Xbee frame with bad checksum");
-//			return;
-//		}
+		if(sizeIn>=63)
+			Log.w(TAG, "Test 2");
+		
+		if ( !checksumOK(data) ){
+			Log.w(TAG, "Received Xbee frame with bad checksum");
+			return;
+		}
 		
 		data.get();//remove delimeter
-		short frameSize = data.getShort();
+		frameSize = data.getShort();
 		byte type = data.get();
 		
 		short addrSize;
@@ -217,8 +234,7 @@ public class XbeeAPI {
 			addrSize = 8;
 		else if(type == RX_16BIT)
 			addrSize = 2;
-		else if( type == TX_STATUS)
-		{
+		else if( type == TX_STATUS){
 			byte frameACK = data.get();
 			byte txStatus = data.get();
 			if(txStatus != 0x00 )
@@ -240,8 +256,7 @@ public class XbeeAPI {
 		
 		short payloadSize = (short) (frameSize-addrSize-3);
 
-		if( payloadSize > 0)
-		{
+		if( payloadSize > 0){
 			byte[] payload = new byte[payloadSize];
 			data.get(payload);
 			mHnadService.onFrameReceived(new XbeeFrame(type,rssi,opt,source,payload));

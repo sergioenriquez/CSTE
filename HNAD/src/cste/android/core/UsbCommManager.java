@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import org.bouncycastle2.util.Arrays;
+
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -209,15 +211,27 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 		@Override
 		public void run() {
 			int ret = 0;
-			byte[] buffer = new byte[1024];
+			byte[] buffer = new byte[512];
 			while (mAccessory != null && ret >= 0) {
 				try {
+					//Arrays.fill(buffer, (byte)0);
 					ret = mInputStream.read(buffer);
+//					if( ret >= 60){
+//						//Thread.sleep(5);
+//						Log.w(TAG, "Max pkt size rec, waiting for rest...");
+//						int read = mInputStream.read(buffer, ret, 64);
+//						ret += read;
+//						Log.w(TAG, "...received");
+////						if( mInputStream.available() > 0){
+////							
+////						}
+//					}
 				} catch (IOException e) {
 					Log.e(TAG,"I/O Error");
 					closeAccessory();
 					break;
 				}
+				//catch (InterruptedException e) {}
 				
 				if(ret>0)
 				{

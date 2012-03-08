@@ -69,7 +69,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ecocdetails);
-        
+        pd = new ProgressDialog(this);
         mECoCDev = getIntent().getParcelableExtra("device"); 
        
         mDeviceUIDTxt =  (TextView)findViewById(R.id.devUID);
@@ -146,7 +146,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 	@Override
 	protected void onCoreServiceCBound(){
 		mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_RESTRICTED_STATUS);
-		showProgressDialog("Requesting Device Information");
+		//showProgressDialog("Requesting Device Information");
 	}
 
 	@Override
@@ -182,11 +182,11 @@ public class ECoCInfoActivity extends HnadBaseActivity {
         switch (item.getItemId()) {
         case R.id.refresh:
         	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_RESTRICTED_STATUS);
-    		showProgressDialog("Requesting Device Information");
+    		//showProgressDialog("Requesting Device Information");
         	return true;
         case R.id.viewEventLog:
         	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_EVENT_LOG);
-    		showProgressDialog("Requesting Event Log");
+    		//showProgressDialog("Requesting Event Log");
             return true;
         case R.id.clearAlarm:
 
@@ -207,6 +207,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
         	AlertDialog.Builder alert = new AlertDialog.Builder(this);
         	input = new EditText(this);
         	input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        	input.setText(Integer.toString(mECoCDev.txAscension));
         	alert.setView(input);
         	alert.setTitle("Enter the new tx assension val");
         	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {

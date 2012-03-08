@@ -9,7 +9,9 @@
 #include <avr/wdt.h>
 #include <adk.h>
 
+
 USB Usb;
+
 
 ADK adk(&Usb,
         "CSTE Project",
@@ -31,51 +33,45 @@ void toggleLED();
 
 void setup()
 {
+ // pinMode(10, OUTPUT);     
+  //digitalWrite(10, HIGH);   // set the LED on
   //wdt_disable();
   //wdt_reset();
   Serial.begin(115200);
-  
+
   while(Usb.Init() == -1) 
     delay( 100 );  
 }
 
 uint8_t msg[256] = { 0x00 };
+int test = 0;
+uint16_t len = 128;
+uint8_t rcode;
 
 void loop()
 {
-  //wdt_reset();
-  
-  uint8_t rcode;
-  uint16_t len = 128;
-
   Usb.Task();
-  
   if( adk.isReady() == true )
   {
     //pass data from android to zigbee
+    
+    len = 128;
     rcode = adk.RcvData(&len,msg);
     if(len>0)
       Serial.write(msg,len);
-        
-    // pass data from zigbee to android
-    len = 0;
-    while(Serial.available())
-      msg[len++] = Serial.read();
+    
+
+    len = 0; 
+    //while(Serial.available() && len < 256)
+    //{ 
+      while(Serial.available())
+          msg[len++] = Serial.read();
+      //delay(1);       
+    //}
+    
     if(len>0)
-    {
-      int total = len;
-      adk.SndData(len,msg);
-      if( total > 64 ){
-        adk.SndData(total-64,msg+64);
-      }
-    }
+          adk.SndData(len+1,msg); 
   } 
-  else
-  {
-      //wdt_enable(WDTO_4S);
-      //wdt_reset();
-  }
-  
-  delay( 5 );     
+  delay( 0 );     
 }
 

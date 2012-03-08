@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.logging.Logger"/>
 <fullyQualifiedTypeName name="java.util.logging.Level"/>
 <fullyQualifiedTypeName name="cste.icd.UnrestrictedCmdType"/>
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteOpenHelper"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="android.content.DialogInterface"/>
 <fullyQualifiedTypeName name="android.text.InputType"/>
+<fullyQualifiedTypeName name="org.bouncycastle2.util.Arrays"/>
 </qualifiedTypeNameHistroy>

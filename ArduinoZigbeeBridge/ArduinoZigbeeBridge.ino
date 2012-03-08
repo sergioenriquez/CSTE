@@ -11,24 +11,19 @@ AndroidAccessory acc("CSTE Project",
 		     "http://www.android.com",
 		     "0000000012345678");
 
-int sensorPin = A0;    // select the input pin for the potentiometer
-int ledPin = 13;      // select the pin for the LED
-
-int sensorValue = 0;  // variable to store the value coming from the sensor
-
 void setup() {
-  Serial.begin(115200);
   acc.powerOn();
-  pinMode(ledPin, OUTPUT);  
+  Serial.begin(115200);
 }
 
-void loop() {
+void loop() 
+{
   byte msg[128];
   int len;
   
-  if (acc.isConnected()) {
-    digitalWrite(ledPin, HIGH);
-    
+  if (acc.isConnected()) 
+  {
+
     // pass data from zigbee to android
     len = 0;
     while(Serial.available()){
@@ -43,8 +38,6 @@ void loop() {
       Serial.write(msg,len);
     
     delay(1);
-  }else {
-    digitalWrite(ledPin, LOW);
   }
-  delay(10);                  
+  delay(5);                  
 }

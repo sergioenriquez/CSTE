@@ -63,7 +63,7 @@ public final class R {
         public static final int authUserLink=0x7f090022;
         public static final int clearAlarm=0x7f090028;
         public static final int commisionFailedBox=0x7f090019;
-        public static final int commission=0x7f09002b;
+        public static final int commission=0x7f09002a;
         public static final int configFailedBox=0x7f090020;
         public static final int configMalfunctionBox=0x7f090017;
         public static final int conveyanceID=0x7f090011;
@@ -77,7 +77,7 @@ public final class R {
         public static final int devicetype=0x7f09000a;
         public static final int devicevisible=0x7f090008;
         public static final int ecryptionOn=0x7f090005;
-        public static final int erase=0x7f090029;
+        public static final int erase=0x7f09002b;
         public static final int eventlog=0x7f09002f;
         public static final int exit=0x7f090033;
         public static final int ftpServer=0x7f090004;
@@ -91,12 +91,12 @@ public final class R {
         public static final int nadaRate=0x7f090006;
         public static final int offCourseBox=0x7f090015;
         public static final int offScheduleBox=0x7f090016;
-        public static final int refresh=0x7f090027;
+        public static final int refresh=0x7f090026;
         public static final int remember=0x7f090025;
         public static final int rssiVal=0x7f09000e;
         public static final int sensorEnableFailedBox=0x7f090021;
         public static final int sensorMalfunctionBox=0x7f09001b;
-        public static final int setTrip=0x7f09002a;
+        public static final int setTrip=0x7f090029;
         public static final int settings=0x7f09002d;
         public static final int tableLayout1=0x7f090000;
         public static final int tableLayout3=0x7f090012;
@@ -104,7 +104,7 @@ public final class R {
         public static final int thisUID=0x7f090001;
         public static final int timeNotSetBox=0x7f09001a;
         public static final int upload=0x7f090030;
-        public static final int viewEventLog=0x7f090026;
+        public static final int viewEventLog=0x7f090027;
         public static final int viewkeys=0x7f090032;
         public static final int viewtrip=0x7f090031;
     }
