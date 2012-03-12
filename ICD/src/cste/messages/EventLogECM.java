@@ -1,15 +1,15 @@
 package cste.messages;
 
-import java.io.UnsupportedEncodingException;
+
 import java.nio.ByteBuffer;
 
 import cste.icd.EventLogType;
 import cste.icd.IcdTimestamp;
 
 public class EventLogECM extends EventLogICD{
-	public static final int SECTION_SIZE = 61;
+	public static final int SECTION_SIZE = 63;
 	
-	public byte ackAscNum;
+	public byte reserved;
 	public byte operatingMode;
 	public byte restrictedStatus;
 	public byte restrictedError;
@@ -20,7 +20,7 @@ public class EventLogECM extends EventLogICD{
 	@Override
 	public String getStatusStr(){
 		StringBuilder str = new StringBuilder();
-		str.append(ackAscNum); str.append(',');
+		str.append(reserved); str.append(',');
 		str.append(operatingMode);str.append(',');
 		str.append(restrictedStatus);str.append(',');
 		str.append(restrictedError);str.append(',');
@@ -46,7 +46,7 @@ public class EventLogECM extends EventLogICD{
 		this.eventType = EventLogType.fromValue(eventType);
 		this.timeStamp = timeStamp;
 		ByteBuffer b = ByteBuffer.wrap(eventData);
-		ackAscNum = b.get();
+		reserved = b.get();
 		operatingMode = b.get();
 		restrictedStatus = b.get();
 		restrictedError = b.get();
@@ -59,9 +59,11 @@ public class EventLogECM extends EventLogICD{
 
 	public EventLogECM(ByteBuffer b) {
 		ackNo = b.get();
+		logRecordNum = b.getShort();
 		eventType = EventLogType.fromValue(b.get());
 		timeStamp = new IcdTimestamp(b);
-		ackAscNum = b.get();
+		//status section
+		reserved = b.get();
 		operatingMode = b.get();
 		restrictedStatus = b.get();
 		restrictedError = b.get();
@@ -75,9 +77,10 @@ public class EventLogECM extends EventLogICD{
 	public byte[] getBytes() {
 		ByteBuffer b = ByteBuffer.allocate(SECTION_SIZE);
 		b.put(ackNo);
+		b.putShort(logRecordNum);
 		b.put(eventType.getBytes());
 		b.put(timeStamp.getBytes());
-		b.put(ackAscNum);
+		b.put(reserved);
 		b.put(operatingMode);
 		b.put(restrictedStatus);
 		b.put(restrictedError);
@@ -101,7 +104,7 @@ public class EventLogECM extends EventLogICD{
 	@Override
 	public byte[] getStatusSection() {
 		ByteBuffer b = ByteBuffer.allocate(SECTION_SIZE);
-		b.put(ackAscNum);
+		b.put(reserved);
 		b.put(operatingMode);
 		b.put(restrictedStatus);
 		b.put(restrictedError);

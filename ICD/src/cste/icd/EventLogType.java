@@ -12,7 +12,10 @@ public enum EventLogType {
 	CHANGE_IN_STATUS_BY_COMMAND_ECM 	((byte)0x12,"Status change not by cmd"),
 	CHANGE_IN_ALARM_STATUS_ECM 			((byte)0x13,"Alarm status change"),
 	FAULT_DETECTION_ECM 				((byte)0x14,"Fault detection"),
+	CMD_RECEIVED		 				((byte)0x15,"Cmd Rec"),
+	GPS_LOGGGING							((byte)0x16,"GPS Logging"),
 	
+	INVALID_CMD			 				((byte)0x80,"Invalid Cmd"),
 	INVALID 							((byte)0xee,"INVALID"),
 	END_OF_RECORDS 						((byte)0xff,"END OF RECORDS");
 

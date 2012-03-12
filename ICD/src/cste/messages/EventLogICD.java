@@ -5,8 +5,9 @@ import cste.icd.IcdTimestamp;
 
 public abstract class EventLogICD extends IcdPayload{
 	public byte ackNo;
-	public IcdTimestamp timeStamp;
+	public short logRecordNum;
 	public EventLogType eventType;
+	public IcdTimestamp timeStamp;
 	
 	public abstract byte[] getStatusSection();
 	

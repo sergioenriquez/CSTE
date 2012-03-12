@@ -15,6 +15,7 @@ public enum MsgType{			//code, isEncrypted
 	DEV_CMD_RESTRICTED			((byte)0xC1,true),
 	DEV_TO_SENSOR_RESTRICTED_CMD((byte)0xC2,true),
 	ENCRYPYION_REKEY			((byte)0xE0,true),
+	NULL_MESSSAGE				((byte)0x82,false),
 	// 0xE1 - 0xE9 reserved for key management
 	NADA_MSG					((byte)0xFF,false),
 	INVALID						((byte)0xFE,false);
