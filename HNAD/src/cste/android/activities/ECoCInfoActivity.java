@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.InputType;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -24,7 +25,7 @@ import cste.android.core.HNADService.Events;
 import cste.components.ComModule;
 import cste.hnad.EcocDevice;
 import cste.icd.DeviceUID;
-import cste.messages.ECoCRestrictedStatus;
+import cste.messages.RestrictedStatusECM;
 import static cste.icd.Utility.strToHex;
 import static cste.icd.Utility.hexToStr;;
 
@@ -123,7 +124,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 		mAckNoTxt.setText(String.valueOf(mECoCDev.rxAscension));
 		mDeviceRSSITxt.setText("-" + String.valueOf(mECoCDev.rssi) + " db");
 
-		ECoCRestrictedStatus status = (ECoCRestrictedStatus)mECoCDev.getRestrictedStatus();
+		RestrictedStatusECM status = (RestrictedStatusECM)mECoCDev.getRestrictedStatus();
 		if( status == null)
 			return;
 		
@@ -192,8 +193,13 @@ public class ECoCInfoActivity extends HnadBaseActivity {
     		showProgressDialog("Requesting Device Information");
         	return true;
         case R.id.viewEventLog:
-        	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_EVENT_LOG);
-    		showProgressDialog("Requesting Event Log");
+        	//mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_EVENT_LOG);
+    		//showProgressDialog("Requesting Event Log");
+    		// do this on event log screen
+    		Intent intent = new Intent(getApplicationContext(), EventLogECMActivity.class);
+    		intent.putExtra("device", (Parcelable) mECoCDev);
+    		
+    		startActivity(intent);
             return true;
         case R.id.clearAlarm:
 

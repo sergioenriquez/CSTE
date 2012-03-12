@@ -56,7 +56,7 @@
                   android:label="@string/eventlog_title">
         </activity>
         
-        <activity android:name=".activities.EventLogDeviceActivity"
+        <activity android:name=".activities.EventLogECMActivity"
                   android:label="@string/eventlog_title">
         </activity>
         

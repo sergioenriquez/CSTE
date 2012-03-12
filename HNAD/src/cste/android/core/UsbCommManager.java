@@ -257,8 +257,12 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 				pendingTxList.add(message);
 				return true;
 			}
-			else
-				Log.w(TAG, "USB Tx queue is full, msg discarded");
+			else{
+				Log.w(TAG, "USB Tx queue is full, clearing back log");
+				pendingTxList.clear();
+				pendingTxList.add(message);
+				return true;
+			}
 		}
 		
 		return false;

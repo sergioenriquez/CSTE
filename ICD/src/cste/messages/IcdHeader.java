@@ -7,47 +7,17 @@ import cste.icd.DeviceUID;
 import cste.icd.MsgType;
 
 public class IcdHeader {
-	public static final int ICD_HEADER_LENGTH = 16;
-	public static final int ICD_NONCE_LENGTH = 8;
+	public static final int SECTION_SIZE = 16;
 	
-	final DeviceType devType;
-	final MsgType msgType;
-	final byte msgLen;
-	final DeviceUID devUID;
-	
-	final byte icdRev;
-	final int msgAsc;
-	
-	public MsgType getMsgType(){
-		return msgType;
-	}
-	
-	public DeviceType getDevType(){
-		return devType;
-	}
-	
-	public DeviceUID getDevUID(){
-		return devUID;
-	}
-	
-	public int getPayloadSize(){
-		return msgLen;
-	}
-	
-	public int getHdrSize(){
-		return ICD_HEADER_LENGTH;
-	}
-	
-	public int getIcdRev(){
-		return icdRev;
-	}
-	
-	public int getMsgAsc(){
-		return msgAsc;
-	}
-	
+	public final DeviceType devType;
+	public final MsgType msgType;
+	public final byte payloadSize;
+	public final DeviceUID devUID;
+	public final byte icdRev;
+	public int msgAsc;
+
 	public static IcdHeader fromBuffer( ByteBuffer b) {
-		if ( b.capacity() >= ICD_HEADER_LENGTH){
+		if ( b.capacity() >= SECTION_SIZE){
 			DeviceType devType = DeviceType.fromValue(b.get());
 			MsgType msgType = MsgType.fromValue(b.get());
 			byte msgLen = b.get();
@@ -78,7 +48,7 @@ public class IcdHeader {
 			){
 		this.devType = devType;
 		this.msgType = msgType;
-		this.msgLen = msgLen;
+		this.payloadSize = msgLen;
 		this.devUID = devUID;
 		this.icdRev = icdRev;
 		this.msgAsc = msgAsc;
@@ -93,17 +63,17 @@ public class IcdHeader {
 		ByteBuffer b = ByteBuffer.allocate(8);
 		b.put(devType.getBytes());
 		b.put(msgType.getBytes());
-		b.put(msgLen);
+		b.put(payloadSize);
 		b.put(icdRev);
 		b.putInt(msgAsc);
 		return b.array();
 	}
 	
 	public byte[] getBytes(){
-		ByteBuffer b = ByteBuffer.allocate(ICD_HEADER_LENGTH);
+		ByteBuffer b = ByteBuffer.allocate(SECTION_SIZE);
 		b.put(devType.getBytes());
 		b.put(msgType.getBytes());
-		b.put(msgLen);
+		b.put(payloadSize);
 		b.put(devUID.getBytes());
 		b.put(icdRev);
 		b.putInt(msgAsc);

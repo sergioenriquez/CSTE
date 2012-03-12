@@ -48,11 +48,6 @@ public class EcocDevice extends ECoC implements Parcelable{
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		//dest.writeString(devUID.toString());
-		//dest.writeByte(devType.getBytes());
-		//dest.writeInt(rxAscension);
-		//dest.writeInt(txAscension);
-		//dest.writeByte(rssi);
 		byte []content = serialize(this);
 		if( content == null){
 			Log.e(TAG,"Unable to serialize object");
@@ -61,7 +56,5 @@ public class EcocDevice extends ECoC implements Parcelable{
 		int size = content.length;
 		dest.writeInt(size);
 		dest.writeByteArray(serialize(this));
-		//dest.writeByte(errorCode);
-		//dest.writeByteArray(statusData);
 	}
 }

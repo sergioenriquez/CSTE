@@ -2,6 +2,8 @@ package cste.icd;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -15,8 +17,7 @@ public class IcdTimestamp implements Serializable{
 	final byte second;
 	final byte secFrac;
 	
-	public IcdTimestamp(
-			ByteBuffer b){
+	public IcdTimestamp(ByteBuffer b){
 		this.month = b.get();
 		this.day = b.get();
 		this.year = b.get();
@@ -25,6 +26,10 @@ public class IcdTimestamp implements Serializable{
 		this.minute = b.get();
 		this.second = b.get();
 		this.secFrac = b.get();
+	}
+	
+	public IcdTimestamp(byte [] data){
+		this(ByteBuffer.wrap(data));
 	}
 	
 	public IcdTimestamp(
@@ -78,8 +83,7 @@ public class IcdTimestamp implements Serializable{
 		return new IcdTimestamp(month,day,year,weekday,hour,minute,second,secFrac);
 	}
 	
-	public byte[] getBytes()
-	{
+	public byte[] getBytes(){
 		ByteBuffer temp = ByteBuffer.allocate(8);
 		temp.put(month);
 		temp.put(day);
@@ -90,5 +94,12 @@ public class IcdTimestamp implements Serializable{
 		temp.put(second);
 		temp.put(secFrac);
 		return temp.array();
+	}
+	
+	public String toString(){
+		
+		DateFormat df = new SimpleDateFormat("MMM dd, HH:mm:ss");
+		Date date = toCalendar().getTime(); 
+		return df.format(date);
 	}
 }

@@ -49,8 +49,7 @@ public class LoginActivity extends HnadBaseActivity {
     }
     
     @Override
-    protected void onCoreServiceCBound()
-	{
+    protected void onCoreServiceCBound(){
     	//load saved settings
     	SharedPreferences settings = mHnadCoreService.getSettingsFile();
     	String username = settings.getString(SettingsKey.THIS_UID,"0013A20040715FD8");
@@ -60,6 +59,9 @@ public class LoginActivity extends HnadBaseActivity {
     	usernameText.setText(username);
     	passwordText.setText(password);
     	rememberLoginBox.setChecked(rememberPassword);
+
+    	//TEMP 
+    	//mHnadCoreService.test();
 	}
     
     @Override

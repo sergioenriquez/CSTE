@@ -35,9 +35,7 @@ public class CsdMessageHandler extends Handler {
 			byte[] rawData = msg.getData().getByteArray("content");
 			int size = msg.getData().getInt("size");
 			XbeeAPI.parseFrame(rawData,size);
-			//ZigbeeFrame pkt = XbeeAPI.parseFrame(rawData);
-			//mHnadCore.onPacketReceived(pkt);
-			Log.i(TAG,"Pkt from ");
+			//Log.i(TAG,"Pkt from ");
 			break;
 		default:
 			Log.w(TAG,"Unknown message type");

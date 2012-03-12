@@ -33,17 +33,22 @@ import cste.hnad.EcocDevice;
 import cste.hnad.HNADServiceInterface;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
+import cste.icd.EventLogType;
 import cste.icd.MsgType;
 import cste.icd.EcocCmdType;
 import cste.icd.IcdTimestamp;
 import cste.icd.UnrestrictedCmdType;
 import cste.interfaces.KeyProvider;
+import cste.messages.EventLogICD;
 import cste.messages.IcdMsg;
 import cste.messages.RestrictedStatus;
+import cste.misc.IcdTxItem;
 import cste.misc.XbeeAPI;
 import cste.misc.XbeeFrame;
 import static cste.icd.Utility.strToHex;
 
+import org.apache.commons.collections.map.LinkedMap;
+import org.apache.commons.collections.map.MultiKeyMap;
 /***
  * 
  * @author Sergio Enriquez
@@ -73,8 +78,24 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 
 	private SharedPreferences settings;// = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
 
+	@Override
+	public void test(){
+		//db.storeDevLog(new DeviceUID("0013A20040715FD8"), IcdTimestamp.now() , EventLogType.CHANGE_IN_ALARM_STATUS_CSD, new byte[61]);
+	}
+	
+	@Override
 	public Hashtable<DeviceUID,ComModule> getDeviceList(){
 		return mDevTable;
+	}
+	
+	@Override
+	public void deleteDeviceLogs(DeviceUID devUID){
+		db.deleteDevLogRecords(devUID);
+	}
+	
+	@Override
+	public ArrayList<EventLogICD> getDeviceEventLog(DeviceUID devUID){
+		return db.getDevLogRecords(devUID);
 	}
 
 	@Override
@@ -94,7 +115,8 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		
 		settings = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
 		loadSettings();//TODO X
-		//mDevTable.put("0013A20040715FD8", new EcocDevice(new DeviceUID("0013A20040715FD8")));
+		//mDevTable.put(new DeviceUID("0013A20040715FD8"), new EcocDevice(new DeviceUID("0013A20040715FD8")));
+		
 		//mDeviceMap.put("0013A20040760BB4", new Device(new DeviceUID("0013A20040760BB4"),DeviceType.ACSD));
 		//devTable.put("0013A200406BE0C3", new EcocDevice(new DeviceUID("0013A200406BE0C3")));
 	}
@@ -157,7 +179,16 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 
 	}
 	
-	
+    @Override 
+    public void setDeviceAssensionVal(DeviceUID devUID, int val){
+    	ComModule destDev = this.mDevTable.get(devUID);
+		if( destDev == null){
+
+			return;
+		}
+		destDev.txAscension = val;
+		db.storeDevice(destDev);
+    }
 
 	@Override
 	public void sendDevCmd(DeviceUID destUID, DeviceCommands cmd) {
@@ -168,9 +199,12 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 			return;
 		}
 
-		byte []icdMsg = null;
+		IcdMsg icdMsg = null;
 		
 		switch(cmd){
+		case SEND_ACK:
+			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.ACK, (byte)destDev.rxAscension);
+			break;
 		case SET_TIME:
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.ST, IcdTimestamp.now());
 			break;
@@ -198,7 +232,11 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.NOP);
 			break;
 		case GET_EVENT_LOG:
-			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SL);
+			
+			if( db.getDevLogRecordCount(destUID) == 0 )
+				icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SL);
+			else
+				icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SLU);
 			break;
 		case CLEAR_EVENT_LOG:
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.EL);
@@ -208,22 +246,89 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		}
 
 		byte[] destAddrs = destDev.UID().getBytes();
-		XbeeAPI.transmitPkt(destAddrs,icdMsg);
+		if( !XbeeAPI.transmitPkt(destAddrs,icdMsg.getBytes()) )
+			notifyOfTransmissionResult(false,destUID); // if interface not available now
+		else{
+			//If interface is available, add entry to tx retransmit map
+			IcdTxItem txItem = new IcdTxItem(this,destDev.UID(),icdMsg);
+			short ackNo = (short) (destDev.txAscension & 0xFF);
+			Log.i(TAG,"Sent " + cmd.toString() + " , ACK: " + String.valueOf(ackNo));
+			IcdTxMap.put(destDev.UID(), ackNo, txItem);
+		}
+
 		destDev.pendingTxMsgCnt++;
 		destDev.txAscension++;
 	}
+	
+	@Override
+    public void onRadioTransmitResult(boolean result, DeviceUID destUID, short ackNo){
+    	EcocDevice dev =  (EcocDevice)mDevTable.get(destUID);
+    	if( dev == null){
+    		Log.e(TAG,"Missing device record for " + dev.toString());
+    		return;
+    	}
+
+    	IcdTxItem txItem = (IcdTxItem)IcdTxMap.get(destUID, ackNo);
+    	if( txItem == null){
+    		//Log.e(TAG, "Missing tx item for " + destUID.toString());
+    		//notifyOfTransmissionResult(result,destUID);
+    		return;
+    	}
+    	txItem.clearTimer();
+    	IcdTxMap.remove(destUID,ackNo);
+    	
+    	IcdMsg msgSent = txItem.msgSent;
+    	ComModule destDev = this.mDevTable.get(destUID);
+    	if( destDev == null){
+			Log.w(TAG, destUID.toString() + " not stored, cannot send command");
+			return;
+		}
+    	
+    	// if success
+    	//if failed
+    	if( result == false){
+    		Log.i(TAG,"Timeout for ACK: " + String.valueOf(ackNo));
+	    	if( txItem.retryAttempts > 5){
+	    		notifyOfTransmissionResult(false,destUID);
+	    		dev.pendingTxMsgCnt--;
+	    		
+	    		toast("No reply received from " + destUID.toString());
+	    		notifyOfTransmissionResult(false,destUID);
+	    	}else{
+	    		byte[] destAddrs = destUID.getBytes();
+	    		
+	    		msgSent.headerData.msgAsc = destDev.txAscension++;
+	    		short newAckNo = (short) (destDev.txAscension & 0xFF);
+	    		txItem.msgSent = msgSent;
+	    		XbeeAPI.transmitPkt(destAddrs, msgSent.getBytes()); 
+	    		IcdTxMap.put(destUID, newAckNo,txItem);
+	    		txItem.retryAttempts++;
+	    		txItem.restartTimer();
+	    	}
+    	}
+    }
+	
+	protected void notifyOfTransmissionResult(boolean success, DeviceUID destUID){
+		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG);
+    	intent.putExtra(Events.TRANSMISSION_RESULT, true);
+    	intent.putExtra("result", success);
+    	intent.putExtra("deviceUID", destUID);
+		sendBroadcast(intent);
+	}
+	
+	protected MultiKeyMap IcdTxMap =  MultiKeyMap.decorate(new LinkedMap(10));
 
     @Override
 	public void onFrameReceived(XbeeFrame frm) {
     	if( frm.type == XbeeAPI.RX_64BIT){
     		IcdMsg msg = IcdMsg.fromBytes(frm.payload);
-    		if( msg.getStatus() == IcdMsg.MsgStatus.OK){
-    			String key = msg.header().getDevUID().toString();
-    			EcocDevice deviceSrc = (EcocDevice)mDevTable.get(msg.header().getDevUID());
+    		if( msg.msgStatus == IcdMsg.MsgStatus.OK){
+    			String key = msg.headerData.devUID.toString();
+    			EcocDevice deviceSrc = (EcocDevice)mDevTable.get(msg.headerData.devUID);
 
     	    	if( deviceSrc == null ){
-    	    		deviceSrc = new EcocDevice( msg.header().getDevUID());
-    	    		mDevTable.put(msg.header().getDevUID(), deviceSrc);
+    	    		deviceSrc = new EcocDevice( msg.headerData.devUID);
+    	    		mDevTable.put(msg.headerData.devUID, deviceSrc);
 
     	    		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVLIST_CHANGED,key);
     	    		sendBroadcast(intent);
@@ -236,53 +341,48 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     			Log.w(TAG,"Received ICD msg with an error: " + msg.msgStatus.name());
     	}
 	}
-    @Override 
-    public void setDeviceAssensionVal(DeviceUID devUID, int val){
-    	ComModule destDev = this.mDevTable.get(devUID);
-		if( destDev == null){
 
-			return;
-		}
-		destDev.txAscension = val;
-		db.storeDevice(destDev);
-    }
-    
     /***
      * 
      * @param msg
      */
     private void handleIcdMsg(IcdMsg msg, ComModule deviceSrc)
     {
+    	deviceSrc.rxAscension = msg.headerData.msgAsc;
     	//TODO log this event
-    	switch(msg.header().getMsgType()){
+    	switch(msg.headerData.msgType){
     	case RESTRICTED_STATUS_MSG:
-    		deviceSrc.setRestrictedStatus((RestrictedStatus)msg.payload());
+    		RestrictedStatus status = (RestrictedStatus)msg.payload;
+    		deviceSrc.setRestrictedStatus((RestrictedStatus)msg.payload);
+    		onRadioTransmitResult(true,deviceSrc.UID(),status.ackNo);
+    		
+    		notifyOfTransmissionResult(true, deviceSrc.UID());
+    		break;
+    	case DEVICE_EVENT_LOG:
+    		EventLogICD logRecord = (EventLogICD)msg.payload;
+    		short ackNo = (short) (logRecord.ackNo & 0xFF);
+    		Log.i(TAG,"Received record, ACK " + String.valueOf(ackNo));
+    		onRadioTransmitResult(true,deviceSrc.UID(),ackNo);
+    		sendDevCmd(deviceSrc.UID(),DeviceCommands.SEND_ACK);
+    		db.storeDevLog(deviceSrc.UID(), logRecord);
+    		
+    		if( logRecord.eventType == EventLogType.END_OF_RECORDS)
+    			notifyOfTransmissionResult(true, deviceSrc.UID());
+    		break;
+    	case UNRESTRICTED_STATUS_MSG:
+    		//TODO use this data
+    		//no retransmission entry was created for this reply, do nothing
+    		//onRadioTransmitResult(true,deviceSrc.UID(), (byte)0);
     		break;
     		default:
     	}
     	
-    	deviceSrc.rxAscension = msg.header().getMsgAsc();
     	Intent testIntent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVICE_INFO_CHANGED,false);
 		testIntent.putExtra("deviceUID",deviceSrc.UID());
 		sendBroadcast(testIntent);
     }
     
-    @Override
-    public void onRadioTransmitResult(boolean success, byte[] destination){
-    	DeviceUID destUID = DeviceUID.fromByteArray(destination);
-    	
-    	EcocDevice dev =  (EcocDevice)mDevTable.get(destUID);
-    	if( dev == null)
-    		return;
-    	
-    	dev.pendingTxMsgCnt--;
-    	
-    	Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG);
-    	intent.putExtra(Events.TRANSMISSION_RESULT, true);
-    	intent.putExtra("result", success);
-    	intent.putExtra("deviceUID", destUID);
-		sendBroadcast(intent);
-    }
+    
     
     @Override
 	public ComModule getDeviceRecord(DeviceUID devUID){
@@ -431,6 +531,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	}
 	
 	public enum DeviceCommands{
+		SEND_ACK,
 		SET_TIME,
 		SET_TRIPINFO,
 		SET_WAYPOINTS,

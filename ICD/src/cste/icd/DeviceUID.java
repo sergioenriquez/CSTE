@@ -22,7 +22,7 @@ public class DeviceUID implements Serializable{
 	public static DeviceUID fromByteArray(byte[] arr){
 		return new DeviceUID(arr.clone());
 	}
-	
+
 	//TODO remove 
 	public static DeviceUID fromString(String uid){
 		byte[] temp = strToHex(uid);

@@ -21,6 +21,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import cste.android.R;
+import cste.android.core.HNADService.DeviceCommands;
 import cste.android.core.HNADService.Events;
 import cste.components.ComModule;
 import cste.hnad.EcocDevice;
@@ -132,11 +133,12 @@ public class DeviceListActivity extends HnadBaseActivity {
                 break;
             case R.id.logout:
             	mHnadCoreService.logout();
-            	Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+            	Intent logoutIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(logoutIntent);
             	finish();
                 break;
-            case R.id.eventlog:
+            case R.id.eventlog: // 
+            	
                 break;    
             case R.id.upload:
                 break;
@@ -156,11 +158,13 @@ public class DeviceListActivity extends HnadBaseActivity {
 	    ComModule cm = mDeviceListAdapter.getItem(info.position);
 	    
 	    switch (item.getItemId()) {
-	        case R.id.viewEventLog:
-	        	//info.position
-	            return true;
+		    case R.id.viewEventLog:
+	        	Intent eventLogIntent = new Intent(getApplicationContext(), EventLogECMActivity.class);
+	        	eventLogIntent.putExtra("device", (Parcelable) cm);
+	    		startActivity(eventLogIntent);
+	    		return true;
 	        case R.id.refresh:
-
+	        	mHnadCoreService.sendDevCmd(cm.UID(),DeviceCommands.GET_RESTRICTED_STATUS);
 	            return true;
 	        case R.id.clearAlarm:
 

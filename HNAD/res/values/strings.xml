@@ -5,11 +5,11 @@
     <string name="devlist_title">Known CM Devices</string>
     <string name="devdetails_title">CSD information</string>
     <string name="waypoints_title">Waypoint Configuration</string>
-    <string name="eventlog_title">Waypoint Configuration</string>
+    <string name="eventlog_title">Event Log</string>
     
     <string name="settings">NAD Settings</string>
     <string name="logout">Log Out</string>
-    <string name="eventlog">View Event Log</string>
+    <string name="eventlog">Event Log</string>
     <string name="exit">Exit Program</string>
     <string name="upload">Upload Data</string>
     <string name="viewtrip">Edit Trip Info</string>
