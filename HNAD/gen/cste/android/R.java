@@ -61,8 +61,9 @@ public final class R {
         public static final int authLoginBtn=0x7f090025;
         public static final int authPassword=0x7f090024;
         public static final int authUserLink=0x7f090023;
-        public static final int clear=0x7f090034;
+        public static final int clear=0x7f090036;
         public static final int clearAlarm=0x7f090029;
+        public static final int clearLog=0x7f09002f;
         public static final int commisionFailedBox=0x7f090019;
         public static final int commission=0x7f09002b;
         public static final int configFailedBox=0x7f090020;
@@ -80,8 +81,8 @@ public final class R {
         public static final int devicevisible=0x7f090008;
         public static final int ecryptionOn=0x7f090005;
         public static final int erase=0x7f09002c;
-        public static final int eventlog=0x7f090030;
-        public static final int exit=0x7f090035;
+        public static final int eventlog=0x7f090032;
+        public static final int exit=0x7f090037;
         public static final int ftpServer=0x7f090004;
         public static final int gpsLoc=0x7f090010;
         public static final int haspOpenBox=0x7f090014;
@@ -89,7 +90,7 @@ public final class R {
         public static final int invalidCommandBox=0x7f09001d;
         public static final int lockOpenBox=0x7f090013;
         public static final int logOverflowBox=0x7f09001e;
-        public static final int logout=0x7f09002f;
+        public static final int logout=0x7f090031;
         public static final int nadaRate=0x7f090006;
         public static final int offCourseBox=0x7f090015;
         public static final int offScheduleBox=0x7f090016;
@@ -98,17 +99,18 @@ public final class R {
         public static final int rssiVal=0x7f09000e;
         public static final int sensorEnableFailedBox=0x7f090021;
         public static final int sensorMalfunctionBox=0x7f09001b;
+        public static final int setTime=0x7f09002e;
         public static final int setTrip=0x7f09002a;
-        public static final int settings=0x7f09002e;
+        public static final int settings=0x7f090030;
         public static final int tableLayout1=0x7f090000;
         public static final int tableLayout3=0x7f090012;
         public static final int textView6=0x7f09000d;
         public static final int thisUID=0x7f090001;
         public static final int timeNotSetBox=0x7f09001a;
-        public static final int upload=0x7f090031;
+        public static final int upload=0x7f090033;
         public static final int viewEventLog=0x7f090028;
-        public static final int viewkeys=0x7f090033;
-        public static final int viewtrip=0x7f090032;
+        public static final int viewkeys=0x7f090035;
+        public static final int viewtrip=0x7f090034;
     }
     public static final class layout {
         public static final int configlayout=0x7f030000;

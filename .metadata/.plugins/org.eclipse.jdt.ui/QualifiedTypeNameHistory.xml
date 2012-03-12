@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.io.ObjectOutputStream"/>
-<fullyQualifiedTypeName name="cste.icd.Utility"/>
-<fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
 <fullyQualifiedTypeName name="java.io.ByteArrayInputStream"/>
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase"/>
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteException"/>
@@ -24,10 +21,8 @@
 <fullyQualifiedTypeName name="cste.icd.NadaTimeDelay"/>
 <fullyQualifiedTypeName name="android.app.ProgressDialog"/>
 <fullyQualifiedTypeName name="cste.messages.RestrictedStatus"/>
-<fullyQualifiedTypeName name="cste.android.core.HNADService.Events"/>
 <fullyQualifiedTypeName name="android.widget.CheckBox"/>
 <fullyQualifiedTypeName name="cste.hnad.RadioCommInterface"/>
-<fullyQualifiedTypeName name="cste.android.core.HNADService"/>
 <fullyQualifiedTypeName name="android.widget.ImageView"/>
 <fullyQualifiedTypeName name="cste.android.R.drawable"/>
 <fullyQualifiedTypeName name="android.view.ContextMenu"/>
@@ -60,4 +55,9 @@
 <fullyQualifiedTypeName name="android.os.Parcelable"/>
 <fullyQualifiedTypeName name="cste.hnad.EcocDevice"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="android.content.IntentFilter"/>
+<fullyQualifiedTypeName name="cste.android.core.HNADService"/>
+<fullyQualifiedTypeName name="cste.android.core.HNADService.Events"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="cste.messages.RestrictedCmdECM"/>
 </qualifiedTypeNameHistroy>

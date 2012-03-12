@@ -5,34 +5,27 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.InputType;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import cste.android.R;
 import cste.android.core.HNADService.DeviceCommands;
 import cste.android.core.HNADService.Events;
-import cste.components.ComModule;
 import cste.hnad.EcocDevice;
 import cste.icd.DeviceUID;
 import cste.messages.RestrictedStatusECM;
-import static cste.icd.Utility.strToHex;
-import static cste.icd.Utility.hexToStr;;
 
 public class ECoCInfoActivity extends HnadBaseActivity {
 	private static final String TAG = "ECoC Info Activity";
-	private EcocDevice mECoCDev;
-	private ProgressDialog pd;
+	protected EcocDevice mECoCDev;
 	
 	TextView mDeviceUIDTxt;
 	TextView mDeviceTypeTxt;
@@ -65,6 +58,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 	CheckBox mConfigFailedBox;
 	CheckBox mSensorEnableFailedBox;
 	
+	//TODO move this to restricted event class
 	static final byte BIT_0 = 0x01;
 	static final byte BIT_1 = 0x02;
 	static final byte BIT_2 = 0x04;
@@ -78,7 +72,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ecocdetails);
-        pd = new ProgressDialog(this);
+
         mECoCDev = getIntent().getParcelableExtra("device"); 
        
         mDeviceUIDTxt =  (TextView)findViewById(R.id.devUID);
@@ -114,11 +108,16 @@ public class ECoCInfoActivity extends HnadBaseActivity {
     	mSensorEnableFailedBox =(CheckBox)findViewById(R.id.sensorEnableFailedBox);
         
     	//setButtonActions();
-        reloadDeviceData();//showProgressDialog();
+        //reloadDeviceData();//showProgressDialog();
+        
+        IntentFilter filter = new IntentFilter();
+		filter.addAction(Events.DEVICE_INFO_CHANGED);
+		filter.addAction(Events.TRANSMISSION_RESULT);
+		registerReceiver(mDeviceUpdateReceiver, filter); 
 	}
 
 	protected void reloadDeviceData(){
-		
+		mECoCDev = (EcocDevice) mHnadCoreService.getDeviceRecord(mECoCDev.UID());
 		mDeviceUIDTxt.setText(mECoCDev.UID().toString());
 		mDeviceTypeTxt.setText(mECoCDev.devType().toString());
 		mAckNoTxt.setText(String.valueOf(mECoCDev.rxAscension));
@@ -153,28 +152,23 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 
 	@Override
 	protected void onCoreServiceCBound(){
-		mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_RESTRICTED_STATUS);
-		showProgressDialog("Requesting Device Information");
+		//mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_RESTRICTED_STATUS);
+		//showProgressDialog("Requesting Device Information");
 	}
 
 	@Override
-	protected void handleCoreServiceMsg(Context context, Bundle data) {
-
-		if ( data.containsKey(Events.DEVICE_INFO_CHANGED) ) {
-			DeviceUID devUID = (DeviceUID)data.getSerializable("deviceUID");
-			if( devUID != null && devUID.equals(mECoCDev.UID())){
-				EcocDevice dev = (EcocDevice)mHnadCoreService.getDeviceRecord(devUID);
-				if(dev == null) return;
-				mECoCDev = dev;
-				reloadDeviceData();
-			}
+	protected void handleCoreServiceMsg(String action, Intent intent) {
+		DeviceUID devUID = (DeviceUID)intent.getSerializableExtra("deviceUID");
+		if( devUID == null || !devUID.equals(mECoCDev.UID())){
+			return;
+		}
+		pd.cancel();
+		if ( action.equals(Events.DEVICE_INFO_CHANGED)  ) {
+			reloadDeviceData();
 		}
 		
-		if ( data.containsKey(Events.TRANSMISSION_RESULT) ) {
-			DeviceUID devUID = (DeviceUID)data.getSerializable("deviceUID");
-			boolean result = data.getBoolean("result");
-
-			pd.cancel();
+		if ( action.equals(Events.TRANSMISSION_RESULT )) {
+			boolean result = intent.getBooleanExtra("result",false);
 		}
 	}
 	
@@ -233,7 +227,16 @@ public class ECoCInfoActivity extends HnadBaseActivity {
         	alert.show();
         	//info.position
             return true;
+        case R.id.setTime:
+        	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.SET_TIME);
+        	showProgressDialog("Setting time");
+        	return true;
+        case R.id.clearLog:
+        	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.CLEAR_EVENT_LOG);
+        	showProgressDialog("Clearing log");
+        	return true;
         }
+    	
         return super.onOptionsItemSelected(item);
     }
 	
@@ -241,7 +244,8 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 
 	
 	private void showProgressDialog(String msg){
-		pd = ProgressDialog.show(this, "Working..", msg , true, true);
+		pd.setMessage(msg);
+		pd.show();
 	}
 
 }//end class

@@ -30,7 +30,7 @@ public class IcdTxItem implements Runnable {
 	}
 	
 	public void restartTimer(){
-		mHandler.postDelayed(this, 3000);
+		mHandler.postDelayed(this, 1000);
 	}
 
 	@Override

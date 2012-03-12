@@ -1,12 +1,9 @@
 package cste.android.activities;
 
-import static cste.android.core.HNADService.Events.DEVLIST_CHANGED;
-import static cste.android.core.HNADService.Events.USB_STATE_CHANGED;
-
 import java.util.Enumeration;
-
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.ContextMenu;
@@ -61,44 +58,49 @@ public class DeviceListActivity extends HnadBaseActivity {
                 startActivity(intent);
             }
         });
+        
+        
+      IntentFilter filter = new IntentFilter();
+      filter.addAction(Events.DEVICE_INFO_CHANGED);
+      filter.addAction(Events.DEVLIST_CHANGED);
+      registerReceiver(mDeviceUpdateReceiver, filter); 
     }
 	
 	@Override
-	protected void onCoreServiceCBound()
-	{
+	protected void onCoreServiceCBound(){
 		reloadDeviceList();
 	}
-	
 
 	@Override
-	protected void handleCoreServiceMsg(Context context, Bundle data) {
-		if ( data.containsKey(DEVLIST_CHANGED) ) {
+	protected void handleCoreServiceMsg(String action, Intent intent) {
+		if ( action.equals(Events.DEVLIST_CHANGED) ) {
 			reloadDeviceList();
 		}
-		
-		if ( data.containsKey(Events.DEVICE_INFO_CHANGED) ) {
-			DeviceUID devUID = (DeviceUID)data.getSerializable("deviceUID");
+
+		if (  action.equals(Events.DEVICE_INFO_CHANGED)){
+			DeviceUID devUID = (DeviceUID)intent.getSerializableExtra("deviceUID");
 			ComModule changedCm = (ComModule)mHnadCoreService.getDeviceRecord(devUID);
 			if( changedCm == null)
 				return;
 			
 			int cnt = mDeviceListView.getCount();
+			
 			for(int i=0;i<cnt; i++){
 				ComModule old = (ComModule)mDeviceListView.getItemAtPosition(i);
-				int hash = old.hashCode();
 				if( old.UID().equals(changedCm.UID())){
-					old = changedCm;
+					mDeviceListAdapter.remove(old);
+					mDeviceListAdapter.add(changedCm);
 					mDeviceListAdapter.notifyDataSetChanged();
 					break;
 				}
 			}       	
 		}
 		
-		if ( data.containsKey(USB_STATE_CHANGED))
-		{
+		//if ( data.containsKey(USB_STATE_CHANGED))
+		//	{
 			//boolean usbState = data.getBoolean(USB_STATE_CHANGED, false);
 			//mUsbCheckbox.setChecked(usbState);
-		}
+		//}
 	}
 	
 	private void reloadDeviceList(){
@@ -117,8 +119,7 @@ public class DeviceListActivity extends HnadBaseActivity {
     }
 	
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-	                                ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 	    super.onCreateContextMenu(menu, v, menuInfo);
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.device_info_menu, menu);
@@ -126,7 +127,6 @@ public class DeviceListActivity extends HnadBaseActivity {
 	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.settings:
             	startActivity(new Intent(getApplicationContext(), ConfigActivity.class));
@@ -138,7 +138,8 @@ public class DeviceListActivity extends HnadBaseActivity {
             	finish();
                 break;
             case R.id.eventlog: // 
-            	
+            	Intent eventLogIntent = new Intent(getApplicationContext(), EventLogHNADActivity.class);
+                startActivity(eventLogIntent);
                 break;    
             case R.id.upload:
                 break;

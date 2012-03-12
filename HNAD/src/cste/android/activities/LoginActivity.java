@@ -1,8 +1,9 @@
 package cste.android.activities;
 
-import static cste.android.core.HNADService.Events.LOGIN_RESULT;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import cste.android.R;
+import cste.android.core.HNADService.Events;
 import cste.android.core.HNADService.SettingsKey;
 
 /***
@@ -31,7 +33,6 @@ public class LoginActivity extends HnadBaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
         this.setContentView(R.layout.login);
         
         usernameText = (EditText)findViewById(R.id.authUserLink);
@@ -42,10 +43,15 @@ public class LoginActivity extends HnadBaseActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            	//TODO show progress bar
+            	pd.setMessage("Logging in...");
+            	pd.show();
             	mHnadCoreService.login("username", "password");
             }
         });
+        
+        IntentFilter filter = new IntentFilter();
+		filter.addAction(Events.LOGIN_RESULT);
+		registerReceiver(mDeviceUpdateReceiver, filter); 
     }
     
     @Override
@@ -65,18 +71,16 @@ public class LoginActivity extends HnadBaseActivity {
 	}
     
     @Override
-	protected void handleCoreServiceMsg(Context context,Bundle data) {
-		if ( data.containsKey(LOGIN_RESULT))
+	protected void handleCoreServiceMsg(String action,Intent intent) {
+    	pd.cancel();
+		if( intent.getBooleanExtra("result", false)){
+        	Intent activityIntent = new Intent(this, DeviceListActivity.class);
+            startActivity(activityIntent);
+            finish();
+		}
+		else
 		{
-			if( data.getBoolean(LOGIN_RESULT)){
-	        	Intent activityIntent = new Intent(context, DeviceListActivity.class);
-	            startActivity(activityIntent);
-	            finish();
-			}
-			else
-			{
-				//TODO some message about a failed login
-			}
+			//TODO some message about a failed login
 		}
 	}
 

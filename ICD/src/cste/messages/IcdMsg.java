@@ -181,6 +181,12 @@ public class IcdMsg {
 			else if (headerData.devType == DeviceType.CSD || headerData.devType == DeviceType.ACSD)	
 				msgContent = new EventLogCSD(buffer);
 			break;
+		case DEV_CMD_RESTRICTED:
+			if( headerData.devType == DeviceType.ECOC || headerData.devType == DeviceType.ECM0)
+				msgContent = RestrictedCmdECM.fromBuffer(buffer);
+			else if (headerData.devType == DeviceType.CSD || headerData.devType == DeviceType.ACSD)	
+				msgContent = null;
+			break;
 		case NADA_MSG:
 			break;
 		default:

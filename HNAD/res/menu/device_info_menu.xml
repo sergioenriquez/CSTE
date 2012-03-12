@@ -7,6 +7,8 @@
     
     <item android:id="@+id/setTrip" android:icon="@drawable/ic_menu_compass" android:title="Set Trip Info"></item><item android:id="@+id/commission" android:title="Commission" android:icon="@drawable/ic_menu_preferences"></item><item android:id="@+id/erase" android:title="Erase Record" android:icon="@drawable/ic_menu_close_clear_cancel"></item>
     <item android:id="@+id/assn" android:title="Set Assension"></item>
+    <item android:id="@+id/setTime" android:title="Set Time"></item>
+    <item android:id="@+id/clearLog" android:title="Clear Event Log"></item>
 
     
 

@@ -10,7 +10,7 @@ public class RestrictedCmdECM extends IcdPayload{
 	public static final int SECTION_SIZE = 1;
 	
 	private final EcocCmdType cmdCode;
-	protected final Object []params;
+	public final Object []params;
 	
 	@SuppressWarnings("unused")
 	public static RestrictedCmdECM create(Object ... params) {
@@ -40,9 +40,12 @@ public class RestrictedCmdECM extends IcdPayload{
 		byte val = b.get();
 		EcocCmdType cmd = EcocCmdType.fromValue(val);
 		switch(cmd){
+		case ACK:
+			cmdParam[0] = b.get();
+			break;
 		case NOP:
 			break;
-			//TODO read values as needed
+			//TODO read other values as needed
 		default:
 		}
 

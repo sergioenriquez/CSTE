@@ -41,14 +41,15 @@ import cste.icd.UnrestrictedCmdType;
 import cste.interfaces.KeyProvider;
 import cste.messages.EventLogICD;
 import cste.messages.IcdMsg;
+import cste.messages.RestrictedCmdECM;
 import cste.messages.RestrictedStatus;
 import cste.misc.IcdTxItem;
 import cste.misc.XbeeAPI;
 import cste.misc.XbeeFrame;
 import static cste.icd.Utility.strToHex;
 
-import org.apache.commons.collections.map.LinkedMap;
-import org.apache.commons.collections.map.MultiKeyMap;
+//import org.apache.commons.collections.map.LinkedMap;
+//import org.apache.commons.collections.map.MultiKeyMap;
 /***
  * 
  * @author Sergio Enriquez
@@ -72,10 +73,10 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	private NotificationManager mNM;
 	private Handler mNadaHandler = new Handler();
 	private DbHandler db;
-	private Hashtable<DeviceUID,ComModule> mDevTable;
+	//private Hashtable<DeviceUID,ComModule> mDevTable;
 	private final IBinder mBinder = new LocalBinder();
 	private Timer mUsbReconnectTimer;
-
+	private Hashtable<DeviceUID,IcdTxItem> mIcdTxMap;// =  MultiKeyMap.decorate(new LinkedMap(10));
 	private SharedPreferences settings;// = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
 
 	@Override
@@ -85,7 +86,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	
 	@Override
 	public Hashtable<DeviceUID,ComModule> getDeviceList(){
-		return mDevTable;
+		return db.getStoredDevices();
 	}
 	
 	@Override
@@ -102,9 +103,12 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	public void onCreate() {
 		mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		NetworkHandler.setServiceHost(this);
+		
 		db = new DbHandler(this);
         db.open();
-        mDevTable = db.getStoredDevices();
+        db.resetTempDeviceVars(); //clears rssi,visible,pendingTx vars
+        
+        mIcdTxMap = new Hashtable<DeviceUID,IcdTxItem>(5);
 		
 		mCsdMessageHandler = new CsdMessageHandler(this);
 		mUsbCommHandler = new UsbCommManager(this,mCsdMessageHandler);
@@ -114,11 +118,8 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		XbeeAPI.setHnadService(this);
 		
 		settings = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-		loadSettings();//TODO X
+		loadSettings();
 		//mDevTable.put(new DeviceUID("0013A20040715FD8"), new EcocDevice(new DeviceUID("0013A20040715FD8")));
-		
-		//mDeviceMap.put("0013A20040760BB4", new Device(new DeviceUID("0013A20040760BB4"),DeviceType.ACSD));
-		//devTable.put("0013A200406BE0C3", new EcocDevice(new DeviceUID("0013A200406BE0C3")));
 	}
 	
 	@Override
@@ -149,7 +150,8 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		// TODO Auto-generated method stub
 		
 		//assume log in was successful, connect USB device
-		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.LOGIN_RESULT,true);
+		Intent intent = new Intent(Events.LOGIN_RESULT);
+		intent.putExtra("result",true);
 		sendBroadcast(intent);
 		
 		mUsbReconnectTimer = new Timer("USB reconnect timer",true);
@@ -167,10 +169,6 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	 */
 	public void logout() {
 		stopRadioComm();
-		//save data to database
-		Enumeration<ComModule> devices = mDevTable.elements();
-		while(devices.hasMoreElements())
-			db.storeDevice(devices.nextElement());
 	}
 
 	@Override
@@ -181,9 +179,9 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	
     @Override 
     public void setDeviceAssensionVal(DeviceUID devUID, int val){
-    	ComModule destDev = this.mDevTable.get(devUID);
+    	ComModule destDev = db.getDevice(devUID);
 		if( destDev == null){
-
+			Log.e(TAG, "Tried to set assension on a device that does not exist");
 			return;
 		}
 		destDev.txAscension = val;
@@ -193,7 +191,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	@Override
 	public void sendDevCmd(DeviceUID destUID, DeviceCommands cmd) {
 		int hash = destUID.hashCode();
-		ComModule destDev = this.mDevTable.get(destUID);
+		ComModule destDev = db.getDevice(destUID);
 		if( destDev == null){
 			Log.w(TAG, destUID.toString() + " not stored, cannot send command");
 			return;
@@ -232,7 +230,6 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.NOP);
 			break;
 		case GET_EVENT_LOG:
-			
 			if( db.getDevLogRecordCount(destUID) == 0 )
 				icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SL);
 			else
@@ -240,6 +237,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 			break;
 		case CLEAR_EVENT_LOG:
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.EL);
+			break;
 		default:
 			Log.w(TAG, "Command not supported");
 			return;
@@ -249,74 +247,81 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		if( !XbeeAPI.transmitPkt(destAddrs,icdMsg.getBytes()) )
 			notifyOfTransmissionResult(false,destUID); // if interface not available now
 		else{
-			//If interface is available, add entry to tx retransmit map
-			IcdTxItem txItem = new IcdTxItem(this,destDev.UID(),icdMsg);
 			short ackNo = (short) (destDev.txAscension & 0xFF);
 			Log.i(TAG,"Sent " + cmd.toString() + " , ACK: " + String.valueOf(ackNo));
-			IcdTxMap.put(destDev.UID(), ackNo, txItem);
+			addItemToTxMap(destDev.UID(), icdMsg);
 		}
 
 		destDev.pendingTxMsgCnt++;
 		destDev.txAscension++;
+		db.storeDevice(destDev);
+	}
+	
+	protected void addItemToTxMap(DeviceUID destUID, IcdMsg icdMsg){
+		IcdTxItem txItem = mIcdTxMap.get(destUID);
+		if( txItem != null){
+			// Cancel any existing retransmission items for this destination
+			txItem.clearTimer();
+			txItem.retryAttempts = 0;
+			txItem.msgSent = icdMsg;
+		}
+		else{
+			txItem = new IcdTxItem(this,destUID,icdMsg);
+			mIcdTxMap.put(destUID, txItem);
+		}
 	}
 	
 	@Override
     public void onRadioTransmitResult(boolean result, DeviceUID destUID, short ackNo){
-    	EcocDevice dev =  (EcocDevice)mDevTable.get(destUID);
-    	if( dev == null){
-    		Log.e(TAG,"Missing device record for " + dev.toString());
+		ComModule destDev = db.getDevice(destUID);
+    	if( destDev == null){
+    		Log.e(TAG,"Missing device record for " + destDev.toString());
     		return;
     	}
 
-    	IcdTxItem txItem = (IcdTxItem)IcdTxMap.get(destUID, ackNo);
+    	IcdTxItem txItem = mIcdTxMap.get(destUID);
     	if( txItem == null){
     		//Log.e(TAG, "Missing tx item for " + destUID.toString());
     		//notifyOfTransmissionResult(result,destUID);
     		return;
     	}
+    	
+    	short ackNoSent = (short)(txItem.msgSent.headerData.msgAsc & 0xFF);
+    	if( ackNoSent > ackNo ){
+    		Log.e(TAG, "Received an invalid AckNo for " + destUID.toString() + ":" + String.valueOf(ackNo));
+    		return;
+    	}
+    	
     	txItem.clearTimer();
-    	IcdTxMap.remove(destUID,ackNo);
-    	
-    	IcdMsg msgSent = txItem.msgSent;
-    	ComModule destDev = this.mDevTable.get(destUID);
-    	if( destDev == null){
-			Log.w(TAG, destUID.toString() + " not stored, cannot send command");
-			return;
-		}
-    	
-    	// if success
-    	//if failed
+    	IcdMsg msgSent = txItem.msgSent;   	
+
     	if( result == false){
     		Log.i(TAG,"Timeout for ACK: " + String.valueOf(ackNo));
 	    	if( txItem.retryAttempts > 5){
+	    		destDev.pendingTxMsgCnt--;
+	    		toast("No reply received from " + destUID.toString() + "for AckNo: " + String.valueOf(ackNo));
 	    		notifyOfTransmissionResult(false,destUID);
-	    		dev.pendingTxMsgCnt--;
-	    		
-	    		toast("No reply received from " + destUID.toString());
-	    		notifyOfTransmissionResult(false,destUID);
+	    		mIcdTxMap.remove(destUID);
 	    	}else{
 	    		byte[] destAddrs = destUID.getBytes();
-	    		
 	    		msgSent.headerData.msgAsc = destDev.txAscension++;
-	    		short newAckNo = (short) (destDev.txAscension & 0xFF);
-	    		txItem.msgSent = msgSent;
+	    		db.storeDevice(destDev);
 	    		XbeeAPI.transmitPkt(destAddrs, msgSent.getBytes()); 
-	    		IcdTxMap.put(destUID, newAckNo,txItem);
+	    		txItem.msgSent = msgSent;
 	    		txItem.retryAttempts++;
 	    		txItem.restartTimer();
 	    	}
+    	}else{
+    		mIcdTxMap.remove(destUID);
     	}
     }
 	
 	protected void notifyOfTransmissionResult(boolean success, DeviceUID destUID){
-		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG);
-    	intent.putExtra(Events.TRANSMISSION_RESULT, true);
+		Intent intent = new Intent(Events.TRANSMISSION_RESULT);
     	intent.putExtra("result", success);
     	intent.putExtra("deviceUID", destUID);
 		sendBroadcast(intent);
 	}
-	
-	protected MultiKeyMap IcdTxMap =  MultiKeyMap.decorate(new LinkedMap(10));
 
     @Override
 	public void onFrameReceived(XbeeFrame frm) {
@@ -324,18 +329,20 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     		IcdMsg msg = IcdMsg.fromBytes(frm.payload);
     		if( msg.msgStatus == IcdMsg.MsgStatus.OK){
     			String key = msg.headerData.devUID.toString();
-    			EcocDevice deviceSrc = (EcocDevice)mDevTable.get(msg.headerData.devUID);
-
+    			EcocDevice deviceSrc = (EcocDevice)db.getDevice(msg.headerData.devUID);
     	    	if( deviceSrc == null ){
     	    		deviceSrc = new EcocDevice( msg.headerData.devUID);
-    	    		mDevTable.put(msg.headerData.devUID, deviceSrc);
+    	    		db.storeDevice(deviceSrc);
 
-    	    		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVLIST_CHANGED,key);
+    	    		Intent intent = new Intent(Events.DEVLIST_CHANGED);
+    	    		intent.putExtra(Events.DEVLIST_CHANGED,key);
     	    		sendBroadcast(intent);
     	    		showNewDeviceNotification(deviceSrc);
     	    	}
     	    	deviceSrc.inRange = true;
     	    	deviceSrc.rssi = (byte)frm.rssi;
+    	    	deviceSrc.rxAscension = msg.headerData.msgAsc;
+    	    	db.storeDevice(deviceSrc);
     			handleIcdMsg(msg,deviceSrc);
     		}else
     			Log.w(TAG,"Received ICD msg with an error: " + msg.msgStatus.name());
@@ -346,58 +353,67 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
      * 
      * @param msg
      */
-    private void handleIcdMsg(IcdMsg msg, ComModule deviceSrc)
-    {
-    	deviceSrc.rxAscension = msg.headerData.msgAsc;
-    	//TODO log this event
+    private void handleIcdMsg(IcdMsg msg, ComModule deviceSrc){
+
+    	//TODO log this HNAD event
+    	short ackNo;
     	switch(msg.headerData.msgType){
     	case RESTRICTED_STATUS_MSG:
     		RestrictedStatus status = (RestrictedStatus)msg.payload;
     		deviceSrc.setRestrictedStatus((RestrictedStatus)msg.payload);
-    		onRadioTransmitResult(true,deviceSrc.UID(),status.ackNo);
+    		ackNo = (short) (status.ackNo & 0xFF);
     		
+    		onRadioTransmitResult(true,deviceSrc.UID(),ackNo);
     		notifyOfTransmissionResult(true, deviceSrc.UID());
     		break;
     	case DEVICE_EVENT_LOG:
     		EventLogICD logRecord = (EventLogICD)msg.payload;
-    		short ackNo = (short) (logRecord.ackNo & 0xFF);
-    		Log.i(TAG,"Received record, ACK " + String.valueOf(ackNo));
-    		onRadioTransmitResult(true,deviceSrc.UID(),ackNo);
-    		sendDevCmd(deviceSrc.UID(),DeviceCommands.SEND_ACK);
+    		ackNo = (short) (logRecord.ackNo & 0xFF);
     		db.storeDevLog(deviceSrc.UID(), logRecord);
     		
-    		if( logRecord.eventType == EventLogType.END_OF_RECORDS)
-    			notifyOfTransmissionResult(true, deviceSrc.UID());
+    		onRadioTransmitResult(true,deviceSrc.UID(),ackNo);
+    		sendDevCmd(deviceSrc.UID(),DeviceCommands.SEND_ACK);
+    		Log.i(TAG,"Received record, ACK " + String.valueOf(ackNo));
+    		
+    		if( logRecord.eventType == EventLogType.END_OF_RECORDS){
+    			Intent intent = new Intent(Events.DEV_EVENT_LOG_CHANGD);
+    			intent.putExtra("deviceUID",deviceSrc.UID());
+    			sendBroadcast(intent);
+    		}
+    		break;
+    	case DEV_CMD_RESTRICTED:
+    		RestrictedCmdECM cmd = (RestrictedCmdECM)msg.payload;
+    		byte temp = (Byte)cmd.params[0];
+    		ackNo = (short) (temp& 0xFF);
+
+    		onRadioTransmitResult(true,deviceSrc.UID(),ackNo);
     		break;
     	case UNRESTRICTED_STATUS_MSG:
+    		ackNo = (short) ( deviceSrc.rxAscension & 0xFF);
     		//TODO use this data
     		//no retransmission entry was created for this reply, do nothing
     		//onRadioTransmitResult(true,deviceSrc.UID(), (byte)0);
     		break;
-    		default:
+    	default:
+    		ackNo = (short) ( deviceSrc.rxAscension & 0xFF);
     	}
-    	
-    	Intent testIntent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVICE_INFO_CHANGED,false);
+
+    	Intent testIntent = new Intent(Events.DEVICE_INFO_CHANGED);
 		testIntent.putExtra("deviceUID",deviceSrc.UID());
 		sendBroadcast(testIntent);
     }
-    
-    
-    
+
     @Override
 	public ComModule getDeviceRecord(DeviceUID devUID){
-		if( devUID == null)
-			return null;
-		else
-			return mDevTable.get(devUID);
+		return db.getDevice(devUID);
 	}
 	
 	@Override
 	public void deleteDeviceRecord(DeviceUID devUID){
 		db.deleteDeviceRecord(devUID);
-		mDevTable.remove(devUID);
 		
-		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.DEVLIST_CHANGED,devUID);
+		Intent intent = new Intent(Events.DEVLIST_CHANGED);
+		intent.putExtra("deviceUID",devUID);
 		sendBroadcast(intent);
 	}
 
@@ -415,19 +431,20 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 
     @Override
     public void onUsbStateChanged(boolean connected){
+    	Intent intent = new Intent(Events.USB_STATE_CHANGED);
     	if(connected){
     		toast("USB is connected");
     		mNadaHandler.removeCallbacks(mNadaBroadcaster);
     		mNadaHandler.post(mNadaBroadcaster);
     		
-    		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.USB_STATE_CHANGED,true);
+    		intent.putExtra("usbState",true);
     		sendBroadcast(intent);
     	}
     	else{
     		toast("USB was disconnected");
     		mNadaHandler.removeCallbacks(mNadaBroadcaster);
     		
-    		Intent intent = new Intent(Events.HNAD_CORE_EVENT_MSG).putExtra(Events.USB_STATE_CHANGED,false);
+    		intent.putExtra("usbState",false);
     		sendBroadcast(intent);
     	}
     }
@@ -457,7 +474,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		mUsbCommHandler.closeDevice();
 		if( mUsbReconnectTimer != null)
 			mUsbReconnectTimer.cancel();
-		}
+	}
     
     @Override
     public void onDestroy() {
@@ -521,13 +538,14 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	}
 
 	public class Events{
-		public static final String HNAD_CORE_EVENT_MSG = "cste.hnad.android.HNAD_CORE_EVENT";
+		//public static final String HNAD_CORE_EVENT_MSG = "cste.hnad.android.HNAD_CORE_EVENT";
 		public static final String DEVICE_INFO_CHANGED = "DEVICE_INFO_CHANGED";
 		public static final String DEVLIST_CHANGED = "DEVLIST_CHANGED";
 		public static final String LOGIN_RESULT = "LOGIN_RESULT";
 		public static final String UPLOAD_DATA = "UPLOAD_DATA";
 		public static final String USB_STATE_CHANGED = "USB CONNECTED";
 		public static final String TRANSMISSION_RESULT = "USB TRANSMISSION_RESULT";
+		public static final String DEV_EVENT_LOG_CHANGD = "USB TRANSMISSION_RESULT";
 	}
 	
 	public enum DeviceCommands{

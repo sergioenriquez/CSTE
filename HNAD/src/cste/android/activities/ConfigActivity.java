@@ -1,11 +1,10 @@
 package cste.android.activities;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -69,8 +68,7 @@ public class ConfigActivity extends HnadBaseActivity {
     }
 
 	@Override
-	protected void handleCoreServiceMsg(Context context, Bundle data) {
-		// TODO Auto-generated method stub
+	protected void handleCoreServiceMsg(String action, Intent intent) {
 		
 	}
 }

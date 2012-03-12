@@ -1,6 +1,7 @@
 package cste.android.db;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class DbHandler {
 	 * @param device
 	 * @return
 	 */
-	public long storeDevice(ComModule device){
+	public synchronized long storeDevice(ComModule device){
 		String uid = device.UID().toString();
 		byte []data = ComModule.serialize(device);
 		
@@ -86,7 +87,7 @@ public class DbHandler {
 	 * @param devUID
 	 * @return
 	 */
-	public ComModule getDevice(DeviceUID devUID){
+	public synchronized ComModule getDevice(DeviceUID devUID){
 		ComModule cm = null;
 		String uid = devUID.toString();
 		
@@ -111,6 +112,18 @@ public class DbHandler {
 		return db.delete(DbConst.DEVICE_TABLE, DbConst.DEV_KEY_ID + " = ?",  new String[]{uid});
 	}
 	
+	public void resetTempDeviceVars(){
+		Hashtable<DeviceUID,ComModule> tempMap = getStoredDevices();
+		Enumeration<ComModule> devices = tempMap.elements();
+		while(devices.hasMoreElements()){
+			ComModule cm = devices.nextElement();
+			cm.inRange = false;
+    		cm.rssi = 0;
+    		cm.pendingTxMsgCnt = 0;
+    		storeDevice(cm);
+		}
+	}
+	
 	public Hashtable<DeviceUID,ComModule> getStoredDevices(){
 		Hashtable<DeviceUID, ComModule> deviceMap = new Hashtable<DeviceUID,ComModule>(8);
 		Cursor c = db.query(DbConst.DEVICE_TABLE, 
@@ -128,9 +141,9 @@ public class DbHandler {
         		Log.e(TAG, "Unable to retrieve CM record from database");
         	else{
         		//reset some values that should not be stored between sessions
-        		cm.inRange = false;
-        		cm.rssi = 0;
-        		cm.pendingTxMsgCnt = 0;
+        		//cm.inRange = false;
+        		//cm.rssi = 0;
+        		//cm.pendingTxMsgCnt = 0;
         		deviceMap.put(cm.UID(), cm);
         	}
             c.moveToNext();

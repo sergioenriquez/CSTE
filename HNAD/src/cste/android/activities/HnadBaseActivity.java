@@ -3,30 +3,32 @@
  */
 package cste.android.activities;
 
-import static cste.android.core.HNADService.Events.HNAD_CORE_EVENT_MSG;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import cste.android.core.HNADService;
+import static cste.android.core.HNADService.Events.*;
 
 /**
  * @author enriquez
  *
  */
+@SuppressWarnings("unused")
 public abstract class HnadBaseActivity extends Activity{
 	protected HNADService mHnadCoreService = null;
 	protected boolean mIsBound = false;
+	protected ProgressDialog pd; 
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.registerReceiver(mDeviceUpdateReceiver, new IntentFilter(HNAD_CORE_EVENT_MSG)); 
+        pd = new ProgressDialog(this);
         doBindService();
     }
 	
@@ -49,17 +51,14 @@ public abstract class HnadBaseActivity extends Activity{
 		}
 	};
 	
-	abstract protected void handleCoreServiceMsg(Context context,Bundle data);
+	abstract protected void handleCoreServiceMsg(String action,Intent intent);
 	
-	protected void onCoreServiceCBound()
-	{
-		
-	}
+	protected abstract void onCoreServiceCBound();
 	
-	private final BroadcastReceiver mDeviceUpdateReceiver = new BroadcastReceiver() {
+	protected final BroadcastReceiver mDeviceUpdateReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			handleCoreServiceMsg(context, intent.getExtras());
+			handleCoreServiceMsg(intent.getAction(), intent);
 		}
 	};
 
