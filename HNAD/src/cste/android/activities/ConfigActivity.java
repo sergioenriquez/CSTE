@@ -2,6 +2,7 @@ package cste.android.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -36,11 +37,13 @@ public class ConfigActivity extends HnadBaseActivity {
                 this, R.array.nada_timing, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         nadaBurst.setAdapter(adapter);
+        
+        IntentFilter filter = new IntentFilter();
+        registerReceiver(mDeviceUpdateReceiver, filter); 
 	}
 	
 	@Override
-    protected void onCoreServiceCBound()
-	{
+    protected void onCoreServiceCBound(){
     	//load saved settings
     	SharedPreferences settings = mHnadCoreService.getSettingsFile();
 

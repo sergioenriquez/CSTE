@@ -18,13 +18,27 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="@string/uid" 
+            android:text="UID/Type" 
             android:textSize="12sp" />
+        
         <TextView  
-		    android:layout_width="100dp" 
+		    android:layout_width="45dp" 
 		    android:layout_height="wrap_content" 
 		    android:textSize="12sp"
-		    android:text="@string/type" />
+		    android:gravity="center"
+		    android:text="Key" />
+        <TextView  
+		    android:layout_width="45dp" 
+		    android:layout_height="wrap_content" 
+		    android:textSize="12sp"
+			android:gravity="center"
+		    android:text="Armed" />
+        <TextView  
+		    android:layout_width="40dp" 
+		    android:layout_height="wrap_content" 
+		    android:textSize="12sp"
+			android:gravity="center"
+		    android:text="Error" />
 	</LinearLayout>
 	<ListView
         android:id="@+id/devicesList"

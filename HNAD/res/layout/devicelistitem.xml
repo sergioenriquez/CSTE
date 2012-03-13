@@ -1,29 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="horizontal" >
-
+
 	<ImageView
 	    android:id="@+id/devicevisible"
 	    android:layout_width="40dp"
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="center_horizontal|center_vertical"
+	    android:layout_height="30dp"
+	    android:scaleType="fitCenter"
 	    android:src="@drawable/stat_sys_signal_null" />
 
-    <TextView
-        android:id="@+id/deviceid"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+	<LinearLayout 
+	    android:layout_width="0dp"
+	    android:layout_weight="1"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+	    <TextView
+	        android:id="@+id/deviceid"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
+	        android:text="DEVICE ID" />
+	    <TextView
+	        android:id="@+id/devicetype"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
+	        android:textSize="10dp"
+	        android:textColor="#ff888888"
+	        android:text="TYPE" />
+    </LinearLayout>
+    
+	<ImageView
+	    android:id="@+id/haveKey"
+	    android:layout_width="45dp"
+	    android:layout_height="30dp"
+	    android:gravity="center"
+	    android:scaleType="centerInside"
+	    android:src="@drawable/blank" />
+	
+	<ImageView
+	    android:id="@+id/devArmed"
+	    android:layout_width="45dp"
+	    android:layout_height="30dp"
+	    android:gravity="center"
+	    android:scaleType="centerInside"
+	    android:src="@drawable/blank" />
+	
+	<TextView
+        android:id="@+id/devProblem"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="DEVICE ID" />
-    <TextView
-        android:id="@+id/devicetype"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="TYPE" />
+        android:gravity="center"
+
+        android:textSize="20dp"
+        android:textColor="#ffffffff"
+
+        android:text="" />
+		        <!--  
+        android:background="@drawable/blank" 
+        android:scaleType="fitStart" 
+        -->
 
 </LinearLayout>

@@ -29,14 +29,27 @@ public abstract class ComModule implements Serializable{
 	public byte rssi;	
 	public boolean inRange;
 	
+	public int errors = 0;
+	public int getErrorCount(){
+		return errors;
+	}
+	
 	protected RestrictedStatus latestStatus = null;
 	
 	public RestrictedStatus getRestrictedStatus(){
 		return latestStatus;
 	}
+	
+	public int armedStatus = 0;
+	public int getArmedStatus(){
+		return armedStatus;
+	}
+	
+	public boolean haveKey(){
+		return tck != null;
+	}
 
-	public byte[] tck; //TODO
-	public byte[] ltk; //TODO
+	public byte[] tck = null; //TODO
 	
 	protected byte icdRev; //TODO
 	
@@ -54,7 +67,7 @@ public abstract class ComModule implements Serializable{
 		rssi = 0;
 		inRange = false;
 		
-		tck = new byte[ENCRYPTION_KEY_LENGTH];
+		//tck = new byte[ENCRYPTION_KEY_LENGTH];
 	}
 	
 	/***

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="fill_parent">
+<ScrollView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
     
     <TextView
@@ -77,12 +79,24 @@
                 android:layout_height="wrap_content"
                 android:text="@string/gps"
                 android:textSize="12dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Rx Ack #"
+                android:textSize="12dp"/>
         </TableRow>
 
         <TableRow><!-- VALUE -->
             <TextView
                 android:layout_span="2"
                 android:id="@+id/gpsLoc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/na"/>
+            
+            <TextView
+                android:layout_span="2"
+                android:id="@+id/txAckNo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/na"/>

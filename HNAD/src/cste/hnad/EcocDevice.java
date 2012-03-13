@@ -13,9 +13,6 @@ import cste.icd.DeviceUID;
  *
  */
 public class EcocDevice extends ECoC implements Parcelable{
-	/**
-	 * 
-	 */
 	private static final String TAG = "EcocDevice";
 	private static final long serialVersionUID = 2241983295406693238L;
 

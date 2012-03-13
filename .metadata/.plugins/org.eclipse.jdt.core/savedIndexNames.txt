@@ -21,4 +21,3 @@ INDEX VERSION 1.126+C:\CSTE\.metadata\.plugins\org.eclipse.jdt.core
 3736255673.index
 3600973042.index
 104388810.index
-3673196509.index

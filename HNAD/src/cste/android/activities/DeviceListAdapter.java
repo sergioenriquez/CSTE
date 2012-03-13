@@ -48,6 +48,24 @@ public class DeviceListAdapter extends ArrayAdapter<ComModule>{
         
         TextView devID = (TextView) convertView.findViewById(R.id.devicetype);
         devID.setText(dev.devType().toString());
+        
+        ImageView keyIcon = (ImageView)convertView.findViewById(R.id.haveKey);
+        if( dev.haveKey()  )
+        	keyIcon.setImageResource(R.drawable.key);
+
+        ImageView armedIcon = (ImageView)convertView.findViewById(R.id.devArmed);
+        int armedStatus = dev.getArmedStatus();
+        if( armedStatus == -1 )
+        	armedIcon.setImageResource(R.drawable.lock_off);
+        else if( armedStatus == 1 )
+        	armedIcon.setImageResource(R.drawable.lock_on);
+        
+        TextView devProblem = (TextView) convertView.findViewById(R.id.devProblem);
+        int errorCount = dev.getErrorCount();
+        if( errorCount > 0 ){
+        	devProblem.setText( String.valueOf( dev.getErrorCount()) );
+        	//devProblem.setBackgroundResource(R.drawable.alarm);
+        }
 
         return convertView;
     }

@@ -107,9 +107,24 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		db = new DbHandler(this);
         db.open();
         db.resetTempDeviceVars(); //clears rssi,visible,pendingTx vars
+               
+        EcocDevice e5 = new EcocDevice(new DeviceUID("0022334455667788"));
+        e5.armedStatus = -1;
+        db.storeDevice(e5);
         
+        EcocDevice e4 = new EcocDevice(new DeviceUID("1122334455667788"));
+        e4.armedStatus = 1;
+        db.storeDevice(e4);
+        
+        EcocDevice e2 = new EcocDevice(new DeviceUID("2222334455667788"));
+        e2.tck = new byte[16];
+        db.storeDevice(e2);
+        
+        EcocDevice e1 = new EcocDevice(new DeviceUID("3322334455667788"));
+        e1.errors = 3;
+        db.storeDevice(e1);
+
         mIcdTxMap = new Hashtable<DeviceUID,IcdTxItem>(5);
-		
 		mCsdMessageHandler = new CsdMessageHandler(this);
 		mUsbCommHandler = new UsbCommManager(this,mCsdMessageHandler);
 		mNadaBroadcaster = new NADABroadcaster(this,mNadaHandler,mUsbCommHandler);
@@ -119,7 +134,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		
 		settings = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
 		loadSettings();
-		//mDevTable.put(new DeviceUID("0013A20040715FD8"), new EcocDevice(new DeviceUID("0013A20040715FD8")));
+
 	}
 	
 	@Override
