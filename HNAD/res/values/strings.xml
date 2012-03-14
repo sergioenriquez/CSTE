@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CSTE HNAD</string>
-    <string name="login_title">Login to DCP</string>
-    <string name="devlist_title">Known CM Devices</string>
+    <string name="login_title">Android HNAD</string>
+    <string name="devlist_title">Known Devices</string>
     <string name="devdetails_title">CSD information</string>
-    <string name="waypoints_title">Waypoint Configuration</string>
+    <string name="tripinfo_title">Trip Information</string>
     <string name="eventlog_title">Event Log</string>
+    <string name="settings">HNAD Settings</string>
+    <string name="icon">Icon</string>
     
-    <string name="settings">NAD Settings</string>
     <string name="logout">Log Out</string>
     <string name="eventlog">Event Log</string>
     <string name="exit">Exit Program</string>
@@ -26,7 +27,8 @@
     <string name="alarm">Alarm</string>
     <string name="opmode">OpMode</string>
     <string name="signal">Signal</string>
-    <string name="ackNo">Rx Ack #</string>
+    <string name="rxAck">Rx Ack #</string>
+    <string name="txAck">Tx Ack #</string>
     <string name="na">N/A</string>
     <string name="deviceCommads">Device Commands</string>
     <string name="generalInfo">General Info</string>
@@ -38,7 +40,38 @@
     <string name="dcpUID">DCP UID</string>
     <string name="useEnc">Use Encryption</string>
     
-
+    <!-- login section -->
+    <string name="user">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="rememberAccount">Remember Account</string>
+    <string name="loginInstruction">Please enter your username and password to authenticate with the DCP server.</string>
+    
+    <!-- device list section -->
+    <string name="armed">Armed</string>
+    <string name="error">Alarm</string>
+    <string name="key">Key</string>
+    <string name="uidtype">UID/Type</string>
+    
+    <!-- device details section -->
+    <string name="error_sensorenable">Sensor Enable Failed</string>
+    <string name="error_config">Configuration Failed</string>
+    <string name="error_ack">ACK Failure</string>
+    <string name="error_logOverflow">Log Overflow</string>
+    <string name="error_invalidCmd">Invalid Command</string>
+    <string name="error_decryption">Decryption Error</string>
+    <string name="error_sensorMalfunction">Sensor Malfunction</string>
+    <string name="error_power">Insufficient Power</string>
+    <string name="error_configMalfunction">Configuration Malfunction</string>
+    <string name="error_device">Device Errors</string>
+    <string name="error_offschedule">Off Schedule</string>
+    <string name="error_offRoute">Off Route</string>
+    <string name="error_haspBroken">Hasp Broken</string>
+    <string name="error_lockOpen">Lock Open</string>
+    <string name="error_alarm">Alarm Status</string>
+    <string name="error_timenotset">Time not set</string>
+	<string name="error_commfailed">Commission Failed</string>	
+	
     <string name="nadaPrompt">NADA burst rate </string>
     <string-array name="nada_timing">
         <item>20ms</item>

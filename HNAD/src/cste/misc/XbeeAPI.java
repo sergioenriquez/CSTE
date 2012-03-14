@@ -3,15 +3,12 @@ package cste.misc;
 import static cste.icd.Utility.strToHex;
 
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 import java.util.Hashtable;
 
-import cste.android.core.HNADService;
-import cste.components.ComModule;
-import cste.hnad.HNADServiceInterface;
-import cste.hnad.RadioCommInterface;
 import android.util.Log;
 import android.widget.Toast;
+import cste.hnad.HNADServiceInterface;
+import cste.hnad.RadioCommInterface;
 
 public class XbeeAPI {
 	private static final String TAG = "Zigbee API";

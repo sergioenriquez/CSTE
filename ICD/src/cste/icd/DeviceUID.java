@@ -1,14 +1,15 @@
 package cste.icd;
 import static cste.icd.Constants.UID_LENGTH;
-import static cste.icd.Utility.*;
+import static cste.icd.Utility.hexToStr;
+import static cste.icd.Utility.strToHex;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 public class DeviceUID implements Serializable{
+
+	private static final long serialVersionUID = 4245549146110063113L;
 	static public final int SIZE = 8;
 	final byte[] deviceUID;
 	

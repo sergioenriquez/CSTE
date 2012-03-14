@@ -1,14 +1,9 @@
 package cste.android.activities;
 
-import cste.android.R;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Spinner;
+import cste.android.R;
 
 public class EventLogHNADActivity extends HnadBaseActivity {
 	static final String TAG = "HNAD Event Log Activity";
@@ -16,7 +11,7 @@ public class EventLogHNADActivity extends HnadBaseActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.configlayout);
+        setContentView(R.layout.config_layout);
 
         IntentFilter filter = new IntentFilter();
         registerReceiver(mDeviceUpdateReceiver, filter); 

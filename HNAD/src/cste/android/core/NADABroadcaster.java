@@ -11,7 +11,6 @@ import cste.icd.DeviceUID;
 import cste.icd.NadaTimeDelay;
 import cste.messages.NADA;
 import cste.misc.XbeeAPI;
-import static cste.icd.Utility.*;
 
 //TODO clear channel assesment?
 

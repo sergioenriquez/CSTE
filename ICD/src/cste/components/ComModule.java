@@ -1,5 +1,7 @@
 package cste.components;
 
+import static cste.icd.Utility.Log;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -11,8 +13,6 @@ import java.io.Serializable;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.messages.RestrictedStatus;
-import static cste.icd.Utility.*;
-import static cste.icd.Constants.*;
 /***
  * Generic Security Device
  * @author Sergio Enriquez
@@ -21,53 +21,42 @@ import static cste.icd.Constants.*;
 public abstract class ComModule implements Serializable{
 	private static String TAG = "ComModule class";
 	private static final long serialVersionUID = 2340395912239234229L;
-	protected DeviceUID devUID;
-	protected DeviceType devType;
-	public int rxAscension; //for encrypted msg
-	public int txAscension; //for encrypted msg
+	public DeviceUID devUID;
+	public DeviceType devType;
+	public int rxAscension; 
+	public int txAscension;
 	public int pendingTxMsgCnt;
+	public byte[] tck = null;
+	
 	public byte rssi;	
 	public boolean inRange;
-	
-	public int errors = 0;
-	public int getErrorCount(){
-		return errors;
-	}
-	
-	protected RestrictedStatus latestStatus = null;
-	
-	public RestrictedStatus getRestrictedStatus(){
-		return latestStatus;
-	}
-	
-	public int armedStatus = 0;
-	public int getArmedStatus(){
-		return armedStatus;
-	}
+	public boolean keyValid;
+
+	public abstract int getAlarmCount();
+
+	public abstract RestrictedStatus getRestrictedStatus();
+
+	public abstract boolean getArmedStatus();
 	
 	public boolean haveKey(){
-		return tck != null;
+		return keyValid;
 	}
 
-	public byte[] tck = null; //TODO
-	
 	protected byte icdRev; //TODO
 	
-	public void setRestrictedStatus(RestrictedStatus latestStatus){
-		this.latestStatus = latestStatus;
-	}
+	public abstract void setRestrictedStatus(RestrictedStatus latestStatus);
 
 	public ComModule(DeviceUID devUID){
 		this.devUID = devUID;
 		this.rxAscension = 1;
 		this.txAscension = 1;
 		this.icdRev = 0x02;
+		this.keyValid = false;
+		this.tck = new byte[16];
 		
-		pendingTxMsgCnt = 0;
-		rssi = 0;
-		inRange = false;
-		
-		//tck = new byte[ENCRYPTION_KEY_LENGTH];
+		this.pendingTxMsgCnt = 0;
+		this.rssi = 0;
+		this.inRange = false;
 	}
 	
 	/***
@@ -115,4 +104,13 @@ public abstract class ComModule implements Serializable{
 	{
 		return devType;
 	}
+	
+	static final byte BIT_0 = 0x01;
+	static final byte BIT_1 = 0x02;
+	static final byte BIT_2 = 0x04;
+	static final byte BIT_3 = 0x08;
+	static final byte BIT_4 = 0x10;
+	static final byte BIT_5 = 0x20;
+	static final byte BIT_6 = 0x40;
+	static final byte BIT_7 = (byte)0x80;
 }

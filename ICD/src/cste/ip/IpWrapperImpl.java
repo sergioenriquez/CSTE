@@ -5,15 +5,10 @@ import static cste.icd.Constants.UID_LENGTH;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Arrays;
 
 import cste.PacketTypes.KmfPacketTypes;
-import cste.icd.DeviceUID;
-import cste.icd.Constants;
 import cste.interfaces.IpWrapper;
 import cste.interfaces.KeyProvider;
-
-import static cste.icd.Utility.*;
 
 public class IpWrapperImpl implements IpWrapper{
 	final byte ICD_REVISION = (byte)0x01;

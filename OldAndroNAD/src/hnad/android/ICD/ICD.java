@@ -27,6 +27,7 @@ import android.util.Log;
  * @author Cory Sohrakoff
  *
  */
+@SuppressWarnings("unused")
 public class ICD {	
 	// For debugging
 	private static final String TAG = ICD.class.getName();
@@ -192,6 +193,7 @@ public class ICD {
 	
 	// Event log message lengths
 	private static final int EL_ENCRYPTED_SECTION_LENGTH	= 33; // bytes
+	
 	private static final int EVENT_LOG_TOTAL_LENGTH			= EL_ENCRYPTED_SECTION_LENGTH +
 															  MIC_LENGTH;
 	
@@ -250,76 +252,7 @@ public class ICD {
 		
 		if (D) Log.i(TAG, "ICD running with UID: " + mDeviceUID);
 	}
-	
-	/**
-	 * Parse message header and then parse the rest of the message based on type.
-	 * 
-	 * @param message
-	 * @param length
-	 */
-	public void parseMessage(byte message[], int length) {
-		if (length < MH_HEADER_LENGTH) {
-			Log.e(TAG, "Message too short to contain header. Discarding...");
-			return;
-		}
 		
-		// Get the message header.
-		MessageHeader header = new MessageHeader();
-		header.deviceType = message[MH_DEVICE_TYPE];
-		header.messageType = message[MH_MESSAGE_TYPE];
-		header.messageLength = message[MH_MESSAGE_LENGTH];
-		header.deviceUID = Utils.bytesToHexString(message, MH_DEVICE_UID, UID_LENGTH);
-		header.icdRevNumber = message[MH_ICD_REV_NUMBER];
-		header.messageAscensionNumber = Utils.bytesToInt(message, MH_MESSAGE_ASCENSION_NUMBER);
-		// Since ascension is only 4 bytes we'll use an int, if we need bigger we can just
-		// store it as bytes using Arrays.copyOfRange().
-		
-		// check if message complies with our ICD Rev Number
-		if (header.icdRevNumber != ICD_REV_NUMBER && DISCARD_WRONG_VERSION) {
-			Log.e(TAG, "Message is not ICD Rev " + String.format("0x%02X", ICD_REV_NUMBER) + ". Discarding...");
-			return;
-		}
-		
-		if (D) Log.d(TAG, header.toString());
-		if (D) Log.d(TAG, Utils.bytesToHexString(message, 0, length));
-		
-		// if ascension is bad drop the message
-		if (header.messageAscensionNumber < DeviceInfo.ASCENSION_INITIAL_VALUE) {
-			Log.e(TAG, "Received invalid ascension number: " + header.messageAscensionNumber + " is less than " +
-					"the initial value (" + DeviceInfo.ASCENSION_INITIAL_VALUE +  ") defined in the ICD");
-			return;
-		}
-		
-		// parse rest of message based on message type.
-		switch (header.messageType) {
-		case MESSAGE_RESTRICTED_STATUS:
-			if (!USE_xCSD_COMPATIBILITY && length == MH_HEADER_LENGTH + RSM_TOTAL_LENGTH)
-				parseRestrictedStatus(message, length, header);
-			else if (USE_xCSD_COMPATIBILITY && length >= MH_HEADER_LENGTH + RSM_TOTAL_LENGTH)
-				parseRestrictedStatus(message, length, header); // parsing is the same for now
-			else
-				Log.e(TAG, "Restricted status message received, but length is incorrect: " + length + " bytes (including header)");
-			break;
-		case MESSAGE_UNRESTRICTED_STATUS:
-			if (length >= MH_HEADER_LENGTH + USM_TOTAL_LENGTH)
-				parseUnrestrictedStatus(message, length, header);
-			else
-				Log.e(TAG, "Unrestricted status message received, but length is incorrect: " + length + " bytes (including header)");
-			break;
-		case MESSAGE_EVENT_LOG_RECORD:
-			if (!USE_xCSD_COMPATIBILITY && length == MH_HEADER_LENGTH + EVENT_LOG_TOTAL_LENGTH)
-				parseEventLogRecord(message, length, header);
-			if (USE_xCSD_COMPATIBILITY && length >= MH_HEADER_LENGTH + EVENT_LOG_TOTAL_LENGTH)
-				parseEventLogRecord(message, length, header);
-			else
-				Log.e(TAG, "Log message received, but length is incorrect: " + length + " bytes (including header)");
-			break;
-		default:
-			Log.e(TAG, "Unknown message type: " + Utils.bytesToHexString(message, 0, length));
-			break;
-		}
-	}
-	
 	/**
 	 * Encrypt the encrypted section of a message.
 	 * 

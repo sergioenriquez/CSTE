@@ -5,26 +5,21 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import cste.android.R;
 
-public class DeviceKeysActivity extends HnadBaseActivity {
-	static final String TAG = "Keys screen";
+public class TripInfoActivity extends HnadBaseActivity{
 	
-	
-	@Override
-    public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.configlayout);
-
-        IntentFilter filter = new IntentFilter();
-        registerReceiver(mDeviceUpdateReceiver, filter); 
+        setContentView(R.layout.trip_info_layout);
+        
+        setWindowTitle(R.string.tripinfo_title);
 	}
-
 
 	@Override
 	protected void handleCoreServiceMsg(String action, Intent intent) {
 		// TODO Auto-generated method stub
-		
+	      IntentFilter filter = new IntentFilter();
+	      registerReceiver(mDeviceUpdateReceiver, filter); 
 	}
-
 
 	@Override
 	protected void onCoreServiceCBound() {
@@ -32,4 +27,3 @@ public class DeviceKeysActivity extends HnadBaseActivity {
 		
 	}
 }
-

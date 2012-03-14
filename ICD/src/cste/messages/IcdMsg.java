@@ -226,6 +226,7 @@ public class IcdMsg {
 		this.msgStatus = MsgStatus.OK;
 	}
 	
+	@SuppressWarnings("unused")
 	private static boolean checksumOK(ByteBuffer buffer){
 		byte sum = 0;
 		int i;

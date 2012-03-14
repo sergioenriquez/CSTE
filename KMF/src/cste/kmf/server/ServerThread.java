@@ -77,51 +77,51 @@ public class ServerThread implements Runnable{
 	
 	void handleGenerateLTKPacket(IpPacket p){
 //		DataInputStream ds = p.getPayloadDataStream();
-		byte[] deviceUID = new byte[UID_LENGTH];
-		byte[] newLTK = null;
-		
-		try {
-			in.read(deviceUID);
-		} catch (IOException e) {
-			System.err.println("error reading generate LTK packet!");
-			return;
-		}
-		
-		KmfDeviceRecord currentRecord = KmfDbHandler.getDeviceRecord(deviceUID);
-		
-		if ( currentRecord == null){
-			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
-			return;
-		}
-		
-		byte[] rekeyKey = currentRecord.getRekeyKey();
-
-		byte[] currentLTK = currentRecord.getLTK();
-		//newLTK = Constants.encryptAES(currentLTK,rekeyKey);
-
-		if ( newLTK == null){
-			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
-			return;
-		}
-		
-		try {
-			KmfDeviceRecord modifiedRecord = new KmfDeviceRecord(
-					currentRecord.getDeviceType(),
-					currentRecord.getUID(),
-					currentRecord.getRekeyKey(),
-					currentRecord.getRekeyCtr()+1,
-					newLTK);
-			
-			KmfDbHandler.addDeviceRecord(modifiedRecord);
-		} catch (InvalidRecordExeption e) {
-			System.err.println("Error updating device record!");
-			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
-			return;
-		}
-		
-		String.format("New LTK generated for %s : %s", Hex.marshal(deviceUID),Hex.marshal(newLTK));
-
-		ipWrapper.sendIcdPacket(KmfPacketTypes.REPLY_KEY, newLTK, p.getSenderUID(), out);
+//		byte[] deviceUID = new byte[UID_LENGTH];
+//		byte[] newLTK = null;
+//		
+//		try {
+//			in.read(deviceUID);
+//		} catch (IOException e) {
+//			System.err.println("error reading generate LTK packet!");
+//			return;
+//		}
+//		
+//		KmfDeviceRecord currentRecord = KmfDbHandler.getDeviceRecord(deviceUID);
+//		
+//		if ( currentRecord == null){
+//			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
+//			return;
+//		}
+//		
+//		byte[] rekeyKey = currentRecord.getRekeyKey();
+//
+//		byte[] currentLTK = currentRecord.getLTK();
+//		//newLTK = Constants.encryptAES(currentLTK,rekeyKey);
+//
+//		if ( newLTK == null){
+//			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
+//			return;
+//		}
+//		
+//		try {
+//			KmfDeviceRecord modifiedRecord = new KmfDeviceRecord(
+//					currentRecord.getDeviceType(),
+//					currentRecord.getUID(),
+//					currentRecord.getRekeyKey(),
+//					currentRecord.getRekeyCtr()+1,
+//					newLTK);
+//			
+//			KmfDbHandler.addDeviceRecord(modifiedRecord);
+//		} catch (InvalidRecordExeption e) {
+//			System.err.println("Error updating device record!");
+//			ipWrapper.sendIcdPacket(KmfPacketTypes.OP_FAILED, null, p.getSenderUID(), out);
+//			return;
+//		}
+//		
+//		String.format("New LTK generated for %s : %s", Hex.marshal(deviceUID),Hex.marshal(newLTK));
+//
+//		ipWrapper.sendIcdPacket(KmfPacketTypes.REPLY_KEY, newLTK, p.getSenderUID(), out);
 	}
 	
 	/***

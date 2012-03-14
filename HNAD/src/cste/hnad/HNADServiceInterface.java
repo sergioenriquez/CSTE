@@ -9,7 +9,6 @@ import cste.android.core.HNADService.DeviceCommands;
 import cste.components.ComModule;
 import cste.icd.DeviceUID;
 import cste.messages.EventLogICD;
-import cste.messages.IcdMsg;
 import cste.misc.XbeeFrame;
 
 public interface HNADServiceInterface {

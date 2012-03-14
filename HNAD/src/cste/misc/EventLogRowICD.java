@@ -1,12 +1,11 @@
 package cste.misc;
 
-import cste.messages.EventLogICD;
 import android.content.Context;
 import android.graphics.Color;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.TableRow.LayoutParams;
+import cste.messages.EventLogICD;
 
 public class EventLogRowICD extends TableRow{
 	protected TextView dateTime;

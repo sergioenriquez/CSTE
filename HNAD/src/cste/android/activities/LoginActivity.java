@@ -1,7 +1,5 @@
 package cste.android.activities;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -66,20 +64,17 @@ public class LoginActivity extends HnadBaseActivity {
     	passwordText.setText(password);
     	rememberLoginBox.setChecked(rememberPassword);
 
-    	//TEMP 
-    	//mHnadCoreService.test();
+    	setWindowTitle(R.string.login_title);
 	}
     
     @Override
 	protected void handleCoreServiceMsg(String action,Intent intent) {
     	pd.cancel();
 		if( intent.getBooleanExtra("result", false)){
-        	Intent activityIntent = new Intent(this, DeviceListActivity.class);
-            startActivity(activityIntent);
+            startActivity(new Intent(this, DeviceListActivity.class));
             finish();
 		}
-		else
-		{
+		else{
 			//TODO some message about a failed login
 		}
 	}

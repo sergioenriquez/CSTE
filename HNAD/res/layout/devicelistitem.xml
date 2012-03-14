@@ -7,6 +7,7 @@
     android:orientation="horizontal" >
 
 	<ImageView
+	    android:contentDescription="@string/icon"
 	    android:id="@+id/devicevisible"
 	    android:layout_width="40dp"
 	    android:layout_height="30dp"
@@ -23,7 +24,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center_vertical"
-	        android:text="DEVICE ID" />
+	        android:text="@string/devUID" />
 	    <TextView
 	        android:id="@+id/devicetype"
 	        android:layout_width="wrap_content"
@@ -31,10 +32,11 @@
 	        android:layout_gravity="center_vertical"
 	        android:textSize="10dp"
 	        android:textColor="#ff888888"
-	        android:text="TYPE" />
+	        android:text="@string/type" />
     </LinearLayout>
     
 	<ImageView
+	    android:contentDescription="@string/icon"
 	    android:id="@+id/haveKey"
 	    android:layout_width="45dp"
 	    android:layout_height="30dp"
@@ -43,26 +45,21 @@
 	    android:src="@drawable/blank" />
 	
 	<ImageView
+	    android:contentDescription="@string/icon"
 	    android:id="@+id/devArmed"
-	    android:layout_width="45dp"
+	    android:layout_width="40dp"
 	    android:layout_height="30dp"
 	    android:gravity="center"
 	    android:scaleType="centerInside"
-	    android:src="@drawable/blank" />
+	    android:src="@drawable/blank" /> 
 	
 	<TextView
         android:id="@+id/devProblem"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-
         android:textSize="20dp"
         android:textColor="#ffffffff"
-
         android:text="" />
-		        <!--  
-        android:background="@drawable/blank" 
-        android:scaleType="fitStart" 
-        -->
 
 </LinearLayout>

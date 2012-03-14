@@ -41,7 +41,7 @@ public class EventLogECM extends EventLogICD{
 		str.append(lockStatus);
 		return str.toString();
 	}
-	
+	//outdated
 	public EventLogECM(IcdTimestamp timeStamp, byte eventType, byte[] eventData) {
 		this.eventType = EventLogType.fromValue(eventType);
 		this.timeStamp = timeStamp;
@@ -69,10 +69,11 @@ public class EventLogECM extends EventLogICD{
 		restrictedError = b.get();
 		conveyanceID = new byte[16];
 		b.get(conveyanceID);
-		gpsLocation = new byte[16];
+		gpsLocation = new byte[20];
 		b.get(gpsLocation);
 		lockStatus = b.get();
 	}
+	
 
 	public byte[] getBytes() {
 		ByteBuffer b = ByteBuffer.allocate(SECTION_SIZE);

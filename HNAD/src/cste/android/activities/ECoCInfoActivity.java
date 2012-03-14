@@ -1,8 +1,6 @@
 package cste.android.activities;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -19,27 +17,23 @@ import android.widget.TextView;
 import cste.android.R;
 import cste.android.core.HNADService.DeviceCommands;
 import cste.android.core.HNADService.Events;
+import cste.components.ECoC;
 import cste.hnad.EcocDevice;
 import cste.icd.DeviceUID;
 import cste.messages.RestrictedStatusECM;
 
 public class ECoCInfoActivity extends HnadBaseActivity {
+	@SuppressWarnings("unused")
 	private static final String TAG = "ECoC Info Activity";
-	protected EcocDevice mECoCDev;
+	protected DeviceUID devUID;
 	
 	TextView mDeviceUIDTxt;
 	TextView mDeviceTypeTxt;
 	TextView mConveyanceID;
 	TextView mGpsLocation;
 	TextView mDeviceRSSITxt;
-	TextView mAckNoTxt;
-	
-	Button mSetTimeBtn;
-	Button mSetTripInfoBtn;
-	Button mSetWaypointBtn;
-	Button mDecommissioBtn;
-	Button mResetAlarmBtn;
-	Button mViewEventLogBtn;
+	TextView mRxAckTxt;
+	TextView mTxAckTxt;
 
 	CheckBox mLockOpenBox;
 	CheckBox mHaspOpenBox;
@@ -58,36 +52,20 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 	CheckBox mConfigFailedBox;
 	CheckBox mSensorEnableFailedBox;
 	
-	//TODO move this to restricted event class
-	static final byte BIT_0 = 0x01;
-	static final byte BIT_1 = 0x02;
-	static final byte BIT_2 = 0x04;
-	static final byte BIT_3 = 0x08;
-	static final byte BIT_4 = 0x10;
-	static final byte BIT_5 = 0x20;
-	static final byte BIT_6 = 0x40;
-	static final byte BIT_7 = (byte)0x80;
-
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ecocdetails);
+        setContentView(R.layout.ecoc_details_layout);
 
-        mECoCDev = getIntent().getParcelableExtra("device"); 
+        devUID = (DeviceUID)getIntent().getSerializableExtra("deviceUID");
        
-        mDeviceUIDTxt =  (TextView)findViewById(R.id.devUID);
-        mDeviceTypeTxt = (TextView)findViewById(R.id.devType);
-        mConveyanceID = 	 (TextView)findViewById(R.id.conveyanceID);
-        mGpsLocation = (TextView)findViewById(R.id.gpsLoc);
-        mDeviceRSSITxt = (TextView)findViewById(R.id.rssiVal);
-        mAckNoTxt = 	 (TextView)findViewById(R.id.ackNo);
-        
-//        mSetTimeBtn = 		(Button)findViewById(R.id.setTimeBtn);
-//        mSetTripInfoBtn = 	(Button)findViewById(R.id.setTripInfo);
-//        mSetWaypointBtn = 	(Button)findViewById(R.id.setWaypointBtn);
-//        mDecommissioBtn = 	(Button)findViewById(R.id.decommissionBtn);
-//        mResetAlarmBtn = 	(Button)findViewById(R.id.resetAlarmBtn);
-//        mViewEventLogBtn =  (Button)findViewById(R.id.viewEventLogBtn);
+        mDeviceUIDTxt =  	(TextView)findViewById(R.id.devUID);
+        mDeviceTypeTxt = 	(TextView)findViewById(R.id.devType);
+        mConveyanceID = 	(TextView)findViewById(R.id.conveyanceID);
+        mGpsLocation = 		(TextView)findViewById(R.id.gpsLoc);
+        mDeviceRSSITxt = 	(TextView)findViewById(R.id.rssiVal);
+        mRxAckTxt = 	 	(TextView)findViewById(R.id.ackNo);
+        mTxAckTxt = 	 	(TextView)findViewById(R.id.txAckNo);
 
         mLockOpenBox =		(CheckBox)findViewById(R.id.lockOpenBox);
     	mHaspOpenBox =		(CheckBox)findViewById(R.id.haspOpenBox);
@@ -106,9 +84,8 @@ public class ECoCInfoActivity extends HnadBaseActivity {
     	mAckFailureBox =		(CheckBox)findViewById(R.id.ackFailureBox);
     	mConfigFailedBox =		(CheckBox)findViewById(R.id.configFailedBox);
     	mSensorEnableFailedBox =(CheckBox)findViewById(R.id.sensorEnableFailedBox);
-        
-    	//setButtonActions();
-        //reloadDeviceData();//showProgressDialog();
+
+    	setWindowTitle(R.string.devdetails_title);
         
         IntentFilter filter = new IntentFilter();
 		filter.addAction(Events.DEVICE_INFO_CHANGED);
@@ -117,58 +94,60 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 	}
 
 	protected void reloadDeviceData(){
-		mECoCDev = (EcocDevice) mHnadCoreService.getDeviceRecord(mECoCDev.UID());
-		mDeviceUIDTxt.setText(mECoCDev.UID().toString());
-		mDeviceTypeTxt.setText(mECoCDev.devType().toString());
-		mAckNoTxt.setText(String.valueOf(mECoCDev.rxAscension));
-		mDeviceRSSITxt.setText("-" + String.valueOf(mECoCDev.rssi) + " db");
-
-		RestrictedStatusECM status = (RestrictedStatusECM)mECoCDev.getRestrictedStatus();
-		if( status == null)
+		ECoC eCoC = (ECoC) mHnadCoreService.getDeviceRecord(devUID);
+		if(eCoC == null)
 			return;
 		
-		mConveyanceID.setText(status.getConveyanceStr());
-		mGpsLocation.setText(status.getGpsStr());
-		
-		
-		mLockOpenBox.setChecked( (status.alarmCode & BIT_7) > 0);
-		mHaspOpenBox.setChecked( (status.alarmCode & BIT_6) > 0);
-		mOffCourseBox.setChecked( (status.alarmCode & BIT_5) > 0);
-		mOffScheduleBox.setChecked( (status.alarmCode & BIT_4) > 0);
+		mDeviceUIDTxt.setText(devUID.toString());
+		mDeviceTypeTxt.setText(eCoC.devType().toString());
+		mRxAckTxt.setText(String.valueOf(eCoC.rxAscension));
+		mTxAckTxt.setText(String.valueOf(eCoC.txAscension));
+		mDeviceRSSITxt.setText("-" + String.valueOf(eCoC.rssi) + " db");
 
-		mTimeNotSetBox.setChecked( (status.errorCode & BIT_2) > 0);
-		mCommisionFailedBox.setChecked( (status.errorCode & BIT_5) > 0);
-		mInsuficientPowerBox.setChecked( (status.errorCode & BIT_6) > 0);
-		mConfigMalfunctionBox.setChecked( (status.errorCode & BIT_7) > 0);
+		mConveyanceID.setText(eCoC.getConveyanceID().toString());
+		mGpsLocation.setText(eCoC.getGpsLocation().toString());
+
+		mLockOpenBox.setChecked( eCoC.lockOpen());
+		mHaspOpenBox.setChecked( eCoC.haspOpen());
+		mOffCourseBox.setChecked( eCoC.offCourse() );
+		mOffScheduleBox.setChecked( eCoC.offSchedule());
+
+		mTimeNotSetBox.setChecked( eCoC.timeNotSet());
+		mCommisionFailedBox.setChecked( eCoC.commFailed());
+		mInsuficientPowerBox.setChecked( eCoC.insuficientPower());
+		mConfigMalfunctionBox.setChecked( eCoC.configMalfunction());
 		
-		mSensorMalfunctionBox.setChecked( (status.errorBits & BIT_7) > 0);
-		mDecryptionErrorBox.setChecked( (status.errorBits & BIT_6) > 0);
-		mInvalidCommandBox.setChecked( (status.errorBits & BIT_5) > 0);
-		mLogOverflowBox.setChecked( (status.errorBits & BIT_4) > 0);
-		mAckFailureBox.setChecked( (status.errorBits & BIT_3) > 0);
-		mConfigFailedBox.setChecked( (status.errorBits & BIT_2) > 0);
-		mSensorEnableFailedBox.setChecked( (status.errorBits & BIT_1) > 0);
+		mSensorMalfunctionBox.setChecked( eCoC.sensorMalfunction());
+		mDecryptionErrorBox.setChecked( eCoC.decryptionError());
+		mInvalidCommandBox.setChecked( eCoC.invalidCommand());
+		mLogOverflowBox.setChecked(eCoC.logOverflow());
+		mAckFailureBox.setChecked( eCoC.ackFailure());
+		mConfigFailedBox.setChecked( eCoC.configFailure());
+		mSensorEnableFailedBox.setChecked( eCoC.sensorEnableFailure());
 	}
 
 	@Override
 	protected void onCoreServiceCBound(){
+		reloadDeviceData();
 		//mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_RESTRICTED_STATUS);
 		//showProgressDialog("Requesting Device Information");
 	}
 
 	@Override
 	protected void handleCoreServiceMsg(String action, Intent intent) {
-		DeviceUID devUID = (DeviceUID)intent.getSerializableExtra("deviceUID");
-		if( devUID == null || !devUID.equals(mECoCDev.UID())){
+		DeviceUID changedDevUID = (DeviceUID)intent.getSerializableExtra("deviceUID");
+		if( changedDevUID == null || !changedDevUID.equals(devUID)){
 			return;
 		}
 		pd.cancel();
+		
 		if ( action.equals(Events.DEVICE_INFO_CHANGED)  ) {
 			reloadDeviceData();
 		}
 		
 		if ( action.equals(Events.TRANSMISSION_RESULT )) {
-			boolean result = intent.getBooleanExtra("result",false);
+			pd.cancel();
+			//boolean result = intent.getBooleanExtra("result",false);
 		}
 	}
 	
@@ -181,59 +160,54 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
         switch (item.getItemId()) {
         case R.id.refresh:
-        	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_RESTRICTED_STATUS);
+        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.GET_RESTRICTED_STATUS);
     		showProgressDialog("Requesting Device Information");
         	return true;
         case R.id.viewEventLog:
-        	//mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.GET_EVENT_LOG);
-    		//showProgressDialog("Requesting Event Log");
-    		// do this on event log screen
-    		Intent intent = new Intent(getApplicationContext(), EventLogECMActivity.class);
-    		intent.putExtra("device", (Parcelable) mECoCDev);
-    		
+    		intent = new Intent(getApplicationContext(), EventLogECMActivity.class);
+    		intent.putExtra("deviceUID", devUID);
     		startActivity(intent);
             return true;
         case R.id.clearAlarm:
-
+        	showProgressDialog("Clearing alarm...");
             return true;
-       
-        case R.id.setTrip:
-
-            return true;
-            
         case R.id.commission:
-
+        	showProgressDialog("Commissioning...");
             return true;
         case R.id.erase:
-        	mHnadCoreService.deleteDeviceRecord(this.mECoCDev.UID());
+        	mHnadCoreService.deleteDeviceRecord(devUID);
         	finish();
             return true;
         case R.id.assn:
         	AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        	ECoC eCoC = (ECoC) mHnadCoreService.getDeviceRecord(devUID);
+        	if(eCoC==null)
+        		return true;
         	input = new EditText(this);
         	input.setInputType(InputType.TYPE_CLASS_NUMBER);
-        	input.setText(Integer.toString(mECoCDev.txAscension));
+        	input.setText(Integer.toString(eCoC.txAscension));
+        	input.requestFocus();
         	alert.setView(input);
         	alert.setTitle("Enter the new tx assension val");
         	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
         		public void onClick(DialogInterface dialog, int whichButton) {
         		  String value = input.getText().toString();
         		  int val = Integer.valueOf(value);
-        		  mHnadCoreService.setDeviceAssensionVal(mECoCDev.UID(), val);
-        		  }
-        		});
+        		  mHnadCoreService.setDeviceAssensionVal(devUID, val);
+        		}
+        	});
         	alert.show();
-        	//info.position
             return true;
         case R.id.setTime:
-        	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.SET_TIME);
-        	showProgressDialog("Setting time");
+        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_TIME);
+        	showProgressDialog("Setting time...");
         	return true;
         case R.id.clearLog:
-        	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.CLEAR_EVENT_LOG);
-        	showProgressDialog("Clearing log");
+        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.CLEAR_EVENT_LOG);
+        	showProgressDialog("Clearing log...");
         	return true;
         }
     	
@@ -242,57 +216,5 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 	
 	EditText input;
 
-	
-	private void showProgressDialog(String msg){
-		pd.setMessage(msg);
-		pd.show();
-	}
 
 }//end class
-
-
-
-
-//@Override
-//protected void onResume(){
-//	super.onResume();
-//}
-
-//protected void setButtonActions(){
-//	mSetTimeBtn.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//        	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.SET_TIME);
-//        }
-//    });
-//	mSetTripInfoBtn.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//        	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.SET_TRIPINFO);
-//        }
-//    });
-//	mSetWaypointBtn.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//        	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.SET_WAYPOINTS);
-//        }
-//    });
-//	mDecommissioBtn.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//        	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.SET_COMMISION_OFF);
-//        }
-//    });
-//	mResetAlarmBtn.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//        	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.SET_ALARM_OFF);
-//        }
-//    });
-//	mViewEventLogBtn.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//        	mHnadCoreService.sendDevCmd(mECoCDev.UID(),DeviceCommands.CLEAR_EVENT_LOG);
-//        }
-//    });
-//}

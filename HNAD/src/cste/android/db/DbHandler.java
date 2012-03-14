@@ -3,23 +3,20 @@ package cste.android.db;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.List;
 
-import cste.components.ComModule;
-import cste.hnad.EcocDevice;
-import cste.icd.DeviceType;
-import cste.icd.DeviceUID;
-import cste.icd.IcdTimestamp;
-import cste.messages.EventLogCSD;
-import cste.messages.EventLogECM;
-import cste.messages.EventLogICD;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
-import cste.icd.EventLogType;
+import cste.components.ComModule;
+import cste.icd.DeviceType;
+import cste.icd.DeviceUID;
+import cste.icd.IcdTimestamp;
+import cste.messages.EventLogCSD;
+import cste.messages.EventLogECM;
+import cste.messages.EventLogICD;
 
 public class DbHandler {
 	private static String TAG = "Db handler";
@@ -88,6 +85,9 @@ public class DbHandler {
 	 * @return
 	 */
 	public synchronized ComModule getDevice(DeviceUID devUID){
+		if( devUID == null )
+    		return null;
+		
 		ComModule cm = null;
 		String uid = devUID.toString();
 		
@@ -107,7 +107,6 @@ public class DbHandler {
 	}
 	
 	public int deleteDeviceRecord(DeviceUID devUID){
-		ComModule cm = null;
 		String uid = devUID.toString();
 		return db.delete(DbConst.DEVICE_TABLE, DbConst.DEV_KEY_ID + " = ?",  new String[]{uid});
 	}
@@ -182,6 +181,9 @@ public class DbHandler {
 	public ArrayList<EventLogICD> getDevLogRecords(DeviceUID devUID){
 		//TODO limit number of records returned
 		ArrayList<EventLogICD> eventLog = new ArrayList<EventLogICD>(100);
+		if( devUID == null )
+			return eventLog;
+
 		Cursor c = db.query(DbConst.DEVLOG_TABLE, 
 				null, // all columns
 				DbConst.DEVLOG_UID + " = ?", 
@@ -205,21 +207,13 @@ public class DbHandler {
 	}
 	
 	public int getDevLogRecordCount(DeviceUID devUID){
-		//TODO limit number of records returned
-		ArrayList<EventLogICD> eventLog = new ArrayList<EventLogICD>(100);
-		
 		String sqlQuery = "SELECT COUNT(*) FROM DevEventLog WHERE UID = ?";
-		
 		Cursor c = db.rawQuery(
 				sqlQuery, 
-				new String[]{
-						devUID.toString()
-						});
-
+				new String[]{devUID.toString()});
 		c.moveToFirst();
 		int count = c.getInt(0);
         c.close();
-		
 		return count;
 	}
 	

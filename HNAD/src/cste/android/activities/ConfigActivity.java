@@ -1,16 +1,17 @@
 package cste.android.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings.System;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import cste.android.R;
 import cste.android.core.HNADService.SettingsKey;
+
 
 public class ConfigActivity extends HnadBaseActivity {
 	EditText thisUIDText;
@@ -24,9 +25,9 @@ public class ConfigActivity extends HnadBaseActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.configlayout);
+        setContentView(R.layout.config_layout);
         
-        thisUIDText = 		(EditText)findViewById(R.id.thisUID);
+        thisUIDText = 	(EditText)findViewById(R.id.thisUID);
         ftpAddress = 	(EditText)findViewById(R.id.ftpServer);
         dcpAddress = 	(EditText)findViewById(R.id.dcpServer);
         dcpUID = 		(EditText)findViewById(R.id.dcpUID);
@@ -38,6 +39,8 @@ public class ConfigActivity extends HnadBaseActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         nadaBurst.setAdapter(adapter);
         
+        setWindowTitle(R.string.settings);
+        
         IntentFilter filter = new IntentFilter();
         registerReceiver(mDeviceUpdateReceiver, filter); 
 	}
@@ -46,8 +49,8 @@ public class ConfigActivity extends HnadBaseActivity {
     protected void onCoreServiceCBound(){
     	//load saved settings
     	SharedPreferences settings = mHnadCoreService.getSettingsFile();
-
-    	thisUIDText.setText( settings.getString(SettingsKey.THIS_UID, "0013A20040715FD8") );
+    	String Android_ID = System.getString(this.getContentResolver(), System.ANDROID_ID).toUpperCase();
+    	thisUIDText.setText( settings.getString(SettingsKey.THIS_UID, Android_ID ) );
     	ftpAddress.setText( settings.getString(SettingsKey.FTP_ADDR, "attila.sdsu.edu") );
     	dcpAddress.setText( settings.getString(SettingsKey.DCP_ADDR, "192.168.1.1") );
     	dcpUID.setText( settings.getString(SettingsKey.DCP_UID, "0000000000000000") );

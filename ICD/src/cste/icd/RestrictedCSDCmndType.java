@@ -42,6 +42,10 @@ public enum RestrictedCSDCmndType {
 		return INVALID;
 	}
 	
+	public int getParamCnt(){
+		return paramCnt;
+	}
+	
 	public byte getSize(){
 		return size;
 	}

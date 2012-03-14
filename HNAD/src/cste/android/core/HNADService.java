@@ -1,17 +1,13 @@
 package cste.android.core;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -20,11 +16,12 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Parcelable;
+import android.provider.Settings.System;
 import android.util.Log;
 import android.widget.Toast;
 import cste.android.R;
-import cste.android.activities.ECoCInfoActivity;
 import cste.android.activities.DeviceListActivity;
+import cste.android.activities.ECoCInfoActivity;
 import cste.android.activities.LoginActivity;
 import cste.android.db.DbHandler;
 import cste.components.ComModule;
@@ -33,11 +30,10 @@ import cste.hnad.EcocDevice;
 import cste.hnad.HNADServiceInterface;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
-import cste.icd.EventLogType;
-import cste.icd.MsgType;
 import cste.icd.EcocCmdType;
+import cste.icd.EventLogType;
 import cste.icd.IcdTimestamp;
-import cste.icd.UnrestrictedCmdType;
+import cste.icd.MsgType;
 import cste.interfaces.KeyProvider;
 import cste.messages.EventLogICD;
 import cste.messages.IcdMsg;
@@ -46,30 +42,20 @@ import cste.messages.RestrictedStatus;
 import cste.misc.IcdTxItem;
 import cste.misc.XbeeAPI;
 import cste.misc.XbeeFrame;
-import static cste.icd.Utility.strToHex;
 
-//import org.apache.commons.collections.map.LinkedMap;
-//import org.apache.commons.collections.map.MultiKeyMap;
 /***
- * 
+ * HNAD backgroud service
  * @author Sergio Enriquez
  *
  */
 public class HNADService extends Service implements HNADServiceInterface, KeyProvider{
 	private static final String TAG = "HNAD Core Service";
-	//Test ECOC device does not recognize secure HNAD type? Will use FNAD for now...
-
-	public DeviceType dcpDevType 	= DeviceType.INVALID;
-	public DeviceUID dcpUID 		= new DeviceUID("0000000000000000");
-	public DeviceType lvl2DevType 	= DeviceType.HNAD_S;
-	public DeviceUID lvl2UID 		= new DeviceUID("0013A20040715FD8");
 	public final byte icdRev 		= 0x02;//0x02
-
 	private boolean mIsLoggedIn = false;
 	private NADABroadcaster mNadaBroadcaster;
 	private CsdMessageHandler mCsdMessageHandler;
 	private UsbCommManager mUsbCommHandler;
-	private NetworkHandler mNetworkHandler;
+	//private NetworkHandler mNetworkHandler;
 	private NotificationManager mNM;
 	private Handler mNadaHandler = new Handler();
 	private DbHandler db;
@@ -108,20 +94,17 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
         db.open();
         db.resetTempDeviceVars(); //clears rssi,visible,pendingTx vars
                
-        EcocDevice e5 = new EcocDevice(new DeviceUID("0022334455667788"));
-        e5.armedStatus = -1;
+        EcocDevice e5 = new EcocDevice(new DeviceUID("0000000000000000"));
         db.storeDevice(e5);
         
-        EcocDevice e4 = new EcocDevice(new DeviceUID("1122334455667788"));
-        e4.armedStatus = 1;
+        EcocDevice e4 = new EcocDevice(new DeviceUID("1111111111111111"));
         db.storeDevice(e4);
         
-        EcocDevice e2 = new EcocDevice(new DeviceUID("2222334455667788"));
+        EcocDevice e2 = new EcocDevice(new DeviceUID("2222222222222222"));
         e2.tck = new byte[16];
         db.storeDevice(e2);
         
-        EcocDevice e1 = new EcocDevice(new DeviceUID("3322334455667788"));
-        e1.errors = 3;
+        EcocDevice e1 = new EcocDevice(new DeviceUID("3333333333333333"));
         db.storeDevice(e1);
 
         mIcdTxMap = new Hashtable<DeviceUID,IcdTxItem>(5);
@@ -154,8 +137,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
         // We want this service to continue running until it is explicitly stopped, so return sticky.
         return START_STICKY;
     }
-	
-	
+
 	/**********************/
 	/**********************/
 	/**********************/
@@ -205,7 +187,6 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 
 	@Override
 	public void sendDevCmd(DeviceUID destUID, DeviceCommands cmd) {
-		int hash = destUID.hashCode();
 		ComModule destDev = db.getDevice(destUID);
 		if( destDev == null){
 			Log.w(TAG, destUID.toString() + " not stored, cannot send command");
@@ -290,7 +271,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     public void onRadioTransmitResult(boolean result, DeviceUID destUID, short ackNo){
 		ComModule destDev = db.getDevice(destUID);
     	if( destDev == null){
-    		Log.e(TAG,"Missing device record for " + destDev.toString());
+    		Log.e(TAG,"Missing device record for " + destUID.toString());
     		return;
     	}
 
@@ -303,7 +284,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     	
     	short ackNoSent = (short)(txItem.msgSent.headerData.msgAsc & 0xFF);
     	if( ackNoSent > ackNo ){
-    		Log.e(TAG, "Received an invalid AckNo for " + destUID.toString() + ":" + String.valueOf(ackNo));
+    		//Log.e(TAG, "Received an invalid AckNo for " + destUID.toString() + ":" + String.valueOf(ackNo));
     		return;
     	}
     	
@@ -369,13 +350,13 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
      * @param msg
      */
     private void handleIcdMsg(IcdMsg msg, ComModule deviceSrc){
-
     	//TODO log this HNAD event
     	short ackNo;
     	switch(msg.headerData.msgType){
     	case RESTRICTED_STATUS_MSG:
     		RestrictedStatus status = (RestrictedStatus)msg.payload;
     		deviceSrc.setRestrictedStatus((RestrictedStatus)msg.payload);
+    		db.storeDevice(deviceSrc);
     		ackNo = (short) (status.ackNo & 0xFF);
     		
     		onRadioTransmitResult(true,deviceSrc.UID(),ackNo);
@@ -434,15 +415,24 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 
 	@Override
 	public byte[] getEncryptionKey(DeviceUID destinationUID) {
-		byte[] key = new byte[16];
-		//TODO use database to retrieve key from device record
-		return strToHex("1234567890ABCDEF1234567890ABCDEF"); 
+		ComModule cm = db.getDevice(destinationUID);
+		if( cm == null ){
+			Log.w(TAG,"No key availible for " + destinationUID.toString());
+			return null;
+		}
+		return cm.tck;
+		//return strToHex("1234567890ABCDEF1234567890ABCDEF"); 
 	}
 
     /***************************/
     /***************************/
     /***************************/
     /***************************/
+	
+	
+	public boolean isUsbAvalible(){
+		return this.mUsbCommHandler.isReady();
+	}
 
     @Override
     public void onUsbStateChanged(boolean connected){
@@ -451,17 +441,14 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     		toast("USB is connected");
     		mNadaHandler.removeCallbacks(mNadaBroadcaster);
     		mNadaHandler.post(mNadaBroadcaster);
-    		
     		intent.putExtra("usbState",true);
-    		sendBroadcast(intent);
     	}
     	else{
     		toast("USB was disconnected");
     		mNadaHandler.removeCallbacks(mNadaBroadcaster);
-    		
     		intent.putExtra("usbState",false);
-    		sendBroadcast(intent);
     	}
+    	sendBroadcast(intent);
     }
     
     public SharedPreferences getSettingsFile(){
@@ -473,8 +460,10 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	 */
 	protected void loadSettings(){
 		boolean useEncryption = settings.getBoolean(SettingsKey.USE_ENC, false);
-		String thisUIDStr = settings.getString(SettingsKey.THIS_UID, "0013A20040715FD8");
-		String dcpUIDStr = settings.getString(SettingsKey.DCP_UID, "0013A20040715FD8");
+		
+		String Android_ID = System.getString(this.getContentResolver(), System.ANDROID_ID);
+		String thisUIDStr = settings.getString(SettingsKey.THIS_UID, Android_ID);
+		String dcpUIDStr = settings.getString(SettingsKey.DCP_UID, 	 "0000000000000000");
 		int burstIndex = settings.getInt(SettingsKey.NADA_BURST, 0);
 		
 		DeviceUID thisUID = new DeviceUID(thisUIDStr);
@@ -528,10 +517,10 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		//TODO go to the device details for this new device
 		CharSequence title = "HNAD app";
 		CharSequence text = "Device detected " + device.UID();        // Set the icon, scrolling text and timestamp        
-		Notification notification = new Notification(R.drawable.stat_sys_signal_4, text, System.currentTimeMillis());        // The PendingIntent to launch our activity if the user selects this notification        
+		Notification notification = new Notification(R.drawable.stat_sys_signal_4, text, java.lang.System.currentTimeMillis());        // The PendingIntent to launch our activity if the user selects this notification        
 		Intent intent = new Intent(this, ECoCInfoActivity.class);
-		intent.putExtra("device", (Parcelable)device); // TODO fill actual device
-		intent.putExtra("clearNotifications",true); // TODO fill actual device
+		intent.putExtra("deviceUID", device.UID());
+		intent.putExtra("clearNotifications",true);
 		
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, 0);        // Set the info for the views that show in the notification panel.        
 		notification.setLatestEventInfo(this, title,text, contentIntent);        // Send the notification. 

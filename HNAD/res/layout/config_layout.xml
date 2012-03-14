@@ -8,7 +8,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/tableLayout1"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent" 
+	android:layout_height="wrap_content" 
 	android:stretchColumns="1">
        
     <TableRow
@@ -23,6 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/hnadUID"
+            android:enabled="false"
             android:singleLine="true"/>
     </TableRow>
        
@@ -38,6 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/dcpUID"
+            android:enabled="false"
             android:singleLine="true"/>
     </TableRow>
     

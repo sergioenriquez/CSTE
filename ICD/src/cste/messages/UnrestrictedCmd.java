@@ -2,7 +2,6 @@ package cste.messages;
 
 import java.nio.ByteBuffer;
 
-import cste.icd.EcocCmdType;
 import cste.icd.UnrestrictedCmdType;
 
 public class UnrestrictedCmd extends IcdPayload {

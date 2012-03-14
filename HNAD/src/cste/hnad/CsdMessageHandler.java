@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import cste.misc.XbeeAPI;
-import cste.misc.XbeeFrame;
 
 public class CsdMessageHandler extends Handler {
 	private static final String TAG = "CSD Msg Handler";

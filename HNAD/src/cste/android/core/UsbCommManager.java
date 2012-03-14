@@ -10,8 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import org.bouncycastle2.util.Arrays;
-
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -47,8 +45,7 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 	private boolean mPermissionRequestPending;
 	private Service mHostService;
 	private boolean isConnected = false;
-	protected boolean isRegistered = false;
-	
+	private boolean isRegistered = false;
 	private ArrayBlockingQueue<byte[]> pendingTxList;
 	
 	/**
@@ -74,6 +71,10 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 			mHostService.registerReceiver(this, filter);
 			isRegistered = true;
 		}
+	}
+	
+	public boolean isReady(){
+		return mAccessory != null;
 	}
 	
 	boolean testUSB(){

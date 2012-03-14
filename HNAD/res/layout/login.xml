@@ -7,13 +7,13 @@
     <TextView  
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
-	    android:text="Please enter your username and password to authenticate with the DCP server." 
+	    android:text="@string/loginInstruction" 
 	    android:layout_marginBottom="10dp"/>
 	<TextView  
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
 	    android:layout_marginLeft="25dp"
-	    android:text="User" />
+	    android:text="@string/user" />
 	<EditText
         android:id="@+id/authUserLink"
         android:layout_width="match_parent"
@@ -22,13 +22,12 @@
         android:layout_marginRight="25dp"
         android:layout_marginBottom="5dp"
         android:inputType="text"
-        android:singleLine="true"
-        android:enabled="false"/>
+        android:singleLine="true"/>
 	<TextView  
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
 	    android:layout_marginLeft="25dp"
-	    android:text="Password" />
+	    android:text="@string/password" />
 	<EditText
         android:id="@+id/authPassword"
         android:layout_width="match_parent"
@@ -38,7 +37,7 @@
         android:layout_marginBottom="5dp"
         android:password="true"
         android:singleLine="true"
-        android:hint="password" />
+        android:hint="@string/password" />
 	<LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -48,9 +47,9 @@
         
 	    <Button
 	        android:id="@+id/authLoginBtn"
-	        android:text="login"
+	        android:text="@string/login"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:textSize="18dp"
             android:singleLine="true"
             android:layout_weight="3"
@@ -59,7 +58,7 @@
             android:gravity="center" />
 	    <CheckBox 
 	        android:id="@+id/remember"
-	        android:text="Remember account"
+	        android:text="@string/rememberAccount"
 	        android:layout_width="wrap_content"
 			android:layout_height="wrap_content"/>
     </LinearLayout>

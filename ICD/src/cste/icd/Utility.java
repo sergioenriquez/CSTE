@@ -2,8 +2,6 @@ package cste.icd;
 
 import java.security.InvalidKeyException;
 import java.security.Key;
-import java.security.Provider;
-import java.security.Security;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -85,8 +83,7 @@ public class Utility {
 	public static byte[] encryptAES(byte[] message, byte[] encryptionKey){
 		Key key = new SecretKeySpec(encryptionKey, "AES");
 		Cipher c;
-		Provider[] r = Security.getProviders();
-		
+
 		try {
 			boolean padMessaage = message.length % 16 == 0 ? false : true;
 			if( padMessaage )

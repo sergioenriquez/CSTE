@@ -2,43 +2,37 @@ package cste.android.activities;
 
 import java.util.ArrayList;
 
-import cste.android.R;
-import cste.android.core.HNADService.DeviceCommands;
-import cste.android.core.HNADService.Events;
-import cste.android.core.HNADService.SettingsKey;
-import cste.components.ComModule;
-import cste.hnad.EcocDevice;
-import cste.icd.DeviceUID;
-import cste.messages.EventLogICD;
-import cste.misc.EventLogRowICD;
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.TableRow.LayoutParams;
+import cste.android.R;
+import cste.android.core.HNADService.DeviceCommands;
+import cste.android.core.HNADService.Events;
+import cste.hnad.EcocDevice;
+import cste.icd.DeviceUID;
+import cste.messages.EventLogICD;
+import cste.misc.EventLogRowICD;
 
 public class EventLogECMActivity extends HnadBaseActivity {
+	@SuppressWarnings("unused")
 	private static final String TAG = "ECM Log";
 	TableLayout  mTable;
-	EcocDevice mECoCDev;
+	DeviceUID devUID;
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.eventlog);
+        setContentView(R.layout.event_log_layout);
 
-        mECoCDev = getIntent().getParcelableExtra("device"); 
+        devUID = (DeviceUID)getIntent().getSerializableExtra("deviceUID"); 
         mTable = (TableLayout)findViewById(R.id.devTable);
+        
+        setWindowTitle(R.string.eventlog_title);
         
         IntentFilter filter = new IntentFilter();
 		filter.addAction(Events.TRANSMISSION_RESULT);
@@ -47,10 +41,9 @@ public class EventLogECMActivity extends HnadBaseActivity {
 	}
 	
 	protected void reloadLogScreen(){
-		pd = ProgressDialog.show(this, "Retrieving records..", "" , true, true);
 		mTable.removeAllViews();
 		mTable.addView(new EventLogRowICD(this)); // title row
-		ArrayList<EventLogICD> devLog= mHnadCoreService.getDeviceEventLog(mECoCDev.UID());
+		ArrayList<EventLogICD> devLog= mHnadCoreService.getDeviceEventLog(devUID);
 		for(EventLogICD log: devLog){
 			mTable.addView(new EventLogRowICD(this,log));
 		}
@@ -65,8 +58,8 @@ public class EventLogECMActivity extends HnadBaseActivity {
 	
 	@Override
 	protected void handleCoreServiceMsg(String action, Intent intent) {
-		DeviceUID devUID = (DeviceUID)intent.getSerializableExtra("deviceUID");
-		if( devUID == null || !devUID.equals(mECoCDev.UID())){
+		DeviceUID changedDevUID = (DeviceUID)intent.getSerializableExtra("deviceUID");
+		if( devUID == null || !changedDevUID.equals(devUID)){
 			return;
 		} 
 		
@@ -93,12 +86,11 @@ public class EventLogECMActivity extends HnadBaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.refresh:
-            	mHnadCoreService.sendDevCmd(mECoCDev.UID(), DeviceCommands.GET_EVENT_LOG);
-            	//pd.setMessage("Requesting records...");
-            	pd.show();
+            	mHnadCoreService.sendDevCmd(devUID, DeviceCommands.GET_EVENT_LOG);
+            	showProgressDialog("Requesting records...");
                 break;
             case R.id.clear:
-            	mHnadCoreService.deleteDeviceLogs(mECoCDev.UID());
+            	mHnadCoreService.deleteDeviceLogs(devUID);
             	reloadLogScreen();
                 break;
         }

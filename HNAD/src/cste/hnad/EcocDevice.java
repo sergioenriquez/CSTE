@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 import cste.components.ECoC;
-import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 
 /***

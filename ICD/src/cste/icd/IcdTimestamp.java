@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class IcdTimestamp implements Serializable{
+	private static final long serialVersionUID = 2874745657564097067L;
 	final byte month;
 	final byte day;
 	final byte year;

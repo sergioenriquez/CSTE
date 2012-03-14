@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import android.app.Service;
-import android.content.SharedPreferences;
 import cste.PacketTypes.DcpPacketTypes;
 import cste.interfaces.IpWrapper;
 import cste.ip.IpPacket;
@@ -15,12 +14,12 @@ import cste.ip.IpPacket;
 public class NetworkHandler {
 	private static String server = "";
 	private static int port = 0;
-	private static Service hostService; // TODO interface!
-	private static SharedPreferences mSettings;
+	//private static Service hostService; // TODO interface!
+	//private static SharedPreferences mSettings;
 	private static IpWrapper ipWrapper;
 
 	public static void setServiceHost(Service host){
-		hostService = host;
+		//hostService = host;
 		//mSettings = host.getSharedPreferences(PREFERENCES_FILE, 0);
 		
 		// TODO init ipwrapper

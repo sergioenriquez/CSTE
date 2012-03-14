@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cste.android.R;
 import cste.components.ComModule;
-import cste.hnad.EcocDevice;
 
 public class DeviceListAdapter extends ArrayAdapter<ComModule>{
 	int resourceID;
@@ -52,20 +50,23 @@ public class DeviceListAdapter extends ArrayAdapter<ComModule>{
         ImageView keyIcon = (ImageView)convertView.findViewById(R.id.haveKey);
         if( dev.haveKey()  )
         	keyIcon.setImageResource(R.drawable.key);
-
+        else
+        	keyIcon.setImageResource(R.drawable.blank);
+        
         ImageView armedIcon = (ImageView)convertView.findViewById(R.id.devArmed);
-        int armedStatus = dev.getArmedStatus();
-        if( armedStatus == -1 )
+ 
+        if( !dev.getArmedStatus() )
         	armedIcon.setImageResource(R.drawable.lock_off);
-        else if( armedStatus == 1 )
+        else 
         	armedIcon.setImageResource(R.drawable.lock_on);
         
         TextView devProblem = (TextView) convertView.findViewById(R.id.devProblem);
-        int errorCount = dev.getErrorCount();
+        int errorCount = dev.getAlarmCount();
         if( errorCount > 0 ){
-        	devProblem.setText( String.valueOf( dev.getErrorCount()) );
+        	devProblem.setText( String.valueOf( dev.getAlarmCount()) );
         	//devProblem.setBackgroundResource(R.drawable.alarm);
-        }
+        }else
+        	devProblem.setText("");
 
         return convertView;
     }
