@@ -31,5 +31,7 @@ public interface HNADServiceInterface {
 	public Context getContext();
 	public void setDeviceAssensionVal(DeviceUID dev, int val);
 	
+	public void setDeviceTCK(DeviceUID devUID, byte []newTCK);
+	
 	public void test(); //temp
 }

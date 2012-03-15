@@ -27,21 +27,17 @@ public class NADABroadcaster implements Runnable{
 	protected int BurstCount = 13;
 	protected int LongDelay = 1000;
 	
-	
 	protected DeviceType dcpType;
 	protected DeviceUID dcpUID;
 	protected DeviceType lvl2Type;
 	protected DeviceUID lvl2UID;
-	protected List<DeviceUID> mMsgWaitingList;
 	
 	protected static final int MAX_MSG_WAITING_CNT = 5;
 	
-	public NADABroadcaster(HNADService parent, Handler handler, UsbCommManager usbHandler)
-	{
+	public NADABroadcaster(HNADService parent, Handler handler, UsbCommManager usbHandler){
 		mHandler = handler;
 		mUsbCommHandler = usbHandler;
 		mParent = parent;
-		mMsgWaitingList = new ArrayList<DeviceUID>();
 	}
 	
 	public void config(int burstIndex,  DeviceType lvl2Type, DeviceUID lvl2UID, DeviceType dcpType, DeviceUID dcpUID){
@@ -56,20 +52,8 @@ public class NADABroadcaster implements Runnable{
 	}
 
 	@Override
-	public void run() {
+	public void run(){
 		enabled = true;
-		
-		mMsgWaitingList.clear();
-		Enumeration<ComModule> devices = mParent.getDeviceList().elements();
-		int msgWaitCnt = 0;
-		while(devices.hasMoreElements())
-		{
-			ComModule dev = devices.nextElement();
-			if( dev.pendingTxMsgCnt > 0 && msgWaitCnt < MAX_MSG_WAITING_CNT){
-				msgWaitCnt++;
-				mMsgWaitingList.add(dev.UID());
-			}
-		}
 
 		NADA nadaMsg = new NADA(DeviceType.FNAD_I,
 								delayCode,
@@ -77,22 +61,18 @@ public class NADABroadcaster implements Runnable{
 								dcpUID,
 								lvl2Type,
 								lvl2UID,
-								mMsgWaitingList);
+								mParent.getWaitingList());
 		
 		XbeeAPI.transmitPkt(XbeeAPI.BROADCAST_ADDRESS, nadaMsg.getBytes());
 
-		if (enabled)
-		{
+		if (enabled){
 			msgSendCnt++;
 			if( msgSendCnt < BurstCount)
 				mHandler.postDelayed(this, delayCode.getMsDelay());
-			else
-			{
+			else{
 				mHandler.postDelayed(this, LongDelay);
 				msgSendCnt = 0;
 			}
 		}
 	}//end run
-	
-	
 }

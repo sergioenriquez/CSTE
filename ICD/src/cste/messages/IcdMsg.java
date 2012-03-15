@@ -5,6 +5,8 @@ import java.nio.ByteBuffer;
 import cste.components.ComModule;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
+import cste.icd.IcdHeader;
+import cste.icd.IcdPayload;
 import cste.icd.MsgType;
 import cste.icd.UnrestrictedCmdType;
 import cste.interfaces.KeyProvider;
@@ -83,9 +85,9 @@ public class IcdMsg {
 		case DEV_CMD_RESTRICTED:
 			devType = DeviceType.DCP;
 			if( params.length >= 1){
-				if ( destination.devType() == DeviceType.ECOC || destination.devType() == DeviceType.ECM0 )
+				if ( destination.devType == DeviceType.ECOC || destination.devType == DeviceType.ECM0 )
 					payload = RestrictedCmdECM.create(params);
-				else if ( destination.devType() == DeviceType.ACSD || destination.devType() == DeviceType.CSD)
+				else if ( destination.devType == DeviceType.ACSD || destination.devType == DeviceType.CSD)
 					payload = RestrictedCmdECM.create(params); //TODO replace with appropiate type
 				else
 					Log(TAG, "Config error");
@@ -112,7 +114,7 @@ public class IcdMsg {
 				IcdRev,
 				destination.txAscension);
 		
-		return new IcdMsg(destination.UID(),header,payload);
+		return new IcdMsg(destination.devUID,header,payload);
 	}
 	
 	public byte[] getBytes(){
@@ -144,9 +146,21 @@ public class IcdMsg {
 	private static IcdMsg parseBytes(byte[] data){
 		ByteBuffer buffer = ByteBuffer.wrap(data);
 		
-		//Only certain types have checksum
-		//if ( !checksumOK(buffer) )
-	//		return new IcdMsg(MsgStatus.BAD_CHEKSUM);
+		//special case for NULL MSG
+		if( buffer.capacity() == NullMsg.SECTION_SIZE){	
+			NullMsg msg = new NullMsg(buffer);
+			IcdHeader hdr = new IcdHeader(
+					DeviceType.fromValue(msg.devType),
+					MsgType.NULL_MSG,
+					(byte)NullMsg.SECTION_SIZE,
+					msg.devUID,
+					(byte)2,
+					0);
+			
+			return new IcdMsg(ThisUID, 
+					hdr, // place holder
+					msg);
+		}
 		
 		IcdHeader headerData = IcdHeader.fromBuffer(buffer);
 		if ( headerData == null){
@@ -187,7 +201,8 @@ public class IcdMsg {
 			else if (headerData.devType == DeviceType.CSD || headerData.devType == DeviceType.ACSD)	
 				msgContent = null;
 			break;
-		case NADA_MSG:
+		case NULL_MSG:
+			msgContent = new NullMsg(buffer);
 			break;
 		default:
 			MsgType type = headerData.msgType;
@@ -206,7 +221,7 @@ public class IcdMsg {
 		if( headerData == null || payload == null)
 			return "NO DATA";
 		else
-			return headerData.toString() + " " + payload.toString();
+			return "Dest:" + destUID.toString() + " " + headerData.toString() + " " + payload.toString();
 	}
 
 	private IcdMsg(MsgStatus error){

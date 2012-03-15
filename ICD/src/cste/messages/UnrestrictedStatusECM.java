@@ -3,6 +3,7 @@ package cste.messages;
 import java.nio.ByteBuffer;
 
 import cste.icd.DeviceUID;
+import cste.icd.IcdPayload;
 
 public class UnrestrictedStatusECM extends IcdPayload {
 	public static final int SECTION_SIZE = 15;

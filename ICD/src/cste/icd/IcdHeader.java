@@ -1,10 +1,7 @@
-package cste.messages;
+package cste.icd;
 
 import java.nio.ByteBuffer;
 
-import cste.icd.DeviceType;
-import cste.icd.DeviceUID;
-import cste.icd.MsgType;
 
 public class IcdHeader {
 	public static final int SECTION_SIZE = 16;
@@ -37,7 +34,7 @@ public class IcdHeader {
 		else
 			return null;
 	}
-	
+
 	public IcdHeader(
 			DeviceType devType,
 			MsgType msgType,
@@ -58,8 +55,7 @@ public class IcdHeader {
 	 * Generates the nonce value needed by the encryption function
 	 * @return
 	 */
-	public byte[] getNonce()
-	{
+	public byte[] getNonce(){
 		ByteBuffer b = ByteBuffer.allocate(8);
 		b.put(devType.getBytes());
 		b.put(msgType.getBytes());
@@ -79,5 +75,14 @@ public class IcdHeader {
 		b.putInt(msgAsc);
 		
 		return b.array();
+	}
+	
+	@Override
+	public String toString(){
+		String str = "";
+		str += "Src:" + devUID.toString();
+		str += "Type:" +msgType.toString();
+		str += "Asc:" + String.valueOf(msgAsc);
+		return str;
 	}
 }

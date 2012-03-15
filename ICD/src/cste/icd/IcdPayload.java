@@ -1,4 +1,4 @@
-package cste.messages;
+package cste.icd;
 
 
 public abstract class IcdPayload {

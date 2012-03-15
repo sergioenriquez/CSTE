@@ -13,6 +13,8 @@ import java.io.Serializable;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.messages.RestrictedStatus;
+import static cste.icd.Utility.hexToStr;
+
 /***
  * Generic Security Device
  * @author Sergio Enriquez
@@ -25,8 +27,7 @@ public abstract class ComModule implements Serializable{
 	public DeviceType devType;
 	public int rxAscension; 
 	public int txAscension;
-	public int pendingTxMsgCnt;
-	public byte[] tck = null;
+	protected byte[] tck = null;
 	
 	public byte rssi;	
 	public boolean inRange;
@@ -37,6 +38,13 @@ public abstract class ComModule implements Serializable{
 	public abstract RestrictedStatus getRestrictedStatus();
 
 	public abstract boolean getArmedStatus();
+	
+	public byte[] getTCK(){
+		if( keyValid )
+			return tck;
+		else
+			return new byte[16];
+	}
 	
 	public boolean haveKey(){
 		return keyValid;
@@ -54,9 +62,22 @@ public abstract class ComModule implements Serializable{
 		this.keyValid = false;
 		this.tck = new byte[16];
 		
-		this.pendingTxMsgCnt = 0;
 		this.rssi = 0;
 		this.inRange = false;
+	}
+	
+	public String getTckStr(){
+		if(tck==null)
+			return "";
+		else
+			return hexToStr(tck);
+	}
+	
+	public void setTCK(byte []newTCK){
+		if( newTCK.length == 16){
+			tck = newTCK;
+			keyValid = true;
+		}
 	}
 	
 	/***
@@ -94,16 +115,6 @@ public abstract class ComModule implements Serializable{
 		    return null; 
 	    } 
     } 
-	
-	public DeviceUID UID()
-	{
-		return devUID;
-	}
-	
-	public DeviceType devType()
-	{
-		return devType;
-	}
 	
 	static final byte BIT_0 = 0x01;
 	static final byte BIT_1 = 0x02;

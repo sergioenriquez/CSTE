@@ -5,6 +5,7 @@
     <item android:id="@+id/eventlog" android:title="@string/eventlog" android:icon="@drawable/ic_menu_recent_history"></item>
     <item android:id="@+id/upload" android:title="@string/upload" android:icon="@drawable/ic_menu_upload"></item>
     <item android:id="@+id/viewtrip" android:title="@string/viewtrip" android:icon="@drawable/ic_menu_compass"></item>
+    <item android:id="@+id/test" android:title="TEST TX"></item>
 
     
 

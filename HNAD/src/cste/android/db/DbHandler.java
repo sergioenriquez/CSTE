@@ -66,7 +66,7 @@ public class DbHandler {
 	 * @return
 	 */
 	public synchronized long storeDevice(ComModule device){
-		String uid = device.UID().toString();
+		String uid = device.devUID.toString();
 		byte []data = ComModule.serialize(device);
 		
 		if ( data == null )
@@ -118,7 +118,6 @@ public class DbHandler {
 			ComModule cm = devices.nextElement();
 			cm.inRange = false;
     		cm.rssi = 0;
-    		cm.pendingTxMsgCnt = 0;
     		storeDevice(cm);
 		}
 	}
@@ -143,7 +142,7 @@ public class DbHandler {
         		//cm.inRange = false;
         		//cm.rssi = 0;
         		//cm.pendingTxMsgCnt = 0;
-        		deviceMap.put(cm.UID(), cm);
+        		deviceMap.put(cm.devUID, cm);
         	}
             c.moveToNext();
         }
@@ -238,9 +237,9 @@ public class DbHandler {
         	return null;
         }
         
-        if( device.devType() == DeviceType.ECOC || device.devType() == DeviceType.ECM0){
+        if( device.devType == DeviceType.ECOC || device.devType == DeviceType.ECM0){
         	return new EventLogECM(time,typeVal,eventData);
-        }else if( device.devType() == DeviceType.CSD || device.devType() == DeviceType.ACSD){
+        }else if( device.devType == DeviceType.CSD || device.devType == DeviceType.ACSD){
         	return new EventLogCSD(time,typeVal,eventData);
         }else{
         	return null;

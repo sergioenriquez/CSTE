@@ -3,6 +3,7 @@ package cste.messages;
 import java.nio.ByteBuffer;
 
 import cste.icd.EcocCmdType;
+import cste.icd.IcdPayload;
 import cste.icd.IcdTimestamp;
 import static cste.icd.Utility.getEncryptedSize;
 

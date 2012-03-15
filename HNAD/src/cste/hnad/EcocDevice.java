@@ -17,7 +17,6 @@ public class EcocDevice extends ECoC implements Parcelable{
 
 	public EcocDevice(DeviceUID devUID){
 		super(devUID);
-		pendingTxMsgCnt = 0;
 	}
 
 	@Override

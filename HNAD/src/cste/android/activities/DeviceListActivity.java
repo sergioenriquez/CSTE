@@ -50,7 +50,7 @@ public class DeviceListActivity extends HnadBaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
             	ComModule dev = mDeviceListAdapter.getItem(position);
         	  	Intent intent = new Intent(getApplicationContext(), ECoCInfoActivity.class);
-        	  	intent.putExtra("deviceUID",dev.UID());
+        	  	intent.putExtra("deviceUID",dev.devUID);
                 startActivity(intent);
             }
         });
@@ -90,7 +90,7 @@ public class DeviceListActivity extends HnadBaseActivity {
 			int cnt = mDeviceListView.getCount();
 			for(int i=0;i<cnt; i++){
 				ComModule old = (ComModule)mDeviceListView.getItemAtPosition(i);
-				if( old.UID().equals(changedCm.UID())){
+				if( old.devUID.equals(changedCm.devUID)){
 					//old = changedCm;
 					mDeviceListAdapter.remove(old);
 					mDeviceListAdapter.add(changedCm);
@@ -153,6 +153,9 @@ public class DeviceListActivity extends HnadBaseActivity {
             	intent = new Intent(getApplicationContext(), TripInfoActivity.class);
                 //startActivity(intent);
                 break;
+            case R.id.test:
+            	mHnadCoreService.test();
+            	break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -165,16 +168,16 @@ public class DeviceListActivity extends HnadBaseActivity {
 	    
 	    switch (item.getItemId()) {
 	        case R.id.refresh:
-	        	mHnadCoreService.sendDevCmd(cm.UID(),DeviceCommands.GET_RESTRICTED_STATUS);
+	        	mHnadCoreService.sendDevCmd(cm.devUID,DeviceCommands.GET_RESTRICTED_STATUS);
 	        	showProgressDialog("Querying device status...");
 	            return true;
 	        case R.id.viewEventLog:
 	        	Intent eventLogIntent = new Intent(getApplicationContext(), EventLogECMActivity.class);
-	        	eventLogIntent.putExtra("deviceUID", cm.UID());
+	        	eventLogIntent.putExtra("deviceUID", cm.devUID);
 	    		startActivity(eventLogIntent);
 	    		return true;
 	        case R.id.clearAlarm:
-	        	mHnadCoreService.sendDevCmd(cm.UID(),DeviceCommands.SET_ALARM_OFF);
+	        	mHnadCoreService.sendDevCmd(cm.devUID,DeviceCommands.SET_ALARM_OFF);
 	        	showProgressDialog("Clearing alarms...");
 	            return true;
 	        case R.id.commission:

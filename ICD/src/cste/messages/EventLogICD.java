@@ -1,6 +1,7 @@
 package cste.messages;
 
 import cste.icd.EventLogType;
+import cste.icd.IcdPayload;
 import cste.icd.IcdTimestamp;
 
 public abstract class EventLogICD extends IcdPayload{

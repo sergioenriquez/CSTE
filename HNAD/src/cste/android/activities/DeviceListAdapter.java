@@ -42,10 +42,10 @@ public class DeviceListAdapter extends ArrayAdapter<ComModule>{
         	signalImg.setImageResource(R.drawable.stat_sys_signal_4);
         
         TextView devType = (TextView) convertView.findViewById(R.id.deviceid);
-        devType.setText(dev.UID().toString());
+        devType.setText(dev.devUID.toString());
         
         TextView devID = (TextView) convertView.findViewById(R.id.devicetype);
-        devID.setText(dev.devType().toString());
+        devID.setText(dev.devType.toString());
         
         ImageView keyIcon = (ImageView)convertView.findViewById(R.id.haveKey);
         if( dev.haveKey()  )

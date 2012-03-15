@@ -1,9 +1,13 @@
 package cste.android.core;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -59,6 +63,8 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 	private NotificationManager mNM;
 	private Handler mNadaHandler = new Handler();
 	private DbHandler db;
+	private ArrayList<IcdMsg> mTxList;
+	private ArrayList<DeviceUID> mWaitingList;
 	//private Hashtable<DeviceUID,ComModule> mDevTable;
 	private final IBinder mBinder = new LocalBinder();
 	private Timer mUsbReconnectTimer;
@@ -67,13 +73,28 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 
 	@Override
 	public void test(){
-		//db.storeDevLog(new DeviceUID("0013A20040715FD8"), IcdTimestamp.now() , EventLogType.CHANGE_IN_ALARM_STATUS_CSD, new byte[61]);
+		this.handleNullMsg(new DeviceUID("0013A20040715FD8"));
+	}
+	
+	private void updateWaitingList(){
+		mWaitingList.clear();
+		mWaitingList.add(new DeviceUID("FFFFFFFFFFFFFFFF"));
+		for(IcdMsg msg: mTxList){
+			if(!mWaitingList.contains(msg.destUID))
+				mWaitingList.add(msg.destUID);
+		}
+	}
+	
+	public ArrayList<DeviceUID> getWaitingList(){
+		return mWaitingList;
 	}
 	
 	@Override
 	public Hashtable<DeviceUID,ComModule> getDeviceList(){
 		return db.getStoredDevices();
 	}
+	
+	
 	
 	@Override
 	public void deleteDeviceLogs(DeviceUID devUID){
@@ -101,11 +122,13 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
         db.storeDevice(e4);
         
         EcocDevice e2 = new EcocDevice(new DeviceUID("2222222222222222"));
-        e2.tck = new byte[16];
         db.storeDevice(e2);
         
-        EcocDevice e1 = new EcocDevice(new DeviceUID("3333333333333333"));
+        EcocDevice e1 = new EcocDevice(new DeviceUID("0013A20040715FD8"));
         db.storeDevice(e1);
+        
+        mTxList = new ArrayList<IcdMsg>(5);
+        mWaitingList = new ArrayList<DeviceUID>(5);
 
         mIcdTxMap = new Hashtable<DeviceUID,IcdTxItem>(5);
 		mCsdMessageHandler = new CsdMessageHandler(this);
@@ -124,16 +147,16 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
         
-        if ( mIsLoggedIn){
-			Intent devListIntent = new Intent(getApplicationContext(), DeviceListActivity.class);
-			devListIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(devListIntent);
-		}else{
+        //if ( mIsLoggedIn){
+		//	Intent devListIntent = new Intent(getApplicationContext(), DeviceListActivity.class);
+		//	devListIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //    startActivity(devListIntent);
+		//}else{
 			Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
 			loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(loginIntent);
             mIsLoggedIn = true;
-		}
+		//}
         // We want this service to continue running until it is explicitly stopped, so return sticky.
         return START_STICKY;
     }
@@ -174,6 +197,21 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 
 	}
 	
+	@Override
+	public void setDeviceTCK(DeviceUID devUID, byte []newTCK){
+		ComModule destDev = db.getDevice(devUID);
+		if( destDev == null){
+			Log.e(TAG, "Tried to set TCK on a device that does not exist");
+			return;
+		}
+		destDev.setTCK(newTCK);
+		db.storeDevice(destDev);
+		
+		Intent intent = new Intent(Events.DEVICE_INFO_CHANGED);
+		intent.putExtra("deviceUID",devUID);
+		sendBroadcast(intent);
+	}
+	
     @Override 
     public void setDeviceAssensionVal(DeviceUID devUID, int val){
     	ComModule destDev = db.getDevice(devUID);
@@ -183,6 +221,10 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		}
 		destDev.txAscension = val;
 		db.storeDevice(destDev);
+		
+		Intent intent = new Intent(Events.DEVICE_INFO_CHANGED);
+		intent.putExtra("deviceUID",devUID);
+		sendBroadcast(intent);
     }
 
 	@Override
@@ -192,9 +234,14 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 			Log.w(TAG, destUID.toString() + " not stored, cannot send command");
 			return;
 		}
+		
+		if(!this.mUsbCommHandler.isReady()){
+			toast("Cannot transmit, USB not availible");
+			//TODO notifyOfTransmissionResult(false,destUID); // if interface not available now
+			//return;
+		}
 
 		IcdMsg icdMsg = null;
-		
 		switch(cmd){
 		case SEND_ACK:
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.ACK, (byte)destDev.rxAscension);
@@ -239,18 +286,24 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 			return;
 		}
 
-		byte[] destAddrs = destDev.UID().getBytes();
-		if( !XbeeAPI.transmitPkt(destAddrs,icdMsg.getBytes()) )
-			notifyOfTransmissionResult(false,destUID); // if interface not available now
-		else{
-			short ackNo = (short) (destDev.txAscension & 0xFF);
-			Log.i(TAG,"Sent " + cmd.toString() + " , ACK: " + String.valueOf(ackNo));
-			addItemToTxMap(destDev.UID(), icdMsg);
-		}
-
-		destDev.pendingTxMsgCnt++;
+		mTxList.add(icdMsg);
+		updateWaitingList();
 		destDev.txAscension++;
 		db.storeDevice(destDev);
+		
+		//byte[] destAddrs = destDev.UID().getBytes();
+		
+//		if( !XbeeAPI.transmitPkt(destAddrs,icdMsg.getBytes()) )
+//			notifyOfTransmissionResult(false,destUID); // if interface not available now
+//		else{
+//			short ackNo = (short) (destDev.txAscension & 0xFF);
+//			Log.i(TAG,"Sent " + cmd.toString() + " , ACK: " + String.valueOf(ackNo));
+//			addItemToTxMap(destDev.UID(), icdMsg);
+//		}
+
+		//destDev.pendingTxMsgCnt++;
+		//destDev.txAscension++;
+		//db.storeDevice(destDev);
 	}
 	
 	protected void addItemToTxMap(DeviceUID destUID, IcdMsg icdMsg){
@@ -294,7 +347,6 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     	if( result == false){
     		Log.i(TAG,"Timeout for ACK: " + String.valueOf(ackNo));
 	    	if( txItem.retryAttempts > 5){
-	    		destDev.pendingTxMsgCnt--;
 	    		toast("No reply received from " + destUID.toString() + "for AckNo: " + String.valueOf(ackNo));
 	    		notifyOfTransmissionResult(false,destUID);
 	    		mIcdTxMap.remove(destUID);
@@ -344,6 +396,30 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     			Log.w(TAG,"Received ICD msg with an error: " + msg.msgStatus.name());
     	}
 	}
+    
+    
+    /***
+     * 
+     * @param uid
+     */
+    private void handleNullMsg(DeviceUID uid){
+    	ArrayList<IcdMsg> removeList = new ArrayList<IcdMsg>();
+    	
+    	for(IcdMsg msg : mTxList){
+    		if( msg.destUID.equals(uid)){
+    			XbeeAPI.transmitPkt(uid.getBytes(),msg.getBytes());
+    			removeList.add(msg);
+    		}
+    	}
+    	
+    	
+    	if( removeList.size() > 0){
+	    	for(IcdMsg msg : removeList){
+	    		mTxList.remove(msg);
+	    	}
+	    	updateWaitingList();
+    	}
+    }
 
     /***
      * 
@@ -359,30 +435,26 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     		db.storeDevice(deviceSrc);
     		ackNo = (short) (status.ackNo & 0xFF);
     		
-    		onRadioTransmitResult(true,deviceSrc.UID(),ackNo);
-    		notifyOfTransmissionResult(true, deviceSrc.UID());
+    		onRadioTransmitResult(true,deviceSrc.devUID,ackNo);
+    		notifyOfTransmissionResult(true, deviceSrc.devUID);
     		break;
     	case DEVICE_EVENT_LOG:
     		EventLogICD logRecord = (EventLogICD)msg.payload;
     		ackNo = (short) (logRecord.ackNo & 0xFF);
-    		db.storeDevLog(deviceSrc.UID(), logRecord);
+    		db.storeDevLog(deviceSrc.devUID, logRecord);
     		
-    		onRadioTransmitResult(true,deviceSrc.UID(),ackNo);
-    		sendDevCmd(deviceSrc.UID(),DeviceCommands.SEND_ACK);
+    		onRadioTransmitResult(true,deviceSrc.devUID,ackNo);
+    		sendDevCmd(deviceSrc.devUID,DeviceCommands.SEND_ACK);
     		Log.i(TAG,"Received record, ACK " + String.valueOf(ackNo));
     		
     		if( logRecord.eventType == EventLogType.END_OF_RECORDS){
     			Intent intent = new Intent(Events.DEV_EVENT_LOG_CHANGD);
-    			intent.putExtra("deviceUID",deviceSrc.UID());
+    			intent.putExtra("deviceUID",deviceSrc.devUID);
     			sendBroadcast(intent);
     		}
     		break;
-    	case DEV_CMD_RESTRICTED:
-    		RestrictedCmdECM cmd = (RestrictedCmdECM)msg.payload;
-    		byte temp = (Byte)cmd.params[0];
-    		ackNo = (short) (temp& 0xFF);
-
-    		onRadioTransmitResult(true,deviceSrc.UID(),ackNo);
+    	case NULL_MSG:
+    		handleNullMsg(deviceSrc.devUID);
     		break;
     	case UNRESTRICTED_STATUS_MSG:
     		ackNo = (short) ( deviceSrc.rxAscension & 0xFF);
@@ -395,7 +467,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
     	}
 
     	Intent testIntent = new Intent(Events.DEVICE_INFO_CHANGED);
-		testIntent.putExtra("deviceUID",deviceSrc.UID());
+		testIntent.putExtra("deviceUID",deviceSrc.devUID);
 		sendBroadcast(testIntent);
     }
 
@@ -420,7 +492,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 			Log.w(TAG,"No key availible for " + destinationUID.toString());
 			return null;
 		}
-		return cm.tck;
+		return cm.getTCK();
 		//return strToHex("1234567890ABCDEF1234567890ABCDEF"); 
 	}
 
@@ -464,7 +536,7 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		String Android_ID = System.getString(this.getContentResolver(), System.ANDROID_ID);
 		String thisUIDStr = settings.getString(SettingsKey.THIS_UID, Android_ID);
 		String dcpUIDStr = settings.getString(SettingsKey.DCP_UID, 	 "0000000000000000");
-		int burstIndex = settings.getInt(SettingsKey.NADA_BURST, 0);
+		int burstIndex = settings.getInt(SettingsKey.NADA_BURST, 4);
 		
 		DeviceUID thisUID = new DeviceUID(thisUIDStr);
 		DeviceUID dcpUID = new DeviceUID(dcpUIDStr);
@@ -516,10 +588,10 @@ public class HNADService extends Service implements HNADServiceInterface, KeyPro
 		// In this sample, we'll use the same text for the ticker and the expanded notification        
 		//TODO go to the device details for this new device
 		CharSequence title = "HNAD app";
-		CharSequence text = "Device detected " + device.UID();        // Set the icon, scrolling text and timestamp        
+		CharSequence text = "Device detected " + device.devUID;        // Set the icon, scrolling text and timestamp        
 		Notification notification = new Notification(R.drawable.stat_sys_signal_4, text, java.lang.System.currentTimeMillis());        // The PendingIntent to launch our activity if the user selects this notification        
 		Intent intent = new Intent(this, ECoCInfoActivity.class);
-		intent.putExtra("deviceUID", device.UID());
+		intent.putExtra("deviceUID", device.devUID);
 		intent.putExtra("clearNotifications",true);
 		
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, 0);        // Set the info for the views that show in the notification panel.        

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,11 +22,16 @@ import cste.components.ECoC;
 import cste.hnad.EcocDevice;
 import cste.icd.DeviceUID;
 import cste.messages.RestrictedStatusECM;
+import cste.misc.HexKeyListener;
+import static cste.icd.Utility.strToHex;
+import static cste.icd.Utility.hexToStr;;
 
 public class ECoCInfoActivity extends HnadBaseActivity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "ECoC Info Activity";
 	protected DeviceUID devUID;
+	
+	EditText msgInput;
 	
 	TextView mDeviceUIDTxt;
 	TextView mDeviceTypeTxt;
@@ -99,7 +105,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 			return;
 		
 		mDeviceUIDTxt.setText(devUID.toString());
-		mDeviceTypeTxt.setText(eCoC.devType().toString());
+		mDeviceTypeTxt.setText(eCoC.devType.toString());
 		mRxAckTxt.setText(String.valueOf(eCoC.rxAscension));
 		mTxAckTxt.setText(String.valueOf(eCoC.txAscension));
 		mDeviceRSSITxt.setText("-" + String.valueOf(eCoC.rssi) + " db");
@@ -182,24 +188,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
         	finish();
             return true;
         case R.id.assn:
-        	AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        	ECoC eCoC = (ECoC) mHnadCoreService.getDeviceRecord(devUID);
-        	if(eCoC==null)
-        		return true;
-        	input = new EditText(this);
-        	input.setInputType(InputType.TYPE_CLASS_NUMBER);
-        	input.setText(Integer.toString(eCoC.txAscension));
-        	input.requestFocus();
-        	alert.setView(input);
-        	alert.setTitle("Enter the new tx assension val");
-        	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-        		public void onClick(DialogInterface dialog, int whichButton) {
-        		  String value = input.getText().toString();
-        		  int val = Integer.valueOf(value);
-        		  mHnadCoreService.setDeviceAssensionVal(devUID, val);
-        		}
-        	});
-        	alert.show();
+        	showChangeAMsg();
             return true;
         case R.id.setTime:
         	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_TIME);
@@ -209,12 +198,61 @@ public class ECoCInfoActivity extends HnadBaseActivity {
         	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.CLEAR_EVENT_LOG);
         	showProgressDialog("Clearing log...");
         	return true;
+        	
+        case R.id.setKey:
+        	showChangeEncryptionMsg();
+        	return true;
         }
     	
         return super.onOptionsItemSelected(item);
     }
-	
-	EditText input;
 
+	private void showChangeAMsg(){
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+    	ECoC eCoC = (ECoC) mHnadCoreService.getDeviceRecord(devUID);
+    	if(eCoC == null)
+    		return;
+    	EditText input = new EditText(this);
+    	input.setInputType(InputType.TYPE_CLASS_NUMBER);
+    	input.setText(Integer.toString(eCoC.txAscension));
+    	input.requestFocus();
+    	alert.setView(input);
+    	alert.setTitle("Enter the new tx assension val");
+    	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+    		public void onClick(DialogInterface dialog, int whichButton) {
+    		  String value = msgInput.getText().toString();
+    		  int val = Integer.valueOf(value);
+    		  mHnadCoreService.setDeviceAssensionVal(devUID, val);
+    		}
+    	});
+    	alert.show();
+	}
+
+	private void showChangeEncryptionMsg(){
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+    	ECoC eCoC = (ECoC) mHnadCoreService.getDeviceRecord(devUID);
+    	
+    	if(eCoC == null)
+    		return;
+    	
+    	msgInput = new EditText(this);
+    	msgInput.setFilters(new InputFilter[]{
+    	         new InputFilter.LengthFilter(32),
+    	         new InputFilter.AllCaps()
+    	         });
+    	msgInput.setKeyListener(new HexKeyListener());
+    	msgInput.setText( hexToStr(eCoC.getTCK()) );
+    	msgInput.requestFocus();
+    	
+    	alert.setView(msgInput);
+    	alert.setTitle("Enter the new TCK value");
+    	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+    		public void onClick(DialogInterface dialog, int whichButton) {
+    		  String value = msgInput.getText().toString();
+    		  mHnadCoreService.setDeviceTCK(devUID, strToHex(value));
+    		}
+    	});
+    	alert.show();
+	}
 
 }//end class
