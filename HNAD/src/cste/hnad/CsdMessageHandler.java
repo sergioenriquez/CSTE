@@ -3,6 +3,7 @@ package cste.hnad;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import cste.android.core.HNADService;
 import cste.misc.XbeeAPI;
 
 public class CsdMessageHandler extends Handler {
@@ -12,10 +13,10 @@ public class CsdMessageHandler extends Handler {
 	public static final int DEVICE_DISCONNECTED = 2;
 	public static final int MSG_RECEIVED 		= 3;
 
-	private HNADServiceInterface mHnadCore;
+	private HNADService mHnadCore;
 	
 	
-	public CsdMessageHandler(HNADServiceInterface hnad){
+	public CsdMessageHandler(HNADService hnad){
 		this.mHnadCore = hnad;
 	}
 	

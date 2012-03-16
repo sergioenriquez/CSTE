@@ -7,7 +7,7 @@ import java.util.Hashtable;
 
 import android.util.Log;
 import android.widget.Toast;
-import cste.hnad.HNADServiceInterface;
+import cste.android.core.HNADService;
 import cste.hnad.RadioCommInterface;
 
 public class XbeeAPI {
@@ -29,7 +29,7 @@ public class XbeeAPI {
 	public static final byte[] BAD_ADDRESS = strToHex("0000000000000000");
 	
 	private static RadioCommInterface comInterface;
-	public static HNADServiceInterface mHnadService; // TODO replace with interface
+	public static HNADService mHnadService; // TODO replace with interface
 
 	protected static byte nextFrameAck = 0;
 	protected static Hashtable<Byte,XbeeTxItem> txTable = new Hashtable<Byte, XbeeTxItem>();
@@ -44,7 +44,7 @@ public class XbeeAPI {
 		comInterface = radioInterface;
 	}
 	
-	public static void setHnadService(HNADServiceInterface mHnadService){
+	public static void setHnadService(HNADService mHnadService){
 		XbeeAPI.mHnadService = mHnadService;
 	}
 	
@@ -195,7 +195,7 @@ public class XbeeAPI {
 		short frameSize = temp.getShort();
 		short payloadSize = (short) (frameSize-8-3);
 		
-		if( frameSize >= msgSize  || payloadSize <= 10){
+		if( frameSize >= msgSize  || payloadSize < 10){
 			Log.w(TAG, "Received a frame with bad size");
 			return;
 		}

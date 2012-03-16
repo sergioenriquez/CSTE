@@ -11,7 +11,7 @@ import cste.icd.DeviceUID;
 import cste.messages.EventLogICD;
 import cste.misc.XbeeFrame;
 
-public interface HNADServiceInterface {
+public interface HNADServiceInterfaceOLD {
 	public void onFrameReceived(XbeeFrame pkt); // TODO: fill in functions
 	public void onUsbStateChanged(boolean state); // TODO: fill in functions
 	public void login(String username,String password);

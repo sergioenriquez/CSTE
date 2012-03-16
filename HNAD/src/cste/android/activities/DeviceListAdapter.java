@@ -1,5 +1,7 @@
 package cste.android.activities;
 
+import java.util.Comparator;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,4 +72,33 @@ public class DeviceListAdapter extends ArrayAdapter<ComModule>{
 
         return convertView;
     }
+	
+	public void sortList(){
+		sort(new DeviceComparator());
+	}
+	
+	private static class DeviceComparator implements Comparator<ComModule>{
+        
+		@Override
+		public int compare(ComModule a, ComModule b) {
+			//sort by key, visible, UID
+
+			if( a.haveKey() && !b.haveKey()){
+				return -1;
+			}else if( !a.haveKey() && b.haveKey() ){
+				return 1;
+			}
+			
+			if( a.rssi != 0 && b.rssi == 0 )
+				return -1;
+			else if ( a.rssi == 0 && b.rssi != 0 )
+				return 1;
+			
+			String a_UID = a.devUID.toString();
+			String b_UID = b.devUID.toString();
+			
+			return a_UID.compareTo(b_UID);
+		}
+		
+	}
 }

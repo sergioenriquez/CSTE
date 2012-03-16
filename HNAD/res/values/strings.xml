@@ -32,6 +32,7 @@
     <string name="na">N/A</string>
     <string name="deviceCommads">Device Commands</string>
     <string name="generalInfo">General Info</string>
+    <string name="waypoints">Waypoints</string>
     
     <string name="devUID">Device UID</string>
     <string name="hnadUID">HNAD UID</string>

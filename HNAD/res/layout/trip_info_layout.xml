@@ -4,5 +4,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/dummy"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">     
+	    <TextView      
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="10dp"
+	        android:text="@string/conveyance" />
+	    <EditText
+	        android:id="@+id/conveyanceID"
+	        android:singleLine="true"
+	        android:inputType="text"
+	        android:layout_width="0dp"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/conveyance"
+	        android:maxLength="16"/>
+    </LinearLayout>
+    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="5dp"
+	        android:text="@string/waypoints" />
+    <ListView
+        android:id="@+id/waypointListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

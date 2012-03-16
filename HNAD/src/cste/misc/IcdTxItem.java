@@ -1,12 +1,12 @@
 package cste.misc;
 
-import cste.hnad.HNADServiceInterface;
+import cste.android.core.HNADService;
 import cste.icd.DeviceUID;
 import cste.messages.IcdMsg;
 import android.os.Handler;
 
 public class IcdTxItem implements Runnable {
-	HNADServiceInterface service;
+	HNADService service;
 	DeviceUID destUID;
 
 	public IcdMsg msgSent;
@@ -14,7 +14,7 @@ public class IcdTxItem implements Runnable {
 	public int retryAttempts;
 	protected Handler mHandler;
 
-	public IcdTxItem(HNADServiceInterface service, DeviceUID destUID, IcdMsg msgSent){
+	public IcdTxItem(HNADService service, DeviceUID destUID, IcdMsg msgSent){
 		this.service = service;
 		this.destUID = destUID;
 		this.msgSent = msgSent;

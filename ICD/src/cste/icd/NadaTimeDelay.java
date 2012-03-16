@@ -19,7 +19,7 @@ public enum NadaTimeDelay {
 	}
 	
 	public byte getBytes(){
-		return code;
+		return (byte)(code << 4  | 0x01);
 	}
 	
 	public int getMsDelay(){

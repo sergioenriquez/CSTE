@@ -21,7 +21,6 @@ public class ConfigActivity extends HnadBaseActivity {
 	CheckBox useEncryption;
 	Spinner nadaBurst;
 	
-	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +70,8 @@ public class ConfigActivity extends HnadBaseActivity {
     	editor.putBoolean(SettingsKey.USE_ENC, useEncryption.isChecked());
     	editor.putInt(SettingsKey.NADA_BURST, nadaBurst.getSelectedItemPosition());
     	editor.commit();
+    	
+    	mHnadCoreService.saveGeneralSettings();
     }
 
 	@Override

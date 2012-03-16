@@ -94,8 +94,7 @@ public class DeviceListActivity extends HnadBaseActivity {
 					//old = changedCm;
 					mDeviceListAdapter.remove(old);
 					mDeviceListAdapter.add(changedCm);
-					mDeviceListView.forceLayout();
-					mDeviceListView.invalidate();
+					mDeviceListAdapter.sortList();
 					mDeviceListAdapter.notifyDataSetChanged();
 					break;
 				}
@@ -110,6 +109,8 @@ public class DeviceListActivity extends HnadBaseActivity {
 		Enumeration<ComModule> devices = mHnadCoreService.getDeviceList().elements();
 		while(devices.hasMoreElements())
 			mDeviceListAdapter.add(devices.nextElement());
+		
+		mDeviceListAdapter.sortList();
 	}
 	
 	@Override
@@ -149,9 +150,8 @@ public class DeviceListActivity extends HnadBaseActivity {
             	toast("Feature no implemented yet");
                 break;
             case R.id.viewtrip:
-            	toast("Feature no implemented yet");
             	intent = new Intent(getApplicationContext(), TripInfoActivity.class);
-                //startActivity(intent);
+                startActivity(intent);
                 break;
             case R.id.test:
             	mHnadCoreService.test();
@@ -163,7 +163,6 @@ public class DeviceListActivity extends HnadBaseActivity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-	    
 	    ComModule cm = mDeviceListAdapter.getItem(info.position);
 	    
 	    switch (item.getItemId()) {
