@@ -24,6 +24,7 @@ public abstract class ComModule implements Serializable{
 	private static String TAG = "ComModule class";
 	private static final long serialVersionUID = 2340395912239234229L;
 	public DeviceUID devUID;
+	public byte[] address;
 	public DeviceType devType;
 	public int rxAscension; 
 	public int txAscension;
@@ -54,13 +55,17 @@ public abstract class ComModule implements Serializable{
 	
 	public abstract void setRestrictedStatus(RestrictedStatus latestStatus);
 
-	public ComModule(DeviceUID devUID){
+	public ComModule(DeviceUID devUID, byte[] address){
 		this.devUID = devUID;
 		this.rxAscension = 1;
 		this.txAscension = 1;
 		this.icdRev = 0x02;
 		this.keyValid = false;
 		this.tck = new byte[16];
+		if( address != null && address.length == 8)
+			this.address = address;
+		else 
+			this.address = devUID.getBytes();
 		
 		this.rssi = 0;
 		this.inRange = false;

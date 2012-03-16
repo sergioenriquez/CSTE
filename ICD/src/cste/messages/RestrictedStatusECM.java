@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 
 import cste.icd.ConveyanceID;
+import cste.icd.GpsLoc;
 import cste.icd.IcdTimestamp;
 
 public class RestrictedStatusECM extends RestrictedStatus{

@@ -36,6 +36,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 	TextView mDeviceUIDTxt;
 	TextView mDeviceTypeTxt;
 	TextView mConveyanceID;
+	TextView mMacAddrs;
 	TextView mGpsLocation;
 	TextView mDeviceRSSITxt;
 	TextView mRxAckTxt;
@@ -68,6 +69,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
         mDeviceUIDTxt =  	(TextView)findViewById(R.id.devUID);
         mDeviceTypeTxt = 	(TextView)findViewById(R.id.devType);
         mConveyanceID = 	(TextView)findViewById(R.id.conveyanceID);
+        mMacAddrs = 		(TextView)findViewById(R.id.macAddrs);
         mGpsLocation = 		(TextView)findViewById(R.id.gpsLoc);
         mDeviceRSSITxt = 	(TextView)findViewById(R.id.rssiVal);
         mRxAckTxt = 	 	(TextView)findViewById(R.id.ackNo);
@@ -109,7 +111,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 		mRxAckTxt.setText(String.valueOf(eCoC.rxAscension));
 		mTxAckTxt.setText(String.valueOf(eCoC.txAscension));
 		mDeviceRSSITxt.setText("-" + String.valueOf(eCoC.rssi) + " db");
-
+		mMacAddrs.setText( hexToStr(eCoC.address));
 		mConveyanceID.setText(eCoC.getConveyanceID().toString());
 		mGpsLocation.setText(eCoC.getGpsLocation().toString());
 
@@ -178,10 +180,16 @@ public class ECoCInfoActivity extends HnadBaseActivity {
     		startActivity(intent);
             return true;
         case R.id.clearAlarm:
+        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_ALARM_OFF);
         	showProgressDialog("Clearing alarm...");
             return true;
         case R.id.commission:
+        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_COMMISION_ON);
         	showProgressDialog("Commissioning...");
+            return true;
+        case R.id.decommission:
+        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_COMMISION_OFF);
+        	showProgressDialog("Decommissioning...");
             return true;
         case R.id.erase:
         	mHnadCoreService.deleteDeviceRecord(devUID);
@@ -198,10 +206,13 @@ public class ECoCInfoActivity extends HnadBaseActivity {
         	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.CLEAR_EVENT_LOG);
         	showProgressDialog("Clearing log...");
         	return true;
-        	
         case R.id.setKey:
         	showChangeEncryptionMsg();
         	return true;
+        case R.id.setWaypoints:
+        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_WAYPOINTS_START);
+        	showProgressDialog("Setting waypoints...");
+            return true;
         }
     	
         return super.onOptionsItemSelected(item);
@@ -212,11 +223,11 @@ public class ECoCInfoActivity extends HnadBaseActivity {
     	ECoC eCoC = (ECoC) mHnadCoreService.getDeviceRecord(devUID);
     	if(eCoC == null)
     		return;
-    	EditText input = new EditText(this);
-    	input.setInputType(InputType.TYPE_CLASS_NUMBER);
-    	input.setText(Integer.toString(eCoC.txAscension));
-    	input.requestFocus();
-    	alert.setView(input);
+    	msgInput = new EditText(this);
+    	msgInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+    	msgInput.setText(Integer.toString(eCoC.txAscension));
+    	msgInput.requestFocus();
+    	alert.setView(msgInput);
     	alert.setTitle("Enter the new tx assension val");
     	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
     		public void onClick(DialogInterface dialog, int whichButton) {

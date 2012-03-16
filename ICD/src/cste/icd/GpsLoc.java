@@ -1,4 +1,4 @@
-package cste.messages;
+package cste.icd;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -18,6 +18,17 @@ public class GpsLoc implements Serializable{
 		this();
 		if(b.remaining() >= SIZE )
 			b.get(gpsLocation);
+	}
+	
+	public GpsLoc(String str){
+		this();
+		try {
+			if( str.length() > SIZE)
+				str = str.substring(0, SIZE);
+			gpsLocation = str.getBytes("UTF8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public byte[] getBytes() {

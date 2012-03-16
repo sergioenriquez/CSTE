@@ -2,7 +2,9 @@ package cste.messages;
 
 import java.nio.ByteBuffer;
 
+import cste.icd.ConveyanceID;
 import cste.icd.EcocCmdType;
+import cste.icd.GpsLoc;
 import cste.icd.IcdPayload;
 import cste.icd.IcdTimestamp;
 import static cste.icd.Utility.getEncryptedSize;
@@ -46,6 +48,10 @@ public class RestrictedCmdECM extends IcdPayload{
 			break;
 		case NOP:
 			break;
+		case CWT:
+		case WLN:
+			//TODO
+			break;
 			//TODO read other values as needed
 		default:
 		}
@@ -85,13 +91,13 @@ public class RestrictedCmdECM extends IcdPayload{
 			//1 param
 			break;
 		case CPI:
-			//1 param
+			ConveyanceID c = (ConveyanceID)params[0];
+			b.put(c.getBytes());
 			break;
 		case WLN:
-			//4 params
-			break;
 		case WLA:
-			//4 params
+			GpsLoc gps = (GpsLoc)params[0];;
+			b.put(gps.getBytes());
 			break;
 			//TODO read write values as needed
 		default:

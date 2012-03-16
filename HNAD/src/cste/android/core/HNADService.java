@@ -33,10 +33,12 @@ import cste.android.db.DbHandler;
 import cste.components.ComModule;
 import cste.hnad.CsdMessageHandler;
 import cste.hnad.EcocDevice;
+import cste.icd.ConveyanceID;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.icd.EcocCmdType;
 import cste.icd.EventLogType;
+import cste.icd.GpsLoc;
 import cste.icd.IcdTimestamp;
 import cste.icd.MsgType;
 import cste.interfaces.KeyProvider;
@@ -72,7 +74,9 @@ public class HNADService extends Service implements KeyProvider{
 	private Hashtable<DeviceUID,IcdTxItem> mIcdTxMap;// =  MultiKeyMap.decorate(new LinkedMap(10));
 	private SharedPreferences settings;// = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
 	private List<String> mWaypointList;
-	private String conveyanceID;//TODO use the custom class
+	private int mWaypointIndex = 0;
+	
+	private ConveyanceID conveyanceID;//TODO use the custom class
 
 	public void test(){
 		this.handleNullMsg(new DeviceUID("0013A20040715FD8"));
@@ -89,14 +93,14 @@ public class HNADService extends Service implements KeyProvider{
 	}
 	
 	public String getConveyanceIDStr(){
-		return conveyanceID;
+		return conveyanceID.toString();
 	}
 	
 	private void updateWaitingList(){
 		mWaitingList.clear();
-		mWaitingList.add(new DeviceUID("FFFFFFFFFFFFFFFF"));
+		
 		for(IcdMsg msg: mTxList){
-			if(!mWaitingList.contains(msg.destUID))
+			if(msg != null && !mWaitingList.contains(msg.destUID))
 				mWaitingList.add(msg.destUID);
 		}
 	}
@@ -256,41 +260,68 @@ public class HNADService extends Service implements KeyProvider{
 		IcdMsg icdMsg = null;
 		switch(cmd){
 		case SEND_ACK:
+			mWaypointIndex = 0;
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.ACK, (byte)destDev.rxAscension);
 			break;
 		case SET_TIME:
+			mWaypointIndex = 0;
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.ST, IcdTimestamp.now());
 			break;
 		case SET_TRIPINFO:
-			//TODO Set conveyane id
-			//icdMsg = IcdMsg.buildIcdMsg(dev, MsgType.DEV_CMD_RESTRICTED, CWT);
+			mWaypointIndex = 0;
+			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.CWT,conveyanceID);
 			break;
-		case SET_WAYPOINTS:
+		case SET_WAYPOINTS_START:
+			if(this.mWaypointList.size() > 0){
+				mWaypointIndex = 0;
+				GpsLoc gps = new GpsLoc(mWaypointList.get(mWaypointIndex++));
+				icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.WLN, gps);
+			}else{
+				toast("No waypoints set");
+				return;
+			}
 			//TODO send waypoint list
 			//icdMsg = IcdMsg.buildIcdMsg(dev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SMAF);
 			break;
+		case SET_WAYPOINTS_NEXT:
+			if(mWaypointIndex < mWaypointList.size()){
+				GpsLoc gps = new GpsLoc(mWaypointList.get(mWaypointIndex++));
+				icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.WLA,gps);
+			}
+			else{
+				toast("Invalid waypoint index");
+				return;
+			}
+			break;
 		case SET_ALARM_OFF:
+			mWaypointIndex = 0;
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SMAT);
 			break;
 		case SET_ALARM_ON:
+			mWaypointIndex = 0;
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SMAF);
 			break;
 		case SET_COMMISION_OFF:
+			mWaypointIndex = 0;
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.DAHH);
 			break;
 		case SET_COMMISION_ON:
+			mWaypointIndex = 0;
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SMAT);
 			break;
 		case GET_RESTRICTED_STATUS:
+			mWaypointIndex = 0;
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.NOP);
 			break;
 		case GET_EVENT_LOG:
+			mWaypointIndex = 0;
 			if( db.getDevLogRecordCount(destUID) == 0 )
 				icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SL);
 			else
 				icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.SLU);
 			break;
 		case CLEAR_EVENT_LOG:
+			mWaypointIndex = 0;
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.EL);
 			break;
 		default:
@@ -332,48 +363,48 @@ public class HNADService extends Service implements KeyProvider{
 		}
 	}
 
-    public void onRadioTransmitResult(boolean result, DeviceUID destUID, short ackNo){
-		ComModule destDev = db.getDevice(destUID);
-    	if( destDev == null){
-    		Log.e(TAG,"Missing device record for " + destUID.toString());
-    		return;
-    	}
-
-    	IcdTxItem txItem = mIcdTxMap.get(destUID);
-    	if( txItem == null){
-    		//Log.e(TAG, "Missing tx item for " + destUID.toString());
-    		//notifyOfTransmissionResult(result,destUID);
-    		return;
-    	}
-    	
-    	short ackNoSent = (short)(txItem.msgSent.headerData.msgAsc & 0xFF);
-    	if( ackNoSent > ackNo ){
-    		//Log.e(TAG, "Received an invalid AckNo for " + destUID.toString() + ":" + String.valueOf(ackNo));
-    		return;
-    	}
-    	
-    	txItem.clearTimer();
-    	IcdMsg msgSent = txItem.msgSent;   	
-
-    	if( result == false){
-    		Log.i(TAG,"Timeout for ACK: " + String.valueOf(ackNo));
-	    	if( txItem.retryAttempts > 5){
-	    		toast("No reply received from " + destUID.toString() + "for AckNo: " + String.valueOf(ackNo));
-	    		notifyOfTransmissionResult(false,destUID);
-	    		mIcdTxMap.remove(destUID);
-	    	}else{
-	    		byte[] destAddrs = destUID.getBytes();
-	    		msgSent.headerData.msgAsc = destDev.txAscension++;
-	    		db.storeDevice(destDev);
-	    		XbeeAPI.transmitPkt(destAddrs, msgSent.getBytes()); 
-	    		txItem.msgSent = msgSent;
-	    		txItem.retryAttempts++;
-	    		txItem.restartTimer();
-	    	}
-    	}else{
-    		mIcdTxMap.remove(destUID);
-    	}
-    }
+//    public void onRadioTransmitResult(boolean result, DeviceUID destUID, short ackNo){
+//		ComModule destDev = db.getDevice(destUID);
+//    	if( destDev == null){
+//    		Log.e(TAG,"Missing device record for " + destUID.toString());
+//    		return;
+//    	}
+//
+//    	IcdTxItem txItem = mIcdTxMap.get(destUID);
+//    	if( txItem == null){
+//    		//Log.e(TAG, "Missing tx item for " + destUID.toString());
+//    		//notifyOfTransmissionResult(result,destUID);
+//    		return;
+//    	}
+//    	
+//    	short ackNoSent = (short)(txItem.msgSent.headerData.msgAsc & 0xFF);
+//    	if( ackNoSent > ackNo ){
+//    		//Log.e(TAG, "Received an invalid AckNo for " + destUID.toString() + ":" + String.valueOf(ackNo));
+//    		return;
+//    	}
+//    	
+//    	txItem.clearTimer();
+//    	IcdMsg msgSent = txItem.msgSent;   	
+//
+//    	if( result == false){
+//    		Log.i(TAG,"Timeout for ACK: " + String.valueOf(ackNo));
+//	    	if( txItem.retryAttempts > 5){
+//	    		toast("No reply received from " + destUID.toString() + "for AckNo: " + String.valueOf(ackNo));
+//	    		notifyOfTransmissionResult(false,destUID);
+//	    		mIcdTxMap.remove(destUID);
+//	    	}else{
+//	    		byte[] destAddrs = destUID.getBytes();
+//	    		msgSent.headerData.msgAsc = destDev.txAscension++;
+//	    		db.storeDevice(destDev);
+//	    		XbeeAPI.transmitPkt(destAddrs, msgSent.getBytes()); 
+//	    		txItem.msgSent = msgSent;
+//	    		txItem.retryAttempts++;
+//	    		txItem.restartTimer();
+//	    	}
+//    	}else{
+//    		mIcdTxMap.remove(destUID);
+//    	}
+//    }
 	
 	protected void notifyOfTransmissionResult(boolean success, DeviceUID destUID){
 		Intent intent = new Intent(Events.TRANSMISSION_RESULT);
@@ -389,7 +420,7 @@ public class HNADService extends Service implements KeyProvider{
     			String key = msg.headerData.devUID.toString();
     			EcocDevice deviceSrc = (EcocDevice)db.getDevice(msg.headerData.devUID);
     	    	if( deviceSrc == null ){
-    	    		deviceSrc = new EcocDevice( msg.headerData.devUID);
+    	    		deviceSrc = new EcocDevice( msg.headerData.devUID , frm.address);
     	    		db.storeDevice(deviceSrc);
 
     	    		Intent intent = new Intent(Events.DEVLIST_CHANGED);
@@ -416,12 +447,14 @@ public class HNADService extends Service implements KeyProvider{
     	ArrayList<IcdMsg> removeList = new ArrayList<IcdMsg>();
     	
     	for(IcdMsg msg : mTxList){
-    		if( msg.destUID.equals(uid)){
-    			XbeeAPI.transmitPkt(uid.getBytes(),msg.getBytes());
+    		
+    		
+    		if( msg != null && msg.destUID.equals(uid)){
+    			ComModule cm = this.getDeviceRecord(msg.destUID);
+    			XbeeAPI.transmitPkt( cm.address ,msg.getBytes());
     			removeList.add(msg);
     		}
     	}
-    	
     	
     	if( removeList.size() > 0){
 	    	for(IcdMsg msg : removeList){
@@ -445,18 +478,29 @@ public class HNADService extends Service implements KeyProvider{
     		db.storeDevice(deviceSrc);
     		ackNo = (short) (status.ackNo & 0xFF);
     		
-    		onRadioTransmitResult(true,deviceSrc.devUID,ackNo);
-    		notifyOfTransmissionResult(true, deviceSrc.devUID);
+    		if( mWaypointIndex > 0){ //setting waypoints
+    			if( mWaypointIndex < mWaypointList.size()){
+    				toast("Sending waypoint " + String.valueOf(mWaypointIndex));
+    				sendDevCmd(deviceSrc.devUID, DeviceCommands.SET_WAYPOINTS_NEXT );
+    			}else{
+    				toast("Done sending waypoints");
+    				mWaypointIndex = 0;
+    				notifyOfTransmissionResult(true, deviceSrc.devUID);
+    			}
+    		}else{
+    			//onRadioTransmitResult(true,deviceSrc.devUID,ackNo);
+        		notifyOfTransmissionResult(true, deviceSrc.devUID);
+    		}
     		break;
     	case DEVICE_EVENT_LOG:
     		EventLogICD logRecord = (EventLogICD)msg.payload;
     		ackNo = (short) (logRecord.ackNo & 0xFF);
     		db.storeDevLog(deviceSrc.devUID, logRecord);
     		
-    		onRadioTransmitResult(true,deviceSrc.devUID,ackNo);
+    		//onRadioTransmitResult(true,deviceSrc.devUID,ackNo);
     		sendDevCmd(deviceSrc.devUID,DeviceCommands.SEND_ACK);
     		Log.i(TAG,"Received record, ACK " + String.valueOf(ackNo));
-    		
+    		toast("Rec Log " + String.valueOf(ackNo));
     		if( logRecord.eventType == EventLogType.END_OF_RECORDS){
     			Intent intent = new Intent(Events.DEV_EVENT_LOG_CHANGD);
     			intent.putExtra("deviceUID",deviceSrc.devUID);
@@ -554,8 +598,9 @@ public class HNADService extends Service implements KeyProvider{
 		IcdMsg.configure(useEncryption,DeviceType.FNAD_I, thisUID, this);	
 		mNadaBroadcaster.config(burstIndex, DeviceType.INVALID, new DeviceUID("0000000000000000"), DeviceType.DCP, dcpUID);
 		
-		conveyanceID = settings.getString(SettingsKey.CONVEYANCE_ID, "ConveyanceID");
-		String waypointStr = settings.getString(SettingsKey.WAYPOINT_LIST, "Waypoint1");
+		String temp =  settings.getString(SettingsKey.CONVEYANCE_ID, "ConveyanceID");;
+		conveyanceID = new ConveyanceID(temp);
+		String waypointStr = settings.getString(SettingsKey.WAYPOINT_LIST, "A4807.038N001131.000E,A4111.033N002222.001E");
 		if( waypointStr != ""){
 			String[] waypointArr = waypointStr.split(",");
 			mWaypointList = Arrays.asList(waypointArr);
@@ -617,14 +662,14 @@ public class HNADService extends Service implements KeyProvider{
 		mNM.notify(NEW_DEVICE_NOTIFICATION, notification);    
 	}
 	
-	public void saveWaypointSettings(String conveyance, ArrayList<String> waypoints){
-		conveyanceID = conveyance;
+	public void saveWaypointSettings(String conveyanceStr, ArrayList<String> waypoints){
+		conveyanceID = new ConveyanceID(conveyanceStr);
 		mWaypointList = waypoints;
 		
     	SharedPreferences settings = getSettingsFile();
     	SharedPreferences.Editor editor = settings.edit();
     	
-    	editor.putString(SettingsKey.CONVEYANCE_ID, conveyance);
+    	editor.putString(SettingsKey.CONVEYANCE_ID, conveyanceStr);
     	StringBuilder sb = new StringBuilder("");
     	for(String s:waypoints){
     		sb.append(s);
@@ -665,7 +710,8 @@ public class HNADService extends Service implements KeyProvider{
 		SEND_ACK,
 		SET_TIME,
 		SET_TRIPINFO,
-		SET_WAYPOINTS,
+		SET_WAYPOINTS_START,
+		SET_WAYPOINTS_NEXT,
 		SET_ALARM_OFF,
 		SET_ALARM_ON,
 		SET_COMMISION_OFF,

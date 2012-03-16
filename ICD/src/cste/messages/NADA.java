@@ -21,6 +21,8 @@ public class NADA {
 	final DeviceUID lvl2UID;
 	final List<DeviceUID> msgWaitingList;
 	
+	final DeviceUID DiscoveryUID = new DeviceUID("FFFFFFFFFFFFFFFF");
+	
 	public NADA(
 		DeviceType devType,
 		NadaTimeDelay delayCode,
@@ -37,11 +39,13 @@ public class NADA {
 		this.lvl1UID = lvl1UID;
 		this.lvl2DevType = lvl2DevType;
 		this.lvl2UID = lvl2UID;
+		
 		this.msgWaitingList = msgWaitingList;
+		if( !msgWaitingList.contains(DiscoveryUID))
+			this.msgWaitingList.add(DiscoveryUID);
 	}
 	
-	public byte[] getBytes()
-	{
+	public byte[] getBytes(){
 		ByteBuffer temp = ByteBuffer.allocate(NADA_MIN_SIZE + msgWaitingList.size()*DeviceUID.SIZE);
 		temp.put(devType.getBytes());
 		temp.put(msgType.getBytes());
@@ -51,6 +55,7 @@ public class NADA {
 		temp.put(lvl1UID.getBytes());
 		temp.put(lvl2DevType.getBytes());
 		temp.put(lvl2UID.getBytes());
+		
 		
 		temp.put((byte)msgWaitingList.size());
 		for (DeviceUID uid: msgWaitingList )

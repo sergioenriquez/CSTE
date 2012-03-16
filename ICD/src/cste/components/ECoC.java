@@ -3,7 +3,7 @@ package cste.components;
 import cste.icd.ConveyanceID;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
-import cste.messages.GpsLoc;
+import cste.icd.GpsLoc;
 import cste.messages.RestrictedStatus;
 import cste.messages.RestrictedStatusECM;
 
@@ -11,8 +11,8 @@ public class ECoC extends ComModule{
 	private static final long serialVersionUID = -5558388937219786697L;
 	private RestrictedStatusECM status = null;
 	
-	public ECoC(DeviceUID devUID) {
-		super(devUID);
+	public ECoC(DeviceUID devUID , byte[] address) {
+		super(devUID,address);
 		this.devType = DeviceType.ECOC;
 	}
 	

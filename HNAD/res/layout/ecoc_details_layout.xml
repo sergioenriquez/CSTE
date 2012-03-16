@@ -36,7 +36,7 @@
         <TableRow><!-- VALUE -->
             <TextView
                 android:id="@+id/devUID"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/na"/>
             <TextView
@@ -48,7 +48,7 @@
         
         <TableRow>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/signal"
                 android:textSize="12dp"/>
@@ -63,7 +63,7 @@
         <TableRow><!-- VALUE -->
             <TextView
                 android:id="@+id/rssiVal"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/na"/>
             <TextView
@@ -105,13 +105,22 @@
                 android:layout_height="wrap_content"
                 android:text="@string/conveyance"
                 android:textSize="12dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="MAC Addrs"
+                android:textSize="12dp"/>
         </TableRow>
-        
-        
+
         <TableRow><!-- VALUE -->
             <TextView
-                android:layout_span="2"
                 android:id="@+id/conveyanceID"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/na"/>
+            
+            <TextView
+                android:id="@+id/macAddrs"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/na"/>
@@ -136,14 +145,14 @@
 	        <CheckBox 
 		        android:id="@+id/lockOpenBox"
 		        android:text="@string/error_lockOpen"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:enabled="false"
 				android:textSize="12dp"/>
 			<CheckBox 
 		        android:id="@+id/haspOpenBox"
 		        android:text="@string/error_haspBroken"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:enabled="false"
 				android:textSize="12dp"/>

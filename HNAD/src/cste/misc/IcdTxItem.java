@@ -35,6 +35,6 @@ public class IcdTxItem implements Runnable {
 
 	@Override
 	public void run() {
-		service.onRadioTransmitResult(false, destUID, (short)(msgSent.headerData.msgAsc & 0xFF));
+		//service.onRadioTransmitResult(false, destUID, (short)(msgSent.headerData.msgAsc & 0xFF));
 	}
 }

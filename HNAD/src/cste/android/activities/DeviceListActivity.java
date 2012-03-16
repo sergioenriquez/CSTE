@@ -180,15 +180,19 @@ public class DeviceListActivity extends HnadBaseActivity {
 	        	showProgressDialog("Clearing alarms...");
 	            return true;
 	        case R.id.commission:
-	        	toast("Feature no implemented yet");
-	        	//showProgressDialog("Commisioning...");
+	        	mHnadCoreService.sendDevCmd(cm.devUID,DeviceCommands.SET_COMMISION_ON);
+	        	showProgressDialog("Commisioning...");
 	        	return true;
 	        case R.id.decommission:
-	        	toast("Feature no implemented yet");
-	        	//showProgressDialog("Decommisioning...");
+	        	mHnadCoreService.sendDevCmd(cm.devUID,DeviceCommands.SET_COMMISION_OFF);
+	        	showProgressDialog("Decommisioning...");
 	            return true;
 	        case R.id.setTime:
 	        	showProgressDialog("Setting time on device...");
+	            return true;
+	        case R.id.setWaypoints:
+	        	mHnadCoreService.sendDevCmd(cm.devUID,DeviceCommands.SET_WAYPOINTS_START);
+	        	showProgressDialog("Setting waypoints...");
 	            return true;
 	        default:
 	            return super.onContextItemSelected(item);

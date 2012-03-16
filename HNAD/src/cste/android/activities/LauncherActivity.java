@@ -25,10 +25,12 @@ public class LauncherActivity extends Activity {
 		i.setAction("cste.android.core.HNADCORESERVICE");
 		
 		UsbAccessory mAccessory = UsbManager.getAccessory(getIntent());
-        if( mAccessory != null)
-        	i.putExtra("usbAccesory", mAccessory.getDescription());
-
-		startService(i);
+        if( mAccessory != null){
+//        	i.putExtra("usbAccesory", mAccessory.getDescription());
+//        	startService(i);
+        }
+        else
+        	startService(i);
 
 		finish();
 	}

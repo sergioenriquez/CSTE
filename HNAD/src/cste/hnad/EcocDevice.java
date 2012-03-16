@@ -12,12 +12,17 @@ import cste.icd.DeviceUID;
  *
  */
 public class EcocDevice extends ECoC implements Parcelable{
+	public EcocDevice(DeviceUID devUID, byte[] address) {
+		super(devUID, address);
+		// TODO Auto-generated constructor stub
+	}
+
 	private static final String TAG = "EcocDevice";
 	private static final long serialVersionUID = 2241983295406693238L;
 
-	public EcocDevice(DeviceUID devUID){
-		super(devUID);
-	}
+//	public EcocDevice(DeviceUID devUID){
+//		super(devUID);
+//	}
 
 	@Override
 	public int describeContents() {

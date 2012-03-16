@@ -19,6 +19,17 @@ public class ConveyanceID implements Serializable{
 		if(b.remaining() >= SIZE )
 			b.get(conveyanceID);
 	}
+	
+	public ConveyanceID(String str){
+		this();
+		try {
+			if( str.length() > SIZE)
+				str = str.substring(0, SIZE);
+			conveyanceID = str.getBytes("UTF8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public byte[] getBytes() {
 		return conveyanceID;
