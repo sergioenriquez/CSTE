@@ -9,12 +9,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Arrays;
 
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.messages.RestrictedStatus;
 import static cste.icd.Utility.hexToStr;
-
+import static cste.icd.Utility.strToHex;
 /***
  * Generic Security Device
  * @author Sergio Enriquez
@@ -29,6 +30,8 @@ public abstract class ComModule implements Serializable{
 	public int rxAscension; 
 	public int txAscension;
 	protected byte[] tck = null;
+	
+	protected static byte[] BAD_KEY = strToHex("00000000000000000000000000000000");
 	
 	public byte rssi;	
 	public boolean inRange;
@@ -79,9 +82,11 @@ public abstract class ComModule implements Serializable{
 	}
 	
 	public void setTCK(byte []newTCK){
-		if( newTCK.length == 16){
+		if( newTCK.length == 16 && !Arrays.equals(newTCK, BAD_KEY)){
 			tck = newTCK;
 			keyValid = true;
+		}else{
+			keyValid = false;
 		}
 	}
 	

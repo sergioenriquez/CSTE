@@ -196,7 +196,11 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 				try {
 					mOutputStream.write(msg);
 				} catch (IOException e) {
-					Log.e(TAG,"I/O error");
+					String errMsg = e.getMessage();
+					if( errMsg != null)
+						Log.e(TAG, errMsg);
+					else
+						Log.e(TAG,"I/O error");
 					break;
 				}
 			}
@@ -213,7 +217,11 @@ public class UsbCommManager extends BroadcastReceiver implements RadioCommInterf
 				try {
 					ret = mInputStream.read(buffer);
 				} catch (IOException e) {
-					Log.e(TAG,"I/O Error");
+					String errMsg = e.getMessage();
+					if( errMsg != null)
+						Log.e(TAG, errMsg);
+					else
+						Log.e(TAG,"I/O error");
 					closeAccessory();
 					break;
 				}

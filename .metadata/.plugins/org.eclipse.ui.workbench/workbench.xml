@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="34" version="2.0">
+<workbench progressCount="29" version="2.0">
 <workbenchAdvisor/>
-<window height="1050" maximized="true" width="1683" x="-190" y="154">
+<window height="788" maximized="true" width="1386" x="-190" y="154">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="313"/>
@@ -18,15 +18,15 @@
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="99" y="22"/>
 <coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="130" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="61" y="22"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="com.android.ide.eclipse.editors.layout.LayoutEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="com.android.ide.eclipse.editors.layout.LayoutEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.browser.editor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -35,76 +35,10 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-<part id="1"/>
-<part id="2"/>
-<part id="3"/>
-</presentation>
-</folder>
-</info>
-<info part="org.eclipse.ui.internal.EditorStack@29efc04" ratio="0.7221184" ratioLeft="1159" ratioRight="446" relationship="2" relative="DefaultEditorWorkbook">
-<folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-<part id="1"/>
-<part id="2"/>
-<part id="3"/>
-<part id="4"/>
-<part id="5"/>
-<part id="6"/>
-<part id="7"/>
-<part id="8"/>
-<part id="9"/>
-</presentation>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TripInfoActivity.java" partName="TripInfoActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/TripInfoActivity.java" title="TripInfoActivity.java" tooltip="HNAD/src/cste/android/activities/TripInfoActivity.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/TripInfoActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3884" selectionTopPixel="926"/>
-</editor>
-<editor id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" name="strings.xml" partName="strings.xml" path="C:/CSTE/HNAD/res/values/strings.xml" title="strings.xml" tooltip="HNAD/res/values/strings.xml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/values/strings.xml"/>
-</editor>
-<editor activePart="true" focus="true" id="com.android.ide.eclipse.editors.menu.MenuEditor" name="waypoint_menu.xml" partName="waypoint_menu.xml" path="C:/CSTE/HNAD/res/menu/waypoint_menu.xml" title="waypoint_menu.xml" tooltip="HNAD/res/menu/waypoint_menu.xml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/menu/waypoint_menu.xml"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.menu.MenuEditor" name="log_menu.xml" partName="log_menu.xml" path="C:/CSTE/HNAD/res/menu/log_menu.xml" title="log_menu.xml" tooltip="HNAD/res/menu/log_menu.xml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/menu/log_menu.xml"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="trip_info_layout.xml" partName="trip_info_layout.xml" path="C:/CSTE/HNAD/res/layout/trip_info_layout.xml" title="trip_info_layout.xml" tooltip="HNAD/res/layout/trip_info_layout.xml" workbook="org.eclipse.ui.internal.EditorStack@29efc04">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/layout/trip_info_layout.xml"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceListActivity.java" partName="DeviceListActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/DeviceListActivity.java" title="DeviceListActivity.java" tooltip="HNAD/src/cste/android/activities/DeviceListActivity.java" workbook="org.eclipse.ui.internal.EditorStack@29efc04">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/DeviceListActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3957" selectionTopPixel="1674"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="login.xml" partName="login.xml" path="C:/CSTE/HNAD/res/layout/login.xml" title="login.xml" tooltip="HNAD/res/layout/login.xml" workbook="org.eclipse.ui.internal.EditorStack@29efc04">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/layout/login.xml"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="devicelist_layout.xml" partName="devicelist_layout.xml" path="C:/CSTE/HNAD/res/layout/devicelist_layout.xml" title="devicelist_layout.xml" tooltip="HNAD/res/layout/devicelist_layout.xml" workbook="org.eclipse.ui.internal.EditorStack@29efc04">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/layout/devicelist_layout.xml"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoginActivity.java" partName="LoginActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/LoginActivity.java" title="LoginActivity.java" tooltip="HNAD/src/cste/android/activities/LoginActivity.java" workbook="org.eclipse.ui.internal.EditorStack@29efc04">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/LoginActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2743" selectionTopPixel="263"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ECoCInfoActivity.java" partName="ECoCInfoActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/ECoCInfoActivity.java" title="ECoCInfoActivity.java" tooltip="HNAD/src/cste/android/activities/ECoCInfoActivity.java" workbook="org.eclipse.ui.internal.EditorStack@29efc04">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/ECoCInfoActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="358" selectionOffset="9022" selectionTopPixel="3096"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" partName="HNAD Manifest" path="C:/CSTE/HNAD/AndroidManifest.xml" title="HNAD Manifest" tooltip="HNAD/AndroidManifest.xml" workbook="org.eclipse.ui.internal.EditorStack@29efc04">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/AndroidManifest.xml"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ConfigActivity.java" partName="ConfigActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/ConfigActivity.java" title="ConfigActivity.java" tooltip="HNAD/src/cste/android/activities/ConfigActivity.java" workbook="org.eclipse.ui.internal.EditorStack@29efc04">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/ConfigActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1469" selectionTopPixel="291"/>
-</editor>
-<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HNADService.java" partName="HNADService.java" path="C:/CSTE/HNAD/src/cste/android/core/HNADService.java" title="HNADService.java" tooltip="HNAD/src/cste/android/core/HNADService.java" workbook="org.eclipse.ui.internal.EditorStack@29efc04">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/core/HNADService.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2788" selectionTopPixel="144"/>
-</editor>
 </editors>
 <views>
 <view id="com.android.ide.eclipse.ddms.views.LogCatView" partName="LogCat">
@@ -113,80 +47,16 @@
 <view id="org.eclipse.debug.ui.DebugView" partName="Debug">
 <viewState/>
 </view>
-<view id="org.eclipse.ui.views.ProblemView" partName="Problems">
-<viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
-<expanded>
-<category IMemento.internal.id="Warnings"/>
-<category IMemento.internal.id="Errors"/>
-<category IMemento.internal.id="Warnings (21 items)"/>
-</expanded>
-<columnWidths org.eclipse.ui.ide.locationField="0" org.eclipse.ui.ide.markerType="0" org.eclipse.ui.ide.pathField="0" org.eclipse.ui.ide.resourceField="0" org.eclipse.ui.ide.severityAndDescriptionField="0"/>
-<visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
-<visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
-<visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
-<visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
-<visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
-</viewState>
-</view>
 <view id="org.eclipse.ui.console.ConsoleView" partName="Console">
 <viewState/>
-</view>
-<view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
-<viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="">
-<customFilters userDefinedPatternsEnabled="false">
-<xmlDefinedFilters>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.StaticsFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonSharedProjectsFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaElementFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.ContainedLibraryFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.CuAndClassFileFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaProjectsFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyInnerPackageFilter" isEnabled="true"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.PackageDeclarationFilter" isEnabled="true"/>
-<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyPackageFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.ImportDeclarationFilter" isEnabled="true"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.FieldsFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.HideInnerClassFilesFilter" isEnabled="true"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonPublicFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*" isEnabled="true"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter" isEnabled="true"/>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter" isEnabled="true"/>
-<child filterId="org.eclipse.mylyn.java.ui.MembersFilter" isEnabled="false"/>
-</xmlDefinedFilters>
-</customFilters>
-</viewState>
-</view>
-<view id="org.eclipse.pde.runtime.LogView" partName="Error Log">
-<viewState activate="true" allSessions="true" column2="487" column3="150" column4="150" error="true" groupBy="0" info="true" limit="50" ok="true" orderType="2" orderValue="-1" show_filter_text="true" useLimit="true" warning="true"/>
-</view>
-<view id="org.eclipse.mylyn.tasks.ui.views.tasks" partName="Task List">
-<viewState linkWithEditor="true" presentation="org.eclipse.mylyn.tasks.ui.categorized">
-<sorter groupBy="CATEGORY_QUERY">&#x0A;<sorter>&#x0A;<sort0 sortDirection="1" sortKey="PRIORITY"/>
-<sort1 sortDirection="1" sortKey="RANK"/>
-<sort2 sortDirection="1" sortKey="DATE_CREATED"/>
-<sort3 sortDirection="1" sortKey="NONE"/>
-<sort4 sortDirection="1" sortKey="NONE"/>
-<sort5 sortDirection="1" sortKey="NONE"/>
-<sort6 sortDirection="1" sortKey="NONE"/>
-<sort7 sortDirection="1" sortKey="NONE"/>
-</sorter>
-</sorter>
-<filteredTreeFindHistory/>
-</viewState>
 </view>
 <view id="org.eclipse.debug.ui.VariableView" partName="Variables">
 <viewState/>
 </view>
 <view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
-<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
-<viewState/>
-</view>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="com.android.ide.eclipse.editors.menu.MenuEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -251,12 +121,6 @@
 <perspective_action id="com.android.ide.eclipse.hierarchyviewer.TreeViewPerspective"/>
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
-<view id="org.eclipse.jdt.ui.PackageExplorer"/>
-<view id="org.eclipse.mylyn.tasks.ui.views.tasks"/>
-<view id="org.eclipse.ui.views.ContentOutline"/>
-<view id="org.eclipse.pde.runtime.LogView"/>
-<view id="org.eclipse.ui.views.ProblemView"/>
-<view id="org.eclipse.ui.console.ConsoleView"/>
 <fastViewBars>
 <fastViewBar fastViewLocation="1024" id="bottom" orientation="256" selectedTabId="com.android.ide.eclipse.ddms.views.LogCatView" style="0">
 <fastViews>
@@ -304,36 +168,18 @@
 </folder>
 </info>
 </mainWindow>
-<detachedWindow height="1050" width="326" x="1683" y="0">
-<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">
-<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
-<page content="org.eclipse.mylyn.tasks.ui.views.tasks" label="Task List"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-<part id="1"/>
-</presentation>
-</folder>
-</detachedWindow>
-<detachedWindow height="723" width="323" x="3034" y="-1">
-<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-</presentation>
-</folder>
-</detachedWindow>
-<detachedWindow height="353" width="1308" x="1995" y="696">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
-<page content="org.eclipse.pde.runtime.LogView" label="Error Log"/>
-<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
-<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-<part id="1"/>
-<part id="2"/>
-</presentation>
-</folder>
-</detachedWindow>
+<hiddenWindow height="723" width="323" x="654" y="71">
+<view id="org.eclipse.ui.views.ContentOutline"/>
+</hiddenWindow>
+<hiddenWindow height="353" width="1308" x="58" y="415">
+<view id="org.eclipse.pde.runtime.LogView"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+</hiddenWindow>
+<hiddenWindow height="768" width="326" x="1040" y="0">
+<view id="org.eclipse.jdt.ui.PackageExplorer"/>
+<view id="org.eclipse.mylyn.tasks.ui.views.tasks"/>
+</hiddenWindow>
 </layout>
 </perspective>
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
@@ -382,26 +228,18 @@
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.debug.ui.DebugView"/>
 <fastViewBars/>
-<layout>
-<mainWindow>
-<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.PackageExplorer" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.8036094" ratioLeft="757" ratioRight="185" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.8036094" ratioLeft="757" ratioRight="185" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.debug.ui.DisplayView" label="LabelNotFound"/>
 <page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
@@ -409,52 +247,37 @@
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.33333334" ratioLeft="185" ratioRight="370" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
-<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="org.eclipse.ui.editorss">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@53a49240" ratio="0.5" ratioLeft="803" ratioRight="803" relationship="2" relative="org.eclipse.ui.editorss">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@53a49240" ratio="0.5" ratioLeft="803" ratioRight="803" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="836" ratioRight="836" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="836" ratioRight="836" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 </mainWindow>
-<detachedWindow height="331" width="1676" x="1685" y="719">
-<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
-<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<detachedWindow height="331" width="1676" x="1685" y="719">&#x0A;<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </detachedWindow>
-<detachedWindow height="929" width="431" x="2923" y="92">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
-<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<detachedWindow height="929" width="431" x="2923" y="92">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 <part id="1"/>
 </presentation>
 </folder>
 </detachedWindow>
-<detachedWindow height="566" width="323" x="1679" y="29">
-<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
-<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
+<detachedWindow height="566" width="323" x="1679" y="29">&#x0A;<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
 <page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.TaskList" label="LabelNotFound"/>
 <page content="org.eclipse.debug.ui.BreakpointView" label="LabelNotFound"/>
 <page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </detachedWindow>
@@ -462,157 +285,7 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory>
-<editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/activities/TripInfoActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/HNADService.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/activities/ConfigActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.menu.MenuEditor" path="/HNAD/res/menu/waypoint_menu.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.menu.MenuEditor" path="/HNAD/res/menu/log_menu.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/activities/ECoCInfoActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/HNAD/res/layout/trip_info_layout.xml"/>
-</editors>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="20646" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="20594" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="20410" y="0"/>
-</item>
-<item historyLabel="TripInfoActivity.java" index="0">
-<position info="not_deleted" x="2500" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="20410" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="20675" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="17844" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="17844" y="79"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="18009" y="0"/>
-</item>
-<item historyLabel="TripInfoActivity.java" index="0">
-<position info="not_deleted" x="2500" y="0"/>
-</item>
-<item historyLabel="TripInfoActivity.java" index="0">
-<position info="not_deleted" x="2784" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="18017" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="20677" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="20675" y="0"/>
-</item>
-<item historyLabel="TripInfoActivity.java" index="0">
-<position info="not_deleted" x="2243" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="20675" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="18009" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="17237" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="17124" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="18009" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="17865" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="18036" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="18087" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="18052" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="20189" y="0"/>
-</item>
-<item historyLabel="ConfigActivity.java" index="2">
-<position info="not_deleted" x="1523" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="2681" y="19"/>
-</item>
-<item historyLabel="ConfigActivity.java" index="2">
-<position info="not_deleted" x="2730" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="3217" y="0"/>
-</item>
-<item historyLabel="waypoint_menu.xml" index="3"/>
-<item historyLabel="log_menu.xml" index="4"/>
-<item historyLabel="TripInfoActivity.java" index="0">
-<position info="not_deleted" x="2243" y="0"/>
-</item>
-<item historyLabel="waypoint_menu.xml" index="3"/>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="3217" y="0"/>
-</item>
-<item historyLabel="ConfigActivity.java" index="2">
-<position info="not_deleted" x="1469" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="3141" y="0"/>
-</item>
-<item historyLabel="TripInfoActivity.java" index="0">
-<position info="not_deleted" x="2243" y="0"/>
-</item>
-<item historyLabel="ECoCInfoActivity.java" index="5">
-<position info="not_deleted" x="9022" y="358"/>
-</item>
-<item historyLabel="trip_info_layout.xml" index="6"/>
-<item historyLabel="ConfigActivity.java" index="2">
-<position info="not_deleted" x="1469" y="0"/>
-</item>
-<item historyLabel="ECoCInfoActivity.java" index="5">
-<position info="not_deleted" x="9022" y="358"/>
-</item>
-<item historyLabel="TripInfoActivity.java" index="0">
-<position info="not_deleted" x="1169" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="3141" y="0"/>
-</item>
-<item historyLabel="TripInfoActivity.java" index="0">
-<position info="not_deleted" x="1873" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="2851" y="18"/>
-</item>
-<item historyLabel="TripInfoActivity.java" index="0">
-<position info="not_deleted" x="2236" y="0"/>
-</item>
-<item historyLabel="TripInfoActivity.java" index="0">
-<position info="not_deleted" x="2114" y="0"/>
-</item>
-<item historyLabel="HNADService.java" index="1">
-<position info="not_deleted" x="2788" y="0"/>
-</item>
-<item historyLabel="TripInfoActivity.java" index="0">
-<position info="not_deleted" x="3884" y="0"/>
-</item>
-<item active="true" historyLabel="waypoint_menu.xml" index="3"/>
-</navigationHistory>
+<navigationHistory/>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>

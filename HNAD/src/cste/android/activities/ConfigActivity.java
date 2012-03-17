@@ -49,6 +49,7 @@ public class ConfigActivity extends HnadBaseActivity {
     	//load saved settings
     	SharedPreferences settings = mHnadCoreService.getSettingsFile();
     	String Android_ID = System.getString(this.getContentResolver(), System.ANDROID_ID).toUpperCase();
+    	Android_ID = "DEADBEEF";
     	thisUIDText.setText( settings.getString(SettingsKey.THIS_UID, Android_ID ) );
     	ftpAddress.setText( settings.getString(SettingsKey.FTP_ADDR, "attila.sdsu.edu") );
     	dcpAddress.setText( settings.getString(SettingsKey.DCP_ADDR, "192.168.1.1") );

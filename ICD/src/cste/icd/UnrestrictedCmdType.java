@@ -1,7 +1,7 @@
 package cste.icd;
 
 //TODO confirm codes are correct
-public enum UnrestrictedCmdType {
+public enum UnrestrictedCmdType{
 	//code, payload size
 	REQUEST	((byte)0x00),
 	PAIR 	((byte)0x01),

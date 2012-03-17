@@ -34,6 +34,8 @@ public class Utility {
 	
 	public static byte[] strToHex(String s) {
         int len = s.length();
+        if (len <= 1 )
+        	return new byte[1];
         byte[] data = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
             data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
@@ -62,11 +64,11 @@ public class Utility {
 			cipher.doFinal(encrypted, len);
 
 		} catch (Exception e) {
-			Log(TAG,"Encryption failure");
+			Log(TAG,e.getMessage());
 		}
 		return encrypted;
 	}
-	
+	//buffered block cypher
 	public static byte[] decrypt(byte[] message, byte[] key, byte[] nonce) {
 		byte[] encrypted = null;
 		cipher.init(false, new CCMParameters(new KeyParameter(key), MIC_LENGTH * 8, nonce, null));
@@ -75,7 +77,7 @@ public class Utility {
 			int len = cipher.processBytes(message, 0, message.length, encrypted, 0);
 			cipher.doFinal(encrypted, len);
 		} catch (Exception e) {
-			Log(TAG,"Decryption failure");
+			Log(TAG,e.getMessage());
 		}
 		return encrypted;
 	}

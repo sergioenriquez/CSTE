@@ -252,7 +252,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
     	         new InputFilter.AllCaps()
     	         });
     	msgInput.setKeyListener(new HexKeyListener());
-    	msgInput.setText( hexToStr(eCoC.getTCK()) );
+    	msgInput.setText( "9be5d38c2e24740edaf5bc0426f47896" );
     	msgInput.requestFocus();
     	
     	alert.setView(msgInput);

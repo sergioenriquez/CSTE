@@ -41,8 +41,8 @@ public class NADA {
 		this.lvl2UID = lvl2UID;
 		
 		this.msgWaitingList = msgWaitingList;
-		if( !msgWaitingList.contains(DiscoveryUID))
-			this.msgWaitingList.add(DiscoveryUID);
+//		if( !msgWaitingList.contains(DiscoveryUID))
+//			this.msgWaitingList.add(DiscoveryUID);
 	}
 	
 	public byte[] getBytes(){

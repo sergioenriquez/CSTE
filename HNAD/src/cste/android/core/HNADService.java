@@ -41,6 +41,7 @@ import cste.icd.EventLogType;
 import cste.icd.GpsLoc;
 import cste.icd.IcdTimestamp;
 import cste.icd.MsgType;
+import cste.icd.UnrestrictedCmdType;
 import cste.interfaces.KeyProvider;
 import cste.messages.EventLogICD;
 import cste.messages.IcdMsg;
@@ -49,6 +50,8 @@ import cste.messages.RestrictedStatus;
 import cste.misc.IcdTxItem;
 import cste.misc.XbeeAPI;
 import cste.misc.XbeeFrame;
+
+import static cste.icd.Utility.strToHex;
 
 /***
  * HNAD backgroud service
@@ -79,7 +82,7 @@ public class HNADService extends Service implements KeyProvider{
 	private ConveyanceID conveyanceID;//TODO use the custom class
 
 	public void test(){
-		this.handleNullMsg(new DeviceUID("0013A20040715FD8"));
+		
 	}
 	
 	public void saveGeneralSettings(){
@@ -216,6 +219,7 @@ public class HNADService extends Service implements KeyProvider{
 	
 	public void setDeviceTCK(DeviceUID devUID, byte []newTCK){
 		ComModule destDev = db.getDevice(devUID);
+
 		if( destDev == null){
 			Log.e(TAG, "Tried to set TCK on a device that does not exist");
 			return;
@@ -312,6 +316,10 @@ public class HNADService extends Service implements KeyProvider{
 		case GET_RESTRICTED_STATUS:
 			mWaypointIndex = 0;
 			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_RESTRICTED, EcocCmdType.NOP);
+			break;
+		case GET_UN_RESTRICTED_STATUS:
+			mWaypointIndex = 0;
+			icdMsg = IcdMsg.buildIcdMsg(destDev, MsgType.DEV_CMD_UNRESTRICTED, UnrestrictedCmdType.REQUEST);
 			break;
 		case GET_EVENT_LOG:
 			mWaypointIndex = 0;
@@ -445,10 +453,7 @@ public class HNADService extends Service implements KeyProvider{
      */
     private void handleNullMsg(DeviceUID uid){
     	ArrayList<IcdMsg> removeList = new ArrayList<IcdMsg>();
-    	
     	for(IcdMsg msg : mTxList){
-    		
-    		
     		if( msg != null && msg.destUID.equals(uid)){
     			ComModule cm = this.getDeviceRecord(msg.destUID);
     			XbeeAPI.transmitPkt( cm.address ,msg.getBytes());
@@ -512,9 +517,8 @@ public class HNADService extends Service implements KeyProvider{
     		break;
     	case UNRESTRICTED_STATUS_MSG:
     		ackNo = (short) ( deviceSrc.rxAscension & 0xFF);
-    		//TODO use this data
-    		//no retransmission entry was created for this reply, do nothing
-    		//onRadioTransmitResult(true,deviceSrc.UID(), (byte)0);
+    		toast("Receiver status");
+    		notifyOfTransmissionResult(true, deviceSrc.devUID);
     		break;
     	default:
     		ackNo = (short) ( deviceSrc.rxAscension & 0xFF);
@@ -546,7 +550,10 @@ public class HNADService extends Service implements KeyProvider{
 			Log.w(TAG,"No key availible for " + destinationUID.toString());
 			return null;
 		}
-		return cm.getTCK();
+		if( cm.keyValid )
+			return cm.getTCK();
+		else
+			return null;
 		//return strToHex("1234567890ABCDEF1234567890ABCDEF"); 
 	}
 
@@ -588,11 +595,12 @@ public class HNADService extends Service implements KeyProvider{
 		boolean useEncryption = settings.getBoolean(SettingsKey.USE_ENC, false);
 		
 		String Android_ID = System.getString(this.getContentResolver(), System.ANDROID_ID);
+		Android_ID = "0D0E0A0D0B0E0E0F";
 		String thisUIDStr = settings.getString(SettingsKey.THIS_UID, Android_ID);
 		//String dcpUIDStr = settings.getString(SettingsKey.DCP_UID, Android_ID);
 		int burstIndex = settings.getInt(SettingsKey.NADA_BURST, 4);
 		
-		DeviceUID thisUID = new DeviceUID(thisUIDStr);
+		DeviceUID thisUID = new DeviceUID(Android_ID);
 		DeviceUID dcpUID = new DeviceUID(Android_ID);
 		
 		IcdMsg.configure(useEncryption,DeviceType.FNAD_I, thisUID, this);	
@@ -717,12 +725,12 @@ public class HNADService extends Service implements KeyProvider{
 		SET_COMMISION_OFF,
 		SET_COMMISION_ON,
 		GET_RESTRICTED_STATUS,
+		GET_UN_RESTRICTED_STATUS,
 		GET_EVENT_LOG,
 		CLEAR_EVENT_LOG
 	}
 	
 	public static final int NEW_DEVICE_NOTIFICATION = 0;
 
-	
 }
 //startService(new Intent(this,UsbService.class));

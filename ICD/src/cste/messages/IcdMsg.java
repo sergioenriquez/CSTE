@@ -28,6 +28,7 @@ public class IcdMsg {
 		OTHER,
 		BAD_CONFIG,
 		MISSING_PARAMETERS,
+		UNSUPORTED_MSG,
 		OK
 	}
 	
@@ -99,6 +100,7 @@ public class IcdMsg {
 				payload = new UnrestrictedCmd((UnrestrictedCmdType)params[0]);
 			else
 				Log(TAG, "Config error");
+			break;
 		default:
 			Log(TAG, "Trying to build unsupported icd msg type");
 		}
@@ -172,7 +174,10 @@ public class IcdMsg {
 			buffer.get(encryptedPayload);
 			
 			byte[] key = KeyProvider.getEncryptionKey(headerData.devUID);
-			byte[] decryptedPayload = decrypt(encryptedPayload,key, headerData.getNonce());
+			byte[] decryptedPayload = null;
+			if (key != null )
+				decryptedPayload = decrypt(encryptedPayload,key, headerData.getNonce());
+			
 			if ( decryptedPayload == null)
 				return new IcdMsg(MsgStatus.ENCRYPTION_ERROR);
 			buffer = ByteBuffer.wrap(decryptedPayload);
@@ -204,6 +209,9 @@ public class IcdMsg {
 		case NULL_MSG:
 			msgContent = new NullMsg(buffer);
 			break;
+		case NADA_MSG:
+			msgContent = null;
+			return new IcdMsg(MsgStatus.UNSUPORTED_MSG);
 		default:
 			MsgType type = headerData.msgType;
 			Log(TAG, "Received unknown msg type " + type.toString());

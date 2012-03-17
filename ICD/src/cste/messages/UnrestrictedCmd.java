@@ -30,9 +30,9 @@ public class UnrestrictedCmd extends IcdPayload {
 
 	@Override
 	public byte[] getBytes() {
-		ByteBuffer buffer = ByteBuffer.allocate(2);
+		ByteBuffer buffer = ByteBuffer.allocate(1);
 		buffer.put(commandCode);
-		buffer.put(checksum);
+		//buffer.put(checksum);
 		return buffer.array();
 	}
 
@@ -44,7 +44,6 @@ public class UnrestrictedCmd extends IcdPayload {
 
 	@Override
 	public byte getSize() {
-		// TODO Auto-generated method stub
 		return 2;
 	}
 	

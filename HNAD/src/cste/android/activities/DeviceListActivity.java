@@ -194,6 +194,10 @@ public class DeviceListActivity extends HnadBaseActivity {
 	        	mHnadCoreService.sendDevCmd(cm.devUID,DeviceCommands.SET_WAYPOINTS_START);
 	        	showProgressDialog("Setting waypoints...");
 	            return true;
+	        case R.id.getUnrestricted:
+	        	mHnadCoreService.sendDevCmd(cm.devUID,DeviceCommands.GET_UN_RESTRICTED_STATUS);
+	        	showProgressDialog("Requesting status...");
+	        	return true;
 	        default:
 	            return super.onContextItemSelected(item);
 	    }
