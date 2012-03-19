@@ -32,6 +32,7 @@ public class DeviceListActivity extends HnadBaseActivity {
 	
 	private DeviceListAdapter mDeviceListAdapter;
 	private ListView mDeviceListView;
+	boolean discoveryMode = false;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -115,10 +116,26 @@ public class DeviceListActivity extends HnadBaseActivity {
 	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
+		
         MenuInflater inflater = new MenuInflater(this);
         inflater.inflate(R.menu.devicelist_menu, menu);
+        
+        
+        
         return super.onCreateOptionsMenu(menu);
     }
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu){
+		//menu.clear();
+		menu.removeItem(R.id.discovery);
+		if(discoveryMode)
+        	menu.add(0,R.id.discovery,0,R.string.discoveryON);
+        else
+        	menu.add(0,R.id.discovery,0,R.string.discoveryOFF);
+
+		return super.onPrepareOptionsMenu(menu);
+	}
 	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -142,9 +159,8 @@ public class DeviceListActivity extends HnadBaseActivity {
             	finish();
                 break;
             case R.id.eventlog:
-            	toast("Feature no implemented yet");
             	intent = new Intent(getApplicationContext(), EventLogHNADActivity.class);
-                //startActivity(intent);
+            	startActivity(intent);
                 break;    
             case R.id.upload:
             	toast("Feature no implemented yet");
@@ -153,8 +169,9 @@ public class DeviceListActivity extends HnadBaseActivity {
             	intent = new Intent(getApplicationContext(), TripInfoActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.test:
-            	mHnadCoreService.test();
+            case R.id.discovery:
+            	discoveryMode = !discoveryMode;
+            	mHnadCoreService.toggleDiscoveryMode(discoveryMode);
             	break;
         }
         return super.onOptionsItemSelected(item);

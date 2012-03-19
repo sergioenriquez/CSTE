@@ -30,8 +30,8 @@ public class DBhelper extends SQLiteOpenHelper {
 		DbConst.HNADLOG_TIME + " blob not null," +
 		DbConst.HNADLOG_USER + " text not null," +
 		DbConst.HNADLOG_TYPE + " TINYINT not null," +
-		DbConst.HNADLOG_DATA + " blob," +
-		DbConst.HNADLOG_RESPONSE + " blob" + 
+		DbConst.HNADLOG_MSG_SENT + " blob," +
+		DbConst.HNADLOG_MSG_RESPONSE + " blob" + 
 		" ) ;"; 
 
 	public DBhelper(Context context, String name, CursorFactory factory,int version) {

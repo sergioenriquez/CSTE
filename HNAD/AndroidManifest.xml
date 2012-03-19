@@ -64,7 +64,8 @@
         </activity>
         
         <activity android:name=".activities.ConfigActivity"
-                  android:label="@string/preferences_title">
+                  android:label="@string/preferences_title"
+                  android:windowSoftInputMode="stateHidden">
         </activity>
         
         <activity android:name=".activities.DeviceKeysActivity"

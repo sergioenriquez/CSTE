@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="29" version="2.0">
+<workbench progressCount="37" version="2.0">
 <workbenchAdvisor/>
-<window height="788" maximized="true" width="1386" x="-190" y="154">
+<window height="1050" width="2510" x="64" y="0">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="313"/>
@@ -18,7 +18,7 @@
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="99" y="22"/>
 <coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="130" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
@@ -26,7 +26,7 @@
 <coolItem id="com.android.ide.eclipse.editors.layout.LayoutEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.browser.editor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -35,28 +35,161 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.internal.EditorStack@66a6de6c" ratio="0.59917736" ratioLeft="1311" ratioRight="877" relationship="2" relative="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.internal.EditorStack@aa8766a" ratio="0.5084098" ratioLeft="665" ratioRight="643" relationship="2" relative="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+<part id="6"/>
+</presentation>
 </folder>
 </info>
 </editorArea>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DbConst.java" partName="DbConst.java" path="C:/CSTE/HNAD/src/cste/android/db/DbConst.java" title="DbConst.java" tooltip="HNAD/src/cste/android/db/DbConst.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/db/DbConst.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="76" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NadEventLogType.java" partName="NadEventLogType.java" path="C:/CSTE/ICD/src/cste/icd/NadEventLogType.java" title="NadEventLogType.java" tooltip="ICD/src/cste/icd/NadEventLogType.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/NadEventLogType.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="827" selectionTopPixel="0"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogHNADActivity.java" partName="EventLogHNADActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/EventLogHNADActivity.java" title="EventLogHNADActivity.java" tooltip="HNAD/src/cste/android/activities/EventLogHNADActivity.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/EventLogHNADActivity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1576" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogRowICD.java" partName="EventLogRowICD.java" path="C:/CSTE/HNAD/src/cste/misc/EventLogRowICD.java" title="EventLogRowICD.java" tooltip="HNAD/src/cste/misc/EventLogRowICD.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/misc/EventLogRowICD.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="45" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceListActivity.java" partName="DeviceListActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/DeviceListActivity.java" title="DeviceListActivity.java" tooltip="HNAD/src/cste/android/activities/DeviceListActivity.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/DeviceListActivity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4597" selectionTopPixel="2016"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DBhelper.java" partName="DBhelper.java" path="C:/CSTE/HNAD/src/cste/android/db/DBhelper.java" title="DBhelper.java" tooltip="HNAD/src/cste/android/db/DBhelper.java" workbook="org.eclipse.ui.internal.EditorStack@66a6de6c">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/db/DBhelper.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1029" selectionTopPixel="0"/>
+</editor>
+<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HNADService.java" partName="HNADService.java" path="C:/CSTE/HNAD/src/cste/android/core/HNADService.java" title="HNADService.java" tooltip="HNAD/src/cste/android/core/HNADService.java" workbook="org.eclipse.ui.internal.EditorStack@66a6de6c">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/core/HNADService.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="21" selectionOffset="23999" selectionTopPixel="10639"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogRowHnad.java" partName="EventLogRowHnad.java" path="C:/CSTE/HNAD/src/cste/misc/EventLogRowHnad.java" title="EventLogRowHnad.java" tooltip="HNAD/src/cste/misc/EventLogRowHnad.java" workbook="org.eclipse.ui.internal.EditorStack@66a6de6c">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/misc/EventLogRowHnad.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1215" selectionTopPixel="447"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogICD.java" partName="EventLogICD.java" path="C:/CSTE/ICD/src/cste/messages/EventLogICD.java" title="EventLogICD.java" tooltip="ICD/src/cste/messages/EventLogICD.java" workbook="org.eclipse.ui.internal.EditorStack@aa8766a">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/messages/EventLogICD.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="12" selectionOffset="271" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IcdTimestamp.java" partName="IcdTimestamp.java" path="C:/CSTE/ICD/src/cste/icd/IcdTimestamp.java" title="IcdTimestamp.java" tooltip="ICD/src/cste/icd/IcdTimestamp.java" workbook="org.eclipse.ui.internal.EditorStack@aa8766a">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/IcdTimestamp.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="12" selectionOffset="740" selectionTopPixel="68"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EcmEventLogType.java" partName="EcmEventLogType.java" path="C:/CSTE/ICD/src/cste/icd/EcmEventLogType.java" title="EcmEventLogType.java" tooltip="ICD/src/cste/icd/EcmEventLogType.java" workbook="org.eclipse.ui.internal.EditorStack@aa8766a">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/EcmEventLogType.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="993" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HnadEventLog.java" partName="HnadEventLog.java" path="C:/CSTE/ICD/src/cste/icd/HnadEventLog.java" title="HnadEventLog.java" tooltip="ICD/src/cste/icd/HnadEventLog.java" workbook="org.eclipse.ui.internal.EditorStack@aa8766a">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/HnadEventLog.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="159" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DbHandler.java" partName="DbHandler.java" path="C:/CSTE/HNAD/src/cste/android/db/DbHandler.java" title="DbHandler.java" tooltip="HNAD/src/cste/android/db/DbHandler.java" workbook="org.eclipse.ui.internal.EditorStack@aa8766a">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/db/DbHandler.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="8478" selectionTopPixel="4375"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IcdMsg.java" partName="IcdMsg.java" path="C:/CSTE/ICD/src/cste/messages/IcdMsg.java" title="IcdMsg.java" tooltip="ICD/src/cste/messages/IcdMsg.java" workbook="org.eclipse.ui.internal.EditorStack@aa8766a">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/messages/IcdMsg.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="558" selectionTopPixel="0"/>
+</editor>
+<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogECMActivity.java" partName="EventLogECMActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/EventLogECMActivity.java" title="EventLogECMActivity.java" tooltip="HNAD/src/cste/android/activities/EventLogECMActivity.java" workbook="org.eclipse.ui.internal.EditorStack@aa8766a">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/EventLogECMActivity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="96" selectionOffset="1911" selectionTopPixel="547"/>
+</editor>
 </editors>
 <views>
-<view id="com.android.ide.eclipse.ddms.views.LogCatView" partName="LogCat">
+<view id="com.android.ide.eclipse.ddms.views.DeviceView" partName="Devices">
 <viewState/>
 </view>
 <view id="org.eclipse.debug.ui.DebugView" partName="Debug">
 <viewState/>
 </view>
-<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<view id="com.android.ide.eclipse.ddms.views.ThreadView" partName="Threads">
 <viewState/>
+</view>
+<view id="org.eclipse.pde.runtime.LogView" partName="Error Log">
+<viewState activate="true" allSessions="true" column2="487" column3="150" column4="150" error="true" groupBy="0" info="true" limit="50" ok="true" orderType="2" orderValue="-1" show_filter_text="true" useLimit="true" warning="true"/>
 </view>
 <view id="org.eclipse.debug.ui.VariableView" partName="Variables">
 <viewState/>
 </view>
+<view id="com.android.ide.eclipse.ddms.views.HeapView" partName="Heap"/>
+<view id="com.android.ide.eclipse.ddms.views.LogCatView" partName="LogCat">
+<viewState/>
+</view>
+<view id="com.android.ide.eclipse.ddms.views.FileExplorerView" partName="File Explorer"/>
+<view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
+<viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="">
+<customFilters userDefinedPatternsEnabled="false">
+<xmlDefinedFilters>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.StaticsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonSharedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaElementFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ContainedLibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.CuAndClassFileFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyInnerPackageFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.PackageDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyPackageFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ImportDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.FieldsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.HideInnerClassFilesFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonPublicFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter" isEnabled="true"/>
+<child filterId="org.eclipse.mylyn.java.ui.MembersFilter" isEnabled="false"/>
+</xmlDefinedFilters>
+</customFilters>
+</viewState>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
+<view id="com.android.ide.eclipse.ddms.views.EmulatorControlView" partName="Emulator Control">
+<viewState/>
+</view>
 <view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
-<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
+<view id="com.android.ide.eclipse.ddms.views.AllocTrackerView" partName="Allocation Tracker"/>
+<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc">
+<viewState/>
+</view>
 </views>
-<perspectives activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -121,7 +254,14 @@
 <perspective_action id="com.android.ide.eclipse.hierarchyviewer.TreeViewPerspective"/>
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.jdt.ui.PackageExplorer"/>
 <fastViewBars>
+<fastViewBar fastViewLocation="1024" id="org.eclipse.ui.internal.ViewStack@7bacd604" orientation="256" selectedTabId="org.eclipse.pde.runtime.LogView" style="0">
+<fastViews>
+<view id="org.eclipse.ui.console.ConsoleView" ratio="0.2994709"/>
+<view id="org.eclipse.pde.runtime.LogView" ratio="0.2992465"/>
+</fastViews>
+</fastViewBar>
 <fastViewBar fastViewLocation="1024" id="bottom" orientation="256" selectedTabId="com.android.ide.eclipse.ddms.views.LogCatView" style="0">
 <fastViews>
 <view id="org.eclipse.jdt.ui.JavadocView" ratio="0.3"/>
@@ -141,6 +281,13 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@7bacd604" ratio="0.8333333" ratioLeft="785" ratioRight="157" relationship="4" relative="left">
+<folder appearance="2" expanded="0">
+<page content="org.eclipse.ui.console.ConsoleView" label="LabelNotFound"/>
+<page content="org.eclipse.pde.runtime.LogView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
 <info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="750" ratioRight="250" relationship="2" relative="left">
 <folder appearance="2" expanded="2">
 <page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
@@ -148,9 +295,16 @@
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.12055837" ratioLeft="190" ratioRight="1386" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.7070064" ratioLeft="666" ratioRight="276" relationship="4" relative="org.eclipse.ui.editorss">
-<folder appearance="2" expanded="2">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@734f0076" ratio="0.12055837" ratioLeft="190" ratioRight="1386" relationship="2" relative="left">
+<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">
+<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="bottom" ratio="0.7070064" ratioLeft="666" ratioRight="276" relationship="4" relative="org.eclipse.ui.internal.ViewStack@734f0076">
+<folder appearance="2" expanded="0">
 <page content="org.eclipse.jdt.ui.JavadocView" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="LabelNotFound"/>
 <page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LabelNotFound"/>
@@ -160,25 +314,23 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="right" ratio="0.7493333" ratioLeft="562" ratioRight="188" relationship="2" relative="org.eclipse.ui.editorss">
+<info folder="true" part="right" ratio="0.7493333" ratioLeft="562" ratioRight="188" relationship="2" relative="org.eclipse.ui.internal.ViewStack@734f0076">
 <folder appearance="2" expanded="2">
 <page content="org.eclipse.ui.texteditor.TemplatesView" label="LabelNotFound"/>
 <page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
+<info part="org.eclipse.ui.editorss" ratio="0.11745776" ratioLeft="292" ratioRight="2194" relationship="2" relative="org.eclipse.ui.internal.ViewStack@734f0076"/>
 </mainWindow>
 <hiddenWindow height="723" width="323" x="654" y="71">
 <view id="org.eclipse.ui.views.ContentOutline"/>
 </hiddenWindow>
-<hiddenWindow height="353" width="1308" x="58" y="415">
-<view id="org.eclipse.pde.runtime.LogView"/>
-<view id="org.eclipse.ui.views.ProblemView"/>
-<view id="org.eclipse.ui.console.ConsoleView"/>
-</hiddenWindow>
 <hiddenWindow height="768" width="326" x="1040" y="0">
-<view id="org.eclipse.jdt.ui.PackageExplorer"/>
 <view id="org.eclipse.mylyn.tasks.ui.views.tasks"/>
+</hiddenWindow>
+<hiddenWindow height="353" width="1308" x="1887" y="162">
+<view id="org.eclipse.ui.views.ProblemView"/>
 </hiddenWindow>
 </layout>
 </perspective>
@@ -224,22 +376,31 @@
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <view id="com.android.ide.eclipse.ddms.views.LogCatView"/>
-<view id="org.eclipse.debug.ui.VariableView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.eclipse.debug.ui.VariableView"/>
+<view id="org.eclipse.pde.runtime.LogView"/>
 <view id="org.eclipse.debug.ui.DebugView"/>
 <fastViewBars/>
-<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<layout>
+<mainWindow>
+<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.PackageExplorer" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.8036094" ratioLeft="757" ratioRight="185" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.8036094" ratioLeft="757" ratioRight="185" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.debug.ui.DisplayView" label="LabelNotFound"/>
 <page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
@@ -247,50 +408,337 @@
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.33333334" ratioLeft="185" ratioRight="370" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
-<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@53a49240" ratio="0.5" ratioLeft="803" ratioRight="803" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@53a49240" ratio="0.5" ratioLeft="803" ratioRight="803" relationship="2" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="836" ratioRight="836" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="836" ratioRight="836" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 </mainWindow>
-<detachedWindow height="331" width="1676" x="1685" y="719">&#x0A;<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
-</presentation>
-</folder>
-</detachedWindow>
-<detachedWindow height="929" width="431" x="2923" y="92">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<detachedWindow height="411" width="1254" x="70" y="637">
+<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 <part id="1"/>
 </presentation>
 </folder>
 </detachedWindow>
-<detachedWindow height="566" width="323" x="1679" y="29">&#x0A;<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
-<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
-<page content="org.eclipse.ui.views.TaskList" label="LabelNotFound"/>
-<page content="org.eclipse.debug.ui.BreakpointView" label="LabelNotFound"/>
-<page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<detachedWindow height="460" width="412" x="2924" y="594">
+<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<page content="org.eclipse.pde.runtime.LogView" label="Error Log"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
 </presentation>
 </folder>
 </detachedWindow>
+<detachedWindow height="472" width="435" x="2567" y="587">
+<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</detachedWindow>
+<hiddenWindow height="607" width="404" x="2098" y="182">
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<view id="org.eclipse.ui.views.TaskList"/>
+<view id="org.eclipse.debug.ui.BreakpointView"/>
+<view id="org.eclipse.debug.ui.ExpressionView"/>
+</hiddenWindow>
+</layout>
+</perspective>
+<perspective editorAreaTrimState="2" editorAreaVisible="0" fixed="0" version="0.016">
+<descriptor class="com.android.ide.eclipse.ddms.Perspective" id="com.android.ide.eclipse.ddms.Perspective" label="DDMS"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.doc.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.tasks.ui.navigation"/>
+<alwaysOnActionSet id="adt.actionSet.wizards"/>
+<alwaysOnActionSet id="adt.actionSet.refactorings"/>
+<alwaysOnActionSet id="adt.actionSet.avdManager"/>
+<alwaysOnActionSet id="adt.actionSet.lint"/>
+<show_view_action id="com.android.ide.eclipse.ddms.views.DeviceView"/>
+<show_view_action id="com.android.ide.eclipse.ddms.views.FileExplorerView"/>
+<show_view_action id="com.android.ide.eclipse.ddms.views.HeapView"/>
+<show_view_action id="com.android.ide.eclipse.ddms.views.AllocTrackerView"/>
+<show_view_action id="com.android.ide.eclipse.ddms.views.LogCatView"/>
+<show_view_action id="com.android.ide.eclipse.ddms.views.ThreadView"/>
+<show_view_action id="org.eclipse.ui.views.ResourceNavigator"/>
+<show_view_action id="org.eclipse.ui.views.BookmarkView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.views.PropertySheet"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="org.eclipse.ui.views.ProgressView"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<perspective_action id="org.eclipse.ui.resourcePerspective"/>
+<perspective_action id="org.eclipse.debug.ui.DebugPerspective"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="com.android.ide.eclipse.ddms.views.LogCatView"/>
+<view id="com.android.ide.eclipse.ddms.views.DeviceView"/>
+<view id="com.android.ide.eclipse.ddms.views.EmulatorControlView"/>
+<view id="com.android.ide.eclipse.ddms.views.ThreadView"/>
+<view id="com.android.ide.eclipse.ddms.views.HeapView"/>
+<view id="com.android.ide.eclipse.ddms.views.AllocTrackerView"/>
+<view id="com.android.ide.eclipse.ddms.views.FileExplorerView"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="devices">
+<folder activePageID="com.android.ide.eclipse.ddms.views.DeviceView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.DeviceView" label="Devices"/>
+<page content="com.android.ide.eclipse.ddms.views.DeviceView:*" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="devices">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info folder="true" part="logcat" ratio="0.8" ratioLeft="756" ratioRight="189" relationship="4" relative="devices">
+<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
+<page content="com.android.ide.eclipse.ddms.views.LogCatView:*" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.29964116" ratioLeft="501" ratioRight="1171" relationship="2" relative="devices"/>
+<info folder="true" part="ddms-detail" ratio="0.49957302" ratioLeft="585" ratioRight="586" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="com.android.ide.eclipse.ddms.views.ThreadView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.ThreadView" label="Threads"/>
+<page content="com.android.ide.eclipse.ddms.views.HeapView" label="Heap"/>
+<page content="com.android.ide.eclipse.ddms.views.AllocTrackerView" label="Allocation Tracker"/>
+<page content="com.android.ide.eclipse.ddms.views.FileExplorerView" label="File Explorer"/>
+<page content="com.android.ide.eclipse.ddms.views.ThreadView:*" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="emulator" ratio="0.5" ratioLeft="378" ratioRight="378" relationship="4" relative="devices">
+<folder activePageID="com.android.ide.eclipse.ddms.views.EmulatorControlView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.EmulatorControlView" label="Emulator Control"/>
+<page content="com.android.ide.eclipse.ddms.views.EmulatorControlView:*" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
 </layout>
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/db/DbHandler.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ICD/src/cste/messages/IcdMsg.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/activities/EventLogHNADActivity.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/misc/EventLogRowHnad.java"/>
+<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;java.lang.reflect(InvocationTargetException.class"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ICD/src/cste/icd/HnadEventLog.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ICD/src/cste/icd/EcmEventLogType.java"/>
+<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;android.view(ViewGroup.class"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ICD/src/cste/icd/NadEventLogType.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/HNADService.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/activities/EventLogECMActivity.java"/>
+</editors>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="2521" y="0"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="2565" y="0"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="2265" y="0"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="2630" y="0"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="2668" y="0"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="2710" y="0"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="2773" y="0"/>
+</item>
+<item historyLabel="InvocationTargetException.class" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="2737" y="0"/>
+</item>
+<item historyLabel="DbHandler.java" index="0">
+<position info="not_deleted" x="8062" y="0"/>
+</item>
+<item historyLabel="EventLogHNADActivity.java" index="2">
+<position info="not_deleted" x="553" y="0"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="2730" y="7"/>
+</item>
+<item historyLabel="HnadEventLog.java" index="5">
+<position info="not_deleted" x="262" y="12"/>
+</item>
+<item historyLabel="IcdMsg.java" index="1">
+<position info="not_deleted" x="405" y="6"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="2664" y="0"/>
+</item>
+<item historyLabel="IcdMsg.java" index="1">
+<position info="not_deleted" x="558" y="0"/>
+</item>
+<item historyLabel="EcmEventLogType.java" index="6">
+<position info="not_deleted" x="56" y="0"/>
+</item>
+<item historyLabel="EventLogHNADActivity.java" index="2">
+<position info="not_deleted" x="536" y="0"/>
+</item>
+<item historyLabel="EcmEventLogType.java" index="6">
+<position info="not_deleted" x="993" y="0"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="2096" y="0"/>
+</item>
+<item historyLabel="ViewGroup.class" index="7">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="3397" y="0"/>
+</item>
+<item historyLabel="DbHandler.java" index="0">
+<position info="not_deleted" x="9471" y="0"/>
+</item>
+<item historyLabel="HnadEventLog.java" index="5">
+<position info="not_deleted" x="344" y="15"/>
+</item>
+<item historyLabel="DbHandler.java" index="0">
+<position info="not_deleted" x="9153" y="15"/>
+</item>
+<item historyLabel="EventLogHNADActivity.java" index="2">
+<position info="not_deleted" x="1311" y="0"/>
+</item>
+<item historyLabel="HnadEventLog.java" index="5">
+<position info="not_deleted" x="344" y="15"/>
+</item>
+<item historyLabel="NadEventLogType.java" index="8">
+<position info="not_deleted" x="585" y="0"/>
+</item>
+<item historyLabel="HnadEventLog.java" index="5">
+<position info="not_deleted" x="159" y="0"/>
+</item>
+<item historyLabel="DbHandler.java" index="0">
+<position info="not_deleted" x="8714" y="0"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="2923" y="0"/>
+</item>
+<item historyLabel="DbHandler.java" index="0">
+<position info="not_deleted" x="9384" y="249"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="3235" y="0"/>
+</item>
+<item historyLabel="DbHandler.java" index="0">
+<position info="not_deleted" x="9322" y="0"/>
+</item>
+<item historyLabel="EventLogRowHnad.java" index="3">
+<position info="not_deleted" x="1215" y="0"/>
+</item>
+<item historyLabel="DbHandler.java" index="0">
+<position info="not_deleted" x="9752" y="0"/>
+</item>
+<item historyLabel="NadEventLogType.java" index="8">
+<position info="not_deleted" x="827" y="0"/>
+</item>
+<item historyLabel="HNADService.java" index="9">
+<position info="not_deleted" x="23999" y="21"/>
+</item>
+<item historyLabel="DbHandler.java" index="0">
+<position info="not_deleted" x="8391" y="0"/>
+</item>
+<item historyLabel="EventLogHNADActivity.java" index="2">
+<position info="not_deleted" x="1311" y="0"/>
+</item>
+<item historyLabel="DbHandler.java" index="0">
+<position info="not_deleted" x="8478" y="0"/>
+</item>
+<item historyLabel="EcmEventLogType.java" index="6">
+<position info="not_deleted" x="993" y="0"/>
+</item>
+<item historyLabel="HnadEventLog.java" index="5">
+<position info="not_deleted" x="159" y="0"/>
+</item>
+<item historyLabel="EventLogHNADActivity.java" index="2">
+<position info="not_deleted" x="1022" y="0"/>
+</item>
+<item historyLabel="EventLogECMActivity.java" index="10">
+<position info="not_deleted" x="1069" y="193"/>
+</item>
+<item historyLabel="EventLogHNADActivity.java" index="2">
+<position info="not_deleted" x="1018" y="0"/>
+</item>
+<item historyLabel="HNADService.java" index="9">
+<position info="not_deleted" x="23999" y="21"/>
+</item>
+<item historyLabel="EventLogHNADActivity.java" index="2">
+<position info="not_deleted" x="914" y="0"/>
+</item>
+<item historyLabel="EventLogECMActivity.java" index="10">
+<position info="not_deleted" x="1911" y="96"/>
+</item>
+<item active="true" historyLabel="EventLogHNADActivity.java" index="2">
+<position info="not_deleted" x="1026" y="0"/>
+</item>
+</navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
+<trimArea IMemento.internal.id="16384">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@734f0076"/>
+</trimArea>
+<trimArea IMemento.internal.id="131072">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@3b78d8cf"/>
+</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 <trimItem IMemento.internal.id="org.eclipse.mylyn.tasks.ui.trim.container"/>
@@ -300,39 +748,49 @@
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
 <trimItem IMemento.internal.id="bottom"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@7bacd604"/>
 </trimArea>
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.menu.MenuEditor" name="log_menu.xml" tooltip="HNAD/res/menu/log_menu.xml">
-<persistable path="/HNAD/res/menu/log_menu.xml"/>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="ViewGroup.class" tooltip="android.view.ViewGroup">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;android.view(ViewGroup.class"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.menu.MenuEditor" name="waypoint_menu.xml" tooltip="HNAD/res/menu/waypoint_menu.xml">
-<persistable path="/HNAD/res/menu/waypoint_menu.xml"/>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="InvocationTargetException.class" tooltip="java.lang.reflect.InvocationTargetException">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;java.lang.reflect(InvocationTargetException.class"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ConfigActivity.java" tooltip="HNAD/src/cste/android/activities/ConfigActivity.java">
-<persistable path="/HNAD/src/cste/android/activities/ConfigActivity.java"/>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="SQLiteDatabase.class" tooltip="android.database.sqlite.SQLiteDatabase">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;android.database.sqlite(SQLiteDatabase.class"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="HNAD/AndroidManifest.xml">
-<persistable path="/HNAD/AndroidManifest.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DeviceListActivity.java" tooltip="HNAD/src/cste/android/activities/DeviceListActivity.java">
+<persistable path="/HNAD/src/cste/android/activities/DeviceListActivity.java"/>
 </file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="ArrayList.class" tooltip="java.util.ArrayList">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HNAD/D:\/Programs\/Android\/android-sdk\/platforms\/android-10\/android.jar&lt;java.util(ArrayList.class"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogRowHnad.java" tooltip="HNAD/src/cste/misc/EventLogRowHnad.java">
+<persistable path="/HNAD/src/cste/misc/EventLogRowHnad.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.menu.MenuEditor" name="waypoints_menu.xml" tooltip="HNAD/res/menu/waypoints_menu.xml">
-<persistable path="/HNAD/res/menu/waypoints_menu.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogRowICD.java" tooltip="HNAD/src/cste/misc/EventLogRowICD.java">
+<persistable path="/HNAD/src/cste/misc/EventLogRowICD.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.menu.MenuEditor" name="devicelist_menu.xml" tooltip="HNAD/res/menu/devicelist_menu.xml">
-<persistable path="/HNAD/res/menu/devicelist_menu.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogECMActivity.java" tooltip="HNAD/src/cste/android/activities/EventLogECMActivity.java">
+<persistable path="/HNAD/src/cste/android/activities/EventLogECMActivity.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="devicelistitem.xml" tooltip="HNAD/res/layout/devicelistitem.xml">
-<persistable path="/HNAD/res/layout/devicelistitem.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogHNADActivity.java" tooltip="HNAD/src/cste/android/activities/EventLogHNADActivity.java">
+<persistable path="/HNAD/src/cste/android/activities/EventLogHNADActivity.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ECoCInfoActivity.java" tooltip="HNAD/src/cste/android/activities/ECoCInfoActivity.java">
-<persistable path="/HNAD/src/cste/android/activities/ECoCInfoActivity.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IcdMsg.java" tooltip="ICD/src/cste/messages/IcdMsg.java">
+<persistable path="/ICD/src/cste/messages/IcdMsg.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoginActivity.java" tooltip="HNAD/src/cste/android/activities/LoginActivity.java">
-<persistable path="/HNAD/src/cste/android/activities/LoginActivity.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EcocCmdType.java" tooltip="ICD/src/cste/icd/EcocCmdType.java">
+<persistable path="/ICD/src/cste/icd/EcocCmdType.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HnadEventLog.java" tooltip="ICD/src/cste/icd/HnadEventLog.java">
+<persistable path="/ICD/src/cste/icd/HnadEventLog.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogType.java" tooltip="ICD/src/cste/icd/EventLogType.java">
+<persistable path="/ICD/src/cste/icd/EventLogType.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NadEventLogType.java" tooltip="ICD/src/cste/icd/NadEventLogType.java">
+<persistable path="/ICD/src/cste/icd/NadEventLogType.java"/>
 </file>
 </mruList>
 </workbench>

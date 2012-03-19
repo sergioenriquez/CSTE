@@ -1,15 +1,11 @@
 package cste.android.core;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
-
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -21,12 +17,10 @@ import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Parcelable;
 import android.provider.Settings.System;
 import android.util.Log;
 import android.widget.Toast;
 import cste.android.R;
-import cste.android.activities.DeviceListActivity;
 import cste.android.activities.ECoCInfoActivity;
 import cste.android.activities.LoginActivity;
 import cste.android.db.DbHandler;
@@ -37,21 +31,20 @@ import cste.icd.ConveyanceID;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.icd.EcocCmdType;
-import cste.icd.EventLogType;
+import cste.icd.EcmEventLogType;
 import cste.icd.GpsLoc;
+import cste.icd.HnadEventLog;
 import cste.icd.IcdTimestamp;
 import cste.icd.MsgType;
+import cste.icd.NadEventLogType;
 import cste.icd.UnrestrictedCmdType;
 import cste.interfaces.KeyProvider;
 import cste.messages.EventLogICD;
 import cste.messages.IcdMsg;
-import cste.messages.RestrictedCmdECM;
 import cste.messages.RestrictedStatus;
 import cste.misc.IcdTxItem;
 import cste.misc.XbeeAPI;
 import cste.misc.XbeeFrame;
-
-import static cste.icd.Utility.strToHex;
 
 /***
  * HNAD backgroud service
@@ -69,8 +62,8 @@ public class HNADService extends Service implements KeyProvider{
 	private NotificationManager mNM;
 	private Handler mNadaHandler = new Handler();
 	private DbHandler db;
-	private ArrayList<IcdMsg> mTxList;
-	private ArrayList<DeviceUID> mWaitingList;
+	private ArrayList<IcdMsg> mWaitingMsgList;
+	
 	//private Hashtable<DeviceUID,ComModule> mDevTable;
 	private final IBinder mBinder = new LocalBinder();
 	private Timer mUsbReconnectTimer;
@@ -83,6 +76,10 @@ public class HNADService extends Service implements KeyProvider{
 
 	public void test(){
 		
+	}
+	
+	public void toggleDiscoveryMode(boolean state){
+		mNadaBroadcaster.setDeviceDiscoveryMode(state);
 	}
 	
 	public void saveGeneralSettings(){
@@ -98,20 +95,10 @@ public class HNADService extends Service implements KeyProvider{
 	public String getConveyanceIDStr(){
 		return conveyanceID.toString();
 	}
-	
-	private void updateWaitingList(){
-		mWaitingList.clear();
-		
-		for(IcdMsg msg: mTxList){
-			if(msg != null && !mWaitingList.contains(msg.destUID))
-				mWaitingList.add(msg.destUID);
-		}
+
+	public ArrayList<IcdMsg> getTxList(){
+		return mWaitingMsgList;
 	}
-	
-	public ArrayList<DeviceUID> getWaitingList(){
-		return mWaitingList;
-	}
-	
 
 	public Hashtable<DeviceUID,ComModule> getDeviceList(){
 		return db.getStoredDevices();
@@ -121,35 +108,29 @@ public class HNADService extends Service implements KeyProvider{
 		db.deleteDevLogRecords(devUID);
 	}
 	
-
-	public ArrayList<EventLogICD> getDeviceEventLog(DeviceUID devUID){
+	public ArrayList<EventLogICD> getEcmEventLog(DeviceUID devUID){
 		return db.getDevLogRecords(devUID);
 	}
+	
+	public ArrayList<HnadEventLog> getHnadEventLog(){
+		return db.getHnadLogRecords();
+	}
+	
+	private String userName;
 
 	public void onCreate() {
 		mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		NetworkHandler.setServiceHost(this);
+		userName = "NA";
 		
 		db = new DbHandler(this);
         db.open();
         db.resetTempDeviceVars(); //clears rssi,visible,pendingTx vars
-               
-//        EcocDevice e5 = new EcocDevice(new DeviceUID("0000000000000000"));
-//        db.storeDevice(e5);
-//        
-//        EcocDevice e4 = new EcocDevice(new DeviceUID("1111111111111111"));
-//        db.storeDevice(e4);
-//        
-//        EcocDevice e2 = new EcocDevice(new DeviceUID("2222222222222222"));
-//        db.storeDevice(e2);
-//        
-//        EcocDevice e1 = new EcocDevice(new DeviceUID("0013A20040715FD8"));
-//        db.storeDevice(e1);
-        
-        mTxList = new ArrayList<IcdMsg>(5);
-        mWaitingList = new ArrayList<DeviceUID>(5);
+        db.storeHnadLog(NadEventLogType.POWER_ON, userName);
+
+        mSentMsgList = new ArrayList<IcdMsg>(5);
+        mWaitingMsgList = new ArrayList<IcdMsg>(5);
         mWaypointList = new ArrayList<String>();
-        
         mIcdTxMap = new Hashtable<DeviceUID,IcdTxItem>(5);
 		mCsdMessageHandler = new CsdMessageHandler(this);
 		mUsbCommHandler = new UsbCommManager(this,mCsdMessageHandler);
@@ -160,7 +141,6 @@ public class HNADService extends Service implements KeyProvider{
 		
 		settings = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
 		loadSettings();
-
 	}
 	
 	@Override
@@ -187,8 +167,7 @@ public class HNADService extends Service implements KeyProvider{
 
 
 	public void login(String username, String password) {
-		// TODO Auto-generated method stub
-		
+		//TODO LOG EVENT
 		//assume log in was successful, connect USB device
 		Intent intent = new Intent(Events.LOGIN_RESULT);
 		intent.putExtra("result",true);
@@ -203,7 +182,6 @@ public class HNADService extends Service implements KeyProvider{
 			}}, 100, 1000);// delay start 100ms, retry every second
 	}
 	
-
 	/***
 	 * Stops transmitting or receiving 802.15.4 messages
 	 */
@@ -211,10 +189,8 @@ public class HNADService extends Service implements KeyProvider{
 		stopRadioComm();
 	}
 
-
 	public void uploadData() {
 		// TODO Auto-generated method stub	
-
 	}
 	
 	public void setDeviceTCK(DeviceUID devUID, byte []newTCK){
@@ -232,7 +208,6 @@ public class HNADService extends Service implements KeyProvider{
 		sendBroadcast(intent);
 	}
 	
-
     public void setDeviceAssensionVal(DeviceUID devUID, int val){
     	ComModule destDev = db.getDevice(devUID);
 		if( destDev == null){
@@ -246,7 +221,6 @@ public class HNADService extends Service implements KeyProvider{
 		intent.putExtra("deviceUID",devUID);
 		sendBroadcast(intent);
     }
-
 
 	public void sendDevCmd(DeviceUID destUID, DeviceCommands cmd) {
 		ComModule destDev = db.getDevice(destUID);
@@ -337,8 +311,8 @@ public class HNADService extends Service implements KeyProvider{
 			return;
 		}
 
-		mTxList.add(icdMsg);
-		updateWaitingList();
+		mWaitingMsgList.add(icdMsg);
+		mNadaBroadcaster.updateWaitingList();
 		destDev.txAscension++;
 		db.storeDevice(destDev);
 		
@@ -357,19 +331,19 @@ public class HNADService extends Service implements KeyProvider{
 		//db.storeDevice(destDev);
 	}
 	
-	protected void addItemToTxMap(DeviceUID destUID, IcdMsg icdMsg){
-		IcdTxItem txItem = mIcdTxMap.get(destUID);
-		if( txItem != null){
-			// Cancel any existing retransmission items for this destination
-			txItem.clearTimer();
-			txItem.retryAttempts = 0;
-			txItem.msgSent = icdMsg;
-		}
-		else{
-			txItem = new IcdTxItem(this,destUID,icdMsg);
-			mIcdTxMap.put(destUID, txItem);
-		}
-	}
+//	protected void addItemToTxMap(DeviceUID destUID, IcdMsg icdMsg){
+//		IcdTxItem txItem = mIcdTxMap.get(destUID);
+//		if( txItem != null){
+//			// Cancel any existing retransmission items for this destination
+//			txItem.clearTimer();
+//			txItem.retryAttempts = 0;
+//			txItem.msgSent = icdMsg;
+//		}
+//		else{
+//			txItem = new IcdTxItem(this,destUID,icdMsg);
+//			mIcdTxMap.put(destUID, txItem);
+//		}
+//	}
 
 //    public void onRadioTransmitResult(boolean result, DeviceUID destUID, short ackNo){
 //		ComModule destDev = db.getDevice(destUID);
@@ -445,27 +419,45 @@ public class HNADService extends Service implements KeyProvider{
     			Log.w(TAG,"Received ICD msg with an error: " + msg.msgStatus.name());
     	}
 	}
-    
-    
-    /***
-     * 
-     * @param uid
-     */
-    private void handleNullMsg(DeviceUID uid){
-    	ArrayList<IcdMsg> removeList = new ArrayList<IcdMsg>();
-    	for(IcdMsg msg : mTxList){
-    		if( msg != null && msg.destUID.equals(uid)){
-    			ComModule cm = this.getDeviceRecord(msg.destUID);
-    			XbeeAPI.transmitPkt( cm.address ,msg.getBytes());
-    			removeList.add(msg);
+	
+	
+	private void onMsgResponseReceived(ComModule devSrc){
+		IcdMsg msgSent = null;
+    	for(IcdMsg msg : mSentMsgList){
+    		if( msg != null && msg.destUID.equals(devSrc.devUID)){
+    			//DB hnadlog store
+    			
+    			msgSent = msg;
+    			break;//Tx only 1 msg at a time
     		}
     	}
     	
-    	if( removeList.size() > 0){
-	    	for(IcdMsg msg : removeList){
-	    		mTxList.remove(msg);
-	    	}
-	    	updateWaitingList();
+    	if( msgSent != null)
+    		mSentMsgList.remove(msgSent);
+	}
+    
+	
+	ArrayList<IcdMsg> mSentMsgList = new ArrayList<IcdMsg>();
+	
+    /***
+     * When NULL msg is received, transmit one buffered msg for the receiver
+     * @param uid
+     */
+    private void onNullMsgReceived(DeviceUID uid){
+    	IcdMsg msgSent = null;
+    	for(IcdMsg msg : mWaitingMsgList){
+    		if( msg != null && msg.destUID.equals(uid)){
+    			ComModule cm = this.getDeviceRecord(msg.destUID);
+    			XbeeAPI.transmitPkt( cm.address ,msg.getBytes());
+    			mSentMsgList.add(msg);
+    			msgSent = msg;
+    			break;//Tx only 1 msg at a time
+    		}
+    	}
+    	
+    	if( msgSent != null){
+    		mWaitingMsgList.remove(msgSent);
+    		mNadaBroadcaster.updateWaitingList();
     	}
     }
 
@@ -482,6 +474,7 @@ public class HNADService extends Service implements KeyProvider{
     		deviceSrc.setRestrictedStatus((RestrictedStatus)msg.payload);
     		db.storeDevice(deviceSrc);
     		ackNo = (short) (status.ackNo & 0xFF);
+    		onMsgResponseReceived(deviceSrc);
     		
     		if( mWaypointIndex > 0){ //setting waypoints
     			if( mWaypointIndex < mWaypointList.size()){
@@ -501,24 +494,25 @@ public class HNADService extends Service implements KeyProvider{
     		EventLogICD logRecord = (EventLogICD)msg.payload;
     		ackNo = (short) (logRecord.ackNo & 0xFF);
     		db.storeDevLog(deviceSrc.devUID, logRecord);
+    		onMsgResponseReceived(deviceSrc);
     		
     		//onRadioTransmitResult(true,deviceSrc.devUID,ackNo);
     		sendDevCmd(deviceSrc.devUID,DeviceCommands.SEND_ACK);
     		Log.i(TAG,"Received record, ACK " + String.valueOf(ackNo));
     		toast("Rec Log " + String.valueOf(ackNo));
-    		if( logRecord.eventType == EventLogType.END_OF_RECORDS){
+    		if( logRecord.eventType == EcmEventLogType.END_OF_RECORDS){
     			Intent intent = new Intent(Events.DEV_EVENT_LOG_CHANGD);
     			intent.putExtra("deviceUID",deviceSrc.devUID);
     			sendBroadcast(intent);
     		}
     		break;
     	case NULL_MSG:
-    		handleNullMsg(deviceSrc.devUID);
+    		onNullMsgReceived(deviceSrc.devUID);
     		break;
     	case UNRESTRICTED_STATUS_MSG:
     		ackNo = (short) ( deviceSrc.rxAscension & 0xFF);
-    		toast("Receiver status");
-    		notifyOfTransmissionResult(true, deviceSrc.devUID);
+    		//toast("Received unrestricted status");
+    		//notifyOfTransmissionResult(true, deviceSrc.devUID);
     		break;
     	default:
     		ackNo = (short) ( deviceSrc.rxAscension & 0xFF);
@@ -529,12 +523,10 @@ public class HNADService extends Service implements KeyProvider{
 		sendBroadcast(testIntent);
     }
 
-
 	public ComModule getDeviceRecord(DeviceUID devUID){
 		return db.getDevice(devUID);
 	}
-	
-	
+
 	public void deleteDeviceRecord(DeviceUID devUID){
 		db.deleteDeviceRecord(devUID);
 		
@@ -543,7 +535,6 @@ public class HNADService extends Service implements KeyProvider{
 		sendBroadcast(intent);
 	}
 
-	
 	public byte[] getEncryptionKey(DeviceUID destinationUID) {
 		ComModule cm = db.getDevice(destinationUID);
 		if( cm == null ){
@@ -561,13 +552,11 @@ public class HNADService extends Service implements KeyProvider{
     /***************************/
     /***************************/
     /***************************/
-	
-	
+
 	public boolean isUsbAvalible(){
 		return this.mUsbCommHandler.isReady();
 	}
 
-    
     public void onUsbStateChanged(boolean connected){
     	Intent intent = new Intent(Events.USB_STATE_CHANGED);
     	if(connected){
@@ -598,7 +587,7 @@ public class HNADService extends Service implements KeyProvider{
 		Android_ID = "0D0E0A0D0B0E0E0F";
 		String thisUIDStr = settings.getString(SettingsKey.THIS_UID, Android_ID);
 		//String dcpUIDStr = settings.getString(SettingsKey.DCP_UID, Android_ID);
-		int burstIndex = settings.getInt(SettingsKey.NADA_BURST, 4);
+		int burstIndex = settings.getInt(SettingsKey.NADA_BURST, 5);
 		
 		DeviceUID thisUID = new DeviceUID(Android_ID);
 		DeviceUID dcpUID = new DeviceUID(Android_ID);
@@ -626,6 +615,7 @@ public class HNADService extends Service implements KeyProvider{
     public void onDestroy() {
         // Cancel the persistent notification.
     	toast("Service exit");
+    	db.storeHnadLog(NadEventLogType.POWER_OFF, userName);
     	db.close();
         mNM.cancel(NEW_DEVICE_NOTIFICATION);
 
@@ -712,6 +702,7 @@ public class HNADService extends Service implements KeyProvider{
 		public static final String USB_STATE_CHANGED = "USB CONNECTED";
 		public static final String TRANSMISSION_RESULT = "USB TRANSMISSION_RESULT";
 		public static final String DEV_EVENT_LOG_CHANGD = "USB TRANSMISSION_RESULT";
+		public static final String HNAD_EVENT_LOG_CHANGD = "HNAD_EVENT_LOG_CHANGD";
 	}
 	
 	public enum DeviceCommands{

@@ -1,13 +1,13 @@
 package cste.messages;
 
-import cste.icd.EventLogType;
+import cste.icd.EcmEventLogType;
 import cste.icd.IcdPayload;
 import cste.icd.IcdTimestamp;
 
 public abstract class EventLogICD extends IcdPayload{
 	public byte ackNo;
 	public short logRecordNum;
-	public EventLogType eventType;
+	public EcmEventLogType eventType;
 	public IcdTimestamp timeStamp;
 	
 	public abstract byte[] getStatusSection();

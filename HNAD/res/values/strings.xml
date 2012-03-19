@@ -9,6 +9,9 @@
     <string name="settings">HNAD Settings</string>
     <string name="icon">Icon</string>
     
+    <string name="discoveryON">Set Discovery OFF</string>
+    <string name="discoveryOFF">Set Discovery ON</string>
+    
     <string name="logout">Log Out</string>
     <string name="eventlog">Event Log</string>
     <string name="exit">Exit Program</string>

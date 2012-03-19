@@ -13,10 +13,13 @@ import android.util.Log;
 import cste.components.ComModule;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
+import cste.icd.HnadEventLog;
 import cste.icd.IcdTimestamp;
+import cste.icd.NadEventLogType;
 import cste.messages.EventLogCSD;
 import cste.messages.EventLogECM;
 import cste.messages.EventLogICD;
+import cste.messages.IcdMsg;
 
 public class DbHandler {
 	private static String TAG = "Db handler";
@@ -249,6 +252,87 @@ public class DbHandler {
 	/*******************
 	 * HNAD LOG METHODS*
 	 *******************/
+	//auto timestamp, logNo
+	// store user,  ICDMSG sent, ICDMSG received (event type cmd)
+	// store user,  eventType (boot, shutoff, getkey)
 	
+	public long storeHnadLog(NadEventLogType type, String user, IcdMsg sent, IcdMsg received){
+		ContentValues newDeviceVal = new ContentValues();
+		newDeviceVal.put(DbConst.HNADLOG_TYPE, type.getBytes());	
+		newDeviceVal.put(DbConst.HNADLOG_TIME, IcdTimestamp.now().getBytes());
+		newDeviceVal.put(DbConst.HNADLOG_USER, user);
+		if( sent != null)
+			newDeviceVal.put(DbConst.HNADLOG_MSG_SENT, sent.getBytes());
+		if( received != null)
+			newDeviceVal.put(DbConst.HNADLOG_MSG_RESPONSE, received.getBytes());
+		return db.insertWithOnConflict(DbConst.HNADLOG_TABLE, null, newDeviceVal, SQLiteDatabase.CONFLICT_REPLACE );
+	}
+	
+	public long storeHnadLog(NadEventLogType type, String user){
+		return storeHnadLog(type,user,null,null);
+	}
+	
+	public ArrayList<HnadEventLog> getHnadLogRecords(){
+		//TODO limit number of records returned
+		ArrayList<HnadEventLog> eventLog = new ArrayList<HnadEventLog>(10);
 
+		Cursor c = db.query(DbConst.HNADLOG_TABLE, 
+				null, // all columns
+				null, 
+				null, 
+				null, 
+				null,
+				null);
+
+		c.moveToFirst();
+        while (c.isAfterLast() == false) {
+        	HnadEventLog log = createHnadLogFromCursor(c);
+        	if(log == null)
+        		Log.e(TAG, "Unable to retrieve Dev log record from database");
+        	else
+        		eventLog.add(log);
+            c.moveToNext();
+        }
+        c.close();
+		
+		return eventLog;
+	}
+	
+private HnadEventLog createHnadLogFromCursor(Cursor c){
+		int logID = c.getInt(c.getColumnIndex(DbConst.HNADLOG_ID));
+		String username = c.getString(c.getColumnIndex(DbConst.HNADLOG_USER));
+		IcdTimestamp time = new IcdTimestamp(c.getBlob(c.getColumnIndex(DbConst.HNADLOG_TIME)));
+		NadEventLogType eventType = NadEventLogType.fromValue((byte)c.getInt(c.getColumnIndex(DbConst.HNADLOG_TYPE)));
+		IcdMsg msgSent = IcdMsg.fromBytes(c.getBlob(c.getColumnIndex(DbConst.HNADLOG_MSG_SENT)));
+		IcdMsg msgReceived = IcdMsg.fromBytes(c.getBlob(c.getColumnIndex(DbConst.HNADLOG_MSG_RESPONSE)));
+        return new HnadEventLog(logID,username,time,eventType,msgSent,msgReceived);
+	}
+
+	public ArrayList<HnadEventLog> getHNADLogRecords(DeviceUID devUID){
+		//TODO limit number of records returned
+		ArrayList<HnadEventLog> eventLog = new ArrayList<HnadEventLog>(10);
+		if( devUID == null )
+			return eventLog;
+	
+		Cursor c = db.query(DbConst.HNADLOG_TABLE, 
+				null, // all columns
+				DbConst.DEVLOG_UID + " = ?", 
+				null, 
+				null, 
+				null,
+				null);
+	
+		c.moveToFirst();
+	    while (c.isAfterLast() == false) {
+	    	HnadEventLog log = createHnadLogFromCursor(c);
+	    	if(log == null)
+	    		Log.e(TAG, "Unable to retrieve Dev log record from database");
+	    	else
+	    		eventLog.add(log);
+	        c.moveToNext();
+	    }
+	    c.close();
+		
+	    return eventLog;
+	}	
 }

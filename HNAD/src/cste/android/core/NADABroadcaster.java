@@ -9,6 +9,7 @@ import cste.components.ComModule;
 import cste.icd.DeviceType;
 import cste.icd.DeviceUID;
 import cste.icd.NadaTimeDelay;
+import cste.messages.IcdMsg;
 import cste.messages.NADA;
 import cste.misc.XbeeAPI;
 
@@ -18,7 +19,6 @@ public class NADABroadcaster implements Runnable{
 	protected boolean enabled = false;
 	protected int msgSendCnt = 0;
 	protected NadaTimeDelay delayCode = NadaTimeDelay.D100;
-	
 	protected Handler mHandler;
 	protected UsbCommManager mUsbCommHandler;
 	protected HNADService mParent;
@@ -26,11 +26,19 @@ public class NADABroadcaster implements Runnable{
 	//burst tx 1 sec then 1 sec quiet
 	protected int BurstCount = 13;
 	protected int LongDelay = 1000;
-	
 	protected DeviceType dcpType;
 	protected DeviceUID dcpUID;
 	protected DeviceType lvl2Type;
 	protected DeviceUID lvl2UID;
+	protected ArrayList<DeviceUID> mWaitingList;
+	protected boolean discoveryMode = false;
+	protected final DeviceUID DiscoveryUID = new DeviceUID("FFFFFFFFFFFFFFFF");
+	
+	
+	public void setDeviceDiscoveryMode(boolean state){
+		discoveryMode = state;
+		updateWaitingList();
+	}
 	
 	protected static final int MAX_MSG_WAITING_CNT = 5;
 	
@@ -38,6 +46,8 @@ public class NADABroadcaster implements Runnable{
 		mHandler = handler;
 		mUsbCommHandler = usbHandler;
 		mParent = parent;
+		discoveryMode = false;
+		mWaitingList = new ArrayList<DeviceUID>(5);
 	}
 	
 	public void config(int burstIndex,  DeviceType lvl2Type, DeviceUID lvl2UID, DeviceType dcpType, DeviceUID dcpUID){
@@ -50,6 +60,18 @@ public class NADABroadcaster implements Runnable{
 		delayCode = NadaTimeDelay.fromIndex(burstIndex);
 		BurstCount = 1000 / delayCode.getMsDelay();
 	}
+	
+	public void updateWaitingList(){
+		mWaitingList.clear();
+		
+		for(IcdMsg msg: mParent.getTxList() ){
+			if(msg != null && !mWaitingList.contains(msg.destUID))
+				mWaitingList.add(msg.destUID);
+		}
+		
+		if( discoveryMode )
+			mWaitingList.add(DiscoveryUID);
+	}
 
 	@Override
 	public void run(){
@@ -61,7 +83,7 @@ public class NADABroadcaster implements Runnable{
 								dcpUID,
 								lvl2Type,
 								lvl2UID,
-								mParent.getWaitingList());
+								mWaitingList);
 		
 		XbeeAPI.transmitPkt(XbeeAPI.BROADCAST_ADDRESS, nadaMsg.getBytes());
 

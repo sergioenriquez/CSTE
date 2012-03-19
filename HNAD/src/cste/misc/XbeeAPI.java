@@ -89,7 +89,6 @@ public class XbeeAPI {
 		}
 		
 		boolean needAck = dest.equals(BROADCAST_ADDRESS) ? false : true;
-		needAck = false;
 		
 		byte[] frame = buildFrame(dest,payload,needAck);
 		boolean txResult = comInterface.transmit(frame);
@@ -155,76 +154,40 @@ public class XbeeAPI {
 	
 	private static boolean checksumOK(ByteBuffer buffer){
 		buffer.rewind();
-		buffer.get();//delimeter
-		short size = buffer.getShort();//size
-
 		int i;
 		byte sum = 0;
-		for(i=3;i<buffer.capacity()-1 && i<size+3;i++)
+		for(i=0;i<buffer.capacity()-1;i++)
 			sum += buffer.get();
 
 		byte calcCheckSum = (byte) (0xFF  - sum);
 		byte checksum = buffer.get();
 		if ( calcCheckSum == checksum)
 			return true;
-		else
-		{
+		else{
 			Log.w(TAG, "Received Xbee frame with bad checksum");
 			return false;
 		}
 	}
-
-	//TODO handle other msg types
-	/***
-	 * Unwraps the data delivered by the Zigbee transceiver
-	 * @param msg
-	 * @return
-	 */
-	public static void parseFrame(byte[] msg,int msgSize){
-		if( msgSize < 3){
-			Log.w(TAG, "Received a frame with bad size");
-			return;
-		}
-
-		ByteBuffer temp = ByteBuffer.allocate(msgSize);
-		ByteBuffer data = ByteBuffer.allocate(msgSize);
-		temp.put(msg, 0, msgSize);
-		temp.rewind();
-
-		temp.get();
-		short frameSize = temp.getShort();
-		short payloadSize = (short) (frameSize-8-3);
-		
-		if( frameSize >= msgSize  || payloadSize < 10){
-			Log.w(TAG, "Received a frame with bad size");
-			return;
-		}
-		temp.rewind();
+	
+	protected static void processFrame(ByteBuffer buffer, short frameSize){
+		ByteBuffer data = ByteBuffer.allocate(frameSize+2);
 		
 		//remove escape chars
-		for(int i=0;i<msgSize;i++){
-			byte c = temp.get();
+		for(int i=0;i<frameSize+2;i++){
+			byte c = buffer.get();
 			if(	c == 0x7D ){
-				if( !temp.hasRemaining() ){
-					Log.w(TAG, "Received a frame with bad size");
-					return;
-				}
-				
-				c = temp.get();
+				c = buffer.get();
 				c ^= 0x20;
 				i++;
 				data.put(c);
 			}else
 				data.put(c);
 		}
-
-		if ( !checksumOK(data) ){
+		data.put(buffer.get());
+		if ( !checksumOK(data) )
 			return;
-		}
 		
 		data.rewind();
-		data.get();//remove delimeter
-		frameSize = data.getShort();
 		byte type = data.get();
 		
 		short addrSize;
@@ -240,7 +203,7 @@ public class XbeeAPI {
 			return;
 		}
 		else{
-			Log.w(TAG, "Zigbee packet type not accepted: " + Byte.toString(type));
+			Log.w(TAG, "Xbee packet type not processed: " + Byte.toString(type));
 			return;
 		}
 		
@@ -249,13 +212,43 @@ public class XbeeAPI {
 
 		byte rssi = data.get();
 		byte opt = data.get();
+		
+		int payloadSize = frameSize-addrSize-3;
+		byte[] payload = new byte[payloadSize];
+		data.get(payload);
+		mHnadService.onFrameReceived(new XbeeFrame(type,rssi,opt,source,payload));
+	}
+	
 
-		if( payloadSize > 0){
-			byte[] payload = new byte[payloadSize];
-			data.get(payload);
-			mHnadService.onFrameReceived(new XbeeFrame(type,rssi,opt,source,payload));
+	//TODO handle other msg types
+	/***
+	 * Unwraps the data delivered by the Zigbee transceiver
+	 * @param msg
+	 * @return
+	 */
+	public static void parseFrame(byte[] msg,int msgSize){
+		if( msgSize < 3){
+			Log.w(TAG, "Received a frame with bad size");
+			return;
 		}
-		else
-			Log.w(TAG, "Bad frame size received");
+
+		ByteBuffer temp = ByteBuffer.wrap(msg);
+		short frameSize;
+		byte delim;
+		while(temp.position() < msgSize){
+			delim = temp.get();
+			if( delim != DELIMETER){
+				//Log.w(TAG, "Did not receive a valid Xbee frame");
+				//break;
+				continue;
+			}
+				
+			frameSize = temp.getShort();
+			if( temp.remaining() < frameSize){
+				Log.w(TAG, "Received a frame with bad size");
+				break;
+			}
+			processFrame(temp,frameSize);
+		}
 	}
 }

@@ -2,7 +2,6 @@ package cste.android.activities;
 
 import java.util.ArrayList;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.widget.TableLayout;
 import cste.android.R;
 import cste.android.core.HNADService.DeviceCommands;
 import cste.android.core.HNADService.Events;
-import cste.hnad.EcocDevice;
 import cste.icd.DeviceUID;
 import cste.messages.EventLogICD;
 import cste.misc.EventLogRowICD;
@@ -43,7 +41,7 @@ public class EventLogECMActivity extends HnadBaseActivity {
 	protected void reloadLogScreen(){
 		mTable.removeAllViews();
 		mTable.addView(new EventLogRowICD(this)); // title row
-		ArrayList<EventLogICD> devLog= mHnadCoreService.getDeviceEventLog(devUID);
+		ArrayList<EventLogICD> devLog= mHnadCoreService.getEcmEventLog(devUID);
 		for(EventLogICD log: devLog){
 			mTable.addView(new EventLogRowICD(this,log));
 		}

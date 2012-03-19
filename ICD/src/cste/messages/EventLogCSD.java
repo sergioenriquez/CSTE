@@ -2,7 +2,7 @@ package cste.messages;
 
 import java.nio.ByteBuffer;
 
-import cste.icd.EventLogType;
+import cste.icd.EcmEventLogType;
 import cste.icd.IcdTimestamp;
 
 public class EventLogCSD extends EventLogICD{
@@ -25,7 +25,7 @@ public class EventLogCSD extends EventLogICD{
 	}
 	
 	public EventLogCSD(IcdTimestamp timeStamp, byte eventType, byte[] eventData) {
-		this.eventType = EventLogType.fromValue(eventType);
+		this.eventType = EcmEventLogType.fromValue(eventType);
 		this.timeStamp = timeStamp;
 		
 		ByteBuffer b = ByteBuffer.wrap(eventData);
@@ -42,7 +42,7 @@ public class EventLogCSD extends EventLogICD{
 
 	public EventLogCSD(ByteBuffer b) {
 		ackNo = b.get();
-		eventType = EventLogType.fromValue(b.get());
+		eventType = EcmEventLogType.fromValue(b.get());
 		timeStamp = new IcdTimestamp(b);
 		
 		operatingMode = b.get();
