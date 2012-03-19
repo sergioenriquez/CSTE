@@ -10,16 +10,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
-import cste.components.ComModule;
-import cste.icd.DeviceType;
-import cste.icd.DeviceUID;
-import cste.icd.HnadEventLog;
-import cste.icd.IcdTimestamp;
-import cste.icd.NadEventLogType;
-import cste.messages.EventLogCSD;
-import cste.messages.EventLogECM;
-import cste.messages.EventLogICD;
-import cste.messages.IcdMsg;
+import cste.icd.components.ComModule;
+import cste.icd.icd_messages.EventLogCSD;
+import cste.icd.icd_messages.EventLogECM;
+import cste.icd.icd_messages.EventLogICD;
+import cste.icd.icd_messages.IcdMsg;
+import cste.icd.types.DeviceType;
+import cste.icd.types.DeviceUID;
+import cste.icd.types.IcdTimestamp;
+import cste.icd.types.NadEventLogType;
+import cste.misc.HnadEventLog;
 
 public class DbHandler {
 	private static String TAG = "Db handler";

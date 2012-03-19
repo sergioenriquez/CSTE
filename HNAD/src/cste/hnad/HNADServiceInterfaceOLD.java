@@ -6,9 +6,9 @@ import java.util.Hashtable;
 import android.content.Context;
 import android.content.SharedPreferences;
 import cste.android.core.HNADService.DeviceCommands;
-import cste.components.ComModule;
-import cste.icd.DeviceUID;
-import cste.messages.EventLogICD;
+import cste.icd.components.ComModule;
+import cste.icd.icd_messages.EventLogICD;
+import cste.icd.types.DeviceUID;
 import cste.misc.XbeeFrame;
 
 public interface HNADServiceInterfaceOLD {

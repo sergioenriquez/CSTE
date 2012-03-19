@@ -6,19 +6,19 @@ import java.io.IOException;
 import java.net.Socket;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
-import static cste.PacketTypes.KmfPacketTypes.*;
-import static cste.icd.Constants.ENCRYPTION_KEY_LENGTH;
-import static cste.icd.Constants.UID_LENGTH;
-import cste.PacketTypes.KmfPacketTypes;
-import cste.icd.DeviceType;
-import cste.icd.Constants;
+import static cste.icd.general.Constants.ENCRYPTION_KEY_LENGTH;
+import static cste.icd.general.Constants.UID_LENGTH;
+import static cste.notused.KmfPacketTypes.*;
+import cste.icd.general.Constants;
+import cste.icd.types.DeviceType;
 import cste.interfaces.IpWrapper;
-import cste.ip.IpPacket;
-import cste.ip.IpWrapperImpl;
 import cste.kmf.KmfApp;
 import cste.kmf.KmfDeviceRecord;
 import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
 import cste.kmf.database.KmfDbHandler;
+import cste.notused.NetPkt;
+import cste.notused.IpWrapperImpl;
+import cste.notused.KmfPacketTypes;
 
 public class ServerThread implements Runnable{
     protected Socket clientSocket = null;
@@ -43,7 +43,7 @@ public class ServerThread implements Runnable{
         	return;
         }
         
-        IpPacket p = ipWrapper.getReply(in);
+        NetPkt p = ipWrapper.getReply(in);
 		
 		if ( p == null){
 			// handle IO errror
@@ -75,7 +75,7 @@ public class ServerThread implements Runnable{
 		}
 	}
 	
-	void handleGenerateLTKPacket(IpPacket p){
+	void handleGenerateLTKPacket(NetPkt p){
 //		DataInputStream ds = p.getPayloadDataStream();
 //		byte[] deviceUID = new byte[UID_LENGTH];
 //		byte[] newLTK = null;
@@ -127,7 +127,7 @@ public class ServerThread implements Runnable{
 	/***
 	 * Device A is the sender, B is the receiver and can generate the TCK on its own
 	 */
-	void handleGenerateTCKPacket(IpPacket p){
+	void handleGenerateTCKPacket(NetPkt p){
 		DataInputStream ds = p.getPayloadDataStream();
 		byte[] deviceUID_A = new byte[UID_LENGTH];
 		byte[] deviceUID_B = new byte[UID_LENGTH];
@@ -172,7 +172,7 @@ public class ServerThread implements Runnable{
 		ipWrapper.sendIcdPacket(KmfPacketTypes.REPLY_KEY, generatedTCK, p.getSenderUID(), out);
 	}
 	
-	void handleDeleteRecordPacket(IpPacket p){
+	void handleDeleteRecordPacket(NetPkt p){
 		DataInputStream ds = p.getPayloadDataStream();
 		byte uid[] = new byte[UID_LENGTH];
 		try {
@@ -196,7 +196,7 @@ public class ServerThread implements Runnable{
 	 * 
 	 * @param is
 	 */
-	void handleAddRecordRequest(IpPacket p){
+	void handleAddRecordRequest(NetPkt p){
 		DataInputStream ds = p.getPayloadDataStream();
 		byte uid[] = new byte[UID_LENGTH];
 		byte rekeyKey[] = new byte[ENCRYPTION_KEY_LENGTH];

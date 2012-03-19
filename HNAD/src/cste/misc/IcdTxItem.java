@@ -1,8 +1,8 @@
 package cste.misc;
 
 import cste.android.core.HNADService;
-import cste.icd.DeviceUID;
-import cste.messages.IcdMsg;
+import cste.icd.icd_messages.IcdMsg;
+import cste.icd.types.DeviceUID;
 import android.os.Handler;
 
 public class IcdTxItem implements Runnable {

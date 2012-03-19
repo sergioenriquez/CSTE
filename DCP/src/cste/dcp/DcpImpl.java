@@ -1,12 +1,12 @@
 package cste.dcp;
 
 import cste.dcp.interfaces.DCP;
-import cste.ip.IpPacket;
+import cste.notused.NetPkt;
 
 public class DcpImpl implements DCP{
 
 	@Override
-	public IpPacket processMsg(IpPacket msg) {
+	public NetPkt processMsg(NetPkt msg) {
 		// TODO Auto-generated method stub
 		return null;
 	}

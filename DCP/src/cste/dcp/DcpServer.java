@@ -7,10 +7,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
 
-import cste.icd.DeviceUID;
+import cste.icd.types.DeviceUID;
 import cste.interfaces.IpWrapper;
 import cste.interfaces.KeyProvider;
-import cste.ip.IpWrapperImpl;
+import cste.notused.IpWrapperImpl;
 import cste.dcp.DcpServerThread;
 
 public class DcpServer implements Runnable, KeyProvider{

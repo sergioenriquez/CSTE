@@ -1,11 +1,11 @@
 package cste.kmf;
 
-import static cste.icd.Constants.ENCRYPTION_KEY_LENGTH;
-import static cste.icd.Constants.UID_LENGTH;
+import static cste.icd.general.Constants.ENCRYPTION_KEY_LENGTH;
+import static cste.icd.general.Constants.UID_LENGTH;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
-import cste.icd.DeviceType;
+import cste.icd.types.DeviceType;
 
 /***
  * Represents device record information stored on the KMF database

@@ -1,7 +1,7 @@
 package cste.dcp;
 
-import cste.icd.DeviceType;
-import cste.icd.Constants;
+import cste.icd.general.Constants;
+import cste.icd.types.DeviceType;
 
 /**
  * Represents a secure container device or a NAD/FNAD

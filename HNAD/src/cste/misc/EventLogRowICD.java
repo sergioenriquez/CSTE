@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import cste.messages.EventLogICD;
+import cste.icd.icd_messages.EventLogICD;
 
 public class EventLogRowICD extends TableRow{
 	protected TextView dateTime;

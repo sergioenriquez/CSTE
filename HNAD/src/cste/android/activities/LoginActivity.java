@@ -57,7 +57,7 @@ public class LoginActivity extends HnadBaseActivity {
     	//load saved settings
     	SharedPreferences settings = mHnadCoreService.getSettingsFile();
     	String username = settings.getString(SettingsKey.THIS_UID,"0013A20040715FD8");
-    	String password = settings.getString(SettingsKey.PASSWORD, "");
+    	String password = settings.getString(SettingsKey.DCP_PASSWORD, "");
     	boolean rememberPassword = settings.getBoolean(SettingsKey.REMEMBER_PASS, false);
     	
     	usernameText.setText(username);
@@ -92,9 +92,9 @@ public class LoginActivity extends HnadBaseActivity {
     	//editor.putString(SettingsKey.USERNAME, username);
     	editor.putBoolean(SettingsKey.REMEMBER_PASS, rememberPassword);
     	if( rememberPassword )
-    		editor.putString(SettingsKey.PASSWORD, password);
+    		editor.putString(SettingsKey.DCP_PASSWORD, password);
     	else
-    		editor.putString(SettingsKey.PASSWORD, "");
+    		editor.putString(SettingsKey.DCP_PASSWORD, "");
     	
     	editor.commit();
     }

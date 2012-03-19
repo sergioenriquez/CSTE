@@ -1,7 +1,7 @@
 package cste.android.activities;
 
-import static cste.icd.Utility.hexToStr;
-import static cste.icd.Utility.strToHex;
+import static cste.icd.general.Utility.hexToStr;
+import static cste.icd.general.Utility.strToHex;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import cste.android.R;
 import cste.android.core.HNADService.DeviceCommands;
 import cste.android.core.HNADService.SettingsKey;
-import cste.components.ComModule;
+import cste.icd.components.ComModule;
 import cste.misc.HexKeyListener;
 
 public class TripInfoActivity extends HnadBaseActivity{

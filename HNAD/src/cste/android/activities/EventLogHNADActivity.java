@@ -8,11 +8,11 @@ import android.os.Bundle;
 import android.widget.TableLayout;
 import cste.android.R;
 import cste.android.core.HNADService.Events;
-import cste.icd.DeviceUID;
-import cste.icd.HnadEventLog;
-import cste.messages.EventLogICD;
+import cste.icd.icd_messages.EventLogICD;
+import cste.icd.types.DeviceUID;
 import cste.misc.EventLogRowHnad;
 import cste.misc.EventLogRowICD;
+import cste.misc.HnadEventLog;
 
 public class EventLogHNADActivity extends HnadBaseActivity {
 	static final String TAG = "HNAD Event Log Activity";
@@ -27,7 +27,7 @@ public class EventLogHNADActivity extends HnadBaseActivity {
         setWindowTitle(R.string.eventlog_title);
         
         IntentFilter filter = new IntentFilter();
-		filter.addAction(Events.HNAD_EVENT_LOG_CHANGD);
+		filter.addAction(Events.HNAD_EVENTLOG_CHANGE);
 		registerReceiver(mDeviceUpdateReceiver, filter); 
 	}
 
@@ -49,7 +49,7 @@ public class EventLogHNADActivity extends HnadBaseActivity {
 	
 	@Override
 	protected void handleCoreServiceMsg(String action, Intent intent) {
-		if ( action.equals(Events.HNAD_EVENT_LOG_CHANGD) ) {
+		if ( action.equals(Events.HNAD_EVENTLOG_CHANGE) ) {
 			reloadLogScreen();
 		}
 	}

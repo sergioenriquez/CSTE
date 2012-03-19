@@ -5,12 +5,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
 
-import cste.icd.DeviceUID;
+import cste.icd.types.DeviceUID;
 import cste.interfaces.IpWrapper;
 import cste.interfaces.KeyProvider;
-import cste.ip.IpWrapperImpl;
 import cste.kmf.KmfDeviceRecord;
 import cste.kmf.database.KmfDbHandler;
+import cste.notused.IpWrapperImpl;
 import static cste.kmf.KmfApp.KMF_UID;
 
 public class Server implements Runnable, KeyProvider{

@@ -1,30 +1,26 @@
 package cste.android.activities;
 
+import static cste.icd.general.Utility.hexToStr;
+import static cste.icd.general.Utility.strToHex;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import cste.android.R;
 import cste.android.core.HNADService.DeviceCommands;
 import cste.android.core.HNADService.Events;
-import cste.components.ECoC;
-import cste.hnad.EcocDevice;
-import cste.icd.DeviceUID;
-import cste.messages.RestrictedStatusECM;
+import cste.icd.components.ECoC;
+import cste.icd.types.DeviceUID;
 import cste.misc.HexKeyListener;
-import static cste.icd.Utility.strToHex;
-import static cste.icd.Utility.hexToStr;;
 
 public class ECoCInfoActivity extends HnadBaseActivity {
 	@SuppressWarnings("unused")

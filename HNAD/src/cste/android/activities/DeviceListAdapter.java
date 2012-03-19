@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cste.android.R;
-import cste.components.ComModule;
+import cste.icd.components.ComModule;
 
 public class DeviceListAdapter extends ArrayAdapter<ComModule>{
 	int resourceID;

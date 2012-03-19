@@ -7,7 +7,7 @@ import java.net.Socket;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import cste.interfaces.IpWrapper;
-import cste.ip.IpWrapperImpl;
+import cste.notused.IpWrapperImpl;
 
 public class DcpServerThread implements Runnable{
 	protected Socket clientSocket = null;

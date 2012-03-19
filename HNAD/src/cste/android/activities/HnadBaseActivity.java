@@ -88,7 +88,7 @@ public abstract class HnadBaseActivity extends Activity{
 			mHnadCoreService = ((HNADService.LocalBinder)service).getService();
 			mIsBound = true;
 			
-			setUsbIcon( mHnadCoreService.isUsbAvalible()  );
+			setUsbIcon( mHnadCoreService.getUsbState()  );
 			onCoreServiceCBound();
 		}
 		

@@ -1,8 +1,7 @@
 package cste.misc;
 
-import cste.icd.HnadEventLog;
-import cste.messages.EventLogICD;
-import cste.messages.IcdMsg;
+import cste.icd.icd_messages.EventLogICD;
+import cste.icd.icd_messages.IcdMsg;
 import android.content.Context;
 import android.graphics.Color;
 import android.widget.TableLayout;
@@ -95,7 +94,7 @@ public class EventLogRowHnad extends TableRow{
         
         msgComd = new TextView(context);
         if(logEntry.msgSent.msgStatus == IcdMsg.MsgStatus.OK)
-        	msgComd.setText(logEntry.msgSent.headerData.msgType.toString());
+        	msgComd.setText(logEntry.msgSent.header.msgType.toString());
         else
         	msgComd.setText("N/A");
         msgComd.setTextSize(12);

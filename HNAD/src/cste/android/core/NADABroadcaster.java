@@ -5,12 +5,12 @@ import java.util.Enumeration;
 import java.util.List;
 
 import android.os.Handler;
-import cste.components.ComModule;
-import cste.icd.DeviceType;
-import cste.icd.DeviceUID;
-import cste.icd.NadaTimeDelay;
-import cste.messages.IcdMsg;
-import cste.messages.NADA;
+import cste.icd.components.ComModule;
+import cste.icd.icd_messages.IcdMsg;
+import cste.icd.icd_messages.NADA;
+import cste.icd.types.DeviceType;
+import cste.icd.types.DeviceUID;
+import cste.icd.types.NadaTimeDelay;
 import cste.misc.XbeeAPI;
 
 //TODO clear channel assesment?

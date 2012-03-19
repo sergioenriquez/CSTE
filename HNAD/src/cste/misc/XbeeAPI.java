@@ -1,6 +1,6 @@
 package cste.misc;
 
-import static cste.icd.Utility.strToHex;
+import static cste.icd.general.Utility.strToHex;
 
 import java.nio.ByteBuffer;
 import java.util.Hashtable;

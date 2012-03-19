@@ -19,8 +19,8 @@ import android.widget.ListView;
 import cste.android.R;
 import cste.android.core.HNADService.DeviceCommands;
 import cste.android.core.HNADService.Events;
-import cste.components.ComModule;
-import cste.icd.DeviceUID;
+import cste.icd.components.ComModule;
+import cste.icd.types.DeviceUID;
 
 /***
  * Displays a list of all the devices currently or previously visible

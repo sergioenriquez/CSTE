@@ -8,17 +8,17 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
-import cste.PacketTypes.KmfPacketTypes;
 import cste.dcp.NetDevice;
 import cste.dcp.interfaces.KmfClient;
-import cste.icd.DeviceUID;
-import cste.icd.Constants;
+import cste.icd.general.Constants;
+import cste.icd.types.DeviceUID;
 import cste.interfaces.IpWrapper;
 import cste.interfaces.KeyProvider;
-import cste.ip.IpPacket;
-import cste.ip.IpWrapperImpl;
-import static cste.PacketTypes.KmfPacketTypes.*;
+import cste.notused.NetPkt;
+import cste.notused.IpWrapperImpl;
+import cste.notused.KmfPacketTypes;
 import static cste.dcp.DcpApp.*;
+import static cste.notused.KmfPacketTypes.*;
 
 //TODO move the key provider functionality to the database handler
 public class KmfClientImpl implements KmfClient,KeyProvider{
@@ -76,7 +76,7 @@ public class KmfClientImpl implements KmfClient,KeyProvider{
 	public byte[] getNewLTK(NetDevice device){
 		if( connectToServer() ){
 			ipWrapper.sendIcdPacket(GENERATE_LTK, device.getUID() , KMF_UID, out);
-			IpPacket p = ipWrapper.getReply(in);
+			NetPkt p = ipWrapper.getReply(in);
 			if ( p !=null && p.getFunctionCode() == KmfPacketTypes.REPLY_KEY)
 				return p.getPayload();
 		}
@@ -102,7 +102,7 @@ public class KmfClientImpl implements KmfClient,KeyProvider{
 			
 			ipWrapper.sendIcdPacket(GENERATE_TCK, bOut.toByteArray() , KMF_UID, out);
 			
-			IpPacket p = ipWrapper.getReply(in);
+			NetPkt p = ipWrapper.getReply(in);
 			if ( p !=null && p.getFunctionCode() == KmfPacketTypes.REPLY_KEY)
 				return p.getPayload();
 		}
@@ -117,7 +117,7 @@ public class KmfClientImpl implements KmfClient,KeyProvider{
 	public boolean deleteRecord(NetDevice device){
 		if( connectToServer() ){
 			ipWrapper.sendIcdPacket(DELETE_RECORD, device.getUID(), KMF_UID, out);
-			IpPacket p = ipWrapper.getReply(in);
+			NetPkt p = ipWrapper.getReply(in);
 			
 			if ( p !=null && p.getFunctionCode() == KmfPacketTypes.OP_SUCCESS)
 				return true;
@@ -146,7 +146,7 @@ public class KmfClientImpl implements KmfClient,KeyProvider{
 			
 			ipWrapper.sendIcdPacket(ADD_RECORD, bOut.toByteArray() , KMF_UID, out);
 			
-			IpPacket p = ipWrapper.getReply(in);
+			NetPkt p = ipWrapper.getReply(in);
 			if ( p !=null && p.getFunctionCode() == KmfPacketTypes.OP_SUCCESS)
 				return true;
 

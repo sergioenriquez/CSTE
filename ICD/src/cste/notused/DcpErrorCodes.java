@@ -1,0 +1,9 @@
+package cste.notused;
+
+public enum DcpErrorCodes {
+	WRONG_KEY,
+	WRONG_ICD_REV,
+	AUTHENTICATION_FAILED,
+	AUTHENTICATION_REQUIRED,
+	OTHER_ERROR
+}

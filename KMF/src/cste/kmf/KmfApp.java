@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
-import cste.icd.DeviceType;
+import cste.icd.types.DeviceType;
 import cste.kmf.KmfDeviceRecord.InvalidRecordExeption;
 import cste.kmf.database.KmfDbHandler;
 import cste.kmf.server.Server;

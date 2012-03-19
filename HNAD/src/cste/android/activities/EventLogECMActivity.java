@@ -12,8 +12,8 @@ import android.widget.TableLayout;
 import cste.android.R;
 import cste.android.core.HNADService.DeviceCommands;
 import cste.android.core.HNADService.Events;
-import cste.icd.DeviceUID;
-import cste.messages.EventLogICD;
+import cste.icd.icd_messages.EventLogICD;
+import cste.icd.types.DeviceUID;
 import cste.misc.EventLogRowICD;
 
 public class EventLogECMActivity extends HnadBaseActivity {
@@ -34,7 +34,7 @@ public class EventLogECMActivity extends HnadBaseActivity {
         
         IntentFilter filter = new IntentFilter();
 		filter.addAction(Events.TRANSMISSION_RESULT);
-		filter.addAction(Events.DEV_EVENT_LOG_CHANGD);
+		filter.addAction(Events.ECM_EVENTLOG_CHANGE);
 		registerReceiver(mDeviceUpdateReceiver, filter); 
 	}
 	
@@ -61,7 +61,7 @@ public class EventLogECMActivity extends HnadBaseActivity {
 			return;
 		} 
 		
-		if ( action.equals(Events.DEV_EVENT_LOG_CHANGD) ) {
+		if ( action.equals(Events.ECM_EVENTLOG_CHANGE) ) {
 			reloadLogScreen();
 			pd.cancel();
 		}
