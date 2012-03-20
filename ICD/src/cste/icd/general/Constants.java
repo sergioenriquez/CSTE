@@ -22,13 +22,13 @@ public class Constants {
 	public static final int ENCRYPTION_KEY_LENGTH			= 16;
 
 	// The ICD revision number this implements
-	private static final byte ICD_REV_NUMBER 				= 0x02;
+	public static final byte ICD_REV_NUMBER 				= 0x02;
 
 	// UTC Length per ICD
-	private static final int UTC_LENGTH						= 8; // bytes
+	public static final int UTC_LENGTH						= 8; // bytes
 		
 	// Message integrity check (MIC) length
-	private static final int MIC_LENGTH 					=  8; // in bytes
+	public static final int MIC_LENGTH 					=  8; // in bytes
 	public  static final int UID_LENGTH						=  8; // in bytes
 
 	// Message header lengths
@@ -36,11 +36,11 @@ public class Constants {
 	public static final int MH_HEADER_LENGTH 				= 16;
 
 	// Restricted data section lengths (if more than one byte)
-	private static final int MECHANICAL_SEAL_ID_LENGTH		= 15;
-	private static final int CONVEYANCE_ID_LENGTH			= 16; // id itself is 15 since format takes 1 byte
-	private static final int MANIFEST_LENGTH				= 16;
-	private static final int RSM_RESTRICTED_DATA_LENGTH 	= 55;
-	private static final int RSM_RESERVED_LENGTH			= 16;
+	public static final int MECHANICAL_SEAL_ID_LENGTH		= 15;
+	public static final int CONVEYANCE_ID_LENGTH			= 16; // id itself is 15 since format takes 1 byte
+	public static final int MANIFEST_LENGTH				= 16;
+	public static final int RSM_RESTRICTED_DATA_LENGTH 	= 55;
+	public static final int RSM_RESERVED_LENGTH			= 16;
 	
 	/***
 	 * Method not specified on ICD, using this as a place holder

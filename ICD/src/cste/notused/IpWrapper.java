@@ -1,9 +1,9 @@
-package cste.interfaces;
+package cste.notused;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import cste.notused.NetPkt;
+import cste.interfaces.KeyProvider;
 
 public interface IpWrapper {
 	void setKeyProvider(KeyProvider keyProvider);

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import cste.interfaces.IpWrapper;
 import cste.interfaces.KeyProvider;
 
 public class IpWrapperImpl implements IpWrapper{
@@ -79,7 +78,7 @@ public class IpWrapperImpl implements IpWrapper{
 			return null;
 		}
 
-		NetPkt p = new NetPkt();
+		//NetPkt p = new NetPkt();
 //		p.setRev(rev);
 //		p.setFunctionCode(functionCode);
 //		p.setSenderUID(senderUID);
@@ -100,6 +99,6 @@ public class IpWrapperImpl implements IpWrapper{
 		//else
 		//	p.setPayload(receivedPayload);
 		
-		return p;
+		return null;
 	}
 }

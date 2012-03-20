@@ -6,77 +6,91 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import android.util.Log;
+
 import cste.notused.NetPkt;
 
 public class HnadClientThread implements Runnable{
+	private static final String TAG = "Network Thread";
+	private final int BUFFER_SIZE = 2000;
 	
-	
-	int task;
-	
-	Socket s;
-	ObjectOutputStream out;
-	ObjectInputStream in;
-	
-	/***
-	 * logs in to the dcp server
-	 * @param username
-	 * @param password
-	 */
-	public HnadClientThread(NetPkt pkt){
-	//	mUsername = username;
-	//	mPassword = password;
-		task = 1; // log in
+	protected Socket socket;
+	protected ObjectOutputStream out;
+	protected ObjectInputStream in;
+	protected NetworkHandler nh;
+	protected boolean isEnabled;
+
+	public HnadClientThread(NetworkHandler nh){
+		this.nh = nh;
+		this.isEnabled = true;
+		socket = null;
 	}
 	
 	protected boolean connectToServer() {
-
-		// TODO Auto-generated method stub
 		try {
-			s = new Socket(NetworkHandler.serverAddress,NetworkHandler.serverPort);
-			in = new ObjectInputStream(s.getInputStream());
-			out = new ObjectOutputStream(s.getOutputStream());
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			//log event and print to debug console
-			return false;
+			in = new ObjectInputStream(socket.getInputStream());
+			out = new ObjectOutputStream(socket.getOutputStream());
+			return true;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			//log event
-			e.printStackTrace();
+			Log.e(TAG, e.getMessage());
 			return false;
 		}
-		return true;
 	}
 	
+	void closeSocket(){
+		try {
+			if(socket != null)
+				socket.close();
+		} catch (IOException e) {
+			Log.e(TAG, "Could not connect to server!");
+		}
+	}
+
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		try {
+			socket = new Socket(nh.serverAddress, nh.serverPort);
+		} catch (UnknownHostException e) {
+			Log.e(TAG, e.getMessage());
+			isEnabled = false;
+		} catch (IOException e) {
+			Log.e(TAG, e.getMessage());
+			isEnabled = false;
+		}
 		
-		if ( !connectToServer() ){
-			// report connection error
-		}
-
-		switch(task){
-		case 1:
-			short function = 0;
-			byte []payload = null;
-			byte []destinationUID = null; // TODO replace with deviceUID class
+		byte []buffer = new byte[BUFFER_SIZE];
+		
+		while(isEnabled){
 			
-//			ipWrapper.sendIcdPacket(function, payload, destinationUID, out);
-//			NetPkt p = ipWrapper.getReply(in);
-//			if ( p !=null && p.getFunctionCode() == DcpPacketTypes.OP_SUCCESS)
-//			{
-//				//report successful authentication
-//			}
-//			else
-//			{
-//				// report bad login
-//			}
+			if( nh.getPendingPktCount() == 0)
+				closeSocket();
 				
-			break;
-		default:
+			NetPkt pkt = nh.getNextPkt(); //will block until there is something
+			NetPkt replyPkt;
+			
+			if( pkt == null){
+				Log.e(TAG, "Error retriving next pkt to send");
+				break;
+			}
+			
+			if ( !socket.isConnected() && !connectToServer() ){
+				Log.e(TAG, "Could not connect to server!");
+				break;			
+			}
+				
+			try {
+				out.write(pkt.getBytes());
+				if(pkt.replyExpected){
+					in.read(buffer,0,BUFFER_SIZE);
+					replyPkt = NetPkt.fromByteArray(buffer);
+					nh.onPktReceived(replyPkt);
+				} else
+					replyPkt = null;
+			} catch (IOException e) {
+				Log.e(TAG, e.getMessage());
+			}
 		}
+		closeSocket();
 	}
 
 }

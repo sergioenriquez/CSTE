@@ -11,6 +11,7 @@ import cste.icd.types.MsgType;
 import cste.icd.types.UnrestrictedCmdType;
 import cste.interfaces.KeyProvider;
 import static cste.icd.general.Utility.*;
+import static cste.icd.general.Constants.*;
 
 /***
  * 
@@ -113,7 +114,7 @@ public class IcdMsg {
 				msgType,
 				payload.getSize(),
 				ThisUID,
-				IcdRev,
+				ICD_REV_NUMBER,
 				destination.txAscension);
 		
 		return new IcdMsg(destination.devUID,header,payload);

@@ -1,8 +1,8 @@
 package cste.android.core;
 
-import static cste.hnad.CsdMessageHandler.DEVICE_CONNECTED;
-import static cste.hnad.CsdMessageHandler.DEVICE_DISCONNECTED;
-import static cste.hnad.CsdMessageHandler.MSG_RECEIVED;
+import static cste.hnad.IcdMessageHandler.DEVICE_CONNECTED;
+import static cste.hnad.IcdMessageHandler.DEVICE_DISCONNECTED;
+import static cste.hnad.IcdMessageHandler.MSG_RECEIVED;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;

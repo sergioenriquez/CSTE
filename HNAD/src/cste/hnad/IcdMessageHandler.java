@@ -6,7 +6,7 @@ import android.util.Log;
 import cste.android.core.HNADService;
 import cste.misc.XbeeAPI;
 
-public class CsdMessageHandler extends Handler {
+public class IcdMessageHandler extends Handler {
 	private static final String TAG = "CSD Msg Handler";
 	
 	public static final int DEVICE_CONNECTED 	= 1;
@@ -22,7 +22,7 @@ public class CsdMessageHandler extends Handler {
 	private HNADService mHnadCore;
 	
 	
-	public CsdMessageHandler(HNADService hnad){
+	public IcdMessageHandler(HNADService hnad){
 		this.mHnadCore = hnad;
 	}
 	

@@ -25,7 +25,7 @@ import cste.android.activities.ECoCInfoActivity;
 import cste.android.activities.LoginActivity;
 import cste.android.db.DbHandler;
 import cste.android.network.NetworkHandler;
-import cste.hnad.CsdMessageHandler;
+import cste.hnad.IcdMessageHandler;
 import cste.icd.components.ComModule;
 import cste.icd.components.ECoC;
 import cste.icd.icd_messages.EventLogICD;
@@ -56,10 +56,10 @@ public class HNADService extends Service implements KeyProvider{
 	private static final String TAG = "HNAD Service";
 	
 	private NADABroadcaster 	mNadaBroadcaster;
-	private CsdMessageHandler 	mCsdMessageHandler;
+	private IcdMessageHandler 	mIcdMessageHandler;
 	private UsbCommManager 		mUsbCommHandler;
 	private NetworkHandler 		mNetworkHandler;
-	private NotificationManager mNM;
+	private NotificationManager mNotificationManager;
 	private SharedPreferences 	mSettings;
 	private Handler 			mNadaHandler = new Handler();
 	private List<IcdMsg> 		mWaitingMsgList;
@@ -80,10 +80,17 @@ public class HNADService extends Service implements KeyProvider{
 	}
 
 	public void onCreate() {
-		mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-		mNetworkHandler = new NetworkHandler(this);
-		mDcpUsername = "NA";
+		mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		mIcdMessageHandler = new IcdMessageHandler(this);
+		mNetworkHandler = new NetworkHandler(mIcdMessageHandler);
+		mUsbCommHandler = new UsbCommManager(this,mIcdMessageHandler);
+		mNadaBroadcaster = new NADABroadcaster(this,mNadaHandler,mUsbCommHandler);
 		
+		mUsbReconnectTimer = null;
+		XbeeAPI.setRadioInterface(mUsbCommHandler);
+		XbeeAPI.setHnadService(this);
+		
+		mDcpUsername = "NA";
 		db = new DbHandler(this);
         db.open();
         db.resetTempDeviceVars(); //clears rssi,visible,pendingTx vars
@@ -93,14 +100,6 @@ public class HNADService extends Service implements KeyProvider{
         mWaitingMsgList = new ArrayList<IcdMsg>(5);
         mWaypointList = new ArrayList<String>();
 
-		mCsdMessageHandler = new CsdMessageHandler(this);
-		mUsbCommHandler = new UsbCommManager(this,mCsdMessageHandler);
-		mNadaBroadcaster = new NADABroadcaster(this,mNadaHandler,mUsbCommHandler);
-		mUsbReconnectTimer = null;
-		
-		XbeeAPI.setRadioInterface(mUsbCommHandler);
-		XbeeAPI.setHnadService(this);
-		
 		mSettings = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
 		loadSettings();
 	}
@@ -537,7 +536,7 @@ public class HNADService extends Service implements KeyProvider{
     	toast("Service exit");
     	db.storeHnadLog(NadEventLogType.POWER_OFF, mDcpUsername);
     	db.close();
-        mNM.cancel(Events.NEW_DEVICE_DETECTED); // Cancel the persistent notification.
+        mNotificationManager.cancel(Events.NEW_DEVICE_DETECTED); // Cancel the persistent notification.
 
         stopRadioComm();
     }
@@ -572,7 +571,7 @@ public class HNADService extends Service implements KeyProvider{
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, 0);        // Set the info for the views that show in the notification panel.        
 		notification.setLatestEventInfo(this, title,text, contentIntent);        // Send the notification. 
 		notification.vibrate = new long[]{Notification.DEFAULT_VIBRATE};
-		mNM.notify(Events.NEW_DEVICE_DETECTED, notification);    
+		mNotificationManager.notify(Events.NEW_DEVICE_DETECTED, notification);    
 	}
 	
 	public void saveWaypointSettings(String conveyanceStr, ArrayList<String> waypoints){
