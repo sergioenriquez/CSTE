@@ -162,8 +162,9 @@ public class DeviceListActivity extends HnadBaseActivity {
             	intent = new Intent(getApplicationContext(), EventLogHNADActivity.class);
             	startActivity(intent);
                 break;    
-            case R.id.upload:
-            	toast("Feature no implemented yet");
+            case R.id.viewKeys:
+            	Intent viewKeysIntent = new Intent(getApplicationContext(), KeyViewActivity.class);
+	    		startActivity(viewKeysIntent);
                 break;
             case R.id.viewtrip:
             	intent = new Intent(getApplicationContext(), TripInfoActivity.class);

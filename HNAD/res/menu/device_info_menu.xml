@@ -3,8 +3,10 @@
     
     <item android:id="@+id/viewEventLog" android:title="View Event Log" android:icon="@drawable/ic_menu_recent_history"></item>
     <item android:id="@+id/clearAlarm" android:title="Clear Alarm" android:icon="@drawable/ic_menu_mark"></item>
-    <item android:id="@+id/commission" android:title="Commission" android:icon="@drawable/ic_lock_lock"></item><item android:id="@+id/decommission" android:icon="@drawable/ic_menu_stop" android:title="Decommission (DCP)"></item><item android:id="@+id/setWaypoints" android:title="Set Waypoints" android:icon="@drawable/ic_menu_compass"></item><group android:id="@+id/group1" android:visible="true" android:enabled="true" android:menuCategory="system"><item android:id="@+id/refresh" android:title="Get Status" android:icon="@drawable/ic_menu_refresh"></item><item android:id="@+id/erase" android:title="Erase Record"></item><item android:id="@+id/assn" android:title="Set Assension"></item><item android:id="@+id/setTime" android:title="Set Time"></item><item android:id="@+id/clearLog" android:title="Erase Event Log"></item><item android:id="@+id/setKey" android:title="Set Encryption Key"></item></group>
-    <item android:id="@+id/getUnrestricted" android:title="Get Unrestricted Status"></item>
+    <item android:id="@+id/commission" android:title="Commission" android:icon="@drawable/ic_lock_lock"></item><item android:id="@+id/decommission" android:icon="@drawable/ic_menu_stop" android:title="Decommission (DCP)"></item><item android:id="@+id/setWaypoints" android:title="Set Waypoints" android:icon="@drawable/ic_menu_compass"></item><group android:id="@+id/group1" android:visible="true" android:enabled="true" android:menuCategory="system"><item android:id="@+id/refresh" android:title="Get Status" android:icon="@drawable/ic_menu_refresh"></item><item android:id="@+id/erase" android:title="Erase Record"></item><item android:id="@+id/assn" android:title="Set Assension"></item><item android:id="@+id/setTime" android:title="Set Time"></item><item android:id="@+id/clearLog" android:title="Erase Event Log"></item><item android:id="@+id/setKey" android:title="Set Encryption Key"></item><item android:id="@+id/getUnrestricted" android:title="Get Unrestricted Status"></item>
+    <item android:id="@+id/editSettings" android:title="Edit Settings"></item>
+</group>
+    
     
     
     

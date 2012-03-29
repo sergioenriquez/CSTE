@@ -209,6 +209,11 @@ public class ECoCInfoActivity extends HnadBaseActivity {
         	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_WAYPOINTS_START);
         	showProgressDialog("Setting waypoints...");
             return true;
+        case R.id.editSettings:
+        	Intent eventLogIntent = new Intent(getApplicationContext(), ECoCEditActivity.class);
+        	eventLogIntent.putExtra("deviceUID", devUID);
+    		startActivity(eventLogIntent);
+            return true;
         }
     	
         return super.onOptionsItemSelected(item);

@@ -7,6 +7,10 @@
     <string name="tripinfo_title">Trip Information</string>
     <string name="eventlog_title">Event Log</string>
     <string name="settings">HNAD Settings</string>
+    
+    <string name="ecoc_edit_title">ECoC Edit</string>
+    <string name="keys_title">Encryption Keys</string>
+    
     <string name="icon">Icon</string>
     
     <string name="discoveryON">Set Discovery OFF</string>

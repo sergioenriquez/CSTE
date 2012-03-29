@@ -72,6 +72,14 @@
                   android:label="@string/viewkeys_title">
         </activity>
         
+        <activity android:name=".activities.ECoCEditActivity"
+                  android:label="@string/ecoc_edit_title">
+        </activity>
+        
+        <activity android:name=".activities.KeyViewActivity"
+                  android:label="@string/keys_title">
+        </activity>
+        
         <activity android:name=".activities.TripInfoActivity"
                   android:label="@string/tripinfo_title"
                   android:windowSoftInputMode="stateHidden">
