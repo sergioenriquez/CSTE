@@ -162,9 +162,9 @@ public class DeviceListActivity extends HnadBaseActivity {
             	intent = new Intent(getApplicationContext(), EventLogHNADActivity.class);
             	startActivity(intent);
                 break;    
-            case R.id.viewKeys:
-            	Intent viewKeysIntent = new Intent(getApplicationContext(), KeyViewActivity.class);
-	    		startActivity(viewKeysIntent);
+            case R.id.getKeys:
+//            	Intent viewKeysIntent = new Intent(getApplicationContext(), KeyViewActivity.class);
+//	    		startActivity(viewKeysIntent);
                 break;
             case R.id.viewtrip:
             	intent = new Intent(getApplicationContext(), TripInfoActivity.class);
@@ -201,9 +201,10 @@ public class DeviceListActivity extends HnadBaseActivity {
 	        	mHnadCoreService.sendDevCmd(cm.devUID,DeviceCommands.SET_COMMISION_ON);
 	        	showProgressDialog("Commisioning...");
 	        	return true;
-	        case R.id.decommission:
-	        	mHnadCoreService.sendDevCmd(cm.devUID,DeviceCommands.SET_COMMISION_OFF);
-	        	showProgressDialog("Decommisioning...");
+	        case R.id.editKeys:
+	        	Intent editkeysIntent = new Intent(getApplicationContext(), EditKeysActivity.class);
+	        	editkeysIntent.putExtra("deviceUID", cm.devUID);
+	    		startActivity(editkeysIntent);
 	            return true;
 	        case R.id.setTime:
 	        	showProgressDialog("Setting time on device...");

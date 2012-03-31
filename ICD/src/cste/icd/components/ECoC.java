@@ -16,6 +16,11 @@ public class ECoC extends ComModule{
 		this.devType = DeviceType.ECOC;
 	}
 	
+	public ECoC(DeviceUID devUID) {
+		super(devUID, new byte[8]);
+		this.devType = DeviceType.ECOC;
+	}
+	
 	public RestrictedStatus getRestrictedStatus(){
 		return status;
 	}

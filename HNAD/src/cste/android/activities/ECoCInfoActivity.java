@@ -183,16 +183,9 @@ public class ECoCInfoActivity extends HnadBaseActivity {
         	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_COMMISION_ON);
         	showProgressDialog("Commissioning...");
             return true;
-        case R.id.decommission:
-        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_COMMISION_OFF);
-        	showProgressDialog("Decommissioning...");
-            return true;
         case R.id.erase:
         	mHnadCoreService.deleteDeviceRecord(devUID);
         	finish();
-            return true;
-        case R.id.assn:
-        	showChangeAMsg();
             return true;
         case R.id.setTime:
         	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_TIME);
@@ -202,15 +195,12 @@ public class ECoCInfoActivity extends HnadBaseActivity {
         	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.CLEAR_EVENT_LOG);
         	showProgressDialog("Clearing log...");
         	return true;
-        case R.id.setKey:
-        	showChangeEncryptionMsg();
-        	return true;
         case R.id.setWaypoints:
         	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_WAYPOINTS_START);
         	showProgressDialog("Setting waypoints...");
             return true;
-        case R.id.editSettings:
-        	Intent eventLogIntent = new Intent(getApplicationContext(), ECoCEditActivity.class);
+        case R.id.editKeys:
+        	Intent eventLogIntent = new Intent(getApplicationContext(), EditKeysActivity.class);
         	eventLogIntent.putExtra("deviceUID", devUID);
     		startActivity(eventLogIntent);
             return true;

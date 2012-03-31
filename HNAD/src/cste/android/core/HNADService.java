@@ -1,5 +1,7 @@
 package cste.android.core;
 
+import static cste.icd.general.Utility.strToHex;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -17,7 +19,6 @@ import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
-import android.provider.Settings.System;
 import android.util.Log;
 import android.widget.Toast;
 import cste.android.R;
@@ -43,7 +44,6 @@ import cste.icd.types.NadEventLogType;
 import cste.icd.types.UnrestrictedCmdType;
 import cste.interfaces.KeyProvider;
 import cste.misc.HnadEventLog;
-import cste.misc.IcdTxItem;
 import cste.misc.XbeeAPI;
 import cste.misc.XbeeFrame;
 
@@ -68,6 +68,7 @@ public class HNADService extends Service implements KeyProvider{
 	private Timer 				mUsbReconnectTimer;
 	private Timer 				mDcpHeartbeatTimer;
 	private DbHandler 			db;
+	private FtpHandler 			mFtpHandler; 
 	
 	private int mWaypointIndex 	= 0;
 	private final IBinder mBinder = new LocalBinder();
@@ -85,6 +86,7 @@ public class HNADService extends Service implements KeyProvider{
 		mNetworkHandler = new NetworkHandler(mIcdMessageHandler);
 		mUsbCommHandler = new UsbCommManager(this,mIcdMessageHandler);
 		mNadaBroadcaster = new NADABroadcaster(this,mNadaHandler,mUsbCommHandler);
+		mFtpHandler = new FtpHandler();
 		
 		mUsbReconnectTimer = null;
 		XbeeAPI.setRadioInterface(mUsbCommHandler);
@@ -95,6 +97,8 @@ public class HNADService extends Service implements KeyProvider{
         db.open();
         db.resetTempDeviceVars(); //clears rssi,visible,pendingTx vars
         db.storeHnadLog(NadEventLogType.POWER_ON, mDcpUsername);
+        
+        db.storeDevice(new ECoC(new DeviceUID("1234567812345678"),new byte[]{}));
 
         mSentMsgList = new ArrayList<IcdMsg>(5);
         mWaitingMsgList = new ArrayList<IcdMsg>(5);
@@ -131,10 +135,57 @@ public class HNADService extends Service implements KeyProvider{
 		else
 			db.storeHnadLog(NadEventLogType.LOGIN_FAILURE, mDcpUsername);
 	}
+	
+	void processKeysFile(String fileContents){
+		String[] deviceInfoArray = fileContents.split("\n");
+		for(int i=0; i< deviceInfoArray.length ; i++){
+			String[] lineContent = deviceInfoArray[i].split(",|\r");
+			if(lineContent.length != 4)
+				continue; //bad format
+			
+			String devUIDStr = lineContent[0];
+			String devTypeCodeStr = lineContent[1];
+			String devTCKstr = lineContent[2];
+			String devTxAsc = lineContent[3];
+
+
+			DeviceUID devUID = new DeviceUID(devUIDStr);
+			DeviceType devType = DeviceType.fromValue( strToHex(devTypeCodeStr)[0] ); 
+			byte []devTCK = strToHex(devTCKstr);
+			int ascension;
+			if( devTxAsc == null || devTxAsc.length() == 0)
+				ascension = 0;
+			else
+				ascension = Integer.parseInt(devTxAsc);
+			
+			
+			if( !devUID.isValid() )
+				continue;// bad UID
+			if( !devType.equals(DeviceType.ECOC))
+				continue;// Onle ECoC is supported
+			if(devTCK.length != 16)
+				continue;//wrong key size
+			if( ascension == 0)
+				continue; //invalid ascension
+			
+			ECoC devRecord = new ECoC(devUID);
+			devRecord.setTCK(devTCK);
+			devRecord.txAscension = ascension;
+			db.storeDevice(devRecord);
+		}
+		
+	}
 
 	public void login(String username, String dcpPassword) {
 		mDcpUsername = username;
 		mNetworkHandler.loginToDCP(mDcpUsername, dcpPassword);
+		
+		String keyFile = mFtpHandler.getKeysFileContent();
+		if(keyFile == ""){
+			toast("Could not retrieve device keys");
+			Log.w(TAG,"Could not retrieve device keys");
+		}else
+			processKeysFile(keyFile);
 		
 		//assume log in was successful for now, connect USB device
 		Intent intent = new Intent(Events.LOGIN_RESULT);
@@ -522,6 +573,10 @@ public class HNADService extends Service implements KeyProvider{
 			String[] waypointArr = waypointStr.split(",");
 			mWaypointList = Arrays.asList(waypointArr);
 		}
+		
+		String ftpHost = "192.168.1.2";
+		String ftpPassword = "00000000000000000000000000000000";
+		mFtpHandler.configureHost(ftpHost, "x"+thisUIDStr, ftpPassword, 21);
 	}
 	
     protected void stopRadioComm(){

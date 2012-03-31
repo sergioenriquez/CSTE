@@ -29,7 +29,7 @@ public class DeviceUID implements Serializable{
 		byte[] temp = strToHex(uid);
 		return new DeviceUID(temp);
 	}
-	
+
 	public DeviceUID(byte[] deviceUID){
 		this.deviceUID = deviceUID;
 	}
@@ -40,9 +40,9 @@ public class DeviceUID implements Serializable{
 	
 	public boolean isValid(){
 		if ( deviceUID == null || deviceUID.length != UID_LENGTH)
-			return true;
-		else
 			return false;
+		else
+			return true;
 	}
 	
 	public byte[] getBytes(){
