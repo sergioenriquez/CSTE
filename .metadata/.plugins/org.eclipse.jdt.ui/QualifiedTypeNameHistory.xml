@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.text.InputType"/>
-<fullyQualifiedTypeName name="org.bouncycastle2.util.Arrays"/>
-<fullyQualifiedTypeName name="cste.icd.EventTypeECM"/>
-<fullyQualifiedTypeName name="cste.icd.IcdTimestamp"/>
-<fullyQualifiedTypeName name="cste.icd.EventTypeCSD"/>
-<fullyQualifiedTypeName name="cste.android.core.HNADService.DeviceCommands"/>
 <fullyQualifiedTypeName name="cste.messages.EventLogECM"/>
 <fullyQualifiedTypeName name="android.widget.TableLayout"/>
 <fullyQualifiedTypeName name="android.widget.TableRow"/>
@@ -60,4 +54,10 @@
 <fullyQualifiedTypeName name="cste.icd.net_messages.LoginReply"/>
 <fullyQualifiedTypeName name="cste.icd.net_messages.HeartBeatResponse"/>
 <fullyQualifiedTypeName name="cste.icd.net_messages.KeyReply"/>
+<fullyQualifiedTypeName name="android.widget.EditText"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="java.io.FileOutputStream"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.io.StringWriter"/>
+<fullyQualifiedTypeName name="cste.icd.general.Utility"/>
 </qualifiedTypeNameHistroy>
