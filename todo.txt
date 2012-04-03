@@ -1,0 +1,19 @@
+to do 
+on start:
+	hnad log
+	device log display
+	HTTP client
+	rekey message
+	syslog msg from phone
+	check wiring on arduino
+	
+	TODO:
+	key generation
+	finish net messages and parsing
+
+	restricted status msg changed
+	do not store keys or restricted status on databaseon database 
+
+	update ecm/hnad event log
+	test new log display method
+	update logs displayed one record at a time
