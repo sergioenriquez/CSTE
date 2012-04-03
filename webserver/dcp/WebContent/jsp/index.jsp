@@ -28,6 +28,7 @@ if(e != null)
 			<td class="tdOne">Password : </td>
 			<td class="tdTwo"><input type="password" id="password" name="password" size="15" maxlength="20" /></td>
 		</tr>
+		<tr>
 			<td colspan="2" align="right"><input type="submit" value="Login" /></td>
 		</tr>
 	</table>

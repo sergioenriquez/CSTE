@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <string name="app_name">AndroNAD</string>
+
+    <!--  BluetoothChat -->
+    
+    
+    
+    
+    
+    <string name="title_not_connected">not connected</string>
+
+    <!--  DeviceListActivity -->
+    
+    
+    
+    
+    
+    
+    
+
+    <!-- Options Menu -->
+    <string name="connect">Connect</string>
+    
+<string name="disconnect">Disconnect</string>
+<string name="title_connected">connected</string>
+<string name="notification_connected">Connection is active.</string>
+
+<string name="toast_connection_failed">Failed to connect.</string>
+<string name="toast_connection_terminated">Connection terminated.</string>
+
+
+<string name="notification_title">AndroNAD Connection</string>
+<string name="toast_already_connected">Service already connected.</string>
+<string name="title_connecting">connecting</string>
+
+
+
+
+
+
+
+
+
+<string name="on">on</string>
+<string name="off">off</string>
+<string name="device_info">Device Info</string>
+
+
+
+
+
+
+<string name="notification_alarm">AndroNAD Alarm</string>
+
+
+<string name="toast_command_failure">Command failure: not connected.</string>
+<string-array name="commands"><item>USTATUS</item>
+<item>NOP</item>
+<item>SMAT</item>
+<item>SMAF</item>
+<item>DADC</item>
+<item>ST</item>
+<item>ARMT</item>
+<item>CTI</item>
+<item>SIS</item>
+<item>SL</item>
+<item>SLU</item>
+<item>EL</item>
+</string-array>
+<string name="command">Command</string>
+<string name="toast_pending_command">Command already pending for &lt;device&gt;. Try again later.</string>
+<string name="close">Close</string>
+<string name="armt">Arm With Trip Info</string>
+<string name="cti">Change Trip Info</string>
+<string name="trip_info">Trip Info</string>
+<string name="conveyance_id">Conveyance</string>
+<string name="manifest">Manifest</string>
+<string name="mech_seal_id">Mechanical Seal</string>
+<string name="sis">Set In-trip State</string>
+<string name="select_sis">Select in-trip state and vulnerability.</string>
+<string-array name="state_titles"><item>Undefined 0</item>
+<item>Undefined 1</item>
+<item>No cargo - Low</item>
+<item>No cargo - High</item>
+<item>In transit - Low</item>
+<item>In transit - High</item>
+<item>In storage prior to embark - Low</item>
+<item>In storage prior to embark - High</item>
+<item>Maritime trip - Low</item>
+<item>Maritime trip - High</item>
+<item>Trucking trip - Low</item>
+<item>Trucking trip - High</item>
+<item>Railway trip - Low</item>
+<item>Railway trip - High</item>
+<item>Air trip - Low</item>
+<item>Air trip - High</item>
+<item>In storage after debark - Low</item>
+<item>In storage after debark - High</item>
+</string-array>
+
+<string name="device_log">Event Log</string>
+<string name="clear">Clear</string>
+<string name="toast_disconnected_error">Error: Not connected.</string>
+<string name="toast_command_enc_error">Command failed due to encryption error.</string>
+<string name="toast_ack_enc_error">ACK failed due to encryption error.</string>
+<string name="settings">Settings</string>
+<string name="use_encryption">Use Encryption</string>
+<string name="encryption_key">Encryption Key</string>
+<string name="save">Save</string>
+<string name="toast_key_too_short">Encryption key too short. Must be &lt;length&gt; hex characters.</string>
+<string name="toast_key_changed">Encryption key changed.</string>
+<string name="enc_on">Encryption turning on.</string>
+<string name="enc_off">Encryption turning off.</string>
+<string name="send">Send</string>
+</resources>

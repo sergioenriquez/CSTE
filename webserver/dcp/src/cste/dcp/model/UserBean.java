@@ -5,6 +5,8 @@ public class UserBean {
     private String 	username;   //Password    
     private String 	password;   //First Name
     private int 	userType;    //Last Name
+    private int 	assignedCnt;
+    private boolean isSelected;
 
     public UserBean() {}
 
@@ -19,4 +21,10 @@ public class UserBean {
 
     public void setUserType(int val) {userType = val;}
     public int getUserType() { return userType;}
+    
+    public void setAssignedCnt(int val) {assignedCnt = val;}
+    public int getAssignedCnt() { return assignedCnt;}
+    
+    public void setIsSelected(boolean val) {isSelected = val;}
+    public boolean getIsSelected() { return isSelected;}
 }
