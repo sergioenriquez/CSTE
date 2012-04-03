@@ -1,6 +1,7 @@
 package cste.dcp.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -22,6 +23,7 @@ public class LoginServlet extends HttpServlet {
 	
 	//Instance of beans
 	private UserBean userBean;
+	private ArrayList<String> sampleData;
 	
 	private DataManager dataManager;
 	private boolean dbOK = false;
@@ -112,8 +114,14 @@ public class LoginServlet extends HttpServlet {
 				// students = new ArrayList<UserBean>(dataManager.getUsersList("student"));
 			}
 			else if(userBean.getUserType() == WORKER_TYPE){
-				session.setAttribute("userBean", userBean);				
+				session.setAttribute("userBean", userBean);		
+
+				sampleData = new ArrayList<String>();
+				sampleData.add("ABC 1");
+				sampleData.add("DEF 2");
+				sampleData.add("GHI 3");
 				
+				session.setAttribute("sampleData", sampleData);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/worker.jsp");
 				dispatcher.forward( request, response);	
 			}
