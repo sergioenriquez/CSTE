@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="33" version="2.0">
 <workbenchAdvisor/>
-<window height="1050" maximized="true" width="1552" x="63" y="0">
+<window height="1050" maximized="true" minimized="true" width="1552" x="1620" y="168">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="313"/>
@@ -40,6 +40,7 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
+<part id="1"/>
 </presentation>
 </folder>
 </info>
@@ -51,9 +52,13 @@
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="WebHandler.java" partName="WebHandler.java" path="C:/CSTE/HNAD/src/cste/android/core/WebHandler.java" title="WebHandler.java" tooltip="HNAD/src/cste/android/core/WebHandler.java" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="WebHandler.java" partName="WebHandler.java" path="C:/CSTE/HNAD/src/cste/android/core/WebHandler.java" title="WebHandler.java" tooltip="HNAD/src/cste/android/core/WebHandler.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/core/WebHandler.java"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1578" selectionTopPixel="0"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Utility.java" partName="Utility.java" path="C:/CSTE/ICD/src/cste/icd/general/Utility.java" title="Utility.java" tooltip="ICD/src/cste/icd/general/Utility.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/general/Utility.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="4714" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
 <editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FtpHandler.java" partName="FtpHandler.java" path="C:/CSTE/HNAD/src/cste/android/core/FtpHandler.java" title="FtpHandler.java" tooltip="HNAD/src/cste/android/core/FtpHandler.java" workbook="org.eclipse.ui.internal.EditorStack@3c43beb0">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/core/FtpHandler.java"/>
@@ -467,10 +472,8 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/activities/ECoCInfoActivity.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/WebHandler.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/FtpHandler.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ICD/src/cste/icd/general/Utility.java"/>
 </editors>
-<item historyLabel="EditKeysActivity.java" index="1">
-<position info="not_deleted" x="2005" y="0"/>
-</item>
 <item historyLabel="EditKeysActivity.java" index="1">
 <position info="not_deleted" x="2234" y="0"/>
 </item>
@@ -575,8 +578,11 @@
 <item historyLabel="FtpHandler.java" index="10">
 <position info="not_deleted" x="888" y="61"/>
 </item>
-<item active="true" historyLabel="WebHandler.java" index="9">
+<item historyLabel="WebHandler.java" index="9">
 <position info="not_deleted" x="3633" y="0"/>
+</item>
+<item active="true" historyLabel="Utility.java" index="11">
+<position info="not_deleted" x="0" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -598,6 +604,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Utility.java" tooltip="ICD/src/cste/icd/general/Utility.java">
+<persistable path="/ICD/src/cste/icd/general/Utility.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FtpHandler.java" tooltip="HNAD/src/cste/android/core/FtpHandler.java">
 <persistable path="/HNAD/src/cste/android/core/FtpHandler.java"/>
 </file>

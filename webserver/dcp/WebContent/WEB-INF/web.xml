@@ -62,6 +62,23 @@
       <param-name>dbPassword</param-name>
       <param-value>admin</param-value>
     </init-param>
+    
+    
+    <init-param>
+      <param-name>ftpHost</param-name>
+      <param-value>localhost</param-value>
+    </init-param>
+    
+    <init-param>
+      <param-name>ftpUsername</param-name>
+      <param-value>ftpAdmin</param-value>
+    </init-param>
+    
+    <init-param>
+      <param-name>ftpPassword</param-name>
+      <param-value>ftpPassword</param-value>
+    </init-param>
+    
   </servlet>
   
   
