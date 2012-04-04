@@ -21,9 +21,8 @@ public class LoginServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	//Instance of beans
 	private UserBean userBean;
-	private ArrayList<String> sampleData;
+	private ArrayList<UserBean> userList;
 	
 	private DataManager dataManager;
 	private boolean dbOK = false;
@@ -32,10 +31,9 @@ public class LoginServlet extends HttpServlet {
 	private static final int ADMIN_TYPE = 1;
 	private static final int WORKER_TYPE = 2;
 
-    /**
-     * Default constructor. 
-     * @return 
-     */
+	/***
+	 * 
+	 */
     public void init(ServletConfig config) throws ServletException{
     	super.init(config);
 		dataManager = new DataManager();
@@ -53,21 +51,29 @@ public class LoginServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
     	HttpSession session = request.getSession(true);
-    	
 
-		Boolean isAuthenticated = (Boolean)session.getAttribute("authenticated");
+    	userBean = (UserBean)session.getAttribute("userBean");
 		
-		if(isAuthenticated != null && isAuthenticated){
-			//TODO check user type
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/worker.jsp");
-			dispatcher.forward( request, response);	
+		if(userBean != null && userBean.getUserType() != 0){
+			if( userBean.getUserType() == ADMIN_TYPE ){
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/admin.jsp");
+				dispatcher.forward( request, response);	
+			}else if (userBean.getUserType() == WORKER_TYPE){
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/worker.jsp");
+				dispatcher.forward( request, response);	
+			}else{
+				session.removeAttribute("userBean");
+				strError = "User type has no access";
+				session.setAttribute("error", strError);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+				dispatcher.forward( request, response);	
+			}
 		}else{
 			strError = "You are not logged in!";
 			session.setAttribute("error", strError);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 			dispatcher.forward( request, response);	
 		}
-			
     }
 
     /**
@@ -104,24 +110,16 @@ public class LoginServlet extends HttpServlet {
 		session.setAttribute("authenticated",true);
 		
 		if(dbOK){
-			//redirect to admin page
+			session.setAttribute("userBean", userBean);		
+			
 			if(userBean.getUserType() == ADMIN_TYPE){
-				session.setAttribute("userBean", userBean);
+				ArrayList<UserBean> workerList = dataManager.getUsersList(WORKER_TYPE);
+				session.setAttribute("workers", workerList);
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/admin.jsp");
 				dispatcher.forward( request, response);		
-
-				//pass data arrya
-				// students = new ArrayList<UserBean>(dataManager.getUsersList("student"));
 			}
 			else if(userBean.getUserType() == WORKER_TYPE){
-				session.setAttribute("userBean", userBean);		
-
-				sampleData = new ArrayList<String>();
-				sampleData.add("ABC 1");
-				sampleData.add("DEF 2");
-				sampleData.add("GHI 3");
-				
-				session.setAttribute("sampleData", sampleData);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/worker.jsp");
 				dispatcher.forward( request, response);	
 			}

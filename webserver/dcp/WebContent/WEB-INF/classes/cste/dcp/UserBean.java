@@ -1,12 +1,6 @@
 package cste.dcp.model;
 
-import java.io.Serializable;
-
-public class UserBean implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class UserBean {
 	private int 	userID;		//Username
     private String 	username;   //Password    
     private String 	password;   //First Name

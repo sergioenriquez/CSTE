@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+
+	<web-app 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+	id="WebApp_ID" 
+	version="2.5">
+
   <display-name>dcp</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
@@ -15,60 +23,85 @@
     <display-name>LoginServlet</display-name>
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>cste.dcp.web.LoginServlet</servlet-class>
-
-	<init-param>
-    	<param-name>jdbcDriver</param-name>
-    	<param-value>com.mysql.jdbc.Driver</param-value>
+    <init-param>
+      <param-name>jdbcDriver</param-name>
+      <param-value>com.mysql.jdbc.Driver</param-value>
     </init-param>
     <init-param>
-	    <param-name>dbURL</param-name>
-	    <param-value>jdbc:mysql://localhost/test</param-value>
+      <param-name>dbURL</param-name>
+      <param-value>jdbc:mysql://localhost/test</param-value>
     </init-param>
-  	<init-param>
-	    <param-name>dbUserName</param-name>
-	    <param-value>root</param-value>
+    <init-param>
+      <param-name>dbUserName</param-name>
+      <param-value>root</param-value>
     </init-param>
-  	<init-param>
-	    <param-name>dbPassword</param-name>
-	    <param-value>admin</param-value>
+    <init-param>
+      <param-name>dbPassword</param-name>
+      <param-value>admin</param-value>
     </init-param>
-   
   </servlet>
   
   <servlet>
-    	<servlet-name>Index</servlet-name>
-    	<jsp-file>/jsp/index.jsp</jsp-file>
+    <description></description>
+    <display-name>AdminServlet</display-name>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>cste.dcp.web.AdminServlet</servlet-class>
+    <init-param>
+      <param-name>jdbcDriver</param-name>
+      <param-value>com.mysql.jdbc.Driver</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dbURL</param-name>
+      <param-value>jdbc:mysql://localhost/test</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dbUserName</param-name>
+      <param-value>root</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dbPassword</param-name>
+      <param-value>admin</param-value>
+    </init-param>
   </servlet>
   
+  
   <servlet-mapping>
-    	<servlet-name>Index</servlet-name>
-    	<url-pattern>/index.jsp</url-pattern>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/Admin</url-pattern>
   </servlet-mapping>
   
   <servlet>
-    	<servlet-name>Worker</servlet-name>
-    	<jsp-file>/jsp/worker.jsp</jsp-file>
+    <servlet-name>Index</servlet-name>
+    <jsp-file>/jsp/index.jsp</jsp-file>
   </servlet>
-  
   <servlet-mapping>
-    	<servlet-name>Worker</servlet-name>
-    	<url-pattern>/worker.jsp</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    	<servlet-name>Admin</servlet-name>
-    	<jsp-file>/jsp/admin.jsp</jsp-file>
-  </servlet>
-  
-  <servlet-mapping>
-    	<servlet-name>Admin</servlet-name>
-    	<url-pattern>/admin.jsp</url-pattern>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/index.jsp</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>Worker</servlet-name>
+    <jsp-file>/jsp/worker.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Worker</servlet-name>
+    <url-pattern>/worker.jsp</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Admin</servlet-name>
+    <jsp-file>/jsp/admin.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Admin</servlet-name>
+    <url-pattern>/admin.jsp</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/Admin</url-pattern>
+  </servlet-mapping>
 
-    
 </web-app>
