@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class DataManager {
+public class DbManager {
 	private String dbURL = "";
 	private String dbUserName = "";
 	private String dbPassword = "";
@@ -197,6 +197,10 @@ public class DataManager {
      */
     public UserBean getUserData(String userName, String password)
 	{	
+    	if( userName.equals(null))
+			userName = "";
+		if( password.equals(null))
+			password = "";
 		UserBean userBean = new UserBean();
 		Connection conn = getConnection();	
 	    if (conn != null){

@@ -87,27 +87,48 @@ public class FtpHandler {
 	
 	public boolean ftpChangeDirectory(String directory_path)
 	{
+		boolean status = false;
 	    try {
-	        mFTPClient.changeWorkingDirectory(directory_path);
+	    	status = mFTPClient.changeWorkingDirectory(directory_path);
 	    } catch(Exception e) {
 	        //Log.d(TAG, "Error: could not change directory to " + directory_path);
 	    }
 
-	    return false;
+	    return status;
 	}
+	
+	public boolean uploadKeyAssignements(String desDirectory, String dstFileName, byte[] fileContent){
+		
+		boolean status = false;
+		if(ftpConnect()){
+
+			status = ftpChangeDirectory(desDirectory);
+			
+			if (!status){
+				status = ftpMakeDirectory(desDirectory);
+				
+				if (status)
+					status = ftpChangeDirectory(desDirectory);
+			}
+			
+			if( status )
+				status = ftpUpload(desDirectory, dstFileName, fileContent);
+			
+			ftpDisconnect();
+		}
+		
+		return status;
+	}
+
 	
 	public boolean ftpUpload(String desDirectory, String dstFileName, byte[] fileContent){
 	    boolean status = false;
 	    try {
 	        ByteArrayInputStream srcFileStream = new ByteArrayInputStream(fileContent);
-	        if (ftpChangeDirectory(desDirectory)) {
-	        	status = mFTPClient.storeFile(dstFileName, srcFileStream);
-	        }
-	        return status;
+	        status = mFTPClient.storeFile(dstFileName, srcFileStream);
 	    } catch (Exception e) {
 	        //Log.d(TAG, "download failed");
 	    }
-
 	    return status;
 	}
 	

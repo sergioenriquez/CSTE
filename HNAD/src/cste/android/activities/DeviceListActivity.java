@@ -119,9 +119,7 @@ public class DeviceListActivity extends HnadBaseActivity {
 		
         MenuInflater inflater = new MenuInflater(this);
         inflater.inflate(R.menu.devicelist_menu, menu);
-        
-        
-        
+
         return super.onCreateOptionsMenu(menu);
     }
 	

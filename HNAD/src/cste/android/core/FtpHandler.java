@@ -17,7 +17,7 @@ public class FtpHandler {
 	protected int port;
 
 	private String makeTodayKeyFile(){
-		return "keys_300312.csv";
+		return "xsergio.csv";
 	}
 	
 	public void configureHost(String host, String username, String password, int port){
@@ -46,6 +46,7 @@ public class FtpHandler {
 	public boolean ftpConnect(){
 		try {
 			mFTPClient = new FTPClient();
+			mFTPClient.setDefaultTimeout(1000);
 			// connecting to the host
 			mFTPClient.connect(host, port);
 		

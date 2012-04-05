@@ -14,7 +14,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Device Assignemt Page</title>
 </head>
 
 <body>
@@ -26,7 +26,7 @@ if( selectedWorkerID == null)
 UserBean selectionUser = new UserBean();
 %>
 
-<h2> Administration Page </h1>
+<h2> Administration Page </h2>
 <b> User logged in: <%= userBean.getUserName() %> </b>
 
 <form method="post" action="Admin">
@@ -59,10 +59,10 @@ UserBean selectionUser = new UserBean();
 	   <%}%>
 	
 	</table>
-	<input type="submit" value="Select" />
+	<input type="submit" value="Select User" />
 </form>
 
-
+</br>
 <b> Devices assigned to: <%= selectionUser.getUserName() %> (<%= selectionUser.getAssignedCnt() %>)</b>
 
 <form method="post" action="Admin">
@@ -73,9 +73,9 @@ UserBean selectionUser = new UserBean();
 		<tr>
 			<th> Device ID </th>
 			<th> UID </th>
-			<th> Type </th>
+			<th> Type ID </th>
 			<th> TCK </th>
-			<th> Assension </th>
+			<th> TCK Assension </th>
 			<th> Assigned </th>
 		</tr>
 		
@@ -97,7 +97,7 @@ UserBean selectionUser = new UserBean();
 	   <%}%>
 	
 	</table>
-	<input type="submit" value="Submit" />
+	<input type="submit" value="Submit Assignement" />
 </form>
 
 </body>

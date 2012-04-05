@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cste.dcp.model.DataManager;
+import cste.dcp.model.DbManager;
 import cste.dcp.model.UserBean;
 
 /**
@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 	private UserBean userBean;
 	private ArrayList<UserBean> userList;
 	
-	private DataManager dataManager;
+	private DbManager dataManager;
 	private boolean dbOK = false;
 	private String strError = null;
 	
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 	 */
     public void init(ServletConfig config) throws ServletException{
     	super.init(config);
-		dataManager = new DataManager();
+		dataManager = new DbManager();
 	    dataManager.setDbURL(config.getInitParameter("dbURL"));
 	    dataManager.setDbUserName(config.getInitParameter("dbUserName"));
 	    dataManager.setDbPassword(config.getInitParameter("dbPassword"));
@@ -85,12 +85,7 @@ public class LoginServlet extends HttpServlet {
 		 */		
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
-		
-		if( userName.equals(null))
-			userName = "";
-		if( password.equals(null))
-			password = "";
-		
+
 		dbOK = false;
 		if(validate(userName, password)){
 			userBean = new UserBean();

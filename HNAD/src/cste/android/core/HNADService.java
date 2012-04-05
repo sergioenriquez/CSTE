@@ -24,6 +24,7 @@ import android.widget.Toast;
 import cste.android.R;
 import cste.android.activities.ECoCInfoActivity;
 import cste.android.activities.LoginActivity;
+import cste.android.core.WebHandler.CommandResult;
 import cste.android.db.DbHandler;
 import cste.android.network.NetworkHandler;
 import cste.hnad.IcdMessageHandler;
@@ -69,6 +70,7 @@ public class HNADService extends Service implements KeyProvider{
 	private Timer 				mDcpHeartbeatTimer;
 	private DbHandler 			db;
 	private FtpHandler 			mFtpHandler; 
+	private WebHandler 			webHandler;
 	
 	private int mWaypointIndex 	= 0;
 	private final IBinder mBinder = new LocalBinder();
@@ -87,6 +89,7 @@ public class HNADService extends Service implements KeyProvider{
 		mUsbCommHandler = new UsbCommManager(this,mIcdMessageHandler);
 		mNadaBroadcaster = new NADABroadcaster(this,mNadaHandler,mUsbCommHandler);
 		mFtpHandler = new FtpHandler();
+		webHandler = new WebHandler();
 		
 		mUsbReconnectTimer = null;
 		XbeeAPI.setRadioInterface(mUsbCommHandler);
@@ -137,7 +140,7 @@ public class HNADService extends Service implements KeyProvider{
 	}
 	
 	void processKeysFile(String fileContents){
-		String[] deviceInfoArray = fileContents.split("\n");
+		String[] deviceInfoArray = fileContents.split("\r");
 		for(int i=0; i< deviceInfoArray.length ; i++){
 			String[] lineContent = deviceInfoArray[i].split(",|\r");
 			if(lineContent.length != 4)
@@ -179,15 +182,36 @@ public class HNADService extends Service implements KeyProvider{
 	public void login(String username, String dcpPassword) {
 		mDcpUsername = username;
 		mNetworkHandler.loginToDCP(mDcpUsername, dcpPassword);
+
+		String response = webHandler.authenticateUser("http://192.168.1.1/dcp/Admin", "sergio", "pass");
+		if( webHandler.lastError != CommandResult.SUCCESS){
+			Intent intent = new Intent(Events.LOGIN_RESULT);
+			intent.putExtra("result",false);
+
+			if ( webHandler.lastError == CommandResult.AUTHENTICATION)
+				intent.putExtra("cause","Invalid username or password");
+			else
+				intent.putExtra("cause","Network Error");
+			
+			sendBroadcast(intent);
+			return;
+		}
+
+		String[] items = response.split(",");
+		if( items.length >= 3){
+			String ftpHost = items[0];
+			String ftpUsername = items[1];
+			String ftpPassword = items[2];
+			mFtpHandler.configureHost(ftpHost, ftpUsername, ftpPassword, 21);
+		}
 		
 		String keyFile = mFtpHandler.getKeysFileContent();
-		if(keyFile == ""){
+		if(keyFile.equals("")){
 			toast("Could not retrieve device keys");
 			Log.w(TAG,"Could not retrieve device keys");
 		}else
 			processKeysFile(keyFile);
-		
-		//assume log in was successful for now, connect USB device
+
 		Intent intent = new Intent(Events.LOGIN_RESULT);
 		intent.putExtra("result",true);
 		sendBroadcast(intent);
@@ -200,7 +224,6 @@ public class HNADService extends Service implements KeyProvider{
 					this.cancel();
 			}}, 100, 1000);// delay start 100ms, retry every second
 	}
-	
 
 	// Stops transmitting or receiving 802.15.4 messages
 	public void logout() {

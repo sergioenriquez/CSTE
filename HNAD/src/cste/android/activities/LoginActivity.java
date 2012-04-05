@@ -41,8 +41,7 @@ public class LoginActivity extends HnadBaseActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            	pd.setMessage("Logging in...");
-            	pd.show();
+            	showProgressDialog("Logging in...");
             	mHnadCoreService.login("username", "password");
             }
         });
@@ -75,7 +74,7 @@ public class LoginActivity extends HnadBaseActivity {
             finish();
 		}
 		else{
-			//TODO some message about a failed login
+			toast(intent.getStringExtra("cause"));
 		}
 	}
 

@@ -1,23 +1,36 @@
 package cste.android.core;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
 
@@ -26,6 +39,77 @@ public class WebHandler {
 	private static final String HTTP_ACCEPT_TYPES = "application/xml, text/xml; q=0.9, text/html, text/*; q=0.4";
 	private final int  TIMEOUT_PERIOD = 1000;
 	public CommandResult lastError;
+	
+	public static enum CommandResult{
+		SUCCESS,
+		NETWORK_ERROR,
+		AUTHENTICATION,
+		HOSTNOTFOUND,
+		RESOURCENOTFOUND,
+		PRECONDITIONFAILED,
+		PARSE_ERROR,
+		BADREQUEST,
+		OTHER
+	}
+
+	public String authenticateUser(String loginPageURL, String username, String password){
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httpPost = new HttpPost(loginPageURL);
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+		nameValuePairs.add(new BasicNameValuePair("action", "authenticateHnad"));
+	    nameValuePairs.add(new BasicNameValuePair("userName", username));
+	    nameValuePairs.add(new BasicNameValuePair("password", password));
+	    
+	    HttpResponse response = null;
+	    try {
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			response = httpclient.execute(httpPost);
+		} catch (UnsupportedEncodingException e) {
+			lastError = CommandResult.PARSE_ERROR;
+		} catch (ClientProtocolException e) {
+			lastError = CommandResult.NETWORK_ERROR;
+		} catch (IOException e) {
+			lastError = CommandResult.NETWORK_ERROR;
+		}
+
+		//String responseBody = EntityUtils.toString(response.getEntity());
+		String reply = "error";
+		try {
+			reply = EntityUtils.toString(response.getEntity());
+			if( reply.contains("error"))
+				lastError = CommandResult.AUTHENTICATION;
+			else
+				lastError = CommandResult.SUCCESS;
+		} catch (ParseException e) {
+			lastError = CommandResult.PARSE_ERROR;
+		} catch (IOException e) {
+			lastError = CommandResult.OTHER;
+		}
+
+		return reply;
+	}
+	
+	private String inputStreamToString(InputStream is) {
+	    String line = "";
+	    StringBuilder total = new StringBuilder();
+	    
+	    // Wrap a BufferedReader around the InputStream
+	    BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+
+	    // Read response until the end
+	    try {
+			while ((line = rd.readLine()) != null) { 
+			    total.append(line); 
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    // Return full string
+	    return total.toString();
+	}
+
 	
 	public String requestResource(String username, String password, URI resource) {
 		HttpGet request = new HttpGet(resource);
@@ -104,15 +188,6 @@ public class WebHandler {
 		return response;
     }
 	
-	public static enum CommandResult{
-		SUCCESS,
-		NETWORK_ERROR,
-		AUTHENTICATION,
-		HOSTNOTFOUND,
-		RESOURCENOTFOUND,
-		BADREQUEST,
-		PRECONDITIONFAILED,
-		OTHER
-	}
+	
 
 }
