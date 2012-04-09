@@ -50,8 +50,7 @@ public class IcdMessageHandler extends Handler {
 		case DCP_CONFIG:
 			break;
 		case DCP_LOGIN_RESULT:
-			boolean result = msg.getData().getBoolean("loginResult");
-			mHnadCore.onLoginResult(result);
+			//handled by web authentication
 			break;
 		case DCP_KEYS_RECEIVED:
 			break;

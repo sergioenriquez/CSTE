@@ -54,7 +54,20 @@ public class WebHandler {
 
 	public String authenticateUser(String loginPageURL, String username, String password){
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost(loginPageURL);
+		HttpPost httpPost;
+		try{
+			httpPost = new HttpPost(loginPageURL);
+		} catch(Exception e){
+			//TODO Log
+			lastError = CommandResult.PARSE_ERROR;
+			return "error";
+		}
+		
+		if( httpPost.getURI().getHost() == null ){
+			lastError = CommandResult.PARSE_ERROR;
+			return "error";
+		}
+		
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 		nameValuePairs.add(new BasicNameValuePair("action", "authenticateHnad"));
 	    nameValuePairs.add(new BasicNameValuePair("userName", username));
@@ -70,6 +83,10 @@ public class WebHandler {
 			lastError = CommandResult.NETWORK_ERROR;
 		} catch (IOException e) {
 			lastError = CommandResult.NETWORK_ERROR;
+		}
+		
+		if( response == null){
+			return "error";
 		}
 
 		//String responseBody = EntityUtils.toString(response.getEntity());

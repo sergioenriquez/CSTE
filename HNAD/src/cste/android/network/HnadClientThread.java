@@ -17,10 +17,10 @@ public class HnadClientThread implements Runnable{
 	protected Socket socket;
 	protected ObjectOutputStream out;
 	protected ObjectInputStream in;
-	protected NetworkHandler nh;
+	protected NetworkManager nh;
 	protected boolean isEnabled;
 
-	public HnadClientThread(NetworkHandler nh){
+	public HnadClientThread(NetworkManager nh){
 		this.nh = nh;
 		this.isEnabled = true;
 		socket = null;

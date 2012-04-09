@@ -53,7 +53,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="rememberAccount">Remember Account</string>
-    <string name="loginInstruction">Please enter your username and password to authenticate with the DCP server.</string>
+    <string name="loginInstruction">Please enter your username and password to authenticate with the DCP web server.</string>
     
     <!-- device list section -->
     <string name="armed">Armed</string>

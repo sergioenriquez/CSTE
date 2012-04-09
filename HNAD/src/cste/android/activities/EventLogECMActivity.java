@@ -8,30 +8,33 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TableLayout;
+import android.widget.ListView;
 import cste.android.R;
 import cste.android.core.HNADService.DeviceCommands;
 import cste.android.core.HNADService.Events;
 import cste.icd.icd_messages.EventLogICD;
 import cste.icd.types.DeviceUID;
-import cste.misc.EventLogRowICD;
 
 public class EventLogECMActivity extends HnadBaseActivity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "ECM Log";
-	TableLayout  mTable;
-	DeviceUID devUID;
-	
+
+	protected EcocLogAdapter mLogAdapter;
+	protected ListView mLogListView;
+	protected DeviceUID devUID;
 	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.event_log_layout);
-
-        devUID = (DeviceUID)getIntent().getSerializableExtra("deviceUID"); 
-        mTable = (TableLayout)findViewById(R.id.devTable);
-        
+        setContentView(R.layout.ecoc_log_layout);
         setWindowTitle(R.string.eventlog_title);
         
+        mLogAdapter = new EcocLogAdapter(this,R.layout.ecoc_log_item);
+        mLogAdapter.setNotifyOnChange(true);
+        mLogListView = (ListView) findViewById(R.id.logList);
+        mLogListView.setAdapter(mLogAdapter);
+
+        devUID = (DeviceUID)getIntent().getSerializableExtra("deviceUID"); 
+
         IntentFilter filter = new IntentFilter();
 		filter.addAction(Events.TRANSMISSION_RESULT);
 		filter.addAction(Events.ECM_EVENTLOG_CHANGE);
@@ -39,21 +42,19 @@ public class EventLogECMActivity extends HnadBaseActivity {
 	}
 	
 	protected void reloadLogScreen(){
-		mTable.removeAllViews();
-		mTable.addView(new EventLogRowICD(this)); // title row
+		mLogAdapter.clear();
+		
 		ArrayList<EventLogICD> devLog= mHnadCoreService.getEcmEventLog(devUID);
 		for(EventLogICD log: devLog){
-			mTable.addView(new EventLogRowICD(this,log));
+			mLogAdapter.add(log);
 		}
-		pd.cancel();
 	}
 	
 	@Override
     protected void onCoreServiceCBound(){
 		reloadLogScreen();
 	}
-	
-	
+
 	@Override
 	protected void handleCoreServiceMsg(String action, Intent intent) {
 		DeviceUID changedDevUID = (DeviceUID)intent.getSerializableExtra("deviceUID");

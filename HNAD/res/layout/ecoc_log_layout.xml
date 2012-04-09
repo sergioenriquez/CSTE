@@ -2,46 +2,37 @@
 <LinearLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="match_parent" 
     android:layout_height="match_parent">
 	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal" >
         <TextView
-            android:layout_width="40dp"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:text="@string/signal" 
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:text="ID"/>
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
+			android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="@string/uidtype" 
-            android:textSize="12sp" />
-        
+            android:textSize="12sp" 
+            android:text="Time"/>
         <TextView  
-		    android:layout_width="45dp" 
+		    android:layout_width="60dp" 
 		    android:layout_height="wrap_content" 
 		    android:textSize="12sp"
-		    android:gravity="center"
-		    android:text="@string/key"/>
+		    android:text="Event"/>
         <TextView  
-		    android:layout_width="40dp" 
+		    android:layout_width="50dp" 
 		    android:layout_height="wrap_content" 
 		    android:textSize="12sp"
-			android:gravity="center"
-		    android:text="@string/armed"/>
-        <TextView  
-		    android:layout_width="40dp" 
-		    android:layout_height="wrap_content" 
-		    android:textSize="12sp"
-			android:gravity="center"
-		    android:text="@string/error"/>
+		    android:text="Data"/>
 	</LinearLayout>
+    
 	<ListView
-        android:id="@+id/devicesList"
+        android:id="@+id/logList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>
-

@@ -30,8 +30,8 @@ import cste.icd.types.DeviceUID;
 public class DeviceListActivity extends HnadBaseActivity {
 	static final String TAG = "DeviceList";
 	
-	private DeviceListAdapter mDeviceListAdapter;
-	private ListView mDeviceListView;
+	protected DeviceListAdapter mDeviceListAdapter;
+	protected ListView mDeviceListView;
 	boolean discoveryMode = false;
 
 	@Override
@@ -42,7 +42,6 @@ public class DeviceListActivity extends HnadBaseActivity {
         mDeviceListAdapter = new DeviceListAdapter(this,R.layout.devicelistitem);
         mDeviceListAdapter.setNotifyOnChange(true);
         mDeviceListView = (ListView) findViewById(R.id.devicesList);
-        
         mDeviceListView.setAdapter(mDeviceListAdapter);
         registerForContextMenu(mDeviceListView);
 

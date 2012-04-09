@@ -42,7 +42,10 @@ public class LoginActivity extends HnadBaseActivity {
             @Override
             public void onClick(View v) {
             	showProgressDialog("Logging in...");
-            	mHnadCoreService.login("username", "password");
+            	mHnadCoreService.login(
+            			"http://192.168.1.1/dcp/Admin",
+            			usernameText.getText().toString(), 
+            			passwordText.getText().toString());
             }
         });
         
@@ -55,7 +58,7 @@ public class LoginActivity extends HnadBaseActivity {
     protected void onCoreServiceCBound(){
     	//load saved settings
     	SharedPreferences settings = mHnadCoreService.getSettingsFile();
-    	String username = settings.getString(SettingsKey.THIS_UID,"0013A20040715FD8");
+    	String username = settings.getString(SettingsKey.DCP_USERNAME,"sampleUser");
     	String password = settings.getString(SettingsKey.DCP_PASSWORD, "");
     	boolean rememberPassword = settings.getBoolean(SettingsKey.REMEMBER_PASS, false);
     	
@@ -84,11 +87,11 @@ public class LoginActivity extends HnadBaseActivity {
     	SharedPreferences settings = mHnadCoreService.getSettingsFile();
     	SharedPreferences.Editor editor = settings.edit();
 
-    	//String username = usernameText.getText().toString();
+    	String username = usernameText.getText().toString();
     	String password = passwordText.getText().toString();
     	boolean rememberPassword = rememberLoginBox.isChecked();
     	
-    	//editor.putString(SettingsKey.USERNAME, username);
+    	editor.putString(SettingsKey.DCP_USERNAME, username);
     	editor.putBoolean(SettingsKey.REMEMBER_PASS, rememberPassword);
     	if( rememberPassword )
     		editor.putString(SettingsKey.DCP_PASSWORD, password);

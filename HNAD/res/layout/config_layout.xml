@@ -70,6 +70,7 @@
 	        android:id="@+id/ftpServer"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
+	        android:enabled="false"
 	        android:hint="@string/ftpAddrs"
 	        android:singleLine="true"/>
 	</TableRow>

@@ -16,7 +16,7 @@ import cste.icd.net_messages.LoginReply;
 import cste.icd.types.MaintenaceCode;
 import cste.notused.NetPkt;
 
-public class NetworkHandler{
+public class NetworkManager{
 	private static final String TAG = "Network Handler";
 	
 	public String serverAddress;
@@ -68,7 +68,7 @@ public class NetworkHandler{
 		}
 	}
 	
-	public NetworkHandler(Handler handler){
+	public NetworkManager(Handler handler){
 		serverAddress = "";
 		serverPort = 0;
 		pendingTxList = new ArrayBlockingQueue<NetPkt>(5); 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+	<TextView
+		android:id="@+id/logID"
+		android:layout_width="20dp"
+		android:layout_height="wrap_content"
+		android:textSize="12sp"/>
+	<TextView
+		android:id="@+id/logTime"
+		android:layout_width="0dp"
+		android:layout_weight="1"
+		android:layout_height="wrap_content"
+		android:textSize="12sp"/>
+	<TextView  
+		android:id="@+id/logUser"
+		android:layout_width="40dp"
+		android:layout_height="wrap_content"
+		android:textSize="12sp"/>
+	<TextView  
+		android:id="@+id/logEvent"
+		android:layout_width="60dp" 
+		android:layout_height="wrap_content" 
+		android:textSize="12sp"/>
+	<TextView  
+		android:id="@+id/logDest"
+		android:layout_width="60dp" 
+		android:layout_height="wrap_content" 
+		android:textSize="12sp"/>
+	<TextView  
+		android:id="@+id/logCmd"
+		android:layout_width="50dp" 
+		android:layout_height="wrap_content" 
+		android:textSize="12sp"/>
+</LinearLayout>

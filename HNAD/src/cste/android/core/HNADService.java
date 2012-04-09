@@ -16,17 +16,19 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 import cste.android.R;
+import cste.android.activities.DeviceListActivity;
 import cste.android.activities.ECoCInfoActivity;
 import cste.android.activities.LoginActivity;
 import cste.android.core.WebHandler.CommandResult;
 import cste.android.db.DbHandler;
-import cste.android.network.NetworkHandler;
+import cste.android.network.NetworkManager;
 import cste.hnad.IcdMessageHandler;
 import cste.icd.components.ComModule;
 import cste.icd.components.ECoC;
@@ -57,22 +59,27 @@ public class HNADService extends Service implements KeyProvider{
 	private static final String TAG = "HNAD Service";
 	
 	private NADABroadcaster 	mNadaBroadcaster;
+	
 	private IcdMessageHandler 	mIcdMessageHandler;
+	
 	private UsbCommManager 		mUsbCommHandler;
-	private NetworkHandler 		mNetworkHandler;
+	private NetworkManager 		mNetworkHandler;
+	
 	private NotificationManager mNotificationManager;
 	private SharedPreferences 	mSettings;
+	
 	private Handler 			mNadaHandler = new Handler();
+
 	private List<IcdMsg> 		mWaitingMsgList;
 	private List<IcdMsg> 		mSentMsgList;
 	private List<String> 		mWaypointList;
 	private Timer 				mUsbReconnectTimer;
-	private Timer 				mDcpHeartbeatTimer;
 	private DbHandler 			db;
 	private FtpHandler 			mFtpHandler; 
 	private WebHandler 			webHandler;
 	
 	private int mWaypointIndex 	= 0;
+	private boolean mIsLoggedIn;
 	private final IBinder mBinder = new LocalBinder();
 	
 	private String mDcpUsername;
@@ -85,7 +92,7 @@ public class HNADService extends Service implements KeyProvider{
 	public void onCreate() {
 		mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		mIcdMessageHandler = new IcdMessageHandler(this);
-		mNetworkHandler = new NetworkHandler(mIcdMessageHandler);
+		mNetworkHandler = new NetworkManager(mIcdMessageHandler);
 		mUsbCommHandler = new UsbCommManager(this,mIcdMessageHandler);
 		mNadaBroadcaster = new NADABroadcaster(this,mNadaHandler,mUsbCommHandler);
 		mFtpHandler = new FtpHandler();
@@ -100,6 +107,7 @@ public class HNADService extends Service implements KeyProvider{
         db.open();
         db.resetTempDeviceVars(); //clears rssi,visible,pendingTx vars
         db.storeHnadLog(NadEventLogType.POWER_ON, mDcpUsername);
+        mIsLoggedIn = false;
         
         db.storeDevice(new ECoC(new DeviceUID("1234567812345678"),new byte[]{}));
 
@@ -115,15 +123,15 @@ public class HNADService extends Service implements KeyProvider{
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
         
-        //if ( mIsLoggedIn){
-		//	Intent devListIntent = new Intent(getApplicationContext(), DeviceListActivity.class);
-		//	devListIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //    startActivity(devListIntent);
-		//}else{
+        if ( mIsLoggedIn){
+			Intent devListIntent = new Intent(getApplicationContext(), DeviceListActivity.class);
+			devListIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(devListIntent);
+		}else{
 			Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
 			loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(loginIntent);
-		//}
+		}
         // We want this service to continue running until it is explicitly stopped, so return sticky.
         return START_STICKY;
     }
@@ -131,14 +139,7 @@ public class HNADService extends Service implements KeyProvider{
 	
 	/**********************/
 	/**********************/
-	
-	public void onLoginResult(boolean result){
-		if(result)
-			db.storeHnadLog(NadEventLogType.LOGIN_SUCCESS, mDcpUsername);
-		else
-			db.storeHnadLog(NadEventLogType.LOGIN_FAILURE, mDcpUsername);
-	}
-	
+
 	void processKeysFile(String fileContents){
 		String[] deviceInfoArray = fileContents.split("\r");
 		for(int i=0; i< deviceInfoArray.length ; i++){
@@ -179,54 +180,17 @@ public class HNADService extends Service implements KeyProvider{
 		
 	}
 
-	public void login(String username, String dcpPassword) {
-		mDcpUsername = username;
-		mNetworkHandler.loginToDCP(mDcpUsername, dcpPassword);
-
-		String response = webHandler.authenticateUser("http://192.168.1.1/dcp/Admin", "sergio", "pass");
-		if( webHandler.lastError != CommandResult.SUCCESS){
-			Intent intent = new Intent(Events.LOGIN_RESULT);
-			intent.putExtra("result",false);
-
-			if ( webHandler.lastError == CommandResult.AUTHENTICATION)
-				intent.putExtra("cause","Invalid username or password");
-			else
-				intent.putExtra("cause","Network Error");
-			
-			sendBroadcast(intent);
-			return;
-		}
-
-		String[] items = response.split(",");
-		if( items.length >= 3){
-			String ftpHost = items[0];
-			String ftpUsername = items[1];
-			String ftpPassword = items[2];
-			mFtpHandler.configureHost(ftpHost, ftpUsername, ftpPassword, 21);
-		}
-		
-		String keyFile = mFtpHandler.getKeysFileContent();
-		if(keyFile.equals("")){
-			toast("Could not retrieve device keys");
-			Log.w(TAG,"Could not retrieve device keys");
-		}else
-			processKeysFile(keyFile);
-
-		Intent intent = new Intent(Events.LOGIN_RESULT);
-		intent.putExtra("result",true);
-		sendBroadcast(intent);
-		
-		mUsbReconnectTimer = new Timer("USB reconnect timer",true);
-		mUsbReconnectTimer.scheduleAtFixedRate(new TimerTask(){
-			@Override
-			public void run() {
-				if ( mUsbCommHandler.openDevice() )
-					this.cancel();
-			}}, 100, 1000);// delay start 100ms, retry every second
+	public void login(String hostUrl, String dcpUsername, String dcpPassword) {
+//		AuthenticationProcess proc = new AuthenticationProcess(dcpUsername, dcpPassword);
+//		new Thread(proc).start();
+		mIsLoggedIn = false;
+		AuthenticationProcess task = new AuthenticationProcess();
+		task.execute(new String[] { hostUrl, dcpUsername, dcpPassword });
 	}
 
 	// Stops transmitting or receiving 802.15.4 messages
 	public void logout() {
+		mIsLoggedIn = false;
 		stopRadioComm();
 	}
 
@@ -396,11 +360,9 @@ public class HNADService extends Service implements KeyProvider{
     			//DB hnadlog store
     			msgSent = msg;
     			db.storeHnadLog(NadEventLogType.ICD_MSG_RECEIVED, mDcpUsername, msgSent, msgRec);
-    			
     			break;//Tx only 1 msg at a time
     		}
     	}
-    	
     	if( msgSent != null)
     		mSentMsgList.remove(msgSent);
 	}
@@ -669,6 +631,84 @@ public class HNADService extends Service implements KeyProvider{
     	editor.commit();
 	}
 	
+	public void saveFtpConfig(String hostAddrs, String username, String password, int port){
+    	SharedPreferences settings = getSettingsFile();
+    	SharedPreferences.Editor editor = settings.edit();
+    	
+    	editor.putString(SettingsKey.FTP_ADDR, hostAddrs);
+    	editor.putString(SettingsKey.FTP_USER, username);
+    	editor.putString(SettingsKey.FTP_PASS, password);
+    	editor.putInt(SettingsKey.FTP_PORT, port);
+
+    	editor.commit();
+	}
+	
+	protected class AuthenticationProcess extends AsyncTask<String, Void, String>{
+
+		@Override
+		protected void onPostExecute(String result) {
+			//TODO log this result
+			Intent intent = new Intent(Events.LOGIN_RESULT);
+			if( result.equals("success")){
+				mUsbReconnectTimer = new Timer("USB reconnect timer",true);
+				mUsbReconnectTimer.scheduleAtFixedRate(new TimerTask(){
+					@Override
+					public void run() {
+						if ( mUsbCommHandler.openDevice() )
+							this.cancel();
+					}}, 100, 1000);// delay start 100ms, retry every second
+
+				intent.putExtra("result",true);
+				mIsLoggedIn = true;
+				db.storeHnadLog(NadEventLogType.LOGIN_SUCCESS, mDcpUsername);
+			}else{
+				intent.putExtra("result",false);
+				intent.putExtra("cause",result);
+				db.storeHnadLog(NadEventLogType.LOGIN_FAILURE, mDcpUsername);
+			}
+
+			sendBroadcast(intent);
+		}
+
+		@Override
+		protected String doInBackground(String... args) {
+			
+			if( args.length != 3)
+				return "Bad paramter count";
+			
+			String hostUrl = args[0];
+			String username = args[1];
+			String password = args[2];
+
+			String response = webHandler.authenticateUser(hostUrl, username, password);
+			if( webHandler.lastError != CommandResult.SUCCESS){
+				if ( webHandler.lastError == CommandResult.AUTHENTICATION)
+					return "Invalid username or password";
+				else
+					return "Network Error";
+			}
+
+			String[] items = response.split(",");
+			if( items.length >= 3){
+				String ftpHost = items[0];
+				String ftpUsername = items[1];
+				String ftpPassword = items[2];
+				
+				saveFtpConfig(ftpHost,ftpUsername,ftpPassword,21);
+				mFtpHandler.configureHost(ftpHost, ftpUsername, ftpPassword, 21);
+			}else
+				return "HTTP response parse error";
+			
+			String keyFile = mFtpHandler.getKeysFileContent();
+			if(keyFile.equals("")){
+				return "Could not retrieve device keys from FTP";
+			}else
+				processKeysFile(keyFile);
+
+			return "success";
+		}
+	}
+	
 	public class SettingsKey{
 		public static final String DCP_USERNAME = "USERNAME";
 		public static final String DCP_PASSWORD = "PASSWORD";
@@ -678,7 +718,12 @@ public class HNADService extends Service implements KeyProvider{
 		public static final String DCP_UID 		= "DCP_UID";
 		public static final String DCP_ADDR 	= "DCP_ADDR";
 		public static final String DCP_PORT 	= "DCP_PORT";
+		
 		public static final String FTP_ADDR 	= "FTP_ADDR";
+		public static final String FTP_USER 	= "FTP_ADDR";
+		public static final String FTP_PASS 	= "FTP_ADDR";
+		public static final String FTP_PORT 	= "FTP_ADDR";
+		
 		public static final String USE_ENC 		= "USE_ENC";
 		public static final String NADA_BURST 	= "NADA_BURST";
 		

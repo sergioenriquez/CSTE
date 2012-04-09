@@ -1,10 +1,14 @@
 package cste.misc;
 
+import java.io.Serializable;
+
 import cste.icd.icd_messages.IcdMsg;
 import cste.icd.types.IcdTimestamp;
 import cste.icd.types.NadEventLogType;
 
-public class HnadEventLog {
+public class HnadEventLog implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	public int logID;
 	public String username;
 	public IcdTimestamp timeStamp;
