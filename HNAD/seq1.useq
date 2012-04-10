@@ -1,0 +1,76 @@
+<sequence-diagram version="1.0.7" icons="true">  
+  <object id="1" language="java" name="cste.android.activities.LoginActivity" project="HNAD" 
+    file="/HNAD/src/cste/android/activities/LoginActivity.java" binary="false" label="loginActivity" type="class" 
+    autoSize="true">    
+    <position x="92" y="0" width="-1" height="-1"/>    
+    <execution id="2">      
+      <position x="0" y="78" width="0" height="63"/>    
+    </execution>    
+    <execution id="5">      
+      <position x="5" y="405" width="103" height="21"/>    
+    </execution>  
+  </object>  
+  <object id="6" language="java" name="cste.android.core.HNADService" project="HNAD" 
+    file="/HNAD/src/cste/android/core/HNADService.java" binary="false" label="hnadService1" type="class" autoSize="true">    
+    <position x="0" y="0" width="0" height="0"/>    
+    <execution id="4">      
+      <position x="0" y="99" width="0" height="21"/>    
+    </execution>    
+    <execution id="7">      
+      <position x="0" y="137" width="0" height="63"/>    
+    </execution>    
+    <execution id="10">      
+      <position x="112" y="384" width="102" height="63"/>    
+    </execution>  
+  </object>  
+  <object id="12" language="java" name="cste.android.core.HNADService.AuthenticationProcess" project="HNAD" 
+    file="/HNAD/src/cste/android/core/HNADService.java" binary="false" label="authenticationProcess1" type="class" 
+    autoSize="true">    
+    <position x="0" y="0" width="0" height="0"/>    
+    <execution id="9">      
+      <position x="0" y="158" width="0" height="21"/>    
+    </execution>    
+    <execution id="13">      
+      <position x="218" y="363" width="157" height="143"/>    
+    </execution>  
+  </object>  
+  <object id="19" language="java" name="cste.android.db.DbHandler" project="HNAD" 
+    file="/HNAD/src/cste/android/db/DbHandler.java" binary="false" label="dbHandler" type="class" autoSize="true">    
+    <position x="415" y="0" width="-1" height="-1"/>    
+    <execution id="16">      
+      <position x="379" y="412" width="86" height="21"/>    
+    </execution>  
+  </object>  
+  <object id="20" language="java" name="java.util.Timer" project="HNAD" 
+    file="C:/android-sdk-windows/platforms/android-10/android.jar" binary="true" label="timer" type="class" 
+    autoSize="true">    
+    <position x="573" y="0" width="-1" height="-1"/>    
+    <execution id="18">      
+      <position x="469" y="464" width="60" height="21"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="login(java.lang.String,java.lang.String,java.lang.String):void" x="70" y="79">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="8" operation="doInBackground(java.lang.String[]):java.lang.String">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="11" operation="sendBroadcast(android.content.Intent):void">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="5"/>  
+  </message>  
+  <message id="14" operation="sendBroadcast(android.content.Intent):void">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="15" operation="storeHnadLog(cste.icd.types.NadEventLogType,java.lang.String):long">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="17" operation="schedule(java.util.TimerTask,java.util.Date):void" x="305" y="427">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="18"/>  
+  </message>
+</sequence-diagram>
