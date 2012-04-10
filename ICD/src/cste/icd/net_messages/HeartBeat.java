@@ -1,7 +1,6 @@
 package cste.icd.net_messages;
 
 import cste.icd.general.IcdPayload;
-import cste.icd.types.IcdTimestamp;
 import cste.icd.types.MaintenaceCode;
 
 public class HeartBeat extends IcdPayload{

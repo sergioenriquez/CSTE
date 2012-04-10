@@ -4,12 +4,12 @@ import java.nio.ByteBuffer;
 
 import cste.icd.components.ComModule;
 import cste.icd.general.IcdPayload;
+import cste.icd.general.KeyProvider;
 import cste.icd.types.DeviceType;
 import cste.icd.types.DeviceUID;
 import cste.icd.types.IcdHeader;
 import cste.icd.types.MsgType;
 import cste.icd.types.UnrestrictedCmdType;
-import cste.interfaces.KeyProvider;
 import static cste.icd.general.Utility.*;
 import static cste.icd.general.Constants.*;
 
@@ -19,7 +19,7 @@ import static cste.icd.general.Constants.*;
  *
  */
 public class IcdMsg {
-	private static String TAG = "ICD Msg";
+	static String TAG = "ICD Msg";
 	
 	public enum MsgStatus{
 		BAD_CHEKSUM,
@@ -35,7 +35,6 @@ public class IcdMsg {
 	
 	private static DeviceType ThisDevType = null;
 	private static DeviceUID ThisUID = null;
-	private static byte IcdRev = 0;
 	private static KeyProvider KeyProvider = null;
 	private static boolean EncryptionEnabled = false;
 	
@@ -54,7 +53,6 @@ public class IcdMsg {
 		EncryptionEnabled = encryptionEnabled;
 		ThisDevType = type;
 		ThisUID = uid;
-		IcdRev = 0x02;
 		KeyProvider = keyProv;
 	}
 

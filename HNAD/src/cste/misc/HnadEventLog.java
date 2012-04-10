@@ -7,7 +7,7 @@ import cste.icd.types.IcdTimestamp;
 import cste.icd.types.NadEventLogType;
 
 public class HnadEventLog implements Serializable{
-	private static final long serialVersionUID = 1L;
+	static final long serialVersionUID = 1L;
 	
 	public int logID;
 	public String username;

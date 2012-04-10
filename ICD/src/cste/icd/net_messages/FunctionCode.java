@@ -1,7 +1,5 @@
 package cste.icd.net_messages;
 
-import cste.icd.types.DeviceType;
-
 public enum FunctionCode {
 	//ICD
 	HEARTBEAT_REQUEST	((byte) 0x00),

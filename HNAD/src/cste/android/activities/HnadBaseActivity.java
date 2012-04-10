@@ -18,17 +18,17 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cste.android.R;
 import cste.android.core.HNADService;
 import cste.android.core.HNADService.Events;
-import cste.android.R;
-import static cste.android.core.HNADService.Events.*;
 
 /**
  * @author enriquez
  *
  */
-@SuppressWarnings("unused")
 public abstract class HnadBaseActivity extends Activity{
+	static final String TAG = "HNAD base activity";
+	
 	protected HNADService mHnadCoreService = null;
 	protected boolean mIsBound = false;
 	protected ProgressDialog pd; 

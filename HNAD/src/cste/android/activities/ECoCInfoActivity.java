@@ -1,14 +1,9 @@
 package cste.android.activities;
 
 import static cste.icd.general.Utility.hexToStr;
-import static cste.icd.general.Utility.strToHex;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,47 +15,45 @@ import cste.android.core.HNADService.DeviceCommands;
 import cste.android.core.HNADService.Events;
 import cste.icd.components.ECoC;
 import cste.icd.types.DeviceUID;
-import cste.misc.HexKeyListener;
 
 public class ECoCInfoActivity extends HnadBaseActivity {
-	@SuppressWarnings("unused")
-	private static final String TAG = "ECoC Info Activity";
-	protected DeviceUID devUID;
+	static final String TAG = "ECoCInfo activity";
 	
+	protected DeviceUID mDevUID;
 	EditText msgInput;
 	
-	TextView mDeviceUIDTxt;
-	TextView mDeviceTypeTxt;
-	TextView mConveyanceID;
-	TextView mMacAddrs;
-	TextView mGpsLocation;
-	TextView mDeviceRSSITxt;
-	TextView mRxAckTxt;
-	TextView mTxAckTxt;
+	protected TextView mDeviceUIDTxt;
+	protected TextView mDeviceTypeTxt;
+	protected TextView mConveyanceID;
+	protected TextView mMacAddrs;
+	protected TextView mGpsLocation;
+	protected TextView mDeviceRSSITxt;
+	protected TextView mRxAckTxt;
+	protected TextView mTxAckTxt;
 
-	CheckBox mLockOpenBox;
-	CheckBox mHaspOpenBox;
-	CheckBox mOffCourseBox;
-	CheckBox mOffScheduleBox;
+	protected CheckBox mLockOpenBox;
+	protected CheckBox mHaspOpenBox;
+	protected CheckBox mOffCourseBox;
+	protected CheckBox mOffScheduleBox;
 	
-	CheckBox mConfigMalfunctionBox;
-	CheckBox mInsuficientPowerBox;
-	CheckBox mCommisionFailedBox;
-	CheckBox mTimeNotSetBox;
-	CheckBox mSensorMalfunctionBox;
-	CheckBox mDecryptionErrorBox;
-	CheckBox mInvalidCommandBox;
-	CheckBox mLogOverflowBox;
-	CheckBox mAckFailureBox;
-	CheckBox mConfigFailedBox;
-	CheckBox mSensorEnableFailedBox;
+	protected CheckBox mConfigMalfunctionBox;
+	protected CheckBox mInsuficientPowerBox;
+	protected CheckBox mCommisionFailedBox;
+	protected CheckBox mTimeNotSetBox;
+	protected CheckBox mSensorMalfunctionBox;
+	protected CheckBox mDecryptionErrorBox;
+	protected CheckBox mInvalidCommandBox;
+	protected CheckBox mLogOverflowBox;
+	protected CheckBox mAckFailureBox;
+	protected CheckBox mConfigFailedBox;
+	protected CheckBox mSensorEnableFailedBox;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ecoc_details_layout);
 
-        devUID = (DeviceUID)getIntent().getSerializableExtra("deviceUID");
+        mDevUID = (DeviceUID)getIntent().getSerializableExtra("deviceUID");
        
         mDeviceUIDTxt =  	(TextView)findViewById(R.id.devUID);
         mDeviceTypeTxt = 	(TextView)findViewById(R.id.devType);
@@ -98,11 +91,11 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 	}
 
 	protected void reloadDeviceData(){
-		ECoC eCoC = (ECoC) mHnadCoreService.getDeviceRecord(devUID);
+		ECoC eCoC = (ECoC) mHnadCoreService.getDeviceRecord(mDevUID);
 		if(eCoC == null)
 			return;
 		
-		mDeviceUIDTxt.setText(devUID.toString());
+		mDeviceUIDTxt.setText(mDevUID.toString());
 		mDeviceTypeTxt.setText(eCoC.devType.toString());
 		mRxAckTxt.setText(String.valueOf(eCoC.rxAscension));
 		mTxAckTxt.setText(String.valueOf(eCoC.txAscension));
@@ -140,7 +133,7 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 	@Override
 	protected void handleCoreServiceMsg(String action, Intent intent) {
 		DeviceUID changedDevUID = (DeviceUID)intent.getSerializableExtra("deviceUID");
-		if( changedDevUID == null || !changedDevUID.equals(devUID)){
+		if( changedDevUID == null || !changedDevUID.equals(mDevUID)){
 			return;
 		}
 		pd.cancel();
@@ -167,94 +160,45 @@ public class ECoCInfoActivity extends HnadBaseActivity {
 		Intent intent;
         switch (item.getItemId()) {
         case R.id.refresh:
-        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.GET_RESTRICTED_STATUS);
+        	mHnadCoreService.sendDevCmd(mDevUID,DeviceCommands.GET_RESTRICTED_STATUS);
     		showProgressDialog("Requesting Device Information");
         	return true;
         case R.id.viewEventLog:
     		intent = new Intent(getApplicationContext(), EventLogECMActivity.class);
-    		intent.putExtra("deviceUID", devUID);
+    		intent.putExtra("deviceUID", mDevUID);
     		startActivity(intent);
             return true;
         case R.id.clearAlarm:
-        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_ALARM_OFF);
+        	mHnadCoreService.sendDevCmd(mDevUID,DeviceCommands.SET_ALARM_OFF);
         	showProgressDialog("Clearing alarm...");
             return true;
         case R.id.commission:
-        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_COMMISION_ON);
+        	mHnadCoreService.sendDevCmd(mDevUID,DeviceCommands.SET_COMMISION_ON);
         	showProgressDialog("Commissioning...");
             return true;
         case R.id.erase:
-        	mHnadCoreService.deleteDeviceRecord(devUID);
+        	mHnadCoreService.deleteDeviceRecord(mDevUID);
         	finish();
             return true;
         case R.id.setTime:
-        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_TIME);
+        	mHnadCoreService.sendDevCmd(mDevUID,DeviceCommands.SET_TIME);
         	showProgressDialog("Setting time...");
         	return true;
         case R.id.clearLog:
-        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.CLEAR_EVENT_LOG);
+        	mHnadCoreService.sendDevCmd(mDevUID,DeviceCommands.CLEAR_EVENT_LOG);
         	showProgressDialog("Clearing log...");
         	return true;
         case R.id.setWaypoints:
-        	mHnadCoreService.sendDevCmd(devUID,DeviceCommands.SET_WAYPOINTS_START);
+        	mHnadCoreService.sendDevCmd(mDevUID,DeviceCommands.SET_WAYPOINTS_START);
         	showProgressDialog("Setting waypoints...");
             return true;
         case R.id.editKeys:
         	Intent eventLogIntent = new Intent(getApplicationContext(), EditKeysActivity.class);
-        	eventLogIntent.putExtra("deviceUID", devUID);
+        	eventLogIntent.putExtra("deviceUID", mDevUID);
     		startActivity(eventLogIntent);
             return true;
         }
     	
         return super.onOptionsItemSelected(item);
     }
-
-	private void showChangeAMsg(){
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-    	ECoC eCoC = (ECoC) mHnadCoreService.getDeviceRecord(devUID);
-    	if(eCoC == null)
-    		return;
-    	msgInput = new EditText(this);
-    	msgInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-    	msgInput.setText(Integer.toString(eCoC.txAscension));
-    	msgInput.requestFocus();
-    	alert.setView(msgInput);
-    	alert.setTitle("Enter the new tx assension val");
-    	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-    		public void onClick(DialogInterface dialog, int whichButton) {
-    		  String value = msgInput.getText().toString();
-    		  int val = Integer.valueOf(value);
-    		  mHnadCoreService.setDeviceAssensionVal(devUID, val);
-    		}
-    	});
-    	alert.show();
-	}
-
-	private void showChangeEncryptionMsg(){
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-    	ECoC eCoC = (ECoC) mHnadCoreService.getDeviceRecord(devUID);
-    	
-    	if(eCoC == null)
-    		return;
-    	
-    	msgInput = new EditText(this);
-    	msgInput.setFilters(new InputFilter[]{
-    	         new InputFilter.LengthFilter(32),
-    	         new InputFilter.AllCaps()
-    	         });
-    	msgInput.setKeyListener(new HexKeyListener());
-    	msgInput.setText( "9be5d38c2e24740edaf5bc0426f47896" );
-    	msgInput.requestFocus();
-    	
-    	alert.setView(msgInput);
-    	alert.setTitle("Enter the new TCK value");
-    	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-    		public void onClick(DialogInterface dialog, int whichButton) {
-    		  String value = msgInput.getText().toString();
-    		  mHnadCoreService.setDeviceTCK(devUID, strToHex(value));
-    		}
-    	});
-    	alert.show();
-	}
-
 }//end class

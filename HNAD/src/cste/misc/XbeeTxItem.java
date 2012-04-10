@@ -1,5 +1,6 @@
 package cste.misc;
 
+import cste.android.core.XbeeAPI;
 import android.os.Handler;
 
 public class XbeeTxItem implements Runnable {

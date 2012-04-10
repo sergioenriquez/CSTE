@@ -1,16 +1,10 @@
-package cste.notused;
+package cste.icd.net_messages;
 
-import java.nio.ByteBuffer;
-
+import static cste.icd.general.Constants.ICD_REV_NUMBER;
 import cste.icd.general.IcdPayload;
 import cste.icd.icd_messages.IcdMsg;
-import cste.icd.net_messages.FunctionCode;
-import cste.icd.net_messages.HeartBeat;
-import cste.icd.net_messages.LoginRequest;
-import cste.icd.net_messages.Preamble;
 import cste.icd.types.DeviceUID;
 import cste.icd.types.MaintenaceCode;
-import static cste.icd.general.Constants.*;
 
 public class NetPkt {
 	public Preamble preamble;
@@ -23,7 +17,8 @@ public class NetPkt {
 	}
 	
 	public static NetPkt fromByteArray(byte []buffer){
-		ByteBuffer b = ByteBuffer.wrap(buffer);
+		//TODO implement
+		//ByteBuffer b = ByteBuffer.wrap(buffer);
 		Preamble preamble = null;
 		IcdPayload payload = null;
 		

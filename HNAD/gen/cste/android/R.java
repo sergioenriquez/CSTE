@@ -64,11 +64,11 @@ public final class R {
     public static final class id {
         public static final int ackFailureBox=0x7f090024;
         public static final int ackNo=0x7f090012;
-        public static final int addNew=0x7f090050;
+        public static final int addNew=0x7f09004f;
         public static final int authLoginBtn=0x7f090035;
         public static final int authPassword=0x7f090034;
         public static final int authUserLink=0x7f090033;
-        public static final int clear=0x7f09004d;
+        public static final int clear=0x7f09004c;
         public static final int clearAlarm=0x7f09003d;
         public static final int clearBtn=0x7f090029;
         public static final int clearLog=0x7f090045;
@@ -88,15 +88,14 @@ public final class R {
         public static final int devicesList=0x7f090007;
         public static final int devicetype=0x7f09000a;
         public static final int devicevisible=0x7f090008;
-        public static final int discovery=0x7f09004c;
+        public static final int discovery=0x7f09004b;
         public static final int dummy=0x7f090037;
         public static final int ecryptionOn=0x7f090005;
         public static final int editKeys=0x7f09003f;
         public static final int erase=0x7f090046;
         public static final int eventlog=0x7f090049;
-        public static final int exit=0x7f09004e;
+        public static final int exit=0x7f09004d;
         public static final int ftpServer=0x7f090004;
-        public static final int getKeys=0x7f09004a;
         public static final int getRestricted=0x7f090044;
         public static final int getUnrestricted=0x7f090042;
         public static final int gpsLoc=0x7f090013;
@@ -124,7 +123,7 @@ public final class R {
         public static final int offScheduleBox=0x7f09001b;
         public static final int refresh=0x7f09003b;
         public static final int remember=0x7f090036;
-        public static final int remove=0x7f09004f;
+        public static final int remove=0x7f09004e;
         public static final int rssiVal=0x7f090011;
         public static final int sensorEnableFailedBox=0x7f090026;
         public static final int sensorMalfunctionBox=0x7f090020;
@@ -141,7 +140,7 @@ public final class R {
         public static final int title=0x7f090039;
         public static final int txAckNo=0x7f090014;
         public static final int viewEventLog=0x7f09003c;
-        public static final int viewtrip=0x7f09004b;
+        public static final int viewtrip=0x7f09004a;
         public static final int waypointListView=0x7f090038;
     }
     public static final class layout {

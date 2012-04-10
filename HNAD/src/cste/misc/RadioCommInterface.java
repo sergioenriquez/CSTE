@@ -1,4 +1,4 @@
-package cste.hnad;
+package cste.misc;
 
 public interface RadioCommInterface {
 	boolean openDevice();

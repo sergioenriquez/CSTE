@@ -1,4 +1,4 @@
-package cste.misc;
+package cste.android.core;
 
 import static cste.icd.general.Utility.strToHex;
 
@@ -7,8 +7,9 @@ import java.util.Hashtable;
 
 import android.util.Log;
 import android.widget.Toast;
-import cste.android.core.HNADService;
-import cste.hnad.RadioCommInterface;
+import cste.misc.RadioCommInterface;
+import cste.misc.XbeeFrame;
+import cste.misc.XbeeTxItem;
 
 public class XbeeAPI {
 	private static final String TAG = "Zigbee API";
@@ -68,8 +69,6 @@ public class XbeeAPI {
 				item.restartTimer();
 			}else{
 				txTable.remove(frameAck);
-				//mHnadService.onRadioTransmitResult(false,item.destination);
-				//Toast.makeText(mHnadService.getContext(), "No reply received", Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -84,7 +83,6 @@ public class XbeeAPI {
 	public static synchronized boolean transmitPkt(byte []dest, byte []payload){
 		if( dest == null || payload == null){
 			Log.e(TAG,"Tried to transmit a null packet");
-			//mHnadService.onRadioTransmitResult(false,dest);
 			return false;
 		}
 		
@@ -99,7 +97,6 @@ public class XbeeAPI {
 				nextFrameAck++;
 			}else{
 				Toast.makeText(mHnadService.getContext(), "USB interface not availible", Toast.LENGTH_SHORT).show();
-				//mHnadService.onRadioTransmitResult(false,dest);
 			}
 		}
 		return txResult;
@@ -218,9 +215,7 @@ public class XbeeAPI {
 		data.get(payload);
 		mHnadService.onFrameReceived(new XbeeFrame(type,rssi,opt,source,payload));
 	}
-	
 
-	//TODO handle other msg types
 	/***
 	 * Unwraps the data delivered by the Zigbee transceiver
 	 * @param msg
@@ -228,7 +223,7 @@ public class XbeeAPI {
 	 */
 	public static void parseFrame(byte[] msg,int msgSize){
 		if( msgSize < 3){
-			Log.w(TAG, "Received a frame with bad size");
+			Log.d(TAG, "Received a frame with bad size");
 			return;
 		}
 
@@ -238,14 +233,13 @@ public class XbeeAPI {
 		while(temp.position() < msgSize){
 			delim = temp.get();
 			if( delim != DELIMETER){
-				//Log.w(TAG, "Did not receive a valid Xbee frame");
-				//break;
+				Log.d(TAG, "Did not receive a valid Xbee frame");
 				continue;
 			}
 				
 			frameSize = temp.getShort();
 			if( temp.remaining() < frameSize){
-				Log.w(TAG, "Received a frame with bad size");
+				Log.d(TAG, "Received a frame with bad size");
 				break;
 			}
 			processFrame(temp,frameSize);

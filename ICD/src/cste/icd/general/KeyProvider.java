@@ -1,4 +1,4 @@
-package cste.interfaces;
+package cste.icd.general;
 
 import cste.icd.types.DeviceUID;
 

@@ -5,7 +5,6 @@ import java.util.Enumeration;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -17,6 +16,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import cste.android.R;
+import cste.android.adapters.DeviceListAdapter;
 import cste.android.core.HNADService.DeviceCommands;
 import cste.android.core.HNADService.Events;
 import cste.icd.components.ComModule;
@@ -28,11 +28,11 @@ import cste.icd.types.DeviceUID;
  *
  */
 public class DeviceListActivity extends HnadBaseActivity {
-	static final String TAG = "DeviceList";
+	static final String TAG = "DeviceList activity";
 	
 	protected DeviceListAdapter mDeviceListAdapter;
 	protected ListView mDeviceListView;
-	boolean discoveryMode = false;
+	protected boolean mDiscoveryMode = false;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,8 +81,6 @@ public class DeviceListActivity extends HnadBaseActivity {
 
 		if (  action.equals(Events.DEVICE_INFO_CHANGED)){
 			DeviceUID devUID = (DeviceUID)intent.getSerializableExtra("deviceUID");
-//			this.reloadDeviceList();
-//			mDeviceListAdapter.notifyDataSetChanged();
 			ComModule changedCm = (ComModule)mHnadCoreService.getDeviceRecord(devUID);
 			if( changedCm == null)
 				return;
@@ -126,7 +124,7 @@ public class DeviceListActivity extends HnadBaseActivity {
 	public boolean onPrepareOptionsMenu(Menu menu){
 		//menu.clear();
 		menu.removeItem(R.id.discovery);
-		if(discoveryMode)
+		if(mDiscoveryMode)
         	menu.add(0,R.id.discovery,0,R.string.discoveryON);
         else
         	menu.add(0,R.id.discovery,0,R.string.discoveryOFF);
@@ -159,17 +157,13 @@ public class DeviceListActivity extends HnadBaseActivity {
             	intent = new Intent(getApplicationContext(), EventLogHNADActivity.class);
             	startActivity(intent);
                 break;    
-            case R.id.getKeys:
-//            	Intent viewKeysIntent = new Intent(getApplicationContext(), KeyViewActivity.class);
-//	    		startActivity(viewKeysIntent);
-                break;
             case R.id.viewtrip:
             	intent = new Intent(getApplicationContext(), TripInfoActivity.class);
                 startActivity(intent);
                 break;
             case R.id.discovery:
-            	discoveryMode = !discoveryMode;
-            	mHnadCoreService.toggleDiscoveryMode(discoveryMode);
+            	mDiscoveryMode = !mDiscoveryMode;
+            	mHnadCoreService.toggleDiscoveryMode(mDiscoveryMode);
             	break;
         }
         return super.onOptionsItemSelected(item);

@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.android.future.usb.UsbAccessory;
-import com.android.future.usb.UsbManager;
-
 /***
  * This activity is started by connecting the USB accesory or by 
  * launching the application. If an accesory is detected, a message will be
@@ -15,7 +12,7 @@ import com.android.future.usb.UsbManager;
  *
  */
 public class LauncherActivity extends Activity {
-	static final String TAG = "HNAD Launcher";
+	static final String TAG = "HNAD launcher";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +21,12 @@ public class LauncherActivity extends Activity {
 		Intent i = new Intent();
 		i.setAction("cste.android.core.HNADCORESERVICE");
 		
-		UsbAccessory mAccessory = UsbManager.getAccessory(getIntent());
-        if( mAccessory != null){
+//		UsbAccessory mAccessory = UsbManager.getAccessory(getIntent());
+//        if( mAccessory != null){
 //        	i.putExtra("usbAccesory", mAccessory.getDescription());
-//        	startService(i);
-        }
-        else
-        	startService(i);
+//        }
+
+    	startService(i);
 
 		finish();
 	}

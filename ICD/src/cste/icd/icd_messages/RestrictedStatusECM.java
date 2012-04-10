@@ -1,8 +1,6 @@
 package cste.icd.icd_messages;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-
 import cste.icd.types.ConveyanceID;
 import cste.icd.types.GpsLoc;
 import cste.icd.types.IcdTimestamp;

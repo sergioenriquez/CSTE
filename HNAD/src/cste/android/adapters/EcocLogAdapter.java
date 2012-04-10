@@ -1,17 +1,16 @@
-package cste.android.activities;
+package cste.android.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import cste.android.R;
-import cste.icd.components.ComModule;
 import cste.icd.icd_messages.EventLogICD;
 
 public class EcocLogAdapter extends ArrayAdapter<EventLogICD> {
+	static final String TAG = "ECOC log adapter";
 	int resourceID;
 	
 	public EcocLogAdapter(Context context, int textViewResourceId) {

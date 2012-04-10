@@ -1,8 +1,5 @@
 package cste.android.activities;
 
-import static cste.icd.general.Utility.hexToStr;
-import static cste.icd.general.Utility.strToHex;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,29 +7,23 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Settings.System;
 import android.text.InputFilter;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import cste.android.R;
-import cste.android.core.HNADService.DeviceCommands;
-import cste.android.core.HNADService.SettingsKey;
-import cste.icd.components.ComModule;
-import cste.misc.HexKeyListener;
 
 public class TripInfoActivity extends HnadBaseActivity{
+	static final String TAG = "Trip info activity";
 	
 	private ArrayAdapter<String> mWaypointAdapter;
 	private ListView mListView;
@@ -119,7 +110,6 @@ public class TripInfoActivity extends HnadBaseActivity{
 	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent;
         switch (item.getItemId()) {
             case R.id.remove:
             	int c = mWaypointAdapter.getCount();

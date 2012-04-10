@@ -1,16 +1,17 @@
-package cste.android.core;
+package cste.android.network;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.StringWriter;
 
-import org.apache.commons.net.ftp.*;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPReply;
 
 import android.util.Log;
 
 public class FtpHandler {
-	private static final String TAG = "FTP client";
-	public FTPClient mFTPClient = null;
+	static final String TAG = "FTP hanlder";
 	
+	protected FTPClient mFTPClient;
 	protected String host;
 	protected String username;
 	protected String password;

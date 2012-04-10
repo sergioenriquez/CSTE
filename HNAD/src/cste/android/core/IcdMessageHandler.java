@@ -1,10 +1,8 @@
-package cste.hnad;
+package cste.android.core;
 
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import cste.android.core.HNADService;
-import cste.misc.XbeeAPI;
 
 public class IcdMessageHandler extends Handler {
 	private static final String TAG = "CSD Msg Handler";

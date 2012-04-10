@@ -10,14 +10,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 import cste.android.R;
+import cste.android.adapters.EcocLogAdapter;
 import cste.android.core.HNADService.DeviceCommands;
 import cste.android.core.HNADService.Events;
 import cste.icd.icd_messages.EventLogICD;
 import cste.icd.types.DeviceUID;
 
 public class EventLogECMActivity extends HnadBaseActivity {
-	@SuppressWarnings("unused")
-	private static final String TAG = "ECM Log";
+	static final String TAG = "ECM Log";
 
 	protected EcocLogAdapter mLogAdapter;
 	protected ListView mLogListView;

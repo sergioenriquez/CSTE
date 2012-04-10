@@ -8,12 +8,12 @@ import java.net.UnknownHostException;
 
 import android.util.Log;
 
-import cste.notused.NetPkt;
+import cste.icd.net_messages.NetPkt;
 
 public class HnadClientThread implements Runnable{
-	private static final String TAG = "Network Thread";
-	private final int BUFFER_SIZE = 2000;
+	static final String TAG = "Network thread";
 	
+	protected final int BUFFER_SIZE = 2000;
 	protected Socket socket;
 	protected ObjectOutputStream out;
 	protected ObjectInputStream in;

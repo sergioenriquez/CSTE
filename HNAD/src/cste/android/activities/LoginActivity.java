@@ -21,7 +21,7 @@ import cste.android.core.HNADService.SettingsKey;
  *
  */
 public class LoginActivity extends HnadBaseActivity {
-	private static final String TAG = "HNAD Login";
+	static final String TAG = "HNAD login activity";
 
 	protected EditText usernameText;
 	protected EditText passwordText;

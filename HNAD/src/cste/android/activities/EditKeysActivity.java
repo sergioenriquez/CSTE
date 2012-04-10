@@ -1,8 +1,9 @@
 package cste.android.activities;
 
+import static cste.icd.general.Utility.hexToStr;
+import static cste.icd.general.Utility.strToHex;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
@@ -10,15 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import cste.android.R;
 import cste.android.core.HNADService.Events;
-import cste.android.core.HNADService.SettingsKey;
 import cste.icd.components.ECoC;
 import cste.icd.types.DeviceUID;
 import cste.misc.HexKeyListener;
-import static cste.icd.general.Utility.hexToStr;
-import static cste.icd.general.Utility.strToHex;
 
 public class EditKeysActivity extends HnadBaseActivity {
-	private static final String TAG = "Edit keys";
+	static final String TAG = "Edit keys activity";
 	
 	protected EditText tcktxt;
 	protected EditText tckAscTxt;

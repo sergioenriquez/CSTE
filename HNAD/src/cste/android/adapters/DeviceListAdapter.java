@@ -1,4 +1,4 @@
-package cste.android.activities;
+package cste.android.adapters;
 
 import java.util.Comparator;
 
@@ -13,6 +13,7 @@ import cste.android.R;
 import cste.icd.components.ComModule;
 
 public class DeviceListAdapter extends ArrayAdapter<ComModule>{
+	static final String TAG = "Config device list adapter";
 	int resourceID;
 	
 	public DeviceListAdapter(Context context, int textViewResourceId) {
@@ -66,7 +67,6 @@ public class DeviceListAdapter extends ArrayAdapter<ComModule>{
         int errorCount = dev.getAlarmCount();
         if( errorCount > 0 ){
         	devProblem.setText( String.valueOf( dev.getAlarmCount()) );
-        	//devProblem.setBackgroundResource(R.drawable.alarm);
         }else
         	devProblem.setText("");
 
@@ -82,7 +82,6 @@ public class DeviceListAdapter extends ArrayAdapter<ComModule>{
 		@Override
 		public int compare(ComModule a, ComModule b) {
 			//sort by key, visible, UID
-
 			if( a.haveKey() && !b.haveKey()){
 				return -1;
 			}else if( !a.haveKey() && b.haveKey() ){

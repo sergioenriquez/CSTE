@@ -1,21 +1,17 @@
 package cste.android.core;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
 
 import android.os.Handler;
-import cste.icd.components.ComModule;
 import cste.icd.icd_messages.IcdMsg;
 import cste.icd.icd_messages.NADA;
 import cste.icd.types.DeviceType;
 import cste.icd.types.DeviceUID;
 import cste.icd.types.NadaTimeDelay;
-import cste.misc.XbeeAPI;
-
-//TODO clear channel assesment?
 
 public class NADABroadcaster implements Runnable{
+	static final String TAG = "NADA broadcaster";
+
 	protected boolean enabled = false;
 	protected int msgSendCnt = 0;
 	protected NadaTimeDelay delayCode = NadaTimeDelay.D100;
@@ -23,7 +19,6 @@ public class NADABroadcaster implements Runnable{
 	protected UsbCommManager mUsbCommHandler;
 	protected HNADService mParent;
 	
-	//burst tx 1 sec then 1 sec quiet
 	protected int BurstCount = 13;
 	protected int LongDelay = 1000;
 	protected DeviceType dcpType;
@@ -33,7 +28,6 @@ public class NADABroadcaster implements Runnable{
 	protected ArrayList<DeviceUID> mWaitingList;
 	protected boolean discoveryMode = false;
 	protected final DeviceUID DiscoveryUID = new DeviceUID("FFFFFFFFFFFFFFFF");
-	
 	
 	public void setDeviceDiscoveryMode(boolean state){
 		discoveryMode = state;

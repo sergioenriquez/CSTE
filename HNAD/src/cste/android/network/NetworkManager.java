@@ -2,29 +2,24 @@ package cste.android.network;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
-import android.app.Service;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import cste.android.core.HNADService;
-import cste.hnad.IcdMessageHandler;
+import cste.android.core.IcdMessageHandler;
 import cste.icd.icd_messages.IcdMsg;
 import cste.icd.net_messages.HeartBeatResponse;
-import cste.icd.net_messages.KeyReply;
-import cste.icd.net_messages.LoginReply;
+import cste.icd.net_messages.NetPkt;
 import cste.icd.types.MaintenaceCode;
-import cste.notused.NetPkt;
 
 public class NetworkManager{
-	private static final String TAG = "Network Handler";
+	static final String TAG = "Network handler";
 	
-	public String serverAddress;
-	public int serverPort;
-	private Handler mHandler;
-	
-	private ArrayBlockingQueue<NetPkt> pendingTxList;
-	private HnadClientThread thread;
+	protected String serverAddress;
+	protected int serverPort;
+	protected Handler mHandler;
+	protected ArrayBlockingQueue<NetPkt> pendingTxList;
+	protected HnadClientThread thread;
 
 	public void config(String server, int port){
 		serverAddress = server;
@@ -46,17 +41,6 @@ public class NetworkManager{
 			data.putSerializable("maintenaceCode", heartBeat.maintenaceCode);
 			data.putSerializable("timestamp", heartBeat.timestamp);
 			m.setData(data);
-			m.sendToTarget();
-			break;
-		case LOGIN_REPLY:
-			m.what = IcdMessageHandler.DCP_LOGIN_RESULT;
-			LoginReply loginReply =  (LoginReply)pkt.payload;
-			m.arg1 = loginReply.replyCode;
-			m.sendToTarget();
-			break;
-		case KEY_REPLY:
-			m.what = IcdMessageHandler.DCP_KEYS_RECEIVED;
-			KeyReply keyReply = (KeyReply)pkt.payload;
 			m.sendToTarget();
 			break;
 		case DCP_CONFIG_CHANGE:

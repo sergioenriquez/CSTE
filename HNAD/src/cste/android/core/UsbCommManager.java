@@ -1,8 +1,8 @@
 package cste.android.core;
 
-import static cste.hnad.IcdMessageHandler.DEVICE_CONNECTED;
-import static cste.hnad.IcdMessageHandler.DEVICE_DISCONNECTED;
-import static cste.hnad.IcdMessageHandler.MSG_RECEIVED;
+import static cste.android.core.IcdMessageHandler.DEVICE_CONNECTED;
+import static cste.android.core.IcdMessageHandler.DEVICE_DISCONNECTED;
+import static cste.android.core.IcdMessageHandler.MSG_RECEIVED;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -25,28 +25,28 @@ import android.util.Log;
 import com.android.future.usb.UsbAccessory;
 import com.android.future.usb.UsbManager;
 
-import cste.hnad.RadioCommInterface;
+import cste.misc.RadioCommInterface;
 /***
  * Provides an interface to transmit and receive from the arduino USB host device connected to the phone
  * @author Sergio Enriquez
  *
  */
 public class UsbCommManager extends BroadcastReceiver implements RadioCommInterface{
-	private static final String TAG = "USB Comm Handler";
-	private static final String ACTION_USB_PERMISSION = "cste.android.usb.action.USB_PERMISSION";
-
-	private UsbManager mUsbManager;
-	private UsbAccessory mAccessory;
-	private ParcelFileDescriptor mFileDescriptor;
-	private FileInputStream mInputStream;
-	private FileOutputStream mOutputStream;
-	private Handler mHandler;
-	private PendingIntent mPermissionIntent;
-	private boolean mPermissionRequestPending;
-	private Service mHostService;
-	private boolean isConnected = false;
-	private boolean isRegistered = false;
-	private ArrayBlockingQueue<byte[]> pendingTxList;
+	static final String TAG = "USB Comm Handler";
+	
+	protected static final String ACTION_USB_PERMISSION = "cste.android.usb.action.USB_PERMISSION";
+	protected UsbManager mUsbManager;
+	protected UsbAccessory mAccessory;
+	protected ParcelFileDescriptor mFileDescriptor;
+	protected FileInputStream mInputStream;
+	protected FileOutputStream mOutputStream;
+	protected Handler mHandler;
+	protected PendingIntent mPermissionIntent;
+	protected boolean mPermissionRequestPending;
+	protected Service mHostService;
+	protected boolean isConnected = false;
+	protected boolean isRegistered = false;
+	protected ArrayBlockingQueue<byte[]> pendingTxList;
 	
 	/**
 	 * Constructor needs a reference to the running HNAD core service, and the message handler used to pass data to it

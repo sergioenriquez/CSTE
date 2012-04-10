@@ -1,15 +1,11 @@
-package cste.android.core;
-import java.io.BufferedReader;
+package cste.android.network;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
@@ -35,9 +31,10 @@ import org.apache.http.util.EntityUtils;
 import android.util.Log;
 
 public class WebHandler {
-	private final String TAG = "Web Client";
-	private static final String HTTP_ACCEPT_TYPES = "application/xml, text/xml; q=0.9, text/html, text/*; q=0.4";
-	private final int  TIMEOUT_PERIOD = 1000;
+	static final String TAG = "Web client handler";
+	
+	protected static final String HTTP_ACCEPT_TYPES = "application/xml, text/xml; q=0.9, text/html, text/*; q=0.4";
+	protected final int  TIMEOUT_PERIOD = 1000;
 	public CommandResult lastError;
 	
 	public static enum CommandResult{
@@ -58,7 +55,6 @@ public class WebHandler {
 		try{
 			httpPost = new HttpPost(loginPageURL);
 		} catch(Exception e){
-			//TODO Log
 			lastError = CommandResult.PARSE_ERROR;
 			return "error";
 		}
@@ -89,7 +85,6 @@ public class WebHandler {
 			return "error";
 		}
 
-		//String responseBody = EntityUtils.toString(response.getEntity());
 		String reply = "error";
 		try {
 			reply = EntityUtils.toString(response.getEntity());
@@ -105,28 +100,6 @@ public class WebHandler {
 
 		return reply;
 	}
-	
-	private String inputStreamToString(InputStream is) {
-	    String line = "";
-	    StringBuilder total = new StringBuilder();
-	    
-	    // Wrap a BufferedReader around the InputStream
-	    BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-
-	    // Read response until the end
-	    try {
-			while ((line = rd.readLine()) != null) { 
-			    total.append(line); 
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    
-	    // Return full string
-	    return total.toString();
-	}
-
 	
 	public String requestResource(String username, String password, URI resource) {
 		HttpGet request = new HttpGet(resource);
@@ -204,7 +177,4 @@ public class WebHandler {
 		}     
 		return response;
     }
-	
-	
-
 }

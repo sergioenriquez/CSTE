@@ -1,4 +1,4 @@
-package cste.android.activities;
+package cste.android.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import cste.android.R;
 import cste.misc.HnadEventLog;
 
 public class HnadLogAdapter extends ArrayAdapter<HnadEventLog>{
+	static final String TAG = "HNAD log adapter";
+	
 	int resourceID;
 	
 	public HnadLogAdapter(Context context, int textViewResourceId) {
