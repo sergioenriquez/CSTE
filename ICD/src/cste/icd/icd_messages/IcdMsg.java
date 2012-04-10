@@ -3,11 +3,11 @@ package cste.icd.icd_messages;
 import java.nio.ByteBuffer;
 
 import cste.icd.components.ComModule;
+import cste.icd.general.IcdHeader;
 import cste.icd.general.IcdPayload;
 import cste.icd.general.KeyProvider;
 import cste.icd.types.DeviceType;
 import cste.icd.types.DeviceUID;
-import cste.icd.types.IcdHeader;
 import cste.icd.types.MsgType;
 import cste.icd.types.UnrestrictedCmdType;
 import static cste.icd.general.Utility.*;

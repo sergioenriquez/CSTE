@@ -71,11 +71,6 @@ public class NetworkManager{
 		pendingTxList.add(pkt);
 	}
 	
-	public void loginToDCP(String username,String password){
-		NetPkt pkt = NetPkt.buildLoginRequestMsg(username, password);
-		pendingTxList.add(pkt);
-	}
-	
 	public int getPendingPktCount(){
 		return pendingTxList.size();
 	}

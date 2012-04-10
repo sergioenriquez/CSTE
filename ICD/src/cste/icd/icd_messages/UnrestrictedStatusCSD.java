@@ -1,7 +1,9 @@
 package cste.icd.icd_messages;
 import java.nio.ByteBuffer;
 
-public class UnrestrictedStatusCSD {
+import cste.icd.general.IcdPayload;
+
+public class UnrestrictedStatusCSD extends IcdPayload{
 	public UnrestrictedStatusCSD(ByteBuffer b) {
 		// TODO Auto-generated method stub
 	}
@@ -15,5 +17,11 @@ public class UnrestrictedStatusCSD {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "";
+	}
+
+	@Override
+	public byte getSize() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

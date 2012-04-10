@@ -25,15 +25,6 @@ public class NetPkt {
 		return new NetPkt(preamble,payload,false);
 	}
 	
-	public static NetPkt buildLoginRequestMsg(String username,String password){
-		Preamble preamble = new Preamble(
-				ICD_REV_NUMBER,
-				FunctionCode.LOGIN_REQUEST,
-				ThisUID);
-		IcdPayload payload = new LoginRequest(username,password);
-		return new NetPkt(preamble,payload,true);
-	}
-	
 	public static NetPkt buildHeartbeatMsg(MaintenaceCode code){
 		Preamble preamble = new Preamble(
 				ICD_REV_NUMBER,

@@ -1,5 +1,5 @@
-<class-diagram version="1.0.7" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
-  associations="true" dependencies="false" nesting-relationships="true">  
+<class-diagram version="1.0.7" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" corner="BOTTOM_RIGHT" language="java" name="cste.icd.components.ComModule" project="ICD" 
     file="/ICD/src/cste/icd/components/ComModule.java" binary="false">    
     <position x="187" y="192" width="-1" height="-1"/>    

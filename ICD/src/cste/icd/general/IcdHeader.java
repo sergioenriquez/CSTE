@@ -1,6 +1,10 @@
-package cste.icd.types;
+package cste.icd.general;
 
 import java.nio.ByteBuffer;
+
+import cste.icd.types.DeviceType;
+import cste.icd.types.DeviceUID;
+import cste.icd.types.MsgType;
 
 
 public class IcdHeader {

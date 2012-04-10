@@ -2,8 +2,8 @@ package cste.icd.icd_messages;
 
 import java.nio.ByteBuffer;
 
+import cste.icd.general.IcdHeader;
 import cste.icd.general.IcdPayload;
-import cste.icd.types.IcdHeader;
 import cste.icd.types.UnrestrictedCmdType;
 
 public class UnrestrictedCmd extends IcdPayload {
