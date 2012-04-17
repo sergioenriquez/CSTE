@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:icon="@android:drawable/ic_menu_send" android:id="@+id/send_command" android:title="@string/send"></item><item android:id="@+id/close" android:icon="@android:drawable/ic_menu_close_clear_cancel" android:title="@string/close"></item>
-</menu>
