@@ -3,25 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
+    
     <TextView
 		android:id="@+id/logID"
 		android:layout_width="20dp"
 		android:layout_height="wrap_content"
 		android:textSize="12sp"/>
+    
 	<TextView
 		android:id="@+id/logTime"
-		android:layout_width="0dp"
-		android:layout_weight="1"
+		android:layout_width="60dp" 
 		android:layout_height="wrap_content"
 		android:textSize="12sp"/>
+
 	<TextView  
 		android:id="@+id/logType"
-		android:layout_width="60dp" 
+		android:layout_width="0dp"
+		android:layout_weight="1"
 		android:layout_height="wrap_content" 
 		android:textSize="12sp"/>
+	
 	<TextView  
 		android:id="@+id/logData"
-		android:layout_width="50dp" 
+		android:layout_width="100dp" 
 		android:layout_height="wrap_content" 
 		android:textSize="12sp"/>
+	
 </LinearLayout>

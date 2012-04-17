@@ -17,7 +17,7 @@ public class ConfigActivity extends HnadBaseActivity {
 	static final String TAG = "Config activity";
 	
 	protected EditText 	mThisUidText;
-	protected EditText 	mFtpAddress;
+	protected EditText 	mAuthHostAddress;
 	protected EditText 	mDcpAddress;
 	protected EditText 	mDcpUid;
 	protected CheckBox 	mUseEncryption;
@@ -30,7 +30,7 @@ public class ConfigActivity extends HnadBaseActivity {
         setWindowTitle(R.string.settings);
         
         mThisUidText = 	(EditText)findViewById(R.id.thisUID);
-        mFtpAddress = 	(EditText)findViewById(R.id.ftpServer);
+        mAuthHostAddress = 	(EditText)findViewById(R.id.authHost);
         mDcpAddress = 	(EditText)findViewById(R.id.dcpServer);
         mDcpUid = 		(EditText)findViewById(R.id.dcpUID);
         mUseEncryption = (CheckBox)findViewById(R.id.ecryptionOn);
@@ -50,8 +50,8 @@ public class ConfigActivity extends HnadBaseActivity {
     	SharedPreferences settings = mHnadCoreService.getSettingsFile();
     	String Android_ID = System.getString(this.getContentResolver(), System.ANDROID_ID).toUpperCase();
     	mThisUidText.setText( settings.getString(SettingsKey.THIS_UID, Android_ID ) );
-    	mFtpAddress.setText( settings.getString(SettingsKey.FTP_ADDR, "attila.sdsu.edu") );
-    	mDcpAddress.setText( settings.getString(SettingsKey.DCP_ADDR, "192.168.1.1") );
+    	mAuthHostAddress.setText( settings.getString(SettingsKey.AUTH_HOST_ADDR, "http://myhomeserver2.dyndns.org/dcp/Admin") );
+    	mDcpAddress.setText( settings.getString(SettingsKey.DCP_ADDR, "localhost") );
     	mDcpUid.setText( settings.getString(SettingsKey.DCP_UID, "0000000000000000") );
     	mUseEncryption.setChecked( settings.getBoolean(SettingsKey.USE_ENC, false) );
     	mNadaBurst.setSelection( settings.getInt(SettingsKey.NADA_BURST, 0) );
@@ -64,7 +64,7 @@ public class ConfigActivity extends HnadBaseActivity {
     	SharedPreferences.Editor editor = settings.edit();
 
     	editor.putString(SettingsKey.THIS_UID, mThisUidText.getText().toString());
-    	editor.putString(SettingsKey.FTP_ADDR, mFtpAddress.getText().toString());
+    	editor.putString(SettingsKey.FTP_ADDR, mAuthHostAddress.getText().toString());
     	editor.putString(SettingsKey.DCP_ADDR, mDcpAddress.getText().toString());
     	editor.putString(SettingsKey.DCP_UID, mDcpUid.getText().toString());
     	editor.putBoolean(SettingsKey.USE_ENC, mUseEncryption.isChecked());

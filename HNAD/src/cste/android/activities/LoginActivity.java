@@ -43,7 +43,6 @@ public class LoginActivity extends HnadBaseActivity {
             public void onClick(View v) {
             	showProgressDialog("Logging in...");
             	mHnadCoreService.login(
-            			"http://192.168.1.1/dcp/Admin",
             			usernameText.getText().toString(), 
             			passwordText.getText().toString());
             }

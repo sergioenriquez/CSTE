@@ -13,6 +13,8 @@ public class EcocLogAdapter extends ArrayAdapter<EventLogICD> {
 	static final String TAG = "ECOC log adapter";
 	int resourceID;
 	
+	static int logRec = 1;
+	
 	public EcocLogAdapter(Context context, int textViewResourceId) {
 		super(context, textViewResourceId);
 		this.resourceID = textViewResourceId;
@@ -22,13 +24,16 @@ public class EcocLogAdapter extends ArrayAdapter<EventLogICD> {
     public View getView(int position, View convertView, ViewGroup parent) {
 		EventLogICD logEntry = getItem(position);
 		
+		
+		
 		if (convertView == null) {
             LayoutInflater vi = (LayoutInflater) getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(this.resourceID, null);
         }
 		
 		TextView id = (TextView) convertView.findViewById(R.id.logID);
-		id.setText(String.valueOf(logEntry.logRecordNum));
+		//id.setText(String.valueOf(logEntry.logRecordNum));
+		id.setText(String.valueOf(logRec++));
 		
 		TextView dateTime = (TextView) convertView.findViewById(R.id.logTime);
 		dateTime.setText(logEntry.timeStamp.toString());

@@ -20,25 +20,11 @@ public class EventLogECM extends EventLogICD{
 	@Override
 	public String getStatusStr(){
 		StringBuilder str = new StringBuilder();
-		str.append(reserved); str.append(',');
-		str.append(operatingMode);str.append(',');
-		str.append(restrictedStatus);str.append(',');
-		str.append(restrictedError);str.append(',');
-		
-//		String gpsStr;
-//		String conveyanceStr;
-//		try {
-//			gpsStr = new String(gpsLocation, "US-ASCII");
-//			conveyanceStr = new String(conveyanceID, "US-ASCII");
-//		} catch (UnsupportedEncodingException e) {
-//			gpsStr = "encoding error";
-//			conveyanceStr = "encoding error";
-//		}
-//		
-//		str.append(gpsStr);str.append(',');
-//		str.append(conveyanceStr);str.append(',');
-		
-		str.append(lockStatus);
+		//str.append("Res "); str.append(reserved); str.append(", ");
+		str.append("OpM "); str.append(operatingMode);str.append(", ");
+		str.append("Sta "); str.append(restrictedStatus);str.append(", ");
+		str.append("Err "); str.append(restrictedError);str.append(", ");
+		str.append("Lck "); str.append(lockStatus);
 		return str.toString();
 	}
 	//outdated

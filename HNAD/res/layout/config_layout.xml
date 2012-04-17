@@ -49,12 +49,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dcpAddrs"/>
+            android:text="Authentication Host"/>
         <EditText
-            android:id="@+id/dcpServer"
+            android:id="@+id/authHost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/dcpAddrs"
+            android:hint="Authentication Host"
             android:singleLine="true"/>
     </TableRow>
     
@@ -65,13 +65,13 @@
 	    <TextView
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="@string/ftpAddrs"/>
+	        android:text="@string/dcpAddrs"/>
 	    <EditText
-	        android:id="@+id/ftpServer"
+	        android:id="@+id/dcpServer"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:enabled="false"
-	        android:hint="@string/ftpAddrs"
+	        android:hint="@string/dcpAddrs"
 	        android:singleLine="true"/>
 	</TableRow>
 

@@ -1,10 +1,11 @@
-#Sun Mar 18 21:19:08 PDT 2012
+#Mon Apr 16 20:17:19 PDT 2012
 threadPanel.stack.col0=130
 emulatorControl.waypoint.desc=107
 logcat.view.colsize.Time=146
 logcat.view.display.filters=false
 emulatorControl.track.first=122
 logcat.view.colsize.PID=50
+lastImageSaveDir=C\:\\Users\\User\\Desktop\\screnshots
 emulatorControl.waypoint.elevation=53
 com.android.ide.eclipse.ddms.explorer.permissions=76
 com.android.ide.eclipse.ddms.explorer.time=42

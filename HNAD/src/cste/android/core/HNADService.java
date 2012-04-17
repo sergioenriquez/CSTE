@@ -34,6 +34,7 @@ import cste.android.network.WebHandler.CommandResult;
 import cste.icd.components.ComModule;
 import cste.icd.components.ECoC;
 import cste.icd.general.KeyProvider;
+import cste.icd.icd_messages.EventLogECM;
 import cste.icd.icd_messages.EventLogICD;
 import cste.icd.icd_messages.IcdMsg;
 import cste.icd.icd_messages.RestrictedStatus;
@@ -78,6 +79,7 @@ public class HNADService extends Service implements KeyProvider {
 	protected int mWaypointIndex;
 	protected boolean mIsLoggedIn;
 	protected String mDcpUsername;
+	protected String mDcpHostAddress;
 	protected ConveyanceID mConveyanceID;// TODO use the custom class
 
 	public void onCreate() {
@@ -102,8 +104,8 @@ public class HNADService extends Service implements KeyProvider {
 		db.storeHnadLog(NadEventLogType.POWER_ON, mDcpUsername);
 		mIsLoggedIn = false;
 
-		db.storeDevice(new ECoC(new DeviceUID("1234567812345678"),
-				new byte[] {}));
+//		db.storeDevice(new ECoC(new DeviceUID("1234567812345678"),
+//				new byte[] {}));
 
 		mSentMsgList = new ArrayList<IcdMsg>(5);
 		mWaitingMsgList = new ArrayList<IcdMsg>(5);
@@ -177,10 +179,10 @@ public class HNADService extends Service implements KeyProvider {
 
 	}
 
-	public void login(String hostUrl, String dcpUsername, String dcpPassword) {
+	public void login(String dcpUsername, String dcpPassword) {
 		mIsLoggedIn = false;
 		AuthenticationProcess task = new AuthenticationProcess();
-		task.execute(new String[] { hostUrl, dcpUsername, dcpPassword });
+		task.execute(new String[] { mDcpHostAddress, dcpUsername, dcpPassword });
 	}
 
 	// Stops transmitting or receiving 802.15.4 messages
@@ -556,16 +558,22 @@ public class HNADService extends Service implements KeyProvider {
 
 		String temp = mSettings.getString(SettingsKey.CONVEYANCE_ID,
 				"ConveyanceID");
-		;
+		
+		mDcpHostAddress = mSettings.getString(SettingsKey.AUTH_HOST_ADDR,
+				"http://myhomeserver2.dyndns.org/dcp/Admin");
+		
 		mConveyanceID = new ConveyanceID(temp);
+		
+		//read the waypoints list
 		String waypointStr = mSettings.getString(SettingsKey.WAYPOINT_LIST,
-				"A4807.038N001131.000E,A4111.033N002222.001E");
+				""); // "A4807.038N001131.000E,A4111.033N002222.001E"
+
 		if (waypointStr != "") {
 			String[] waypointArr = waypointStr.split(",");
 			mWaypointList = Arrays.asList(waypointArr);
 		}
 
-		String ftpHost = "192.168.1.2";
+		String ftpHost = "127.0.0.1";
 		String ftpPassword = "00000000000000000000000000000000";
 		mFtpHandler.configureHost(ftpHost, "x" + thisUIDStr, ftpPassword, 21);
 	}
@@ -743,6 +751,8 @@ public class HNADService extends Service implements KeyProvider {
 
 		public static final String THIS_UID = "THIS_UID";
 		public static final String DCP_UID = "DCP_UID";
+		public static final String AUTH_HOST_ADDR = "AUTH_HOST_ADDR";
+		
 		public static final String DCP_ADDR = "DCP_ADDR";
 		public static final String DCP_PORT = "DCP_PORT";
 

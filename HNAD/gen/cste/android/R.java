@@ -65,6 +65,7 @@ public final class R {
         public static final int ackFailureBox=0x7f090024;
         public static final int ackNo=0x7f090012;
         public static final int addNew=0x7f09004f;
+        public static final int authHost=0x7f090003;
         public static final int authLoginBtn=0x7f090035;
         public static final int authPassword=0x7f090034;
         public static final int authUserLink=0x7f090033;
@@ -77,7 +78,7 @@ public final class R {
         public static final int configFailedBox=0x7f090025;
         public static final int configMalfunctionBox=0x7f09001c;
         public static final int conveyanceID=0x7f090015;
-        public static final int dcpServer=0x7f090003;
+        public static final int dcpServer=0x7f090004;
         public static final int dcpUID=0x7f090002;
         public static final int decryptionErrorBox=0x7f090021;
         public static final int devArmed=0x7f09000c;
@@ -95,7 +96,6 @@ public final class R {
         public static final int erase=0x7f090046;
         public static final int eventlog=0x7f090049;
         public static final int exit=0x7f09004d;
-        public static final int ftpServer=0x7f090004;
         public static final int getRestricted=0x7f090044;
         public static final int getUnrestricted=0x7f090042;
         public static final int gpsLoc=0x7f090013;
