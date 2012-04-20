@@ -2,7 +2,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" corner="BOTTOM_RIGHT" language="java" name="cste.icd.components.ComModule" project="ICD" 
     file="/ICD/src/cste/icd/components/ComModule.java" binary="false">    
-    <position x="187" y="192" width="-1" height="-1"/>    
+    <position x="189" y="209" width="-1" height="-1"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -10,7 +10,7 @@
   </class>  
   <class id="2" corner="BOTTOM_RIGHT" language="java" name="cste.icd.components.ACSD" project="ICD" 
     file="/ICD/src/cste/icd/components/ACSD.java" binary="false">    
-    <position x="723" y="110" width="-1" height="-1"/>    
+    <position x="731" y="9" width="-1" height="-1"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -18,7 +18,7 @@
   </class>  
   <class id="3" corner="BOTTOM_RIGHT" language="java" name="cste.icd.components.CSD" project="ICD" 
     file="/ICD/src/cste/icd/components/CSD.java" binary="false">    
-    <position x="489" y="124" width="-1" height="-1"/>    
+    <position x="503" y="-5" width="-1" height="-1"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -26,7 +26,7 @@
   </class>  
   <class id="4" corner="BOTTOM_RIGHT" language="java" name="cste.icd.components.ECM" project="ICD" 
     file="/ICD/src/cste/icd/components/ECM.java" binary="false">    
-    <position x="711" y="273" width="-1" height="-1"/>    
+    <position x="738" y="259" width="-1" height="-1"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -34,7 +34,7 @@
   </class>  
   <class id="5" corner="BOTTOM_RIGHT" language="java" name="cste.icd.components.ECoC" project="ICD" 
     file="/ICD/src/cste/icd/components/ECoC.java" binary="false">    
-    <position x="480" y="461" width="-1" height="-1"/>    
+    <position x="499" y="311" width="-1" height="-1"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -45,16 +45,16 @@
     <end type="TARGET" refId="1"/>  
   </generalization>  
   <generalization id="7">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
   </generalization>  
   <generalization id="8">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
   <generalization id="9">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
   </generalization>  
   <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    
