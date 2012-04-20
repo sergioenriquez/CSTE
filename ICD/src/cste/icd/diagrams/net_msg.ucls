@@ -2,7 +2,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" corner="BOTTOM_RIGHT" language="java" name="cste.icd.net_messages.NetPkt" project="ICD" 
     file="/ICD/src/cste/icd/net_messages/NetPkt.java" binary="false">    
-    <position x="206" y="358" width="-1" height="-1"/>    
+    <position x="186" y="109" width="-1" height="-1"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -10,7 +10,7 @@
   </class>  
   <class id="2" corner="BOTTOM_RIGHT" language="java" name="cste.icd.net_messages.Preamble" project="ICD" 
     file="/ICD/src/cste/icd/net_messages/Preamble.java" binary="false">    
-    <position x="509" y="527" width="-1" height="-1"/>    
+    <position x="504" y="257" width="-1" height="-1"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -18,7 +18,7 @@
   </class>  
   <class id="3" corner="BOTTOM_RIGHT" language="java" name="cste.icd.general.IcdPayload" project="ICD" 
     file="/ICD/src/cste/icd/general/IcdPayload.java" binary="false">    
-    <position x="497" y="270" width="-1" height="-1"/>    
+    <position x="509" y="93" width="-1" height="-1"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -26,7 +26,7 @@
   </class>  
   <class id="4" corner="BOTTOM_RIGHT" language="java" name="cste.icd.net_messages.ConfigChange" project="ICD" 
     file="/ICD/src/cste/icd/net_messages/ConfigChange.java" binary="false">    
-    <position x="712" y="94" width="-1" height="-1"/>    
+    <position x="763" y="86" width="-1" height="-1"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -34,7 +34,7 @@
   </class>  
   <enumeration id="5" corner="BOTTOM_RIGHT" language="java" name="cste.icd.net_messages.FunctionCode" project="ICD" 
     file="/ICD/src/cste/icd/net_messages/FunctionCode.java" binary="false">    
-    <position x="513" y="779" width="-1" height="-1"/>    
+    <position x="201" y="350" width="-1" height="-1"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -42,7 +42,7 @@
   </enumeration>  
   <class id="6" corner="BOTTOM_RIGHT" language="java" name="cste.icd.net_messages.HeartBeat" project="ICD" 
     file="/ICD/src/cste/icd/net_messages/HeartBeat.java" binary="false">    
-    <position x="770" y="244" width="-1" height="-1"/>    
+    <position x="806" y="230" width="-1" height="-1"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -50,48 +50,52 @@
   </class>  
   <class id="7" corner="BOTTOM_RIGHT" language="java" name="cste.icd.net_messages.HeartBeatResponse" project="ICD" 
     file="/ICD/src/cste/icd/net_messages/HeartBeatResponse.java" binary="false">    
-    <position x="808" y="427" width="-1" height="-1"/>    
+    <position x="851" y="393" width="-1" height="-1"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <association id="8">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="9" name="functionCode"/>      
-      <multiplicity id="10" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="11">    
-    <end type="SOURCE" refId="4"/>    
+  <generalization id="8">    
+    <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
-  <association id="12">    
+  <association id="9">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="13" name="preamble"/>      
-      <multiplicity id="14" minimum="0" maximum="1"/>    
+      <attribute id="10" name="preamble">        
+        <position x="348" y="160" width="50" height="14"/>      
+      </attribute>      
+      <multiplicity id="11" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="15">    
+  <association id="12">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="16" name="payload"/>      
-      <multiplicity id="17" minimum="0" maximum="1"/>    
+      <attribute id="13" name="payload"/>      
+      <multiplicity id="14" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="18">    
+  <generalization id="15">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <generalization id="16">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
-  <generalization id="19">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
+  <association id="17">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="18" name="functionCode">        
+        <position x="342" y="314" width="70" height="14"/>      
+      </attribute>      
+      <multiplicity id="19" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    
     <operations public="true" package="true" protected="true" private="true"/>  
