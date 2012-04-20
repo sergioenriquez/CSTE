@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="33" version="2.0">
 <workbenchAdvisor/>
-<window height="1036" maximized="true" width="1292" x="64" y="0">
+<window height="1036" maximized="true" minimized="true" width="1292" x="2040" y="89">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="229"/>
@@ -17,17 +17,18 @@
 <coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="99" y="22"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="99" y="22"/>
 <coolItem id="org.eclipse.ui.WorkingSetActionSet" itemType="typeToolBarContribution" x="53" y="22"/>
-<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="153" y="22"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="84" y="22"/>
 <coolItem id="org.eclipse.wst.server.ui.internal.webbrowser.actionSet" itemType="typeToolBarContribution" x="38" y="22"/>
 <coolItem id="org.eclipse.wst.ws.explorer.explorer" itemType="typeToolBarContribution" x="38" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
-<coolItem id="com.objectaid.uml.ClassDiagramEditor" itemType="typePlaceholder" x="79" y="22"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="com.objectaid.uml.ClassDiagramEditor" itemType="typeToolBarContribution" x="79" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="com.android.ide.eclipse.editors.layout.LayoutEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="com.android.ide.eclipse.editors.layout.LayoutEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.browser.editor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
@@ -48,79 +49,59 @@
 <part id="5"/>
 <part id="6"/>
 <part id="7"/>
-</presentation>
-</folder>
-</info>
-<info part="org.eclipse.ui.internal.EditorStack@2c42fd38" ratio="0.5911179" ratioLeft="772" ratioRight="534" relationship="2" relative="DefaultEditorWorkbook">
-<folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-<part id="1"/>
-<part id="2"/>
-<part id="3"/>
-<part id="4"/>
-<part id="5"/>
+<part id="8"/>
+<part id="9"/>
+<part id="10"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoginActivity.java" partName="LoginActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/LoginActivity.java" title="LoginActivity.java" tooltip="HNAD/src/cste/android/activities/LoginActivity.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/LoginActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2322" selectionTopPixel="541"/>
+<editor id="com.objectaid.uml.ClassDiagramEditor" name="usbcontrol.ucls" partName="usbcontrol.ucls" path="C:/CSTE/HNAD/src/cste/android/diagrams/usbcontrol.ucls" title="usbcontrol.ucls" tooltip="HNAD/src/cste/android/diagrams/usbcontrol.ucls" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/diagrams/usbcontrol.ucls"/>
 </editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HNADService.java" partName="HNADService.java" path="C:/CSTE/HNAD/src/cste/android/core/HNADService.java" title="HNADService.java" tooltip="HNAD/src/cste/android/core/HNADService.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/core/HNADService.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="17498" selectionTopPixel="992"/>
+<editor id="com.objectaid.uml.ClassDiagramEditor" name="xbee.ucls" partName="xbee.ucls" path="C:/CSTE/HNAD/src/cste/android/diagrams/xbee.ucls" title="xbee.ucls" tooltip="HNAD/src/cste/android/diagrams/xbee.ucls" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/diagrams/xbee.ucls"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ConfigActivity.java" partName="ConfigActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/ConfigActivity.java" title="ConfigActivity.java" tooltip="HNAD/src/cste/android/activities/ConfigActivity.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/ConfigActivity.java"/>
-<editorState selectionHorizontalPixel="179" selectionLength="0" selectionOffset="957" selectionTopPixel="323"/>
+<editor id="com.objectaid.uml.ClassDiagramEditor" name="database.ucls" partName="database.ucls" path="C:/CSTE/HNAD/src/cste/android/diagrams/database.ucls" title="database.ucls" tooltip="HNAD/src/cste/android/diagrams/database.ucls" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/diagrams/database.ucls"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IcdTimestamp.java" partName="IcdTimestamp.java" path="C:/CSTE/ICD/src/cste/icd/types/IcdTimestamp.java" title="IcdTimestamp.java" tooltip="ICD/src/cste/icd/types/IcdTimestamp.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/types/IcdTimestamp.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="12" selectionOffset="822" selectionTopPixel="236"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="WebHandler.java" partName="WebHandler.java" path="C:/CSTE/HNAD/src/cste/android/network/WebHandler.java" title="WebHandler.java" tooltip="HNAD/src/cste/android/network/WebHandler.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/network/WebHandler.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
-<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="ecoc_log_item.xml" partName="ecoc_log_item.xml" path="C:/CSTE/HNAD/res/layout/ecoc_log_item.xml" title="ecoc_log_item.xml" tooltip="HNAD/res/layout/ecoc_log_item.xml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/layout/ecoc_log_item.xml"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NetworkManager.java" partName="NetworkManager.java" path="C:/CSTE/HNAD/src/cste/android/network/NetworkManager.java" title="NetworkManager.java" tooltip="HNAD/src/cste/android/network/NetworkManager.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/network/NetworkManager.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1789" selectionTopPixel="0"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DbHandler.java" partName="DbHandler.java" path="C:/CSTE/HNAD/src/cste/android/db/DbHandler.java" title="DbHandler.java" tooltip="HNAD/src/cste/android/db/DbHandler.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/db/DbHandler.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="5746" selectionTopPixel="3162"/>
+<editor id="com.objectaid.uml.ClassDiagramEditor" name="network.ucls" partName="network.ucls" path="C:/CSTE/HNAD/src/cste/android/diagrams/network.ucls" title="network.ucls" tooltip="HNAD/src/cste/android/diagrams/network.ucls" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/diagrams/network.ucls"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HnadEventLog.java" partName="HnadEventLog.java" path="C:/CSTE/HNAD/src/cste/misc/HnadEventLog.java" title="HnadEventLog.java" tooltip="HNAD/src/cste/misc/HnadEventLog.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/misc/HnadEventLog.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="12" selectionOffset="449" selectionTopPixel="0"/>
+<editor id="org.eclipse.ui.DefaultTextEditor" name="test1.useq" partName="test1.useq" path="C:/CSTE/ICD/src/cste/icd/sequences/test1.useq" title="test1.useq" tooltip="ICD/src/cste/icd/sequences/test1.useq" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/sequences/test1.useq"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EcocLogAdapter.java" partName="EcocLogAdapter.java" path="C:/CSTE/HNAD/src/cste/android/adapters/EcocLogAdapter.java" title="EcocLogAdapter.java" tooltip="HNAD/src/cste/android/adapters/EcocLogAdapter.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/adapters/EcocLogAdapter.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="458" selectionTopPixel="0"/>
+<editor id="com.objectaid.uml.ClassDiagramEditor" name="components.ucls" partName="components.ucls" path="C:/CSTE/ICD/src/cste/icd/diagrams/components.ucls" title="components.ucls" tooltip="ICD/src/cste/icd/diagrams/components.ucls" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/diagrams/components.ucls"/>
 </editor>
-<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="config_layout.xml" partName="config_layout.xml" path="C:/CSTE/HNAD/res/layout/config_layout.xml" title="config_layout.xml" tooltip="HNAD/res/layout/config_layout.xml" workbook="org.eclipse.ui.internal.EditorStack@2c42fd38">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/layout/config_layout.xml"/>
+<editor activePart="true" focus="true" id="com.objectaid.uml.ClassDiagramEditor" name="icd_msg.ucls" partName="icd_msg.ucls" path="C:/CSTE/ICD/src/cste/icd/diagrams/icd_msg.ucls" title="icd_msg.ucls" tooltip="ICD/src/cste/icd/diagrams/icd_msg.ucls" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/diagrams/icd_msg.ucls"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogICD.java" partName="EventLogICD.java" path="C:/CSTE/ICD/src/cste/icd/icd_messages/EventLogICD.java" title="EventLogICD.java" tooltip="ICD/src/cste/icd/icd_messages/EventLogICD.java" workbook="org.eclipse.ui.internal.EditorStack@2c42fd38">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/icd_messages/EventLogICD.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="12" selectionOffset="550" selectionTopPixel="0"/>
+<editor id="com.objectaid.uml.ClassDiagramEditor" name="net_msg.ucls" partName="net_msg.ucls" path="C:/CSTE/ICD/src/cste/icd/diagrams/net_msg.ucls" title="net_msg.ucls" tooltip="ICD/src/cste/icd/diagrams/net_msg.ucls" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/diagrams/net_msg.ucls"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogECM.java" partName="EventLogECM.java" path="C:/CSTE/ICD/src/cste/icd/icd_messages/EventLogECM.java" title="EventLogECM.java" tooltip="ICD/src/cste/icd/icd_messages/EventLogECM.java" workbook="org.eclipse.ui.internal.EditorStack@2c42fd38">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/icd_messages/EventLogECM.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="537" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EcmEventLogType.java" partName="EcmEventLogType.java" path="C:/CSTE/ICD/src/cste/icd/types/EcmEventLogType.java" title="EcmEventLogType.java" tooltip="ICD/src/cste/icd/types/EcmEventLogType.java" workbook="org.eclipse.ui.internal.EditorStack@2c42fd38">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/types/EcmEventLogType.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1152" selectionTopPixel="0"/>
-</editor>
-<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="ecoc_log_layout.xml" partName="ecoc_log_layout.xml" path="C:/CSTE/HNAD/res/layout/ecoc_log_layout.xml" title="ecoc_log_layout.xml" tooltip="HNAD/res/layout/ecoc_log_layout.xml" workbook="org.eclipse.ui.internal.EditorStack@2c42fd38">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/layout/ecoc_log_layout.xml"/>
-</editor>
-<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LauncherActivity.java" partName="LauncherActivity.java" path="C:/CSTE/HNAD/src/cste/android/activities/LauncherActivity.java" title="LauncherActivity.java" tooltip="HNAD/src/cste/android/activities/LauncherActivity.java" workbook="org.eclipse.ui.internal.EditorStack@2c42fd38">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/activities/LauncherActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="12" selectionOffset="865" selectionTopPixel="0"/>
+<editor id="com.objectaid.uml.ClassDiagramEditor" name="payloads.ucls" partName="payloads.ucls" path="C:/CSTE/ICD/src/cste/icd/diagrams/payloads.ucls" title="payloads.ucls" tooltip="ICD/src/cste/icd/diagrams/payloads.ucls" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ICD/src/cste/icd/diagrams/payloads.ucls"/>
 </editor>
 </editors>
 <views>
 <view id="com.android.ide.eclipse.ddms.views.LogCatView" partName="LogCat">
 <viewState/>
+</view>
+<view id="org.eclipse.search.ui.views.SearchView" partName="Search">
+<viewState isPinned="false">
+<view IMemento.internal.id="org.eclipse.jdt.ui.JavaSearchResultPage" org.eclipse.jdt.search.resultpage.grouping="3" org.eclipse.jdt.search.resultpage.limit="1000" org.eclipse.jdt.search.resultpage.limit_enabled="TRUE" org.eclipse.jdt.search.resultpage.sorting="1" org.eclipse.search.lastActivation="1" org.eclipse.search.resultpage.layout="2"/>
+<view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
+</viewState>
 </view>
 <view id="com.android.ide.eclipse.ddms.views.DeviceView" partName="Devices">
 <viewState/>
@@ -186,7 +167,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="com.objectaid.uml.ClassDiagramEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -260,11 +241,12 @@
 <view id="org.eclipse.ui.console.ConsoleView" ratio="0.2994709"/>
 </fastViews>
 </fastViewBar>
-<fastViewBar fastViewLocation="1024" id="bottom" orientation="256" selectedTabId="com.android.ide.eclipse.ddms.views.LogCatView" style="0">
+<fastViewBar fastViewLocation="1024" id="bottom" orientation="256" selectedTabId="org.eclipse.search.ui.views.SearchView" style="0">
 <fastViews>
 <view id="org.eclipse.jdt.ui.JavadocView" ratio="0.3"/>
 <view id="org.eclipse.jdt.ui.SourceView" ratio="0.3"/>
 <view id="com.android.ide.eclipse.ddms.views.LogCatView" ratio="0.2994709"/>
+<view id="org.eclipse.search.ui.views.SearchView" ratio="0.21587302"/>
 </fastViews>
 </fastViewBar>
 </fastViewBars>
@@ -317,7 +299,7 @@
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.18442367" ratioLeft="296" ratioRight="1309" relationship="2" relative="org.eclipse.ui.internal.ViewStack@734f0076"/>
 </mainWindow>
-<detachedWindow height="293" width="1280" x="1754" y="720">
+<detachedWindow height="293" width="1280" x="256" y="679">
 <folder activePageID="org.eclipse.pde.runtime.LogView" appearance="2" expanded="2">
 <page content="org.eclipse.pde.runtime.LogView" label="Error Log"/>
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
@@ -327,7 +309,7 @@
 </presentation>
 </folder>
 </detachedWindow>
-<detachedWindow height="1050" width="422" x="2880" y="0">
+<detachedWindow height="833" width="422" x="1164" y="134">
 <folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -483,39 +465,55 @@
 <view id="com.android.ide.eclipse.ddms.views.LogCatView"/>
 <view id="com.android.ide.eclipse.ddms.views.DeviceView"/>
 <fastViewBars/>
-<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="devices">&#x0A;<folder activePageID="com.android.ide.eclipse.ddms.views.DeviceView" appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.DeviceView" label="Devices"/>
+<layout>
+<mainWindow>
+<info folder="true" part="devices">
+<folder activePageID="com.android.ide.eclipse.ddms.views.DeviceView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.DeviceView" label="Devices"/>
 <page content="com.android.ide.eclipse.ddms.views.DeviceView:*" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="devices">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="devices">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="logcat" ratio="0.8" ratioLeft="756" ratioRight="189" relationship="4" relative="devices">&#x0A;<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
+<info folder="true" part="logcat" ratio="0.8" ratioLeft="756" ratioRight="189" relationship="4" relative="devices">
+<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
 <page content="com.android.ide.eclipse.ddms.views.LogCatView:*" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.29964116" ratioLeft="501" ratioRight="1171" relationship="2" relative="devices"/>
-<info folder="true" part="ddms-detail" ratio="0.49957302" ratioLeft="585" ratioRight="586" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="com.android.ide.eclipse.ddms.views.ThreadView" appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.ThreadView" label="LabelNotFound"/>
+<info folder="true" part="ddms-detail" ratio="0.49957302" ratioLeft="585" ratioRight="586" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="com.android.ide.eclipse.ddms.views.ThreadView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.ThreadView" label="LabelNotFound"/>
 <page content="com.android.ide.eclipse.ddms.views.HeapView" label="LabelNotFound"/>
 <page content="com.android.ide.eclipse.ddms.views.AllocTrackerView" label="LabelNotFound"/>
 <page content="com.android.ide.eclipse.ddms.views.FileExplorerView" label="LabelNotFound"/>
 <page content="com.android.ide.eclipse.ddms.views.ThreadView:*" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="emulator" ratio="0.5" ratioLeft="378" ratioRight="378" relationship="4" relative="devices">&#x0A;<folder activePageID="com.android.ide.eclipse.ddms.views.EmulatorControlView" appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.EmulatorControlView" label="LabelNotFound"/>
+<info folder="true" part="emulator" ratio="0.5" ratioLeft="378" ratioRight="378" relationship="4" relative="devices">
+<folder activePageID="com.android.ide.eclipse.ddms.views.EmulatorControlView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.EmulatorControlView" label="LabelNotFound"/>
 <page content="com.android.ide.eclipse.ddms.views.EmulatorControlView:*" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
@@ -526,118 +524,127 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ICD/src/cste/icd/icd_messages/EventLogICD.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ICD/src/cste/icd/icd_messages/EventLogECM.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/HNAD/res/layout/ecoc_log_item.xml"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/HNAD/res/layout/ecoc_log_layout.xml"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/adapters/EcocLogAdapter.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ICD/src/cste/icd/types/EcmEventLogType.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/HNADService.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/HNAD/res/layout/ecoc_log_layout.xml"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ICD/src/cste/icd/icd_messages/EventLogECM.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/activities/LauncherActivity.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/HNADService.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/adapters/HnadLogAdapter.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" path="/HNAD/src/cste/android/diagrams/HnadService.ucls"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" path="/HNAD/src/cste/android/diagrams/Activities.ucls"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" path="/HNAD/src/cste/android/diagrams/HNAD service.ucls"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/diagrams/UsbControl.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" path="/HNAD/src/cste/android/diagrams/Overall"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/adapters/EcocLogAdapter.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" path="/HNAD/src/cste/android/diagrams/usbcontrol.ucls"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/UsbCommManager.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" path="/HNAD/src/cste/android/diagrams/xbee.ucls"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" path="/HNAD/src/cste/android/diagrams/database.ucls"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/network/WebHandler.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/network/NetworkManager.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" path="/HNAD/src/cste/android/diagrams/network.ucls"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/ICD/src/cste/icd/sequences/test1.useq"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" path="/ICD/src/cste/icd/diagrams/components.ucls"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" path="/ICD/src/cste/icd/diagrams/icd_msg.ucls"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" path="/ICD/src/cste/icd/diagrams/net_msg.ucls"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" path="/ICD/src/cste/icd/diagrams/payloads.ucls"/>
 </editors>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="EventLogICD.java" index="0">
-<position info="not_deleted" x="322" y="0"/>
-</item>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="EventLogICD.java" index="0">
-<position info="not_deleted" x="462" y="8"/>
-</item>
-<item historyLabel="EcocLogAdapter.java" index="4">
-<position info="not_deleted" x="1517" y="12"/>
-</item>
-<item historyLabel="EventLogICD.java" index="0">
-<position info="not_deleted" x="550" y="12"/>
-</item>
-<item historyLabel="EventLogECM.java" index="1">
-<position/>
-</item>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="ecoc_log_layout.xml" index="3"/>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="ecoc_log_layout.xml" index="3"/>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="ecoc_log_layout.xml" index="3"/>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="ecoc_log_layout.xml" index="3"/>
-<item historyLabel="EventLogECM.java" index="1">
-<position info="not_deleted" x="768" y="0"/>
-</item>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="EventLogECM.java" index="1">
-<position info="not_deleted" x="255" y="0"/>
-</item>
-<item historyLabel="EcocLogAdapter.java" index="4">
-<position info="not_deleted" x="1144" y="0"/>
-</item>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="ecoc_log_layout.xml" index="3"/>
-<item historyLabel="EventLogECM.java" index="1">
-<position info="not_deleted" x="255" y="0"/>
-</item>
-<item historyLabel="EcocLogAdapter.java" index="4">
-<position info="not_deleted" x="1050" y="0"/>
-</item>
-<item historyLabel="EventLogECM.java" index="1">
-<position info="not_deleted" x="847" y="0"/>
-</item>
-<item historyLabel="EcocLogAdapter.java" index="4">
-<position info="not_deleted" x="462" y="0"/>
-</item>
-<item historyLabel="EventLogECM.java" index="1">
+<item historyLabel="EventLogECM.java" index="0">
 <position info="not_deleted" x="239" y="0"/>
 </item>
-<item historyLabel="ecoc_log_layout.xml" index="3"/>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="ecoc_log_layout.xml" index="3"/>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="ecoc_log_layout.xml" index="3"/>
-<item historyLabel="EcmEventLogType.java" index="5">
-<position info="not_deleted" x="1152" y="0"/>
-</item>
-<item historyLabel="EventLogECM.java" index="1">
-<position info="not_deleted" x="239" y="0"/>
-</item>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="EcocLogAdapter.java" index="4">
+<item historyLabel="ecoc_log_item.xml" index="1"/>
+<item historyLabel="EcocLogAdapter.java" index="3">
 <position info="not_deleted" x="462" y="0"/>
 </item>
-<item historyLabel="EventLogECM.java" index="1">
+<item historyLabel="EventLogECM.java" index="0">
 <position info="not_deleted" x="819" y="0"/>
 </item>
-<item historyLabel="EcocLogAdapter.java" index="4">
+<item historyLabel="EcocLogAdapter.java" index="3">
 <position info="not_deleted" x="458" y="0"/>
 </item>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="EventLogECM.java" index="1">
+<item historyLabel="ecoc_log_item.xml" index="1"/>
+<item historyLabel="EventLogECM.java" index="0">
 <position info="not_deleted" x="819" y="0"/>
 </item>
-<item historyLabel="ecoc_log_layout.xml" index="3"/>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="ecoc_log_layout.xml" index="3"/>
-<item historyLabel="ecoc_log_item.xml" index="2"/>
-<item historyLabel="HNADService.java" index="6">
+<item historyLabel="ecoc_log_layout.xml" index="2"/>
+<item historyLabel="ecoc_log_item.xml" index="1"/>
+<item historyLabel="ecoc_log_layout.xml" index="2"/>
+<item historyLabel="ecoc_log_item.xml" index="1"/>
+<item historyLabel="HNADService.java" index="4">
 <position info="not_deleted" x="6652" y="0"/>
 </item>
-<item historyLabel="HNADService.java" index="6">
+<item historyLabel="HNADService.java" index="4">
 <position info="not_deleted" x="11999" y="17"/>
 </item>
-<item historyLabel="HNADService.java" index="6">
+<item historyLabel="HNADService.java" index="4">
 <position info="not_deleted" x="16441" y="12"/>
 </item>
-<item historyLabel="ecoc_log_layout.xml" index="7"/>
-<item historyLabel="EventLogECM.java" index="8">
+<item historyLabel="ecoc_log_layout.xml" index="5"/>
+<item historyLabel="EventLogECM.java" index="6">
 <position info="not_deleted" x="821" y="0"/>
 </item>
-<item historyLabel="LauncherActivity.java" index="9">
+<item historyLabel="LauncherActivity.java" index="7">
 <position info="not_deleted" x="865" y="12"/>
 </item>
-<item active="true" historyLabel="HNADService.java" index="10">
+<item historyLabel="HNADService.java" index="8">
 <position info="not_deleted" x="17498" y="0"/>
 </item>
+<item historyLabel="HnadLogAdapter.java" index="9">
+<position info="not_deleted" x="1354" y="0"/>
+</item>
+<item historyLabel="HnadService.ucls" index="10"/>
+<item historyLabel="Activities.ucls" index="11"/>
+<item historyLabel="HnadService.ucls" index="10"/>
+<item historyLabel="HNAD service.ucls" index="12"/>
+<item historyLabel="HnadService.ucls" index="10"/>
+<item historyLabel="HNADService.java" index="8">
+<position info="not_deleted" x="20512" y="13"/>
+</item>
+<item historyLabel="HnadService.ucls" index="10"/>
+<item historyLabel="HNADService.java" index="8">
+<position info="not_deleted" x="2519" y="2"/>
+</item>
+<item historyLabel="HNAD service.ucls" index="12"/>
+<item historyLabel="HNADService.java" index="8">
+<position info="not_deleted" x="2519" y="2"/>
+</item>
+<item historyLabel="HnadService.ucls" index="10"/>
+<item historyLabel="UsbControl.java" index="13">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Overall" index="14"/>
+<item historyLabel="EcocLogAdapter.java" index="15">
+<position info="not_deleted" x="458" y="0"/>
+</item>
+<item historyLabel="usbcontrol.ucls" index="16"/>
+<item historyLabel="UsbCommManager.java" index="17">
+<position info="not_deleted" x="6164" y="9"/>
+</item>
+<item historyLabel="usbcontrol.ucls" index="16"/>
+<item historyLabel="xbee.ucls" index="18"/>
+<item historyLabel="database.ucls" index="19"/>
+<item historyLabel="WebHandler.java" index="20">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="NetworkManager.java" index="21">
+<position info="not_deleted" x="1789" y="0"/>
+</item>
+<item historyLabel="network.ucls" index="22"/>
+<item historyLabel="test1.useq" index="23">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="components.ucls" index="24"/>
+<item historyLabel="icd_msg.ucls" index="25"/>
+<item historyLabel="net_msg.ucls" index="26"/>
+<item historyLabel="icd_msg.ucls" index="25"/>
+<item historyLabel="components.ucls" index="24"/>
+<item historyLabel="payloads.ucls" index="27"/>
+<item historyLabel="components.ucls" index="24"/>
+<item active="true" historyLabel="icd_msg.ucls" index="25"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -658,47 +665,50 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LauncherActivity.java" tooltip="HNAD/src/cste/android/activities/LauncherActivity.java">
-<persistable path="/HNAD/src/cste/android/activities/LauncherActivity.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" name="payloads.ucls" tooltip="ICD/src/cste/icd/diagrams/payloads.ucls">
+<persistable path="/ICD/src/cste/icd/diagrams/payloads.ucls"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HnadEventLog.java" tooltip="HNAD/src/cste/misc/HnadEventLog.java">
-<persistable path="/HNAD/src/cste/misc/HnadEventLog.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" name="net_msg.ucls" tooltip="ICD/src/cste/icd/diagrams/net_msg.ucls">
+<persistable path="/ICD/src/cste/icd/diagrams/net_msg.ucls"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DbHandler.java" tooltip="HNAD/src/cste/android/db/DbHandler.java">
-<persistable path="/HNAD/src/cste/android/db/DbHandler.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" name="icd_msg.ucls" tooltip="ICD/src/cste/icd/diagrams/icd_msg.ucls">
+<persistable path="/ICD/src/cste/icd/diagrams/icd_msg.ucls"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EcocLogAdapter.java" tooltip="HNAD/src/cste/android/adapters/EcocLogAdapter.java">
-<persistable path="/HNAD/src/cste/android/adapters/EcocLogAdapter.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" name="components.ucls" tooltip="ICD/src/cste/icd/diagrams/components.ucls">
+<persistable path="/ICD/src/cste/icd/diagrams/components.ucls"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="ecoc_log_layout.xml" tooltip="HNAD/res/layout/ecoc_log_layout.xml">
-<persistable path="/HNAD/res/layout/ecoc_log_layout.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="test1.useq" tooltip="ICD/src/cste/icd/sequences/test1.useq">
+<persistable path="/ICD/src/cste/icd/sequences/test1.useq"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="ecoc_log_item.xml" tooltip="HNAD/res/layout/ecoc_log_item.xml">
-<persistable path="/HNAD/res/layout/ecoc_log_item.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" name="network.ucls" tooltip="HNAD/src/cste/android/diagrams/network.ucls">
+<persistable path="/HNAD/src/cste/android/diagrams/network.ucls"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EcmEventLogType.java" tooltip="ICD/src/cste/icd/types/EcmEventLogType.java">
-<persistable path="/ICD/src/cste/icd/types/EcmEventLogType.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NetworkManager.java" tooltip="HNAD/src/cste/android/network/NetworkManager.java">
+<persistable path="/HNAD/src/cste/android/network/NetworkManager.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IcdTimestamp.java" tooltip="ICD/src/cste/icd/types/IcdTimestamp.java">
-<persistable path="/ICD/src/cste/icd/types/IcdTimestamp.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="WebHandler.java" tooltip="HNAD/src/cste/android/network/WebHandler.java">
+<persistable path="/HNAD/src/cste/android/network/WebHandler.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogECM.java" tooltip="ICD/src/cste/icd/icd_messages/EventLogECM.java">
-<persistable path="/ICD/src/cste/icd/icd_messages/EventLogECM.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" name="database.ucls" tooltip="HNAD/src/cste/android/diagrams/database.ucls">
+<persistable path="/HNAD/src/cste/android/diagrams/database.ucls"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EventLogICD.java" tooltip="ICD/src/cste/icd/icd_messages/EventLogICD.java">
-<persistable path="/ICD/src/cste/icd/icd_messages/EventLogICD.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" name="xbee.ucls" tooltip="HNAD/src/cste/android/diagrams/xbee.ucls">
+<persistable path="/HNAD/src/cste/android/diagrams/xbee.ucls"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="config_layout.xml" tooltip="HNAD/res/layout/config_layout.xml">
-<persistable path="/HNAD/res/layout/config_layout.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UsbCommManager.java" tooltip="HNAD/src/cste/android/core/UsbCommManager.java">
+<persistable path="/HNAD/src/cste/android/core/UsbCommManager.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ConfigActivity.java" tooltip="HNAD/src/cste/android/activities/ConfigActivity.java">
-<persistable path="/HNAD/src/cste/android/activities/ConfigActivity.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" name="usbcontrol.ucls" tooltip="HNAD/src/cste/android/diagrams/usbcontrol.ucls">
+<persistable path="/HNAD/src/cste/android/diagrams/usbcontrol.ucls"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HNADService.java" tooltip="HNAD/src/cste/android/core/HNADService.java">
-<persistable path="/HNAD/src/cste/android/core/HNADService.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UsbControl.java" tooltip="HNAD/src/cste/android/diagrams/UsbControl.java">
+<persistable path="/HNAD/src/cste/android/diagrams/UsbControl.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoginActivity.java" tooltip="HNAD/src/cste/android/activities/LoginActivity.java">
-<persistable path="/HNAD/src/cste/android/activities/LoginActivity.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.systemExternalEditor" name="HnadService.PNG" tooltip="HNAD/src/cste/android/diagrams/HnadService.PNG">
+<persistable path="/HNAD/src/cste/android/diagrams/HnadService.PNG"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" name="HNAD service.ucls" tooltip="HNAD/src/cste/android/diagrams/HNAD service.ucls">
+<persistable path="/HNAD/src/cste/android/diagrams/HNAD service.ucls"/>
 </file>
 </mruList>
 </workbench>
