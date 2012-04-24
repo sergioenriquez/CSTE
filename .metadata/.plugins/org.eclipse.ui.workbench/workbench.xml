@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="41" version="2.0">
+<workbench progressCount="30" version="2.0">
 <workbenchAdvisor/>
 <window height="1036" maximized="true" width="1292" x="2040" y="89">
 <fastViewData fastViewLocation="1024"/>
@@ -21,7 +21,7 @@
 <coolItem id="org.eclipse.wst.server.ui.internal.webbrowser.actionSet" itemType="typeToolBarContribution" x="38" y="22"/>
 <coolItem id="org.eclipse.wst.ws.explorer.explorer" itemType="typeToolBarContribution" x="38" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="61" y="22"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
@@ -99,7 +99,7 @@
 </editor>
 <editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HNADService.java" partName="HNADService.java" path="C:/CSTE/HNAD/src/cste/android/core/HNADService.java" title="HNADService.java" tooltip="HNAD/src/cste/android/core/HNADService.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/core/HNADService.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="21" selectionOffset="20948" selectionTopPixel="10429"/>
+<editorState selectionHorizontalPixel="0" selectionLength="21" selectionOffset="20948" selectionTopPixel="10483"/>
 </editor>
 </editors>
 <views>
@@ -540,8 +540,8 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/network/WebHandler.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/network/NetworkManager.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/ICD/src/cste/icd/sequences/test1.useq"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/HNADService.java"/>
 </editors>
-<item historyLabel="ecoc_log_item.xml" index="1"/>
 <item historyLabel="EventLogECM.java" index="0">
 <position info="not_deleted" x="819" y="0"/>
 </item>
@@ -630,8 +630,11 @@
 <item historyLabel="NetworkManager.java" index="30">
 <position info="not_deleted" x="1789" y="0"/>
 </item>
-<item active="true" historyLabel="test1.useq" index="31">
+<item historyLabel="test1.useq" index="31">
 <position info="not_deleted" x="0" y="0"/>
+</item>
+<item active="true" historyLabel="HNADService.java" index="32">
+<position info="not_deleted" x="20948" y="21"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
