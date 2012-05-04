@@ -1,4 +1,4 @@
-#Thu Apr 19 21:21:25 PDT 2012
+#Thu May 03 20:20:03 PDT 2012
 threadPanel.stack.col0=130
 emulatorControl.waypoint.desc=107
 logcat.view.colsize.Time=146
@@ -11,7 +11,7 @@ com.android.ide.eclipse.ddms.explorer.permissions=76
 com.android.ide.eclipse.ddms.explorer.time=42
 com.android.ide.eclipse.ddms.explorer.info=76
 com.android.ide.eclipse.ddms.explorer.data=73
-logcat.view.colsize.Tag=135
+logcat.view.colsize.Tag=241
 logcat.view.colsize.Level=47
 emulatorControl.waypoint.name=79
 allocPanel.Col00=74

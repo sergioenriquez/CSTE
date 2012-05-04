@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="30" version="2.0">
+<workbench progressCount="31" version="2.0">
 <workbenchAdvisor/>
-<window height="1036" maximized="true" width="1292" x="2040" y="89">
-<fastViewData fastViewLocation="1024"/>
+<window height="1036" maximized="true" width="1292" x="-164" y="146">
+<fastViewData fastViewLocation="1024">
+<orientation position="512" view="com.android.ide.eclipse.ddms.views.LogCatView"/>
+</fastViewData>
 <perspectiveBar>
-<itemSize x="229"/>
+<itemSize x="475"/>
 </perspectiveBar>
 <coolbarLayout locked="0">
 <coolItem id="group.file" itemType="typeGroupMarker"/>
@@ -21,7 +23,7 @@
 <coolItem id="org.eclipse.wst.server.ui.internal.webbrowser.actionSet" itemType="typeToolBarContribution" x="38" y="22"/>
 <coolItem id="org.eclipse.wst.ws.explorer.explorer" itemType="typeToolBarContribution" x="38" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
@@ -35,7 +37,7 @@
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
-<page aggregateWorkingSetId="Aggregate for window 1330402922590" focus="true" label="Workspace - Java">
+<page aggregateWorkingSetId="Aggregate for window 1330402922590" focus="true" label="Workspace - Debug">
 <editors>
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
@@ -54,6 +56,7 @@
 <part id="10"/>
 <part id="11"/>
 <part id="12"/>
+<part id="13"/>
 </presentation>
 </folder>
 </info>
@@ -97,9 +100,12 @@
 <editor id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" name="accessory_filter.xml" partName="accessory_filter.xml" path="C:/CSTE/HNAD/res/xml/accessory_filter.xml" title="accessory_filter.xml" tooltip="HNAD/res/xml/accessory_filter.xml" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/res/xml/accessory_filter.xml"/>
 </editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HNADService.java" partName="HNADService.java" path="C:/CSTE/HNAD/src/cste/android/core/HNADService.java" title="HNADService.java" tooltip="HNAD/src/cste/android/core/HNADService.java" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HNADService.java" partName="HNADService.java" path="C:/CSTE/HNAD/src/cste/android/core/HNADService.java" title="HNADService.java" tooltip="HNAD/src/cste/android/core/HNADService.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/src/cste/android/core/HNADService.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="21" selectionOffset="20948" selectionTopPixel="10483"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="21015" selectionTopPixel="10483"/>
+</editor>
+<editor activePart="true" focus="true" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" partName="HNAD Manifest" path="C:/CSTE/HNAD/AndroidManifest.xml" title="HNAD Manifest" tooltip="HNAD/AndroidManifest.xml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HNAD/AndroidManifest.xml"/>
 </editor>
 </editors>
 <views>
@@ -173,7 +179,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="com.android.ide.eclipse.editors.manifest.ManifestEditor" activePerspective="org.eclipse.debug.ui.DebugPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -304,7 +310,7 @@
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.14739364" ratioLeft="246" ratioRight="1423" relationship="2" relative="org.eclipse.ui.internal.ViewStack@734f0076"/>
 </mainWindow>
-<detachedWindow height="293" width="1280" x="256" y="679">
+<detachedWindow height="293" width="1280" x="1816" y="700">
 <folder activePageID="org.eclipse.pde.runtime.LogView" appearance="2" expanded="2">
 <page content="org.eclipse.pde.runtime.LogView" label="Error Log"/>
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
@@ -363,24 +369,31 @@
 <perspective_action id="org.eclipse.wst.xml.ui.perspective"/>
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
-<view id="com.android.ide.eclipse.ddms.views.LogCatView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.debug.ui.VariableView"/>
 <view id="org.eclipse.pde.runtime.LogView"/>
 <view id="org.eclipse.debug.ui.DebugView"/>
 <fastViewBars/>
-<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<layout>
+<mainWindow>
+<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.PackageExplorer" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.8036094" ratioLeft="757" ratioRight="185" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.8036094" ratioLeft="757" ratioRight="185" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.debug.ui.DisplayView" label="LabelNotFound"/>
 <page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
@@ -388,39 +401,54 @@
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.33333334" ratioLeft="185" ratioRight="370" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
-<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@53a49240" ratio="0.5" ratioLeft="803" ratioRight="803" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@53a49240" ratio="0.5" ratioLeft="803" ratioRight="803" relationship="2" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="836" ratioRight="836" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="836" ratioRight="836" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 </mainWindow>
-<detachedWindow height="562" width="1659" x="1701" y="488">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
+<detachedWindow height="363" width="1659" x="1701" y="687">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
-<part id="1"/>
+<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </detachedWindow>
-<detachedWindow height="728" width="807" x="2553" y="43">&#x0A;<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<detachedWindow height="659" width="807" x="2553" y="43">
+<folder activePageID="org.eclipse.pde.runtime.LogView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
 <page content="org.eclipse.pde.runtime.LogView" label="Error Log"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 <part id="1"/>
 </presentation>
 </folder>
 </detachedWindow>
-<detachedWindow height="576" width="348" x="1680" y="15">&#x0A;<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<detachedWindow height="576" width="348" x="1680" y="15">
+<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </detachedWindow>
-<hiddenWindow height="607" width="404" x="2098" y="182">&#x0A;<view id="org.eclipse.ui.views.ContentOutline"/>
+<hiddenWindow height="607" width="404" x="2098" y="182">
+<view id="org.eclipse.ui.views.ContentOutline"/>
 <view id="org.eclipse.ui.views.TaskList"/>
 <view id="org.eclipse.debug.ui.BreakpointView"/>
 <view id="org.eclipse.debug.ui.ExpressionView"/>
@@ -463,41 +491,60 @@
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <view id="com.android.ide.eclipse.ddms.views.LogCatView"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="com.android.ide.eclipse.ddms.views.DeviceView"/>
 <fastViewBars/>
-<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="devices">&#x0A;<folder activePageID="com.android.ide.eclipse.ddms.views.DeviceView" appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.DeviceView" label="Devices"/>
+<layout>
+<mainWindow>
+<info folder="true" part="devices">
+<folder activePageID="com.android.ide.eclipse.ddms.views.DeviceView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.DeviceView" label="Devices"/>
 <page content="com.android.ide.eclipse.ddms.views.DeviceView:*" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="devices">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1254" ratioRight="418" relationship="2" relative="devices">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="logcat" ratio="0.8" ratioLeft="756" ratioRight="189" relationship="4" relative="devices">&#x0A;<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
+<info folder="true" part="logcat" ratio="0.32590234" ratioLeft="307" ratioRight="635" relationship="4" relative="devices">
+<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="com.android.ide.eclipse.ddms.views.LogCatView:*" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
 </presentation>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.29964116" ratioLeft="501" ratioRight="1171" relationship="2" relative="devices"/>
-<info folder="true" part="ddms-detail" ratio="0.49957302" ratioLeft="585" ratioRight="586" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="com.android.ide.eclipse.ddms.views.ThreadView" appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.ThreadView" label="LabelNotFound"/>
+<info folder="true" part="ddms-detail" ratio="0.49957302" ratioLeft="585" ratioRight="586" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="com.android.ide.eclipse.ddms.views.ThreadView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.ThreadView" label="LabelNotFound"/>
 <page content="com.android.ide.eclipse.ddms.views.HeapView" label="LabelNotFound"/>
 <page content="com.android.ide.eclipse.ddms.views.AllocTrackerView" label="LabelNotFound"/>
 <page content="com.android.ide.eclipse.ddms.views.FileExplorerView" label="LabelNotFound"/>
 <page content="com.android.ide.eclipse.ddms.views.ThreadView:*" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="emulator" ratio="0.5" ratioLeft="378" ratioRight="378" relationship="4" relative="devices">&#x0A;<folder activePageID="com.android.ide.eclipse.ddms.views.EmulatorControlView" appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.EmulatorControlView" label="LabelNotFound"/>
+<info folder="true" part="emulator" ratio="0.5" ratioLeft="378" ratioRight="378" relationship="4" relative="devices">
+<folder activePageID="com.android.ide.eclipse.ddms.views.EmulatorControlView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.EmulatorControlView" label="LabelNotFound"/>
 <page content="com.android.ide.eclipse.ddms.views.EmulatorControlView:*" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
@@ -508,7 +555,6 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ICD/src/cste/icd/icd_messages/EventLogECM.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/HNAD/res/layout/ecoc_log_item.xml"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/HNAD/res/layout/ecoc_log_layout.xml"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/HNADService.java"/>
@@ -541,101 +587,100 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/network/NetworkManager.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/ICD/src/cste/icd/sequences/test1.useq"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HNAD/src/cste/android/core/HNADService.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" path="/HNAD/AndroidManifest.xml"/>
 </editors>
-<item historyLabel="EventLogECM.java" index="0">
-<position info="not_deleted" x="819" y="0"/>
-</item>
-<item historyLabel="ecoc_log_layout.xml" index="2"/>
-<item historyLabel="ecoc_log_item.xml" index="1"/>
-<item historyLabel="ecoc_log_layout.xml" index="2"/>
-<item historyLabel="ecoc_log_item.xml" index="1"/>
-<item historyLabel="HNADService.java" index="3">
+<item historyLabel="ecoc_log_layout.xml" index="1"/>
+<item historyLabel="ecoc_log_item.xml" index="0"/>
+<item historyLabel="ecoc_log_layout.xml" index="1"/>
+<item historyLabel="ecoc_log_item.xml" index="0"/>
+<item historyLabel="HNADService.java" index="2">
 <position info="not_deleted" x="6652" y="0"/>
 </item>
-<item historyLabel="HNADService.java" index="3">
+<item historyLabel="HNADService.java" index="2">
 <position info="not_deleted" x="11999" y="17"/>
 </item>
-<item historyLabel="HNADService.java" index="3">
+<item historyLabel="HNADService.java" index="2">
 <position info="not_deleted" x="16441" y="12"/>
 </item>
-<item historyLabel="ecoc_log_layout.xml" index="4"/>
-<item historyLabel="EventLogECM.java" index="5">
+<item historyLabel="ecoc_log_layout.xml" index="3"/>
+<item historyLabel="EventLogECM.java" index="4">
 <position info="not_deleted" x="821" y="0"/>
 </item>
-<item historyLabel="LauncherActivity.java" index="6">
+<item historyLabel="LauncherActivity.java" index="5">
 <position info="not_deleted" x="865" y="12"/>
 </item>
-<item historyLabel="HNADService.java" index="7">
+<item historyLabel="HNADService.java" index="6">
 <position info="not_deleted" x="17498" y="0"/>
 </item>
-<item historyLabel="HnadLogAdapter.java" index="8">
+<item historyLabel="HnadLogAdapter.java" index="7">
 <position info="not_deleted" x="1354" y="0"/>
 </item>
-<item historyLabel="HnadService.ucls" index="9"/>
-<item historyLabel="Activities.ucls" index="10"/>
-<item historyLabel="HnadService.ucls" index="9"/>
-<item historyLabel="HNAD service.ucls" index="11"/>
-<item historyLabel="HnadService.ucls" index="9"/>
-<item historyLabel="HNADService.java" index="7">
+<item historyLabel="HnadService.ucls" index="8"/>
+<item historyLabel="Activities.ucls" index="9"/>
+<item historyLabel="HnadService.ucls" index="8"/>
+<item historyLabel="HNAD service.ucls" index="10"/>
+<item historyLabel="HnadService.ucls" index="8"/>
+<item historyLabel="HNADService.java" index="6">
 <position info="not_deleted" x="20512" y="13"/>
 </item>
-<item historyLabel="HnadService.ucls" index="9"/>
-<item historyLabel="HNADService.java" index="7">
+<item historyLabel="HnadService.ucls" index="8"/>
+<item historyLabel="HNADService.java" index="6">
 <position info="not_deleted" x="2519" y="2"/>
 </item>
-<item historyLabel="HNAD service.ucls" index="11"/>
-<item historyLabel="HNADService.java" index="7">
+<item historyLabel="HNAD service.ucls" index="10"/>
+<item historyLabel="HNADService.java" index="6">
 <position info="not_deleted" x="2519" y="2"/>
 </item>
-<item historyLabel="HnadService.ucls" index="9"/>
-<item historyLabel="UsbControl.java" index="12">
+<item historyLabel="HnadService.ucls" index="8"/>
+<item historyLabel="UsbControl.java" index="11">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Overall" index="13"/>
-<item historyLabel="EcocLogAdapter.java" index="14">
+<item historyLabel="Overall" index="12"/>
+<item historyLabel="EcocLogAdapter.java" index="13">
 <position info="not_deleted" x="458" y="0"/>
 </item>
-<item historyLabel="usbcontrol.ucls" index="15"/>
-<item historyLabel="UsbCommManager.java" index="16">
+<item historyLabel="usbcontrol.ucls" index="14"/>
+<item historyLabel="UsbCommManager.java" index="15">
 <position info="not_deleted" x="6164" y="9"/>
 </item>
-<item historyLabel="usbcontrol.ucls" index="15"/>
-<item historyLabel="xbee.ucls" index="17"/>
-<item historyLabel="database.ucls" index="18"/>
-<item historyLabel="WebHandler.java" index="19">
+<item historyLabel="usbcontrol.ucls" index="14"/>
+<item historyLabel="xbee.ucls" index="16"/>
+<item historyLabel="database.ucls" index="17"/>
+<item historyLabel="WebHandler.java" index="18">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="NetworkManager.java" index="20">
+<item historyLabel="NetworkManager.java" index="19">
 <position info="not_deleted" x="1789" y="0"/>
 </item>
-<item historyLabel="network.ucls" index="21"/>
-<item historyLabel="test1.useq" index="22">
+<item historyLabel="network.ucls" index="20"/>
+<item historyLabel="test1.useq" index="21">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="components.ucls" index="23"/>
-<item historyLabel="icd_msg.ucls" index="24"/>
-<item historyLabel="net_msg.ucls" index="25"/>
-<item historyLabel="icd_msg.ucls" index="24"/>
-<item historyLabel="components.ucls" index="23"/>
-<item historyLabel="payloads.ucls" index="26"/>
-<item historyLabel="components.ucls" index="23"/>
-<item historyLabel="icd_msg.ucls" index="24"/>
-<item historyLabel="accessory_filter.xml" index="27"/>
-<item historyLabel="HNADService.java" index="28">
+<item historyLabel="components.ucls" index="22"/>
+<item historyLabel="icd_msg.ucls" index="23"/>
+<item historyLabel="net_msg.ucls" index="24"/>
+<item historyLabel="icd_msg.ucls" index="23"/>
+<item historyLabel="components.ucls" index="22"/>
+<item historyLabel="payloads.ucls" index="25"/>
+<item historyLabel="components.ucls" index="22"/>
+<item historyLabel="icd_msg.ucls" index="23"/>
+<item historyLabel="accessory_filter.xml" index="26"/>
+<item historyLabel="HNADService.java" index="27">
 <position info="not_deleted" x="2136" y="0"/>
 </item>
-<item historyLabel="WebHandler.java" index="29">
+<item historyLabel="WebHandler.java" index="28">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="NetworkManager.java" index="30">
+<item historyLabel="NetworkManager.java" index="29">
 <position info="not_deleted" x="1789" y="0"/>
 </item>
-<item historyLabel="test1.useq" index="31">
+<item historyLabel="test1.useq" index="30">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item active="true" historyLabel="HNADService.java" index="32">
+<item historyLabel="HNADService.java" index="31">
 <position info="not_deleted" x="20948" y="21"/>
 </item>
+<item active="true" historyLabel="HNAD Manifest" index="32"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -656,6 +701,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="HNAD/AndroidManifest.xml">
+<persistable path="/HNAD/AndroidManifest.xml"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HNADService.java" tooltip="HNAD/src/cste/android/core/HNADService.java">
 <persistable path="/HNAD/src/cste/android/core/HNADService.java"/>
 </file>
@@ -697,9 +745,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.objectaid.uml.ClassDiagramEditor" name="usbcontrol.ucls" tooltip="HNAD/src/cste/android/diagrams/usbcontrol.ucls">
 <persistable path="/HNAD/src/cste/android/diagrams/usbcontrol.ucls"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UsbControl.java" tooltip="HNAD/src/cste/android/diagrams/UsbControl.java">
-<persistable path="/HNAD/src/cste/android/diagrams/UsbControl.java"/>
 </file>
 </mruList>
 </workbench>
