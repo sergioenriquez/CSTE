@@ -83,21 +83,24 @@ public class LoginActivity extends HnadBaseActivity {
     @Override
     protected void onStop() {
     	super.onStop();
-    	SharedPreferences settings = mHnadCoreService.getSettingsFile();
-    	SharedPreferences.Editor editor = settings.edit();
-
-    	String username = usernameText.getText().toString();
-    	String password = passwordText.getText().toString();
-    	boolean rememberPassword = rememberLoginBox.isChecked();
-    	
-    	editor.putString(SettingsKey.DCP_USERNAME, username);
-    	editor.putBoolean(SettingsKey.REMEMBER_PASS, rememberPassword);
-    	if( rememberPassword )
-    		editor.putString(SettingsKey.DCP_PASSWORD, password);
-    	else
-    		editor.putString(SettingsKey.DCP_PASSWORD, "");
-    	
-    	editor.commit();
+    	if( mHnadCoreService != null)
+    	{
+	    	SharedPreferences settings = mHnadCoreService.getSettingsFile();
+	    	SharedPreferences.Editor editor = settings.edit();
+	
+	    	String username = usernameText.getText().toString();
+	    	String password = passwordText.getText().toString();
+	    	boolean rememberPassword = rememberLoginBox.isChecked();
+	    	
+	    	editor.putString(SettingsKey.DCP_USERNAME, username);
+	    	editor.putBoolean(SettingsKey.REMEMBER_PASS, rememberPassword);
+	    	if( rememberPassword )
+	    		editor.putString(SettingsKey.DCP_PASSWORD, password);
+	    	else
+	    		editor.putString(SettingsKey.DCP_PASSWORD, "");
+	    	
+	    	editor.commit();
+    	}
     }
 
 	@Override

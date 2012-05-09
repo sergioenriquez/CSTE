@@ -42,12 +42,13 @@ public abstract class HnadBaseActivity extends Activity{
         pd = new ProgressDialog(this);
         res = getResources();
         
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.window_title);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         
-        windowTitle = (TextView) findViewById(R.id.title);
-        windowIcon  = (ImageView) findViewById(R.id.icon);
+        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+        setContentView(R.layout.window_title);
+        
+      //  windowTitle = (TextView) findViewById(R.id.title);
+      //  windowIcon  = (ImageView) findViewById(R.id.icon);
 
         doBindService();
         
@@ -57,7 +58,7 @@ public abstract class HnadBaseActivity extends Activity{
     }
 	
 	protected void setWindowTitle(int resourceID){
-		windowTitle.setText(res.getString(resourceID));
+	//	windowTitle.setText(res.getString(resourceID));
 	}
 	
 	@Override
@@ -77,10 +78,10 @@ public abstract class HnadBaseActivity extends Activity{
 	}
 	
 	private void setUsbIcon(boolean state){
-		if( state )
-			windowIcon.setImageResource(R.drawable.usb_on);
-		else
-			windowIcon.setImageResource(R.drawable.usb_off);
+	//	if( state )
+	//		windowIcon.setImageResource(R.drawable.usb_on);
+	//	else
+	//		windowIcon.setImageResource(R.drawable.usb_off);
 	}
 	
 	private ServiceConnection mConnection = new ServiceConnection() {

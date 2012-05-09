@@ -64,7 +64,8 @@ public class ConfigActivity extends HnadBaseActivity {
     	SharedPreferences.Editor editor = settings.edit();
 
     	editor.putString(SettingsKey.THIS_UID, mThisUidText.getText().toString());
-    	editor.putString(SettingsKey.FTP_ADDR, mAuthHostAddress.getText().toString());
+    	//editor.putString(SettingsKey.FTP_ADDR, mAuthHostAddress.getText().toString());
+    	editor.putString(SettingsKey.AUTH_HOST_ADDR, mAuthHostAddress.getText().toString());
     	editor.putString(SettingsKey.DCP_ADDR, mDcpAddress.getText().toString());
     	editor.putString(SettingsKey.DCP_UID, mDcpUid.getText().toString());
     	editor.putBoolean(SettingsKey.USE_ENC, mUseEncryption.isChecked());
